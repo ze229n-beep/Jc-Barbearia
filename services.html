@@ -35,15 +35,17 @@
         <h1>Agende seu horário</h1>
 
         <p class="booking-description">
-            Escolha seu serviço, dia e horário.
+            Escolha o serviço, o dia e o horário.
         </p>
 
 
-        <!-- SERVIÇO -->
+        <!-- =========================
+             1. SERVIÇO
+        ========================== -->
 
         <div class="booking-card">
 
-            <h2>✂️ Escolha seu serviço</h2>
+            <h2>✂️ 1. Escolha seu serviço</h2>
 
             <div class="service-options">
 
@@ -131,38 +133,39 @@
         </div>
 
 
-        <!-- DATA -->
+        <!-- =========================
+             2. ESCOLHER DIA
+        ========================== -->
 
         <div class="booking-card">
 
-            <h2>📅 Escolha o dia</h2>
+            <h2>📅 2. Escolha o dia</h2>
 
-            <label for="date">
-                Data do atendimento
-            </label>
+            <p class="small-text">
+                Toque no dia que deseja agendar.
+            </p>
 
-            <input
-                type="date"
-                id="date"
-            >
+            <div id="days" class="days"></div>
 
         </div>
 
 
-        <!-- HORÁRIO -->
+        <!-- =========================
+             3. ESCOLHER HORÁRIO
+        ========================== -->
 
         <div class="booking-card">
 
-            <h2>🕐 Escolha o horário</h2>
+            <h2>🕐 3. Escolha o horário</h2>
 
             <p class="small-text">
-                Selecione um horário disponível.
+                Toque no horário desejado.
             </p>
 
             <div id="times" class="times">
 
                 <p class="time-message">
-                    Primeiro escolha uma data.
+                    Primeiro escolha um dia.
                 </p>
 
             </div>
@@ -170,14 +173,16 @@
         </div>
 
 
-        <!-- DADOS -->
+        <!-- =========================
+             4. DADOS
+        ========================== -->
 
         <div class="booking-card">
 
-            <h2>👤 Seus dados</h2>
+            <h2>👤 4. Seus dados</h2>
 
             <label for="name">
-                Nome
+                Seu nome
             </label>
 
             <input
@@ -188,7 +193,7 @@
 
 
             <label for="phone">
-                WhatsApp
+                Seu WhatsApp
             </label>
 
             <input
@@ -200,11 +205,13 @@
         </div>
 
 
-        <!-- RESUMO -->
+        <!-- =========================
+             RESUMO
+        ========================== -->
 
         <div class="summary">
 
-            <h2>📋 Resumo</h2>
+            <h2>📋 Resumo do agendamento</h2>
 
             <div class="summary-line">
 
@@ -219,7 +226,7 @@
 
             <div class="summary-line">
 
-                <span>Data</span>
+                <span>Dia</span>
 
                 <strong id="summaryDate">
                     —
@@ -261,7 +268,9 @@
         </button>
 
 
-        <!-- COMPROVANTE -->
+        <!-- =========================
+             COMPROVANTE
+        ========================== -->
 
         <div
             id="receipt"
@@ -300,7 +309,7 @@
                 </p>
 
                 <p>
-                    <span>Data</span>
+                    <span>Dia</span>
                     <strong id="receiptDate"></strong>
                 </p>
 
@@ -327,7 +336,7 @@
                 class="whatsapp-button"
                 target="_blank"
             >
-                📱 Enviar para o WhatsApp
+                📱 Enviar agendamento para o WhatsApp
             </a>
 
         </div>
@@ -349,6 +358,10 @@
 
 
 <script>
+
+/* =========================
+   CONFIGURAÇÕES
+========================= */
 
 const ADMIN_WHATSAPP = "5599999999999";
 
@@ -387,37 +400,23 @@ const HORARIOS = [
 
 let selectedService = "";
 let selectedPrice = "";
+let selectedDate = "";
 let selectedTime = "";
 
 
 const serviceButtons =
     document.querySelectorAll(".service-option");
 
-const date =
-    document.getElementById("date");
+const daysContainer =
+    document.getElementById("days");
 
-const times =
+const timesContainer =
     document.getElementById("times");
 
 
-const today = new Date();
-
-const year =
-    today.getFullYear();
-
-const month =
-    String(today.getMonth() + 1).padStart(2, "0");
-
-const day =
-    String(today.getDate()).padStart(2, "0");
-
-
-date.min =
-    `${year}-${month}-${day}`;
-
-
-
-/* ESCOLHER SERVIÇO */
+/* =========================
+   SERVIÇO
+========================= */
 
 serviceButtons.forEach(function(button) {
 
@@ -456,41 +455,164 @@ serviceButtons.forEach(function(button) {
 });
 
 
+/* =========================
+   CRIAR OS PRÓXIMOS DIAS
+========================= */
 
-/* ESCOLHER DATA */
+function createDays() {
 
-date.addEventListener("change", function() {
-
-    selectedTime = "";
-
-
-    document.getElementById(
-        "summaryDate"
-    ).textContent =
-        formatDate(date.value);
+    daysContainer.innerHTML = "";
 
 
-    document.getElementById(
-        "summaryTime"
-    ).textContent =
-        "—";
+    const hoje = new Date();
 
 
-    showTimes();
+    for (let i = 0; i < 14; i++) {
 
-});
+        const data = new Date(hoje);
+
+        data.setDate(
+            hoje.getDate() + i
+        );
 
 
+        const ano =
+            data.getFullYear();
 
-/* MOSTRAR HORÁRIOS */
+        const mes =
+            String(
+                data.getMonth() + 1
+            ).padStart(2, "0");
+
+        const dia =
+            String(
+                data.getDate()
+            ).padStart(2, "0");
+
+
+        const dataCompleta =
+            `${ano}-${mes}-${dia}`;
+
+
+        const nomesDias = [
+            "Dom",
+            "Seg",
+            "Ter",
+            "Qua",
+            "Qui",
+            "Sex",
+            "Sáb"
+        ];
+
+
+        const nomesMeses = [
+            "Jan",
+            "Fev",
+            "Mar",
+            "Abr",
+            "Mai",
+            "Jun",
+            "Jul",
+            "Ago",
+            "Set",
+            "Out",
+            "Nov",
+            "Dez"
+        ];
+
+
+        const button =
+            document.createElement("button");
+
+
+        button.type = "button";
+
+        button.className =
+            "day-button";
+
+
+        if (i === 0) {
+
+            button.innerHTML = `
+                <span class="day-name">Hoje</span>
+                <span class="day-number">${dia}</span>
+                <span class="day-month">${nomesMeses[data.getMonth()]}</span>
+            `;
+
+        } else {
+
+            button.innerHTML = `
+                <span class="day-name">${nomesDias[data.getDay()]}</span>
+                <span class="day-number">${dia}</span>
+                <span class="day-month">${nomesMeses[data.getMonth()]}</span>
+            `;
+
+        }
+
+
+        button.addEventListener(
+            "click",
+            function() {
+
+                document
+                    .querySelectorAll(".day-button")
+                    .forEach(function(item) {
+
+                        item.classList.remove(
+                            "selected"
+                        );
+
+                    });
+
+
+                button.classList.add(
+                    "selected"
+                );
+
+
+                selectedDate =
+                    dataCompleta;
+
+
+                selectedTime = "";
+
+
+                document.getElementById(
+                    "summaryDate"
+                ).textContent =
+                    formatDate(dataCompleta);
+
+
+                document.getElementById(
+                    "summaryTime"
+                ).textContent =
+                    "—";
+
+
+                showTimes();
+
+            }
+        );
+
+
+        daysContainer.appendChild(button);
+
+    }
+
+}
+
+
+/* =========================
+   MOSTRAR HORÁRIOS
+========================= */
 
 function showTimes() {
 
-    if (!date.value) {
+    if (!selectedDate) {
 
-        times.innerHTML =
+        timesContainer.innerHTML =
             '<p class="time-message">' +
-            'Primeiro escolha uma data.' +
+            'Primeiro escolha um dia.' +
             '</p>';
 
         return;
@@ -498,7 +620,7 @@ function showTimes() {
     }
 
 
-    times.innerHTML = "";
+    timesContainer.innerHTML = "";
 
 
     HORARIOS.forEach(function(horario) {
@@ -550,40 +672,42 @@ function showTimes() {
         );
 
 
-        times.appendChild(button);
+        timesContainer.appendChild(button);
 
     });
 
 }
 
 
+/* =========================
+   FORMATAR DATA
+========================= */
 
-/* FORMATAR DATA */
+function formatDate(data) {
 
-function formatDate(dateString) {
-
-    if (!dateString) {
+    if (!data) {
         return "—";
     }
 
 
-    const parts =
-        dateString.split("-");
+    const partes =
+        data.split("-");
 
 
     return (
-        parts[2] +
+        partes[2] +
         "/" +
-        parts[1] +
+        partes[1] +
         "/" +
-        parts[0]
+        partes[0]
     );
 
 }
 
 
-
-/* CONFIRMAR */
+/* =========================
+   CONFIRMAR AGENDAMENTO
+========================= */
 
 document
     .getElementById("confirmButton")
@@ -620,10 +744,10 @@ function confirmBooking() {
     }
 
 
-    if (!date.value) {
+    if (!selectedDate) {
 
         alert(
-            "Escolha uma data."
+            "Escolha um dia."
         );
 
         return;
@@ -665,8 +789,7 @@ function confirmBooking() {
 
 
     const formattedDate =
-        formatDate(date.value);
-
+        formatDate(selectedDate);
 
 
     document.getElementById(
@@ -722,7 +845,7 @@ function confirmBooking() {
         selectedService +
         "\n" +
 
-        "📅 Data: " +
+        "📅 Dia: " +
         formattedDate +
         "\n" +
 
@@ -737,18 +860,12 @@ function confirmBooking() {
         "✅ Agendamento realizado pelo site.";
 
 
-
     const whatsappURL =
 
         "https://wa.me/" +
-
         ADMIN_WHATSAPP +
-
         "?text=" +
-
-        encodeURIComponent(
-            message
-        );
+        encodeURIComponent(message);
 
 
     document.getElementById(
@@ -770,6 +887,13 @@ function confirmBooking() {
     });
 
 }
+
+
+/* =========================
+   INICIAR
+========================= */
+
+createDays();
 
 </script>
 
