@@ -931,7 +931,35 @@ footer {
     body {
         padding: 0 15px;
     }
+/* TESTE VISUAL JC BARBEARIA */
 
+body {
+    background: #080808 !important;
+}
+
+.booking-card {
+    background: #151515 !important;
+    border: 1px solid #333333 !important;
+}
+
+.day-button,
+.time-button,
+.service-option {
+    background: #0f0f0f !important;
+    color: #ffffff !important;
+}
+
+.day-button.selected,
+.time-button.selected,
+.service-option.selected {
+    background: #d4af37 !important;
+    color: #111111 !important;
+}
+
+.confirm-button {
+    background: #d4af37 !important;
+    color: #111111 !important;
+}
     header {
         padding: 20px 0;
 
