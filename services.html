@@ -30,6 +30,8 @@
 
     <section class="booking">
 
+        <p class="subtitle">JC BARBEARIA</p>
+
         <h1>Agende seu horário</h1>
 
         <p class="booking-description">
@@ -41,39 +43,90 @@
 
         <div class="booking-card">
 
-            <h2>1. Escolha o serviço</h2>
+            <h2>✂️ Escolha seu serviço</h2>
 
-            <label for="service">
-                Serviço
-            </label>
+            <div class="service-options">
 
-            <select id="service">
+                <button type="button"
+                    class="service-option"
+                    data-service="Corte de Cabelo"
+                    data-price="25">
 
-                <option value="">
-                    Selecione um serviço
-                </option>
+                    <span class="service-name">
+                        Corte de Cabelo
+                    </span>
 
-                <option value="Corte de Cabelo" data-price="25">
-                    Corte de Cabelo — R$ 25
-                </option>
+                    <span class="service-price">
+                        R$ 25
+                    </span>
 
-                <option value="Barba" data-price="20">
-                    Barba — R$ 20
-                </option>
+                </button>
 
-                <option value="Sobrancelha" data-price="10">
-                    Sobrancelha — R$ 10
-                </option>
 
-                <option value="Corte + Barba" data-price="40">
-                    Corte + Barba — R$ 40
-                </option>
+                <button type="button"
+                    class="service-option"
+                    data-service="Barba"
+                    data-price="20">
 
-                <option value="Corte + Barba + Sobrancelha" data-price="50">
-                    Corte + Barba + Sobrancelha — R$ 50
-                </option>
+                    <span class="service-name">
+                        Barba
+                    </span>
 
-            </select>
+                    <span class="service-price">
+                        R$ 20
+                    </span>
+
+                </button>
+
+
+                <button type="button"
+                    class="service-option"
+                    data-service="Sobrancelha"
+                    data-price="10">
+
+                    <span class="service-name">
+                        Sobrancelha
+                    </span>
+
+                    <span class="service-price">
+                        R$ 10
+                    </span>
+
+                </button>
+
+
+                <button type="button"
+                    class="service-option"
+                    data-service="Corte + Barba"
+                    data-price="40">
+
+                    <span class="service-name">
+                        Corte + Barba
+                    </span>
+
+                    <span class="service-price">
+                        R$ 40
+                    </span>
+
+                </button>
+
+
+                <button type="button"
+                    class="service-option"
+                    data-service="Corte + Barba + Sobrancelha"
+                    data-price="50">
+
+                    <span class="service-name">
+                        Corte + Barba + Sobrancelha
+                    </span>
+
+                    <span class="service-price">
+                        R$ 50
+                    </span>
+
+                </button>
+
+            </div>
 
         </div>
 
@@ -82,13 +135,16 @@
 
         <div class="booking-card">
 
-            <h2>2. Escolha o dia</h2>
+            <h2>📅 Escolha o dia</h2>
 
             <label for="date">
-                Data
+                Data do atendimento
             </label>
 
-            <input type="date" id="date">
+            <input
+                type="date"
+                id="date"
+            >
 
         </div>
 
@@ -97,12 +153,16 @@
 
         <div class="booking-card">
 
-            <h2>3. Escolha o horário</h2>
+            <h2>🕐 Escolha o horário</h2>
+
+            <p class="small-text">
+                Selecione um horário disponível.
+            </p>
 
             <div id="times" class="times">
 
                 <p class="time-message">
-                    Primeiro escolha o dia.
+                    Primeiro escolha uma data.
                 </p>
 
             </div>
@@ -110,14 +170,14 @@
         </div>
 
 
-        <!-- DADOS DO CLIENTE -->
+        <!-- DADOS -->
 
         <div class="booking-card">
 
-            <h2>4. Seus dados</h2>
+            <h2>👤 Seus dados</h2>
 
             <label for="name">
-                Seu nome
+                Nome
             </label>
 
             <input
@@ -128,7 +188,7 @@
 
 
             <label for="phone">
-                Seu WhatsApp
+                WhatsApp
             </label>
 
             <input
@@ -144,27 +204,50 @@
 
         <div class="summary">
 
-            <h2>Resumo do agendamento</h2>
+            <h2>📋 Resumo</h2>
 
-            <p>
-                <strong>Serviço:</strong>
-                <span id="summaryService">---</span>
-            </p>
+            <div class="summary-line">
 
-            <p>
-                <strong>Data:</strong>
-                <span id="summaryDate">---</span>
-            </p>
+                <span>Serviço</span>
 
-            <p>
-                <strong>Horário:</strong>
-                <span id="summaryTime">---</span>
-            </p>
+                <strong id="summaryService">
+                    —
+                </strong>
 
-            <p>
-                <strong>Valor:</strong>
-                <span id="summaryPrice">---</span>
-            </p>
+            </div>
+
+
+            <div class="summary-line">
+
+                <span>Data</span>
+
+                <strong id="summaryDate">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="summary-line">
+
+                <span>Horário</span>
+
+                <strong id="summaryTime">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="summary-line">
+
+                <span>Valor</span>
+
+                <strong id="summaryPrice">
+                    —
+                </strong>
+
+            </div>
 
         </div>
 
@@ -172,7 +255,7 @@
         <button
             type="button"
             class="confirm-button"
-            onclick="confirmBooking()"
+            id="confirmButton"
         >
             Confirmar agendamento
         </button>
@@ -186,42 +269,49 @@
             style="display:none;"
         >
 
-            <h2>✓ Agendamento confirmado!</h2>
+            <div class="receipt-check">
+                ✓
+            </div>
+
+            <h2>
+                Agendamento confirmado!
+            </h2>
 
             <p class="receipt-title">
-                JC Barbearia
+                JC BARBEARIA
             </p>
+
 
             <div class="receipt-info">
 
                 <p>
-                    <strong>Cliente:</strong>
-                    <span id="receiptName"></span>
+                    <span>Cliente</span>
+                    <strong id="receiptName"></strong>
                 </p>
 
                 <p>
-                    <strong>WhatsApp:</strong>
-                    <span id="receiptPhone"></span>
+                    <span>WhatsApp</span>
+                    <strong id="receiptPhone"></strong>
                 </p>
 
                 <p>
-                    <strong>Serviço:</strong>
-                    <span id="receiptService"></span>
+                    <span>Serviço</span>
+                    <strong id="receiptService"></strong>
                 </p>
 
                 <p>
-                    <strong>Data:</strong>
-                    <span id="receiptDate"></span>
+                    <span>Data</span>
+                    <strong id="receiptDate"></strong>
                 </p>
 
                 <p>
-                    <strong>Horário:</strong>
-                    <span id="receiptTime"></span>
+                    <span>Horário</span>
+                    <strong id="receiptTime"></strong>
                 </p>
 
                 <p>
-                    <strong>Valor:</strong>
-                    <span id="receiptPrice"></span>
+                    <span>Valor</span>
+                    <strong id="receiptPrice"></strong>
                 </p>
 
             </div>
@@ -237,7 +327,7 @@
                 class="whatsapp-button"
                 target="_blank"
             >
-                Enviar comprovante pelo WhatsApp
+                📱 Enviar para o WhatsApp
             </a>
 
         </div>
@@ -260,362 +350,426 @@
 
 <script>
 
-    /* ==========================================
-       WHATSAPP DO ADMINISTRADOR
-
-       COLOQUE AQUI O NÚMERO DO WHATSAPP
-       DA BARBEARIA.
-
-       Exemplo:
-       5599999999999
-
-       Não coloque +, espaços ou parênteses.
-    ========================================== */
-
-    const ADMIN_WHATSAPP = "5599999999999";
+const ADMIN_WHATSAPP = "5599999999999";
 
 
-    /* ==========================================
-       HORÁRIOS DE ATENDIMENTO
+const HORARIOS = [
 
-       Por enquanto:
-       08:00 até 18:00
-       de 30 em 30 minutos.
-    ========================================== */
+    "08:00",
+    "08:30",
+    "09:00",
+    "09:30",
 
-    const HORARIOS = [
-        "08:00",
-        "08:30",
-        "09:00",
-        "09:30",
-        "10:00",
-        "10:30",
-        "11:00",
-        "11:30",
-        "12:00",
-        "12:30",
-        "13:00",
-        "13:30",
-        "14:00",
-        "14:30",
-        "15:00",
-        "15:30",
-        "16:00",
-        "16:30",
-        "17:00",
-        "17:30",
-        "18:00"
-    ];
+    "10:00",
+    "10:30",
+    "11:00",
+    "11:30",
 
+    "12:00",
+    "12:30",
+    "13:00",
+    "13:30",
 
-    let selectedTime = "";
+    "14:00",
+    "14:30",
+    "15:00",
+    "15:30",
+
+    "16:00",
+    "16:30",
+    "17:00",
+    "17:30",
+
+    "18:00"
+
+];
 
 
-    /* ==========================================
-       ELEMENTOS
-    ========================================== */
-
-    const service = document.getElementById("service");
-    const date = document.getElementById("date");
-    const times = document.getElementById("times");
+let selectedService = "";
+let selectedPrice = "";
+let selectedTime = "";
 
 
-    /* ==========================================
-       DATA MÍNIMA
-       Não permite escolher uma data passada.
-    ========================================== */
+const serviceButtons =
+    document.querySelectorAll(".service-option");
 
-    const today = new Date();
+const date =
+    document.getElementById("date");
 
-    const year = today.getFullYear();
-
-    const month = String(today.getMonth() + 1).padStart(2, "0");
-
-    const day = String(today.getDate()).padStart(2, "0");
-
-    date.min = `${year}-${month}-${day}`;
+const times =
+    document.getElementById("times");
 
 
-    /* ==========================================
-       QUANDO ESCOLHER O SERVIÇO
-    ========================================== */
+const today = new Date();
 
-    service.addEventListener("change", function () {
+const year =
+    today.getFullYear();
 
-        const option =
-            service.options[service.selectedIndex];
+const month =
+    String(today.getMonth() + 1).padStart(2, "0");
 
-        const price =
-            option.dataset.price;
-
-        document.getElementById("summaryService")
-            .textContent =
-            service.value || "---";
-
-        document.getElementById("summaryPrice")
-            .textContent =
-            price ? "R$ " + price : "---";
-
-    });
+const day =
+    String(today.getDate()).padStart(2, "0");
 
 
-    /* ==========================================
-       QUANDO ESCOLHER A DATA
-    ========================================== */
+date.min =
+    `${year}-${month}-${day}`;
 
-    date.addEventListener("change", function () {
 
-        selectedTime = "";
 
-        document.getElementById("summaryDate")
-            .textContent =
-            formatDate(date.value);
+/* ESCOLHER SERVIÇO */
 
-        document.getElementById("summaryTime")
-            .textContent =
-            "---";
+serviceButtons.forEach(function(button) {
 
-        showTimes();
+    button.addEventListener("click", function() {
+
+        serviceButtons.forEach(function(item) {
+
+            item.classList.remove("selected");
+
+        });
+
+
+        button.classList.add("selected");
+
+
+        selectedService =
+            button.dataset.service;
+
+        selectedPrice =
+            button.dataset.price;
+
+
+        document.getElementById(
+            "summaryService"
+        ).textContent =
+            selectedService;
+
+
+        document.getElementById(
+            "summaryPrice"
+        ).textContent =
+            "R$ " + selectedPrice;
 
     });
 
-
-    /* ==========================================
-       MOSTRAR HORÁRIOS
-    ========================================== */
-
-    function showTimes() {
-
-        if (!date.value) {
-
-            times.innerHTML =
-                '<p class="time-message">' +
-                'Primeiro escolha o dia.' +
-                '</p>';
-
-            return;
-        }
+});
 
 
-        times.innerHTML = "";
+
+/* ESCOLHER DATA */
+
+date.addEventListener("change", function() {
+
+    selectedTime = "";
 
 
-        HORARIOS.forEach(function (horario) {
-
-            const button =
-                document.createElement("button");
-
-            button.type = "button";
-
-            button.className = "time-button";
-
-            button.textContent = horario;
+    document.getElementById(
+        "summaryDate"
+    ).textContent =
+        formatDate(date.value);
 
 
-            button.onclick = function () {
+    document.getElementById(
+        "summaryTime"
+    ).textContent =
+        "—";
+
+
+    showTimes();
+
+});
+
+
+
+/* MOSTRAR HORÁRIOS */
+
+function showTimes() {
+
+    if (!date.value) {
+
+        times.innerHTML =
+            '<p class="time-message">' +
+            'Primeiro escolha uma data.' +
+            '</p>';
+
+        return;
+
+    }
+
+
+    times.innerHTML = "";
+
+
+    HORARIOS.forEach(function(horario) {
+
+        const button =
+            document.createElement("button");
+
+
+        button.type = "button";
+
+        button.className =
+            "time-button";
+
+        button.textContent =
+            horario;
+
+
+        button.addEventListener(
+            "click",
+            function() {
+
 
                 document
                     .querySelectorAll(".time-button")
-                    .forEach(function (item) {
+                    .forEach(function(item) {
 
-                        item.classList.remove("selected");
+                        item.classList.remove(
+                            "selected"
+                        );
 
                     });
 
 
-                button.classList.add("selected");
+                button.classList.add(
+                    "selected"
+                );
 
-                selectedTime = horario;
 
-
-                document.getElementById("summaryTime")
-                    .textContent =
+                selectedTime =
                     horario;
 
-            };
+
+                document.getElementById(
+                    "summaryTime"
+                ).textContent =
+                    horario;
+
+            }
+        );
 
 
-            times.appendChild(button);
+        times.appendChild(button);
 
-        });
+    });
+
+}
+
+
+
+/* FORMATAR DATA */
+
+function formatDate(dateString) {
+
+    if (!dateString) {
+        return "—";
+    }
+
+
+    const parts =
+        dateString.split("-");
+
+
+    return (
+        parts[2] +
+        "/" +
+        parts[1] +
+        "/" +
+        parts[0]
+    );
+
+}
+
+
+
+/* CONFIRMAR */
+
+document
+    .getElementById("confirmButton")
+    .addEventListener(
+        "click",
+        confirmBooking
+    );
+
+
+function confirmBooking() {
+
+    const name =
+        document
+            .getElementById("name")
+            .value
+            .trim();
+
+
+    const phone =
+        document
+            .getElementById("phone")
+            .value
+            .trim();
+
+
+    if (!selectedService) {
+
+        alert(
+            "Escolha um serviço."
+        );
+
+        return;
 
     }
 
 
-    /* ==========================================
-       FORMATAR DATA
-    ========================================== */
+    if (!date.value) {
 
-    function formatDate(dateString) {
+        alert(
+            "Escolha uma data."
+        );
 
-        if (!dateString) {
-            return "---";
-        }
-
-        const parts =
-            dateString.split("-");
-
-        return `${parts[2]}/${parts[1]}/${parts[0]}`;
+        return;
 
     }
 
 
-    /* ==========================================
-       CONFIRMAR AGENDAMENTO
-    ========================================== */
+    if (!selectedTime) {
 
-    function confirmBooking() {
+        alert(
+            "Escolha um horário."
+        );
 
-        const selectedService =
-            service.value;
-
-        const selectedOption =
-            service.options[service.selectedIndex];
-
-        const price =
-            selectedOption.dataset.price;
-
-        const selectedDate =
-            date.value;
-
-        const name =
-            document.getElementById("name")
-                .value.trim();
-
-        const phone =
-            document.getElementById("phone")
-                .value.trim();
-
-
-        /* VERIFICAÇÃO */
-
-        if (!selectedService) {
-
-            alert("Escolha um serviço.");
-
-            return;
-        }
-
-
-        if (!selectedDate) {
-
-            alert("Escolha uma data.");
-
-            return;
-        }
-
-
-        if (!selectedTime) {
-
-            alert("Escolha um horário.");
-
-            return;
-        }
-
-
-        if (!name) {
-
-            alert("Digite seu nome.");
-
-            return;
-        }
-
-
-        if (!phone) {
-
-            alert("Digite seu WhatsApp.");
-
-            return;
-        }
-
-
-        /* DATA FORMATADA */
-
-        const formattedDate =
-            formatDate(selectedDate);
-
-
-        /* PREENCHER COMPROVANTE */
-
-        document.getElementById("receiptName")
-            .textContent =
-            name;
-
-        document.getElementById("receiptPhone")
-            .textContent =
-            phone;
-
-        document.getElementById("receiptService")
-            .textContent =
-            selectedService;
-
-        document.getElementById("receiptDate")
-            .textContent =
-            formattedDate;
-
-        document.getElementById("receiptTime")
-            .textContent =
-            selectedTime;
-
-        document.getElementById("receiptPrice")
-            .textContent =
-            "R$ " + price;
-
-
-        /* ======================================
-           MENSAGEM DO WHATSAPP
-        ====================================== */
-
-        const message =
-
-            "🔔 NOVO AGENDAMENTO - JC BARBEARIA\n\n" +
-
-            "👤 Cliente: " + name + "\n" +
-
-            "📱 WhatsApp: " + phone + "\n\n" +
-
-            "✂️ Serviço: " + selectedService + "\n" +
-
-            "📅 Data: " + formattedDate + "\n" +
-
-            "🕐 Horário: " + selectedTime + "\n" +
-
-            "💰 Valor: R$ " + price + "\n\n" +
-
-            "✅ Agendamento realizado pelo site.";
-
-
-        const whatsappURL =
-
-            "https://wa.me/" +
-
-            ADMIN_WHATSAPP +
-
-            "?text=" +
-
-            encodeURIComponent(message);
-
-
-        document.getElementById("whatsappButton")
-            .href =
-            whatsappURL;
-
-
-        /* MOSTRAR COMPROVANTE */
-
-        document.getElementById("receipt")
-            .style.display =
-            "block";
-
-
-        /* ROLAR ATÉ O COMPROVANTE */
-
-        document.getElementById("receipt")
-            .scrollIntoView({
-                behavior: "smooth"
-            });
+        return;
 
     }
+
+
+    if (!name) {
+
+        alert(
+            "Digite seu nome."
+        );
+
+        return;
+
+    }
+
+
+    if (!phone) {
+
+        alert(
+            "Digite seu WhatsApp."
+        );
+
+        return;
+
+    }
+
+
+    const formattedDate =
+        formatDate(date.value);
+
+
+
+    document.getElementById(
+        "receiptName"
+    ).textContent =
+        name;
+
+
+    document.getElementById(
+        "receiptPhone"
+    ).textContent =
+        phone;
+
+
+    document.getElementById(
+        "receiptService"
+    ).textContent =
+        selectedService;
+
+
+    document.getElementById(
+        "receiptDate"
+    ).textContent =
+        formattedDate;
+
+
+    document.getElementById(
+        "receiptTime"
+    ).textContent =
+        selectedTime;
+
+
+    document.getElementById(
+        "receiptPrice"
+    ).textContent =
+        "R$ " + selectedPrice;
+
+
+
+    const message =
+
+        "🔔 NOVO AGENDAMENTO - JC BARBEARIA\n\n" +
+
+        "👤 Cliente: " +
+        name +
+        "\n" +
+
+        "📱 WhatsApp: " +
+        phone +
+        "\n\n" +
+
+        "✂️ Serviço: " +
+        selectedService +
+        "\n" +
+
+        "📅 Data: " +
+        formattedDate +
+        "\n" +
+
+        "🕐 Horário: " +
+        selectedTime +
+        "\n" +
+
+        "💰 Valor: R$ " +
+        selectedPrice +
+        "\n\n" +
+
+        "✅ Agendamento realizado pelo site.";
+
+
+
+    const whatsappURL =
+
+        "https://wa.me/" +
+
+        ADMIN_WHATSAPP +
+
+        "?text=" +
+
+        encodeURIComponent(
+            message
+        );
+
+
+    document.getElementById(
+        "whatsappButton"
+    ).href =
+        whatsappURL;
+
+
+    document.getElementById(
+        "receipt"
+    ).style.display =
+        "block";
+
+
+    document.getElementById(
+        "receipt"
+    ).scrollIntoView({
+        behavior: "smooth"
+    });
+
+}
 
 </script>
 
