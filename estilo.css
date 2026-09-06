@@ -1,3 +1,4 @@
+```css
 * {
     box-sizing: border-box;
     margin: 0;
@@ -12,9 +13,30 @@ body {
     padding: 40px 20px;
 }
 
+nav {
+    margin-bottom: 50px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #d4af37;
+}
+
 h1 {
     font-size: 42px;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
+}
+
+main {
+    max-width: 700px;
+    margin: 0 auto;
 }
 
 body > p {
@@ -32,34 +54,48 @@ button {
     font-weight: bold;
     border-radius: 8px;
     cursor: pointer;
-    margin-bottom: 45px;
 }
 
 button:hover {
     background: #f0c94b;
 }
 
-h2 {
-    font-size: 30px;
-    margin-bottom: 25px;
+.services-box {
+    background: #1c1c1c;
+    border: 1px solid #333;
+    border-radius: 15px;
+    padding: 10px 20px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.services-header,
+.service {
+    display: grid;
+    grid-template-columns: 1fr 150px;
+    align-items: center;
+    text-align: left;
+    padding: 18px 10px;
+}
+
+.services-header {
+    color: #d4af37;
+    font-weight: bold;
+    border-bottom: 2px solid #333;
 }
 
 .service {
-    background: #1c1c1c;
-    border: 1px solid #333;
-    border-radius: 10px;
-    padding: 20px;
-    margin: 12px auto;
-    max-width: 400px;
+    border-bottom: 1px solid #333;
+    font-size: 18px;
 }
 
-.service h3 {
-    font-size: 21px;
-    margin-bottom: 8px;
+.service:last-child {
+    border-bottom: none;
 }
 
-.service p {
+.service span:last-child {
+    text-align: right;
     color: #d4af37;
-    font-size: 20px;
     font-weight: bold;
 }
+```
