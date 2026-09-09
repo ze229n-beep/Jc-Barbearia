@@ -6,411 +6,1269 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
+```
 <title>Painel ADM - JC Barbearia</title>
 
 <link rel="stylesheet" href="estilo.css">
 <link rel="stylesheet" href="admin.css">
-
+```
 
 </head>
 
 <body>
 
-
 <header>
 
-    <div class="logo">
-        JC BARBEARIA
-    </div>
+```
+<div class="logo">
+    JC BARBEARIA
+</div>
 
-    <div class="adm-title">
-        PAINEL ADM
-    </div>
+<div class="adm-title">
+    PAINEL ADM
+</div>
+```
 
 </header>
 
-
 <main class="admin-container">
 
-    <!-- LOGIN -->
+```
+<!-- =========================================
+     LOGIN
+========================================== -->
 
-    <section id="login">
+<section id="login">
 
-        <h1>Acesso do Administrador</h1>
+    <h1>Acesso do Administrador</h1>
 
-        <div class="login-box">
+    <div class="login-box">
 
-            <label for="loginUsuario">Login</label>
-            <input type="text" id="loginUsuario" placeholder="Digite o login">
+        <label for="loginUsuario">
+            Login
+        </label>
 
-            <label for="loginSenha">Senha</label>
-            <input type="password" id="loginSenha" placeholder="Digite a senha">
+        <input
+            type="text"
+            id="loginUsuario"
+            placeholder="Digite o login"
+            autocomplete="username"
+        >
 
-            <button onclick="entrar()">ENTRAR</button>
 
-            <p id="erroLogin"></p>
+        <label for="loginSenha">
+            Senha
+        </label>
+
+        <input
+            type="password"
+            id="loginSenha"
+            placeholder="Digite a senha"
+            autocomplete="current-password"
+        >
+
+
+        <button
+            type="button"
+            onclick="entrar()"
+        >
+            ENTRAR
+        </button>
+
+
+        <p id="erroLogin"></p>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================
+     PAINEL
+========================================== -->
+
+<section
+    id="painel"
+    style="display: none;"
+>
+
+    <h1>Painel do Administrador</h1>
+
+
+    <!-- =====================================
+         MENU
+    ====================================== -->
+
+    <div class="admin-menu">
+
+        <button
+            type="button"
+            onclick="abrirAba('configuracoes')"
+        >
+            Configurações do ADM
+        </button>
+
+
+        <button
+            type="button"
+            onclick="abrirAba('agendamentos')"
+        >
+            Agendamentos
+        </button>
+
+
+        <button
+            type="button"
+            onclick="abrirAba('caixa')"
+        >
+            Caixa
+        </button>
+
+
+        <button
+            type="button"
+            onclick="abrirAba('relatorio')"
+        >
+            Relatório do Caixa
+        </button>
+
+    </div>
+
+
+
+    <!-- =========================================
+         CONFIGURAÇÕES
+    ========================================== -->
+
+    <div
+        id="configuracoes"
+        class="admin-aba"
+    >
+
+        <h2>
+            Configurações do ADM
+        </h2>
+
+
+
+        <!-- ALTERAR LOGIN -->
+
+        <div class="config-box">
+
+            <h3>
+                Alterar acesso
+            </h3>
+
+
+            <label for="novoLogin">
+                Novo login
+            </label>
+
+            <input
+                type="text"
+                id="novoLogin"
+                placeholder="Digite o novo login"
+            >
+
+
+            <label for="novaSenha">
+                Nova senha
+            </label>
+
+            <input
+                type="password"
+                id="novaSenha"
+                placeholder="Digite a nova senha"
+            >
+
+
+            <button
+                type="button"
+                onclick="alterarAcesso()"
+            >
+                SALVAR ACESSO
+            </button>
 
         </div>
 
-    </section>
 
 
-    <!-- PAINEL -->
+        <!-- SERVIÇOS -->
 
-    <section id="painel" style="display: none;">
+        <div class="config-box">
 
-        <h1>Painel do Administrador</h1>
-
-        <!-- MENU -->
-
-        <div class="admin-menu">
-
-            <button onclick="abrirAba('configuracoes')">
-                Configurações do ADM
-            </button>
-
-            <button onclick="abrirAba('agendamentos')">
-                Agendamentos
-            </button>
-
-            <button onclick="abrirAba('caixa')">
-                Caixa
-            </button>
-
-            <button onclick="abrirAba('relatorio')">
-                Relatório do Caixa
-            </button>
-
-        </div>
+            <h3>
+                Serviços
+            </h3>
 
 
-        <!-- CONFIGURAÇÕES DO ADM -->
+            <!-- CABEÇALHO -->
 
-        <div id="configuracoes" class="admin-aba">
+            <div class="servicos-cabecalho">
 
-            <h2>Configurações do ADM</h2>
+                <div>
+                    Serviço
+                </div>
 
-            <div class="config-box">
+                <div>
+                    Preço
+                </div>
 
-                <h3>Alterar acesso</h3>
+                <div>
+                    Minutos
+                </div>
 
-                <label>Novo login</label>
-                <input type="text" id="novoLogin" placeholder="Novo login">
+                <div>
+                    Editar
+                </div>
 
-                <label>Nova senha</label>
-                <input type="password" id="novaSenha" placeholder="Nova senha">
-
-                <button onclick="alterarAcesso()">
-                    SALVAR ACESSO
-                </button>
+                <div>
+                    Excluir
+                </div>
 
             </div>
 
 
-           <div class="config-box">
+            <!-- LISTA -->
 
-    <h3>Serviços</h3>
-    <div class="servicos-cabecalho">
-    <div>Serviço</div>
-    <div>Preço</div>
-    <div>Minutos</div>
-    <div>Editar</div>
-    <div>Excluir</div>
-</div>
-    <div id="listaServicos">
+            <div id="listaServicos"></div>
 
-        <div class="servico-linha">
-            <input type="text" value="Corte de Cabelo" disabled>
-            <input type="number" value="25" disabled>
-            <input type="number" value="30" disabled>
-            <button onclick="editarServico(this)">Editar</button>
-            <button onclick="excluirServico(this)">Excluir</button>
-        </div>
 
-        <div class="servico-linha">
-            <input type="text" value="Barba" disabled>
-            <input type="number" value="20" disabled>
-            <input type="number" value="20" disabled>
-            <button onclick="editarServico(this)">Editar</button>
-            <button onclick="excluirServico(this)">Excluir</button>
-        </div>
+            <!-- ADICIONAR -->
 
-        <div class="servico-linha">
-            <input type="text" value="Sobrancelha" disabled>
-            <input type="number" value="10" disabled>
-            <input type="number" value="10" disabled>
-            <button onclick="editarServico(this)">Editar</button>
-            <button onclick="excluirServico(this)">Excluir</button>
-        </div>
+            <button
+                type="button"
+                class="botao-adicionar"
+                onclick="adicionarServico()"
+            >
+                + ADICIONAR SERVIÇO
+            </button>
 
-        <div class="servico-linha">
-            <input type="text" value="Corte + Barba" disabled>
-            <input type="number" value="40" disabled>
-            <input type="number" value="50" disabled>
-            <button onclick="editarServico(this)">Editar</button>
-            <button onclick="excluirServico(this)">Excluir</button>
-        </div>
 
-        <div class="servico-linha">
-            <input type="text" value="Corte + Barba + Sobrancelha" disabled>
-            <input type="number" value="50" disabled>
-            <input type="number" value="60" disabled>
-            <button onclick="editarServico(this)">Editar</button>
-            <button onclick="excluirServico(this)">Excluir</button>
+            <br>
+            <br>
+
+
+            <!-- SALVAR -->
+
+            <button
+                type="button"
+                onclick="salvarServicos()"
+            >
+                SALVAR ALTERAÇÕES
+            </button>
+
+
+            <p id="mensagemSalvo"></p>
+
         </div>
 
     </div>
 
-    <button class="botao-adicionar" onclick="adicionarServico()">
-        + ADICIONAR SERVIÇO
-    </button>
 
-    <br><br>
 
-    <button onclick="salvarServicos()">
-        SALVAR ALTERAÇÕES
-    </button>
+    <!-- =========================================
+         AGENDAMENTOS
+    ========================================== -->
 
-    <p id="mensagemSalvo"></p>
+    <div
+        id="agendamentos"
+        class="admin-aba"
+        style="display: none;"
+    >
 
-</div>
+        <h2>
+            Agendamentos Confirmados
+        </h2>
 
-                <div class="servico-linha">
-                    <input type="text" value="Barba">
-                    <input type="number" value="20" placeholder="Preço">
-                    <input type="number" value="20" placeholder="Minutos">
-                    <button>Excluir</button>
-                </div>
 
-                <div class="servico-linha">
-                    <input type="text" value="Sobrancelha">
-                    <input type="number" value="10" placeholder="Preço">
-                    <input type="number" value="10" placeholder="Minutos">
-                    <button>Excluir</button>
-                </div>
+        <div class="tabela">
 
-                <div class="servico-linha">
-                    <input type="text" value="Corte + Barba">
-                    <input type="number" value="40" placeholder="Preço">
-                    <input type="number" value="50" placeholder="Minutos">
-                    <button>Excluir</button>
-                </div>
+            <div class="tabela-cabecalho">
 
-                <div class="servico-linha">
-                    <input type="text" value="Corte + Barba + Sobrancelha">
-                    <input type="number" value="50" placeholder="Preço">
-                    <input type="number" value="60" placeholder="Minutos">
-                    <button>Excluir</button>
-                </div>
+                <span>
+                    Cliente
+                </span>
 
-                <button class="botao-adicionar" onclick="adicionarServico()">
-                    + ADICIONAR SERVIÇO
-                </button>
+                <span>
+                    Serviço
+                </span>
 
-                <br><br>
+                <span>
+                    Data
+                </span>
 
-                <button>
-                    SALVAR ALTERAÇÕES
-                </button>
+                <span>
+                    Horário
+                </span>
+
+                <span>
+                    Valor
+                </span>
+
+            </div>
+
+
+            <div class="agendamento">
+
+                <span>
+                    Sousa
+                </span>
+
+                <span>
+                    Corte de Cabelo
+                </span>
+
+                <span>
+                    09/09/2026
+                </span>
+
+                <span>
+                    14:00
+                </span>
+
+                <span>
+                    R$ 25
+                </span>
 
             </div>
 
         </div>
 
+    </div>
 
-        <!-- AGENDAMENTOS -->
 
-        <div id="agendamentos" class="admin-aba" style="display: none;">
 
-            <h2>Agendamentos Confirmados</h2>
+    <!-- =========================================
+         CAIXA
+    ========================================== -->
 
-            <div class="tabela">
+    <div
+        id="caixa"
+        class="admin-aba"
+        style="display: none;"
+    >
 
-                <div class="tabela-cabecalho">
-                    <span>Cliente</span>
-                    <span>Serviço</span>
-                    <span>Data</span>
-                    <span>Horário</span>
-                    <span>Valor</span>
-                </div>
+        <h2>
+            Caixa
+        </h2>
 
-                <div class="agendamento">
-                    <span>Sousa</span>
-                    <span>Corte de Cabelo</span>
-                    <span>09/09/2026</span>
-                    <span>14:00</span>
-                    <span>R$ 25</span>
-                </div>
+
+        <div class="caixa-cards">
+
+
+            <div class="caixa-card">
+
+                <h3>
+                    Clientes
+                </h3>
+
+                <strong>
+                    0
+                </strong>
 
             </div>
+
+
+            <div class="caixa-card">
+
+                <h3>
+                    Serviços
+                </h3>
+
+                <strong>
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="caixa-card">
+
+                <h3>
+                    Faturamento
+                </h3>
+
+                <strong>
+                    R$ 0,00
+                </strong>
+
+            </div>
+
 
         </div>
 
 
-        <!-- CAIXA -->
 
-        <div id="caixa" class="admin-aba" style="display: none;">
+        <div class="fechamento">
 
-            <h2>Caixa</h2>
+            <h3>
+                Fechamento do Caixa
+            </h3>
 
-            <div class="caixa-cards">
 
-                <div class="caixa-card">
-                    <h3>Clientes</h3>
+            <label for="mesFechamento">
+                Mês
+            </label>
+
+            <input
+                type="month"
+                id="mesFechamento"
+            >
+
+
+            <button type="button">
+                FECHAR CAIXA
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================
+         RELATÓRIO
+    ========================================== -->
+
+    <div
+        id="relatorio"
+        class="admin-aba"
+        style="display: none;"
+    >
+
+        <h2>
+            Relatório do Caixa
+        </h2>
+
+
+        <div class="relatorio-box">
+
+            <label for="mesRelatorio">
+                Selecione o mês
+            </label>
+
+            <input
+                type="month"
+                id="mesRelatorio"
+            >
+
+
+            <div class="resumo-relatorio">
+
+                <p>
+                    Total de clientes:
                     <strong>0</strong>
-                </div>
+                </p>
 
-                <div class="caixa-card">
-                    <h3>Serviços</h3>
+
+                <p>
+                    Total de serviços:
                     <strong>0</strong>
-                </div>
+                </p>
 
-                <div class="caixa-card">
-                    <h3>Faturamento</h3>
+
+                <p>
+                    Faturamento:
                     <strong>R$ 0,00</strong>
-                </div>
+                </p>
 
             </div>
 
-            <div class="fechamento">
 
-                <h3>Fechamento do Caixa</h3>
-
-                <label>Mês</label>
-
-                <input type="month">
-
-                <button>
-                    FECHAR CAIXA
-                </button>
-
-            </div>
+            <button type="button">
+                GERAR PDF
+            </button>
 
         </div>
 
-
-        <!-- RELATÓRIO -->
-
-        <div id="relatorio" class="admin-aba" style="display: none;">
-
-            <h2>Relatório do Caixa</h2>
-
-            <div class="relatorio-box">
-
-                <label>Selecione o mês</label>
-
-                <input type="month">
-
-                <div class="resumo-relatorio">
-
-                    <p>Total de clientes: <strong>0</strong></p>
-
-                    <p>Total de serviços: <strong>0</strong></p>
-
-                    <p>Faturamento: <strong>R$ 0,00</strong></p>
-
-                </div>
-
-                <button>
-                    GERAR PDF
-                </button>
-
-            </div>
-
-        </div>
+    </div>
 
 
-        <button class="sair" onclick="sair()">
-            SAIR
-        </button>
 
-    </section>
+    <!-- =========================================
+         SAIR
+    ========================================== -->
+
+    <button
+        type="button"
+        class="sair"
+        onclick="sair()"
+    >
+        SAIR
+    </button>
+
+</section>
+```
 
 </main>
 
-
 <footer>
 
-    <p>© 2026 JC Barbearia</p>
+```
+<p>
+    © 2026 JC Barbearia
+</p>
+```
 
 </footer>
 
-
 <script>
 
-    let usuario = "jcbarbearia";
-    let senha = "1234";
+/* =====================================================
+   LOGIN DO ADMINISTRADOR
+===================================================== */
+
+let usuario =
+    localStorage.getItem("jc_admin_usuario")
+    || "jcbarbearia";
 
 
-    function entrar() {
+let senha =
+    localStorage.getItem("jc_admin_senha")
+    || "1234";
 
-        const login = document.getElementById("loginUsuario").value;
-        const senhaDigitada = document.getElementById("loginSenha").value;
 
-        if (login === usuario && senhaDigitada === senha) {
 
-            document.getElementById("login").style.display = "none";
-            document.getElementById("painel").style.display = "block";
+/* =====================================================
+   ENTRAR
+===================================================== */
 
-        } else {
+function entrar() {
 
-            document.getElementById("erroLogin").textContent =
-                "Login ou senha incorretos.";
+    const login =
+        document
+            .getElementById("loginUsuario")
+            .value
+            .trim();
+
+
+    const senhaDigitada =
+        document
+            .getElementById("loginSenha")
+            .value;
+
+
+    const erro =
+        document.getElementById("erroLogin");
+
+
+    if (
+        login === usuario &&
+        senhaDigitada === senha
+    ) {
+
+        erro.textContent = "";
+
+
+        document
+            .getElementById("login")
+            .style.display = "none";
+
+
+        document
+            .getElementById("painel")
+            .style.display = "block";
+
+
+        abrirAba("configuracoes");
+
+
+        carregarServicos();
+
+    } else {
+
+        erro.textContent =
+            "Login ou senha incorretos.";
+
+    }
+
+}
+
+
+
+/* =====================================================
+   ENTER NO LOGIN
+===================================================== */
+
+document
+    .getElementById("loginSenha")
+    .addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key === "Enter") {
+
+                entrar();
+
+            }
 
         }
+    );
+
+
+
+/* =====================================================
+   ALTERAR ACESSO
+===================================================== */
+
+function alterarAcesso() {
+
+    const novoLogin =
+        document
+            .getElementById("novoLogin")
+            .value
+            .trim();
+
+
+    const novaSenha =
+        document
+            .getElementById("novaSenha")
+            .value;
+
+
+    if (
+        novoLogin === "" &&
+        novaSenha === ""
+    ) {
+
+        alert(
+            "Digite um novo login ou uma nova senha."
+        );
+
+        return;
 
     }
 
 
-    function abrirAba(nome) {
+    if (novoLogin !== "") {
 
-        const abas = document.querySelectorAll(".admin-aba");
+        usuario = novoLogin;
 
-        abas.forEach(function(aba) {
+
+        localStorage.setItem(
+            "jc_admin_usuario",
+            usuario
+        );
+
+    }
+
+
+    if (novaSenha !== "") {
+
+        senha = novaSenha;
+
+
+        localStorage.setItem(
+            "jc_admin_senha",
+            senha
+        );
+
+    }
+
+
+    document
+        .getElementById("novoLogin")
+        .value = "";
+
+
+    document
+        .getElementById("novaSenha")
+        .value = "";
+
+
+    alert(
+        "Acesso alterado com sucesso!"
+    );
+
+}
+
+
+
+/* =====================================================
+   ABRIR ABA
+===================================================== */
+
+function abrirAba(nome) {
+
+    const abas =
+        document.querySelectorAll(
+            ".admin-aba"
+        );
+
+
+    abas.forEach(
+        function(aba) {
+
             aba.style.display = "none";
-        });
 
-        document.getElementById(nome).style.display = "block";
+        }
+    );
+
+
+    const abaSelecionada =
+        document.getElementById(nome);
+
+
+    if (abaSelecionada) {
+
+        abaSelecionada.style.display =
+            "block";
 
     }
 
+}
 
-    function alterarAcesso() {
 
-        const novoLogin =
-            document.getElementById("novoLogin").value;
 
-        const novaSenha =
-            document.getElementById("novaSenha").value;
+/* =====================================================
+   SAIR
+===================================================== */
 
-        if (novoLogin !== "") {
-            usuario = novoLogin;
+function sair() {
+
+    document
+        .getElementById("painel")
+        .style.display = "none";
+
+
+    document
+        .getElementById("login")
+        .style.display = "block";
+
+
+    document
+        .getElementById("loginUsuario")
+        .value = "";
+
+
+    document
+        .getElementById("loginSenha")
+        .value = "";
+
+
+    document
+        .getElementById("erroLogin")
+        .textContent = "";
+
+}
+
+
+
+/* =====================================================
+   SERVIÇOS
+===================================================== */
+
+const SERVICOS_PADRAO = [
+
+    {
+        nome: "Corte de Cabelo",
+        preco: 25,
+        minutos: 30
+    },
+
+    {
+        nome: "Barba",
+        preco: 20,
+        minutos: 20
+    },
+
+    {
+        nome: "Sobrancelha",
+        preco: 10,
+        minutos: 10
+    },
+
+    {
+        nome: "Corte + Barba",
+        preco: 40,
+        minutos: 50
+    },
+
+    {
+        nome: "Corte + Barba + Sobrancelha",
+        preco: 50,
+        minutos: 60
+    }
+
+];
+
+
+
+let servicos = [];
+
+
+
+/* =====================================================
+   CARREGAR SERVIÇOS
+===================================================== */
+
+function carregarServicos() {
+
+    const salvos =
+        localStorage.getItem(
+            "jc_servicos"
+        );
+
+
+    if (salvos) {
+
+        try {
+
+            servicos =
+                JSON.parse(salvos);
+
+        } catch (erro) {
+
+            servicos =
+                [...SERVICOS_PADRAO];
+
         }
 
-        if (novaSenha !== "") {
-            senha = novaSenha;
+    } else {
+
+        servicos =
+            [...SERVICOS_PADRAO];
+
+    }
+
+
+    mostrarServicos();
+
+}
+
+
+
+/* =====================================================
+   MOSTRAR SERVIÇOS
+===================================================== */
+
+function mostrarServicos() {
+
+    const lista =
+        document.getElementById(
+            "listaServicos"
+        );
+
+
+    lista.innerHTML = "";
+
+
+    servicos.forEach(
+        function(servico, indice) {
+
+
+            const linha =
+                document.createElement("div");
+
+
+            linha.className =
+                "servico-linha";
+
+
+            linha.innerHTML = `
+
+                <input
+                    type="text"
+                    value="${escaparHTML(servico.nome)}"
+                    data-campo="nome"
+                    disabled
+                >
+
+                <input
+                    type="number"
+                    value="${servico.preco}"
+                    data-campo="preco"
+                    disabled
+                    min="0"
+                    step="0.01"
+                >
+
+                <input
+                    type="number"
+                    value="${servico.minutos}"
+                    data-campo="minutos"
+                    disabled
+                    min="1"
+                >
+
+                <button
+                    type="button"
+                    onclick="editarServico(this)"
+                >
+                    Editar
+                </button>
+
+                <button
+                    type="button"
+                    onclick="excluirServico(this)"
+                >
+                    Excluir
+                </button>
+
+            `;
+
+
+            linha.dataset.indice =
+                indice;
+
+
+            lista.appendChild(linha);
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   ESCAPAR HTML
+===================================================== */
+
+function escaparHTML(texto) {
+
+    return String(texto)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+
+/* =====================================================
+   EDITAR SERVIÇO
+===================================================== */
+
+function editarServico(botao) {
+
+    const linha =
+        botao.closest(
+            ".servico-linha"
+        );
+
+
+    const inputs =
+        linha.querySelectorAll(
+            "input"
+        );
+
+
+    const editando =
+        !inputs[0].disabled;
+
+
+    if (editando) {
+
+        const indice =
+            Number(
+                linha.dataset.indice
+            );
+
+
+        const nome =
+            inputs[0].value.trim();
+
+
+        const preco =
+            Number(
+                inputs[1].value
+            );
+
+
+        const minutos =
+            Number(
+                inputs[2].value
+            );
+
+
+        if (!nome) {
+
+            alert(
+                "Digite o nome do serviço."
+            );
+
+            return;
+
         }
 
-        alert("Acesso alterado com sucesso!");
+
+        if (
+            isNaN(preco) ||
+            preco < 0
+        ) {
+
+            alert(
+                "Digite um preço válido."
+            );
+
+            return;
+
+        }
+
+
+        if (
+            isNaN(minutos) ||
+            minutos <= 0
+        ) {
+
+            alert(
+                "Digite a duração em minutos."
+            );
+
+            return;
+
+        }
+
+
+        servicos[indice] = {
+
+            nome: nome,
+
+            preco: preco,
+
+            minutos: minutos
+
+        };
+
+
+        inputs.forEach(
+            function(input) {
+
+                input.disabled = true;
+
+            }
+        );
+
+
+        botao.textContent =
+            "Editar";
+
+
+        salvarServicos();
+
+
+        return;
 
     }
 
 
-    function sair() {
+    inputs.forEach(
+        function(input) {
 
-        document.getElementById("painel").style.display = "none";
-        document.getElementById("login").style.display = "block";
+            input.disabled = false;
 
-        document.getElementById("loginUsuario").value = "";
-        document.getElementById("loginSenha").value = "";
+        }
+    );
+
+
+    inputs[0].focus();
+
+
+    botao.textContent =
+        "Salvar";
+
+}
+
+
+
+/* =====================================================
+   EXCLUIR SERVIÇO
+===================================================== */
+
+function excluirServico(botao) {
+
+    const linha =
+        botao.closest(
+            ".servico-linha"
+        );
+
+
+    const indice =
+        Number(
+            linha.dataset.indice
+        );
+
+
+    const nome =
+        servicos[indice].nome;
+
+
+    const confirmar =
+        confirm(
+            'Deseja excluir o serviço "' +
+            nome +
+            '"?'
+        );
+
+
+    if (!confirmar) {
+
+        return;
 
     }
+
+
+    servicos.splice(
+        indice,
+        1
+    );
+
+
+    salvarServicos();
+
+
+    mostrarServicos();
+
+}
+
+
+
+/* =====================================================
+   ADICIONAR SERVIÇO
+===================================================== */
+
+function adicionarServico() {
+
+    servicos.push({
+
+        nome: "Novo Serviço",
+
+        preco: 0,
+
+        minutos: 30
+
+    });
+
+
+    mostrarServicos();
+
+
+    const linhas =
+        document.querySelectorAll(
+            ".servico-linha"
+        );
+
+
+    const ultimaLinha =
+        linhas[linhas.length - 1];
+
+
+    const editar =
+        ultimaLinha.querySelector(
+            "button"
+        );
+
+
+    editarServico(editar);
+
+}
+
+
+
+/* =====================================================
+   SALVAR SERVIÇOS
+===================================================== */
+
+function salvarServicos() {
+
+    const linhas =
+        document.querySelectorAll(
+            ".servico-linha"
+        );
+
+
+    const novosServicos = [];
+
+
+    linhas.forEach(
+        function(linha) {
+
+            const inputs =
+                linha.querySelectorAll(
+                    "input"
+                );
+
+
+            const nome =
+                inputs[0].value.trim();
+
+
+            const preco =
+                Number(
+                    inputs[1].value
+                );
+
+
+            const minutos =
+                Number(
+                    inputs[2].value
+                );
+
+
+            if (nome) {
+
+                novosServicos.push({
+
+                    nome: nome,
+
+                    preco: preco,
+
+                    minutos: minutos
+
+                });
+
+            }
+
+        }
+    );
+
+
+    servicos =
+        novosServicos;
+
+
+    localStorage.setItem(
+        "jc_servicos",
+        JSON.stringify(servicos)
+    );
+
+
+    const mensagem =
+        document.getElementById(
+            "mensagemSalvo"
+        );
+
+
+    mensagem.textContent =
+        "Serviços salvos com sucesso!";
+
+
+    setTimeout(
+        function() {
+
+            mensagem.textContent = "";
+
+        },
+        3000
+    );
+
+}
+
+
+
+/* =====================================================
+   INICIAR
+===================================================== */
+
+carregarServicos();
 
 </script>
-
 
 </body>
 
 </html>
-
