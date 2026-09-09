@@ -1,518 +1,520 @@
 <!DOCTYPE html>
-
 <html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-```
-<title>Painel ADM - JC Barbearia</title>
+    <title>Painel ADM - JC Barbearia</title>
 
-<link rel="stylesheet" href="estilo.css">
-<link rel="stylesheet" href="admin.css">
-```
-
+    <link rel="stylesheet" href="estilo.css">
+    <link rel="stylesheet" href="admin.css">
 </head>
 
 <body>
 
 <header>
 
-```
-<div class="logo">
-    JC BARBEARIA
-</div>
+    <div class="logo">
+        JC BARBEARIA
+    </div>
 
-<div class="adm-title">
-    PAINEL ADM
-</div>
-```
+    <div class="adm-title">
+        PAINEL ADM
+    </div>
 
 </header>
 
+
 <main class="admin-container">
-
-```
-<!-- =========================================
-     LOGIN
-========================================== -->
-
-<section id="login">
-
-    <h1>Acesso do Administrador</h1>
-
-    <div class="login-box">
-
-        <label for="loginUsuario">
-            Login
-        </label>
-
-        <input
-            type="text"
-            id="loginUsuario"
-            placeholder="Digite o login"
-            autocomplete="username"
-        >
-
-
-        <label for="loginSenha">
-            Senha
-        </label>
-
-        <input
-            type="password"
-            id="loginSenha"
-            placeholder="Digite a senha"
-            autocomplete="current-password"
-        >
-
-
-        <button
-            type="button"
-            onclick="entrar()"
-        >
-            ENTRAR
-        </button>
-
-
-        <p id="erroLogin"></p>
-
-    </div>
-
-</section>
-
-
-
-<!-- =========================================
-     PAINEL
-========================================== -->
-
-<section
-    id="painel"
-    style="display: none;"
->
-
-    <h1>Painel do Administrador</h1>
-
-
-    <!-- =====================================
-         MENU
-    ====================================== -->
-
-    <div class="admin-menu">
-
-        <button
-            type="button"
-            onclick="abrirAba('configuracoes')"
-        >
-            Configurações do ADM
-        </button>
-
-
-        <button
-            type="button"
-            onclick="abrirAba('agendamentos')"
-        >
-            Agendamentos
-        </button>
-
-
-        <button
-            type="button"
-            onclick="abrirAba('caixa')"
-        >
-            Caixa
-        </button>
-
-
-        <button
-            type="button"
-            onclick="abrirAba('relatorio')"
-        >
-            Relatório do Caixa
-        </button>
-
-    </div>
-
 
 
     <!-- =========================================
-         CONFIGURAÇÕES
+         LOGIN
     ========================================== -->
 
-    <div
-        id="configuracoes"
-        class="admin-aba"
-    >
+    <section id="login">
 
-        <h2>
-            Configurações do ADM
-        </h2>
+        <h1>Acesso do Administrador</h1>
 
+        <div class="login-box">
 
-
-        <!-- ALTERAR LOGIN -->
-
-        <div class="config-box">
-
-            <h3>
-                Alterar acesso
-            </h3>
-
-
-            <label for="novoLogin">
-                Novo login
+            <label for="loginUsuario">
+                Login
             </label>
 
             <input
                 type="text"
-                id="novoLogin"
-                placeholder="Digite o novo login"
+                id="loginUsuario"
+                placeholder="Digite o login"
+                autocomplete="username"
             >
 
 
-            <label for="novaSenha">
-                Nova senha
+            <label for="loginSenha">
+                Senha
             </label>
 
             <input
                 type="password"
-                id="novaSenha"
-                placeholder="Digite a nova senha"
+                id="loginSenha"
+                placeholder="Digite a senha"
+                autocomplete="current-password"
             >
 
 
             <button
                 type="button"
-                onclick="alterarAcesso()"
+                onclick="entrar()"
             >
-                SALVAR ACESSO
+                ENTRAR
             </button>
+
+
+            <p id="erroLogin"></p>
 
         </div>
 
-
-
-        <!-- SERVIÇOS -->
-
-        <div class="config-box">
-
-            <h3>
-                Serviços
-            </h3>
-
-
-            <!-- CABEÇALHO -->
-
-            <div class="servicos-cabecalho">
-
-                <div>
-                    Serviço
-                </div>
-
-                <div>
-                    Preço
-                </div>
-
-                <div>
-                    Minutos
-                </div>
-
-                <div>
-                    Editar
-                </div>
-
-                <div>
-                    Excluir
-                </div>
-
-            </div>
-
-
-            <!-- LISTA -->
-
-            <div id="listaServicos"></div>
-
-
-            <!-- ADICIONAR -->
-
-            <button
-                type="button"
-                class="botao-adicionar"
-                onclick="adicionarServico()"
-            >
-                + ADICIONAR SERVIÇO
-            </button>
-
-
-            <br>
-            <br>
-
-
-            <!-- SALVAR -->
-
-            <button
-                type="button"
-                onclick="salvarServicos()"
-            >
-                SALVAR ALTERAÇÕES
-            </button>
-
-
-            <p id="mensagemSalvo"></p>
-
-        </div>
-
-    </div>
+    </section>
 
 
 
     <!-- =========================================
-         AGENDAMENTOS
+         PAINEL
     ========================================== -->
 
-    <div
-        id="agendamentos"
-        class="admin-aba"
+    <section
+        id="painel"
         style="display: none;"
     >
 
-        <h2>
-            Agendamentos Confirmados
-        </h2>
+        <h1>Painel do Administrador</h1>
 
 
-        <div class="tabela">
+        <!-- =====================================
+             MENU
+        ====================================== -->
 
-            <div class="tabela-cabecalho">
+        <div class="admin-menu">
 
-                <span>
-                    Cliente
-                </span>
-
-                <span>
-                    Serviço
-                </span>
-
-                <span>
-                    Data
-                </span>
-
-                <span>
-                    Horário
-                </span>
-
-                <span>
-                    Valor
-                </span>
-
-            </div>
+            <button
+                type="button"
+                onclick="abrirAba('configuracoes')"
+            >
+                Configurações do ADM
+            </button>
 
 
-            <div class="agendamento">
+            <button
+                type="button"
+                onclick="abrirAba('agendamentos')"
+            >
+                Agendamentos
+            </button>
 
-                <span>
-                    Sousa
-                </span>
 
-                <span>
-                    Corte de Cabelo
-                </span>
+            <button
+                type="button"
+                onclick="abrirAba('caixa')"
+            >
+                Caixa
+            </button>
 
-                <span>
-                    09/09/2026
-                </span>
 
-                <span>
-                    14:00
-                </span>
-
-                <span>
-                    R$ 25
-                </span>
-
-            </div>
+            <button
+                type="button"
+                onclick="abrirAba('relatorio')"
+            >
+                Relatório do Caixa
+            </button>
 
         </div>
 
-    </div>
+
+
+        <!-- =========================================
+             CONFIGURAÇÕES
+        ========================================== -->
+
+        <div
+            id="configuracoes"
+            class="admin-aba"
+        >
+
+            <h2>
+                Configurações do ADM
+            </h2>
 
 
 
-    <!-- =========================================
-         CAIXA
-    ========================================== -->
+            <!-- =====================================
+                 ALTERAR LOGIN
+            ====================================== -->
 
-    <div
-        id="caixa"
-        class="admin-aba"
-        style="display: none;"
-    >
-
-        <h2>
-            Caixa
-        </h2>
-
-
-        <div class="caixa-cards">
-
-
-            <div class="caixa-card">
+            <div class="config-box">
 
                 <h3>
-                    Clientes
+                    Alterar acesso
                 </h3>
 
-                <strong>
-                    0
-                </strong>
+
+                <label for="novoLogin">
+                    Novo login
+                </label>
+
+                <input
+                    type="text"
+                    id="novoLogin"
+                    placeholder="Digite o novo login"
+                >
+
+
+                <label for="novaSenha">
+                    Nova senha
+                </label>
+
+                <input
+                    type="password"
+                    id="novaSenha"
+                    placeholder="Digite a nova senha"
+                >
+
+
+                <button
+                    type="button"
+                    onclick="alterarAcesso()"
+                >
+                    SALVAR ACESSO
+                </button>
 
             </div>
 
 
-            <div class="caixa-card">
+
+            <!-- =====================================
+                 SERVIÇOS
+            ====================================== -->
+
+            <div class="config-box">
 
                 <h3>
                     Serviços
                 </h3>
 
-                <strong>
-                    0
-                </strong>
+
+                <!-- CABEÇALHO -->
+
+                <div class="servicos-cabecalho">
+
+                    <div>
+                        Serviço
+                    </div>
+
+                    <div>
+                        Preço
+                    </div>
+
+                    <div>
+                        Minutos
+                    </div>
+
+                    <div>
+                        Editar
+                    </div>
+
+                </div>
+
+
+                <!--
+                    IMPORTANTE:
+                    NÃO COLOCAR SERVIÇOS MANUALMENTE AQUI.
+
+                    O JavaScript vai criar
+                    automaticamente.
+                -->
+
+                <div id="listaServicos"></div>
+
+
+                <!-- ADICIONAR SERVIÇO -->
+
+                <button
+                    type="button"
+                    class="botao-adicionar"
+                    onclick="adicionarServico()"
+                >
+                    + ADICIONAR SERVIÇO
+                </button>
+
+
+                <br>
+                <br>
+
+
+                <!-- SALVAR ALTERAÇÕES -->
+
+                <button
+                    type="button"
+                    onclick="salvarServicos()"
+                >
+                    SALVAR ALTERAÇÕES
+                </button>
+
+
+                <p id="mensagemSalvo"></p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =========================================
+             AGENDAMENTOS
+        ========================================== -->
+
+        <div
+            id="agendamentos"
+            class="admin-aba"
+            style="display: none;"
+        >
+
+            <h2>
+                Agendamentos Confirmados
+            </h2>
+
+
+            <div class="tabela">
+
+                <div class="tabela-cabecalho">
+
+                    <span>
+                        Cliente
+                    </span>
+
+                    <span>
+                        Serviço
+                    </span>
+
+                    <span>
+                        Data
+                    </span>
+
+                    <span>
+                        Horário
+                    </span>
+
+                    <span>
+                        Valor
+                    </span>
+
+                </div>
+
+
+                <div class="agendamento">
+
+                    <span>
+                        Sousa
+                    </span>
+
+                    <span>
+                        Corte de Cabelo
+                    </span>
+
+                    <span>
+                        09/09/2026
+                    </span>
+
+                    <span>
+                        14:00
+                    </span>
+
+                    <span>
+                        R$ 25
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =========================================
+             CAIXA
+        ========================================== -->
+
+        <div
+            id="caixa"
+            class="admin-aba"
+            style="display: none;"
+        >
+
+            <h2>
+                Caixa
+            </h2>
+
+
+            <div class="caixa-cards">
+
+
+                <div class="caixa-card">
+
+                    <h3>
+                        Clientes
+                    </h3>
+
+                    <strong>
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="caixa-card">
+
+                    <h3>
+                        Serviços
+                    </h3>
+
+                    <strong>
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="caixa-card">
+
+                    <h3>
+                        Faturamento
+                    </h3>
+
+                    <strong>
+                        R$ 0,00
+                    </strong>
+
+                </div>
+
 
             </div>
 
 
-            <div class="caixa-card">
+
+            <div class="fechamento">
 
                 <h3>
-                    Faturamento
+                    Fechamento do Caixa
                 </h3>
 
-                <strong>
-                    R$ 0,00
-                </strong>
+
+                <label for="mesFechamento">
+                    Mês
+                </label>
+
+                <input
+                    type="month"
+                    id="mesFechamento"
+                >
+
+
+                <button type="button">
+                    FECHAR CAIXA
+                </button>
 
             </div>
 
-
         </div>
 
 
 
-        <div class="fechamento">
+        <!-- =========================================
+             RELATÓRIO
+        ========================================== -->
 
-            <h3>
-                Fechamento do Caixa
-            </h3>
+        <div
+            id="relatorio"
+            class="admin-aba"
+            style="display: none;"
+        >
 
-
-            <label for="mesFechamento">
-                Mês
-            </label>
-
-            <input
-                type="month"
-                id="mesFechamento"
-            >
+            <h2>
+                Relatório do Caixa
+            </h2>
 
 
-            <button type="button">
-                FECHAR CAIXA
-            </button>
+            <div class="relatorio-box">
 
-        </div>
+                <label for="mesRelatorio">
+                    Selecione o mês
+                </label>
 
-    </div>
-
-
-
-    <!-- =========================================
-         RELATÓRIO
-    ========================================== -->
-
-    <div
-        id="relatorio"
-        class="admin-aba"
-        style="display: none;"
-    >
-
-        <h2>
-            Relatório do Caixa
-        </h2>
+                <input
+                    type="month"
+                    id="mesRelatorio"
+                >
 
 
-        <div class="relatorio-box">
+                <div class="resumo-relatorio">
 
-            <label for="mesRelatorio">
-                Selecione o mês
-            </label>
-
-            <input
-                type="month"
-                id="mesRelatorio"
-            >
+                    <p>
+                        Total de clientes:
+                        <strong>0</strong>
+                    </p>
 
 
-            <div class="resumo-relatorio">
-
-                <p>
-                    Total de clientes:
-                    <strong>0</strong>
-                </p>
+                    <p>
+                        Total de serviços:
+                        <strong>0</strong>
+                    </p>
 
 
-                <p>
-                    Total de serviços:
-                    <strong>0</strong>
-                </p>
+                    <p>
+                        Faturamento:
+                        <strong>R$ 0,00</strong>
+                    </p>
+
+                </div>
 
 
-                <p>
-                    Faturamento:
-                    <strong>R$ 0,00</strong>
-                </p>
+                <button type="button">
+                    GERAR PDF
+                </button>
 
             </div>
 
-
-            <button type="button">
-                GERAR PDF
-            </button>
-
         </div>
 
-    </div>
 
 
+        <!-- =========================================
+             SAIR
+        ========================================== -->
 
-    <!-- =========================================
-         SAIR
-    ========================================== -->
+        <button
+            type="button"
+            class="sair"
+            onclick="sair()"
+        >
+            SAIR
+        </button>
 
-    <button
-        type="button"
-        class="sair"
-        onclick="sair()"
-    >
-        SAIR
-    </button>
-
-</section>
-```
+    </section>
 
 </main>
 
+
+
 <footer>
 
-```
-<p>
-    © 2026 JC Barbearia
-</p>
-```
+    <p>
+        © 2026 JC Barbearia
+    </p>
 
 </footer>
+
+
 
 <script>
 
@@ -757,7 +759,7 @@ function sair() {
 
 
 /* =====================================================
-   SERVIÇOS
+   SERVIÇOS PADRÃO
 ===================================================== */
 
 const SERVICOS_PADRAO = [
@@ -819,6 +821,14 @@ function carregarServicos() {
             servicos =
                 JSON.parse(salvos);
 
+
+            if (!Array.isArray(servicos)) {
+
+                servicos =
+                    [...SERVICOS_PADRAO];
+
+            }
+
         } catch (erro) {
 
             servicos =
@@ -852,12 +862,16 @@ function mostrarServicos() {
         );
 
 
+    if (!lista) {
+        return;
+    }
+
+
     lista.innerHTML = "";
 
 
     servicos.forEach(
         function(servico, indice) {
-
 
             const linha =
                 document.createElement("div");
@@ -867,19 +881,21 @@ function mostrarServicos() {
                 "servico-linha";
 
 
+            linha.dataset.indice =
+                indice;
+
+
             linha.innerHTML = `
 
                 <input
                     type="text"
                     value="${escaparHTML(servico.nome)}"
-                    data-campo="nome"
                     disabled
                 >
 
                 <input
                     type="number"
                     value="${servico.preco}"
-                    data-campo="preco"
                     disabled
                     min="0"
                     step="0.01"
@@ -888,7 +904,6 @@ function mostrarServicos() {
                 <input
                     type="number"
                     value="${servico.minutos}"
-                    data-campo="minutos"
                     disabled
                     min="1"
                 >
@@ -900,18 +915,7 @@ function mostrarServicos() {
                     Editar
                 </button>
 
-                <button
-                    type="button"
-                    onclick="excluirServico(this)"
-                >
-                    Excluir
-                </button>
-
             `;
-
-
-            linha.dataset.indice =
-                indice;
 
 
             lista.appendChild(linha);
@@ -952,17 +956,26 @@ function editarServico(botao) {
         );
 
 
+    if (!linha) {
+        return;
+    }
+
+
     const inputs =
         linha.querySelectorAll(
             "input"
         );
 
 
-    const editando =
+    const estaEditando =
         !inputs[0].disabled;
 
 
-    if (editando) {
+    /* =========================================
+       SALVAR EDIÇÃO
+    ========================================= */
+
+    if (estaEditando) {
 
         const indice =
             Number(
@@ -971,7 +984,9 @@ function editarServico(botao) {
 
 
         const nome =
-            inputs[0].value.trim();
+            inputs[0]
+                .value
+                .trim();
 
 
         const preco =
@@ -992,13 +1007,15 @@ function editarServico(botao) {
                 "Digite o nome do serviço."
             );
 
+            inputs[0].focus();
+
             return;
 
         }
 
 
         if (
-            isNaN(preco) ||
+            !Number.isFinite(preco) ||
             preco < 0
         ) {
 
@@ -1006,19 +1023,23 @@ function editarServico(botao) {
                 "Digite um preço válido."
             );
 
+            inputs[1].focus();
+
             return;
 
         }
 
 
         if (
-            isNaN(minutos) ||
+            !Number.isFinite(minutos) ||
             minutos <= 0
         ) {
 
             alert(
-                "Digite a duração em minutos."
+                "Digite uma duração válida."
             );
+
+            inputs[2].focus();
 
             return;
 
@@ -1036,6 +1057,12 @@ function editarServico(botao) {
         };
 
 
+        localStorage.setItem(
+            "jc_servicos",
+            JSON.stringify(servicos)
+        );
+
+
         inputs.forEach(
             function(input) {
 
@@ -1049,13 +1076,19 @@ function editarServico(botao) {
             "Editar";
 
 
-        salvarServicos();
+        mostrarMensagem(
+            "Serviço atualizado com sucesso!"
+        );
 
 
         return;
 
     }
 
+
+    /* =========================================
+       ENTRAR NO MODO EDIÇÃO
+    ========================================= */
 
     inputs.forEach(
         function(input) {
@@ -1071,58 +1104,6 @@ function editarServico(botao) {
 
     botao.textContent =
         "Salvar";
-
-}
-
-
-
-/* =====================================================
-   EXCLUIR SERVIÇO
-===================================================== */
-
-function excluirServico(botao) {
-
-    const linha =
-        botao.closest(
-            ".servico-linha"
-        );
-
-
-    const indice =
-        Number(
-            linha.dataset.indice
-        );
-
-
-    const nome =
-        servicos[indice].nome;
-
-
-    const confirmar =
-        confirm(
-            'Deseja excluir o serviço "' +
-            nome +
-            '"?'
-        );
-
-
-    if (!confirmar) {
-
-        return;
-
-    }
-
-
-    servicos.splice(
-        indice,
-        1
-    );
-
-
-    salvarServicos();
-
-
-    mostrarServicos();
 
 }
 
@@ -1145,6 +1126,12 @@ function adicionarServico() {
     });
 
 
+    localStorage.setItem(
+        "jc_servicos",
+        JSON.stringify(servicos)
+    );
+
+
     mostrarServicos();
 
 
@@ -1158,20 +1145,25 @@ function adicionarServico() {
         linhas[linhas.length - 1];
 
 
-    const editar =
+    if (!ultimaLinha) {
+        return;
+    }
+
+
+    const botao =
         ultimaLinha.querySelector(
             "button"
         );
 
 
-    editarServico(editar);
+    editarServico(botao);
 
 }
 
 
 
 /* =====================================================
-   SALVAR SERVIÇOS
+   SALVAR TODOS OS SERVIÇOS
 ===================================================== */
 
 function salvarServicos() {
@@ -1195,7 +1187,9 @@ function salvarServicos() {
 
 
             const nome =
-                inputs[0].value.trim();
+                inputs[0]
+                    .value
+                    .trim();
 
 
             const preco =
@@ -1210,7 +1204,13 @@ function salvarServicos() {
                 );
 
 
-            if (nome) {
+            if (
+                nome &&
+                Number.isFinite(preco) &&
+                preco >= 0 &&
+                Number.isFinite(minutos) &&
+                minutos > 0
+            ) {
 
                 novosServicos.push({
 
@@ -1238,20 +1238,43 @@ function salvarServicos() {
     );
 
 
+    mostrarServicos();
+
+
+    mostrarMensagem(
+        "Serviços salvos com sucesso!"
+    );
+
+}
+
+
+
+/* =====================================================
+   MENSAGEM
+===================================================== */
+
+function mostrarMensagem(texto) {
+
     const mensagem =
         document.getElementById(
             "mensagemSalvo"
         );
 
 
+    if (!mensagem) {
+        return;
+    }
+
+
     mensagem.textContent =
-        "Serviços salvos com sucesso!";
+        texto;
 
 
     setTimeout(
         function() {
 
-            mensagem.textContent = "";
+            mensagem.textContent =
+                "";
 
         },
         3000
@@ -1268,6 +1291,7 @@ function salvarServicos() {
 carregarServicos();
 
 </script>
+
 
 </body>
 
