@@ -13,7 +13,10 @@
     margin: 50px auto;
 }
 
+
+/* ============================= */
 /* LOGIN */
+/* ============================= */
 
 .login-box {
     max-width: 400px;
@@ -58,7 +61,10 @@
     text-align: center;
 }
 
+
+/* ============================= */
 /* MENU ADM */
+/* ============================= */
 
 .admin-menu {
     display: grid;
@@ -72,7 +78,10 @@
     padding: 10px;
 }
 
+
+/* ============================= */
 /* ABAS */
+/* ============================= */
 
 .admin-aba {
     background: #181818;
@@ -87,7 +96,10 @@
     margin-bottom: 25px;
 }
 
+
+/* ============================= */
 /* CONFIGURAÇÕES */
+/* ============================= */
 
 .config-box {
     background: #111;
@@ -102,32 +114,93 @@
     color: #ddd;
 }
 
-.servico-linha {
+
+/* ============================= */
+/* SERVIÇOS */
+/* ============================= */
+
+/* CABEÇALHO */
+
+.servicos-cabecalho {
     display: grid;
-    grid-template-columns: 1fr 120px 120px 90px;
+    grid-template-columns: 1fr 120px 120px 110px;
     gap: 10px;
+    align-items: center;
+
+    padding: 12px 15px;
+
+    background: #222;
+    color: #d4af37;
+
+    font-weight: bold;
+
+    border-radius: 7px;
+
     margin-bottom: 10px;
 }
 
-.servico-linha input {
-    width: 100%;
+
+/* LINHAS */
+
+.servico-linha {
+    display: grid;
+    grid-template-columns: 1fr 120px 120px 110px;
+    gap: 10px;
+    align-items: center;
+
+    margin-bottom: 10px;
 }
 
+
+/* CAMPOS */
+
+.servico-linha input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+/* BOTÃO EDITAR */
+
 .servico-linha button {
-    padding: 10px;
-    background: #8b2222;
-    color: white;
+    width: 100%;
+
+    padding: 12px;
+
+    background: #d4af37;
+    color: #111;
+
+    border: none;
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    font-weight: bold;
 }
 
 .servico-linha button:hover {
-    background: #b52d2d;
+    background: #f0ca4d;
 }
+
+
+/* BOTÃO ADICIONAR */
 
 .botao-adicionar {
     margin-top: 15px;
 }
 
+
+/* MENSAGEM */
+
+#mensagemSalvo {
+    margin-top: 15px;
+    color: #d4af37;
+}
+
+
+/* ============================= */
 /* TABELA DE AGENDAMENTOS */
+/* ============================= */
 
 .tabela {
     width: 100%;
@@ -137,9 +210,18 @@
 .tabela-cabecalho,
 .agendamento {
     display: grid;
-    grid-template-columns: 1.2fr 1.5fr 1fr 0.8fr 0.8fr;
+
+    grid-template-columns:
+        1.2fr
+        1.5fr
+        1fr
+        0.8fr
+        0.8fr;
+
     gap: 10px;
+
     padding: 15px;
+
     min-width: 700px;
 }
 
@@ -154,7 +236,10 @@
     color: #ddd;
 }
 
+
+/* ============================= */
 /* CAIXA */
+/* ============================= */
 
 .caixa-cards {
     display: grid;
@@ -194,7 +279,10 @@
     margin-top: 20px;
 }
 
+
+/* ============================= */
 /* RELATÓRIO */
+/* ============================= */
 
 .resumo-relatorio {
     margin-top: 25px;
@@ -211,7 +299,10 @@
     color: #d4af37;
 }
 
+
+/* ============================= */
 /* BOTÃO SAIR */
+/* ============================= */
 
 .sair {
     margin-top: 25px;
@@ -223,7 +314,10 @@
     background: #b52d2d;
 }
 
+
+/* ============================= */
 /* CELULAR */
+/* ============================= */
 
 @media (max-width: 700px) {
 
@@ -231,15 +325,26 @@
         grid-template-columns: 1fr 1fr;
     }
 
+
+    /* No celular não precisamos do cabeçalho */
+
+    .servicos-cabecalho {
+        display: none;
+    }
+
+
     .servico-linha {
         grid-template-columns: 1fr;
     }
+
 
     .caixa-cards {
         grid-template-columns: 1fr;
     }
 
+
     .admin-aba {
         padding: 20px;
     }
+
 }
