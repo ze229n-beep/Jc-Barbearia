@@ -1,1 +1,358 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+```
+<title>Painel ADM - JC Barbearia</title>
+
+<link rel="stylesheet" href="estilo.css">
+```
+
+</head>
+
+<body>
+
+```
+<header>
+
+    <div class="logo">
+        JC BARBEARIA
+    </div>
+
+    <div class="adm-title">
+        PAINEL ADM
+    </div>
+
+</header>
+
+
+<main class="admin-container">
+
+    <!-- LOGIN -->
+
+    <section id="login">
+
+        <h1>Acesso do Administrador</h1>
+
+        <div class="login-box">
+
+            <label for="loginUsuario">Login</label>
+            <input type="text" id="loginUsuario" placeholder="Digite o login">
+
+            <label for="loginSenha">Senha</label>
+            <input type="password" id="loginSenha" placeholder="Digite a senha">
+
+            <button onclick="entrar()">ENTRAR</button>
+
+            <p id="erroLogin"></p>
+
+        </div>
+
+    </section>
+
+
+    <!-- PAINEL -->
+
+    <section id="painel" style="display: none;">
+
+        <h1>Painel do Administrador</h1>
+
+        <!-- MENU -->
+
+        <div class="admin-menu">
+
+            <button onclick="abrirAba('configuracoes')">
+                Configurações do ADM
+            </button>
+
+            <button onclick="abrirAba('agendamentos')">
+                Agendamentos
+            </button>
+
+            <button onclick="abrirAba('caixa')">
+                Caixa
+            </button>
+
+            <button onclick="abrirAba('relatorio')">
+                Relatório do Caixa
+            </button>
+
+        </div>
+
+
+        <!-- CONFIGURAÇÕES DO ADM -->
+
+        <div id="configuracoes" class="admin-aba">
+
+            <h2>Configurações do ADM</h2>
+
+            <div class="config-box">
+
+                <h3>Alterar acesso</h3>
+
+                <label>Novo login</label>
+                <input type="text" id="novoLogin" placeholder="Novo login">
+
+                <label>Nova senha</label>
+                <input type="password" id="novaSenha" placeholder="Nova senha">
+
+                <button onclick="alterarAcesso()">
+                    SALVAR ACESSO
+                </button>
+
+            </div>
+
+
+            <div class="config-box">
+
+                <h3>Serviços</h3>
+
+                <div class="servico-linha">
+                    <input type="text" value="Corte de Cabelo">
+                    <input type="number" value="25" placeholder="Preço">
+                    <input type="number" value="30" placeholder="Minutos">
+                    <button>Excluir</button>
+                </div>
+
+                <div class="servico-linha">
+                    <input type="text" value="Barba">
+                    <input type="number" value="20" placeholder="Preço">
+                    <input type="number" value="20" placeholder="Minutos">
+                    <button>Excluir</button>
+                </div>
+
+                <div class="servico-linha">
+                    <input type="text" value="Sobrancelha">
+                    <input type="number" value="10" placeholder="Preço">
+                    <input type="number" value="10" placeholder="Minutos">
+                    <button>Excluir</button>
+                </div>
+
+                <div class="servico-linha">
+                    <input type="text" value="Corte + Barba">
+                    <input type="number" value="40" placeholder="Preço">
+                    <input type="number" value="50" placeholder="Minutos">
+                    <button>Excluir</button>
+                </div>
+
+                <div class="servico-linha">
+                    <input type="text" value="Corte + Barba + Sobrancelha">
+                    <input type="number" value="50" placeholder="Preço">
+                    <input type="number" value="60" placeholder="Minutos">
+                    <button>Excluir</button>
+                </div>
+
+                <button class="botao-adicionar">
+                    + ADICIONAR SERVIÇO
+                </button>
+
+                <br><br>
+
+                <button>
+                    SALVAR ALTERAÇÕES
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- AGENDAMENTOS -->
+
+        <div id="agendamentos" class="admin-aba" style="display: none;">
+
+            <h2>Agendamentos Confirmados</h2>
+
+            <div class="tabela">
+
+                <div class="tabela-cabecalho">
+                    <span>Cliente</span>
+                    <span>Serviço</span>
+                    <span>Data</span>
+                    <span>Horário</span>
+                    <span>Valor</span>
+                </div>
+
+                <div class="agendamento">
+                    <span>Sousa</span>
+                    <span>Corte de Cabelo</span>
+                    <span>09/09/2026</span>
+                    <span>14:00</span>
+                    <span>R$ 25</span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- CAIXA -->
+
+        <div id="caixa" class="admin-aba" style="display: none;">
+
+            <h2>Caixa</h2>
+
+            <div class="caixa-cards">
+
+                <div class="caixa-card">
+                    <h3>Clientes</h3>
+                    <strong>0</strong>
+                </div>
+
+                <div class="caixa-card">
+                    <h3>Serviços</h3>
+                    <strong>0</strong>
+                </div>
+
+                <div class="caixa-card">
+                    <h3>Faturamento</h3>
+                    <strong>R$ 0,00</strong>
+                </div>
+
+            </div>
+
+            <div class="fechamento">
+
+                <h3>Fechamento do Caixa</h3>
+
+                <label>Mês</label>
+
+                <input type="month">
+
+                <button>
+                    FECHAR CAIXA
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- RELATÓRIO -->
+
+        <div id="relatorio" class="admin-aba" style="display: none;">
+
+            <h2>Relatório do Caixa</h2>
+
+            <div class="relatorio-box">
+
+                <label>Selecione o mês</label>
+
+                <input type="month">
+
+                <div class="resumo-relatorio">
+
+                    <p>Total de clientes: <strong>0</strong></p>
+
+                    <p>Total de serviços: <strong>0</strong></p>
+
+                    <p>Faturamento: <strong>R$ 0,00</strong></p>
+
+                </div>
+
+                <button>
+                    GERAR PDF
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <button class="sair" onclick="sair()">
+            SAIR
+        </button>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <p>© 2026 JC Barbearia</p>
+
+</footer>
+
+
+<script>
+
+    let usuario = "jcbarbearia";
+    let senha = "1234";
+
+
+    function entrar() {
+
+        const login = document.getElementById("loginUsuario").value;
+        const senhaDigitada = document.getElementById("loginSenha").value;
+
+        if (login === usuario && senhaDigitada === senha) {
+
+            document.getElementById("login").style.display = "none";
+            document.getElementById("painel").style.display = "block";
+
+        } else {
+
+            document.getElementById("erroLogin").textContent =
+                "Login ou senha incorretos.";
+
+        }
+
+    }
+
+
+    function abrirAba(nome) {
+
+        const abas = document.querySelectorAll(".admin-aba");
+
+        abas.forEach(function(aba) {
+            aba.style.display = "none";
+        });
+
+        document.getElementById(nome).style.display = "block";
+
+    }
+
+
+    function alterarAcesso() {
+
+        const novoLogin =
+            document.getElementById("novoLogin").value;
+
+        const novaSenha =
+            document.getElementById("novaSenha").value;
+
+        if (novoLogin !== "") {
+            usuario = novoLogin;
+        }
+
+        if (novaSenha !== "") {
+            senha = novaSenha;
+        }
+
+        alert("Acesso alterado com sucesso!");
+
+    }
+
+
+    function sair() {
+
+        document.getElementById("painel").style.display = "none";
+        document.getElementById("login").style.display = "block";
+
+        document.getElementById("loginUsuario").value = "";
+        document.getElementById("loginSenha").value = "";
+
+    }
+
+</script>
+```
+
+</body>
+
+</html>
 
