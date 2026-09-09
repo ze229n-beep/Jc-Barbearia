@@ -1,31 +1,107 @@
-/* ============================= */
-/* PAINEL ADM */
-/* ============================= */
+/* =====================================================
+   JC BARBEARIA — PAINEL ADMINISTRATIVO
+   VISUAL MODERNO / DARK / GOLD
+===================================================== */
+
+
+/* =====================================================
+   BASE
+===================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #0b0b0c;
+    color: #f5f5f5;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* =====================================================
+   CABEÇALHO
+===================================================== */
+
+header {
+    min-height: 80px;
+    padding: 0 35px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: #101011;
+
+    border-bottom: 1px solid #242426;
+}
+
+.logo {
+    color: #d4af37;
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
 
 .adm-title {
-    color: #d4af37;
+    color: #ffffff;
+    font-size: 14px;
     font-weight: bold;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
 }
+
+
+/* =====================================================
+   CONTAINER
+===================================================== */
 
 .admin-container {
-    max-width: 1000px;
-    margin: 50px auto;
+    max-width: 1180px;
+    margin: 40px auto;
+    padding: 0 20px;
 }
 
 
-/* ============================= */
-/* LOGIN */
-/* ============================= */
+/* =====================================================
+   TÍTULOS
+===================================================== */
+
+.admin-container > h1,
+#painel > h1 {
+    font-size: 28px;
+    margin-bottom: 30px;
+}
+
+.admin-aba h2 {
+    margin-top: 0;
+    margin-bottom: 30px;
+
+    color: #ffffff;
+
+    font-size: 22px;
+    font-weight: 600;
+}
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
 
 .login-box {
-    max-width: 400px;
-    margin: 30px auto;
-    background: #181818;
-    padding: 30px;
-    border-radius: 14px;
-    border: 1px solid #303030;
-    text-align: left;
+    max-width: 430px;
+
+    margin: 40px auto;
+
+    padding: 35px;
+
+    background: #151516;
+
+    border: 1px solid #29292b;
+
+    border-radius: 20px;
+
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
 }
 
 .login-box label,
@@ -33,8 +109,12 @@
 .fechamento label,
 .relatorio-box label {
     display: block;
-    margin: 15px 0 7px;
-    color: #ccc;
+
+    margin: 18px 0 8px;
+
+    color: #a9a9ad;
+
+    font-size: 13px;
 }
 
 .login-box input,
@@ -42,168 +122,353 @@
 .fechamento input,
 .relatorio-box input {
     width: 100%;
-    padding: 12px;
-    border-radius: 7px;
-    border: 1px solid #444;
-    background: #101010;
-    color: white;
-    font-size: 15px;
+
+    padding: 13px 15px;
+
+    background: #0d0d0e;
+
+    border: 1px solid #303034;
+
+    border-radius: 10px;
+
+    color: #ffffff;
+
+    outline: none;
+
+    font-size: 14px;
+
+    transition: 0.2s;
+}
+
+.login-box input:focus,
+.config-box input:focus,
+.fechamento input:focus,
+.relatorio-box input:focus {
+    border-color: #d4af37;
+
+    box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.08);
 }
 
 .login-box button {
     width: 100%;
-    margin-top: 20px;
-}
 
-#erroLogin {
-    color: #ff5555;
-    margin-top: 15px;
-    text-align: center;
+    margin-top: 25px;
 }
 
 
-/* ============================= */
-/* MENU ADM */
-/* ============================= */
+/* =====================================================
+   BOTÕES GERAIS
+===================================================== */
 
-.admin-menu {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    margin: 30px 0;
-}
+button {
+    border: none;
 
-.admin-menu button {
-    min-height: 60px;
-    padding: 10px;
-}
-
-
-/* ============================= */
-/* ABAS */
-/* ============================= */
-
-.admin-aba {
-    background: #181818;
-    border: 1px solid #303030;
-    border-radius: 14px;
-    padding: 30px;
-    text-align: left;
-}
-
-.admin-aba h2 {
-    color: #d4af37;
-    margin-bottom: 25px;
-}
-
-
-/* ============================= */
-/* CONFIGURAÇÕES */
-/* ============================= */
-
-.config-box {
-    background: #111;
-    border: 1px solid #303030;
     border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 25px;
-}
 
-.config-box h3 {
-    margin-bottom: 15px;
-    color: #ddd;
-}
+    padding: 12px 18px;
 
+    background: #d4af37;
 
-/* ============================= */
-/* SERVIÇOS */
-/* ============================= */
-
-/* CABEÇALHO */
-
-.servicos-cabecalho {
-    display: grid;
-    grid-template-columns: 1fr 120px 120px 110px;
-    gap: 10px;
-    align-items: center;
-
-    padding: 12px 15px;
-
-    background: #222;
-    color: #d4af37;
+    color: #111111;
 
     font-weight: bold;
 
-    border-radius: 7px;
-
-    margin-bottom: 10px;
-}
-
-
-/* LINHAS */
-
-.servico-linha {
-    display: grid;
-    grid-template-columns: 1fr 120px 120px 110px;
-    gap: 10px;
-    align-items: center;
-
-    margin-bottom: 10px;
-}
-
-
-/* CAMPOS */
-
-.servico-linha input {
-    width: 100%;
-    box-sizing: border-box;
-}
-
-
-/* BOTÃO EDITAR */
-
-.servico-linha button {
-    width: 100%;
-
-    padding: 12px;
-
-    background: #d4af37;
-    color: #111;
-
-    border: none;
-    border-radius: 7px;
+    font-size: 13px;
 
     cursor: pointer;
 
-    font-weight: bold;
+    transition:
+        background 0.2s,
+        transform 0.2s,
+        box-shadow 0.2s;
+}
+
+button:hover {
+    background: #e3bf4a;
+
+    transform: translateY(-1px);
+
+    box-shadow: 0 5px 18px rgba(212, 175, 55, 0.15);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+
+/* =====================================================
+   MENU ADMINISTRATIVO
+===================================================== */
+
+.admin-menu {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 14px;
+
+    margin-bottom: 25px;
+}
+
+.admin-menu button {
+    min-height: 65px;
+
+    padding: 12px 15px;
+
+    background: #151516;
+
+    color: #d7d7d9;
+
+    border: 1px solid #29292b;
+
+    border-radius: 18px;
+
+    font-size: 13px;
+
+    box-shadow: none;
+}
+
+.admin-menu button:hover {
+    background: #1b1b1d;
+
+    color: #d4af37;
+
+    border-color: #d4af37;
+
+    box-shadow: 0 5px 20px rgba(212, 175, 55, 0.08);
+}
+
+
+/* =====================================================
+   ABAS
+===================================================== */
+
+.admin-aba {
+    background: #121213;
+
+    border: 1px solid #29292b;
+
+    border-radius: 22px;
+
+    padding: 30px;
+
+    text-align: left;
+
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.25);
+}
+
+
+/* =====================================================
+   CONFIGURAÇÕES
+===================================================== */
+
+.config-box {
+    background: #171718;
+
+    border: 1px solid #29292b;
+
+    border-radius: 18px;
+
+    padding: 25px;
+
+    margin-bottom: 20px;
+}
+
+.config-box h3 {
+    margin-top: 0;
+
+    margin-bottom: 20px;
+
+    color: #ffffff;
+
+    font-size: 17px;
+}
+
+
+/* =====================================================
+   CABEÇALHO DOS SERVIÇOS
+===================================================== */
+
+.servicos-cabecalho {
+    display: grid;
+
+    grid-template-columns:
+        minmax(220px, 1fr)
+        120px
+        120px
+        110px;
+
+    gap: 12px;
+
+    align-items: center;
+
+    padding: 13px 15px;
+
+    margin-bottom: 10px;
+
+    background: #202022;
+
+    border: 1px solid #2d2d30;
+
+    border-radius: 12px;
+
+    color: #9f9fa3;
+
+    font-size: 12px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.7px;
+}
+
+
+/* =====================================================
+   LINHA DOS SERVIÇOS
+===================================================== */
+
+.servico-linha {
+    display: grid;
+
+    grid-template-columns:
+        minmax(220px, 1fr)
+        120px
+        120px
+        110px;
+
+    gap: 12px;
+
+    align-items: center;
+
+    margin-bottom: 10px;
+}
+
+.servico-linha input {
+    width: 100%;
+
+    height: 44px;
+
+    padding: 0 13px;
+
+    background: #0e0e0f;
+
+    border: 1px solid #2b2b2e;
+
+    border-radius: 10px;
+
+    color: #ffffff;
+
+    font-size: 14px;
+}
+
+.servico-linha input:disabled {
+    opacity: 1;
+
+    color: #eeeeee;
+
+    cursor: default;
+}
+
+
+/* =====================================================
+   BOTÃO EDITAR / SALVAR
+===================================================== */
+
+.servico-linha button {
+    height: 44px;
+
+    padding: 0 16px;
+
+    background: transparent;
+
+    color: #d4af37;
+
+    border: 1px solid #d4af37;
+
+    border-radius: 12px;
+
+    font-size: 12px;
+
+    box-shadow: none;
 }
 
 .servico-linha button:hover {
-    background: #f0ca4d;
+    background: #d4af37;
+
+    color: #111111;
+
+    box-shadow: 0 5px 18px rgba(212, 175, 55, 0.12);
 }
 
 
-/* BOTÃO ADICIONAR */
+/* =====================================================
+   ADICIONAR SERVIÇO
+===================================================== */
 
 .botao-adicionar {
     margin-top: 15px;
+
+    background: transparent;
+
+    color: #d4af37;
+
+    border: 1px solid #d4af37;
+
+    border-radius: 12px;
+
+    box-shadow: none;
+}
+
+.botao-adicionar:hover {
+    background: rgba(212, 175, 55, 0.08);
+
+    box-shadow: none;
 }
 
 
-/* MENSAGEM */
+/* =====================================================
+   SALVAR ALTERAÇÕES
+===================================================== */
+
+.config-box > button:not(.botao-adicionar) {
+    min-height: 48px;
+
+    padding: 0 25px;
+
+    border-radius: 14px;
+
+    background: #d4af37;
+
+    color: #111111;
+
+    font-size: 13px;
+
+    letter-spacing: 0.3px;
+
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.08);
+}
+
+.config-box > button:not(.botao-adicionar):hover {
+    background: #e5c04b;
+
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15);
+}
 
 #mensagemSalvo {
     margin-top: 15px;
+
     color: #d4af37;
+
+    font-size: 13px;
 }
 
 
-/* ============================= */
-/* TABELA DE AGENDAMENTOS */
-/* ============================= */
+/* =====================================================
+   TABELA DE AGENDAMENTOS
+===================================================== */
 
 .tabela {
     width: 100%;
+
     overflow-x: auto;
 }
 
@@ -226,51 +491,74 @@
 }
 
 .tabela-cabecalho {
-    background: #222;
+    background: #202022;
+
     color: #d4af37;
-    font-weight: bold;
+
+    border-radius: 10px 10px 0 0;
+
+    font-size: 13px;
 }
 
 .agendamento {
-    border-top: 1px solid #303030;
-    color: #ddd;
+    border-top: 1px solid #29292b;
+
+    color: #d2d2d5;
+
+    font-size: 13px;
 }
 
 
-/* ============================= */
-/* CAIXA */
-/* ============================= */
+/* =====================================================
+   FINANCEIRO
+===================================================== */
 
 .caixa-cards {
     display: grid;
+
     grid-template-columns: repeat(3, 1fr);
+
     gap: 15px;
-    margin-bottom: 30px;
+
+    margin-bottom: 25px;
 }
 
 .caixa-card {
-    background: #111;
-    border: 1px solid #303030;
-    border-radius: 10px;
+    background: #171718;
+
+    border: 1px solid #29292b;
+
+    border-radius: 18px;
+
     padding: 25px;
-    text-align: center;
+
+    text-align: left;
 }
 
 .caixa-card h3 {
-    color: #aaa;
-    margin-bottom: 10px;
+    margin: 0 0 12px;
+
+    color: #99999e;
+
+    font-size: 13px;
+
+    font-weight: normal;
 }
 
 .caixa-card strong {
-    font-size: 25px;
+    font-size: 26px;
+
     color: #d4af37;
 }
 
 .fechamento,
 .relatorio-box {
-    background: #111;
-    border: 1px solid #303030;
-    border-radius: 10px;
+    background: #171718;
+
+    border: 1px solid #29292b;
+
+    border-radius: 18px;
+
     padding: 25px;
 }
 
@@ -280,19 +568,26 @@
 }
 
 
-/* ============================= */
-/* RELATÓRIO */
-/* ============================= */
+/* =====================================================
+   RELATÓRIO
+===================================================== */
 
 .resumo-relatorio {
     margin-top: 25px;
+
     padding: 20px;
-    background: #181818;
-    border-radius: 8px;
+
+    background: #101011;
+
+    border: 1px solid #29292b;
+
+    border-radius: 14px;
 }
 
 .resumo-relatorio p {
-    margin-bottom: 12px;
+    margin-bottom: 14px;
+
+    color: #aaaab0;
 }
 
 .resumo-relatorio strong {
@@ -300,51 +595,122 @@
 }
 
 
-/* ============================= */
-/* BOTÃO SAIR */
-/* ============================= */
+/* =====================================================
+   SAIR
+===================================================== */
 
 .sair {
     margin-top: 25px;
-    background: #8b2222;
-    color: white;
+
+    background: transparent;
+
+    color: #aaaab0;
+
+    border: 1px solid #3a3a3d;
+
+    border-radius: 12px;
 }
 
 .sair:hover {
-    background: #b52d2d;
+    background: #1b1b1d;
+
+    color: #ffffff;
+
+    border-color: #55555a;
+
+    box-shadow: none;
 }
 
 
-/* ============================= */
-/* CELULAR */
-/* ============================= */
+/* =====================================================
+   MENSAGEM DE ERRO
+===================================================== */
 
-@media (max-width: 700px) {
+#erroLogin {
+    color: #e05b5b;
+
+    margin-top: 15px;
+
+    text-align: center;
+
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   RODAPÉ
+===================================================== */
+
+footer {
+    margin-top: 60px;
+
+    padding: 25px;
+
+    text-align: center;
+
+    color: #66666b;
+
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   CELULAR
+===================================================== */
+
+@media (max-width: 800px) {
+
+    header {
+        padding: 0 20px;
+    }
+
+    .admin-container {
+        margin-top: 25px;
+    }
 
     .admin-menu {
         grid-template-columns: 1fr 1fr;
     }
 
-
-    /* No celular não precisamos do cabeçalho */
-
     .servicos-cabecalho {
         display: none;
     }
-
 
     .servico-linha {
         grid-template-columns: 1fr;
     }
 
+    .servico-linha button {
+        width: 100%;
+    }
 
     .caixa-cards {
         grid-template-columns: 1fr;
     }
 
-
     .admin-aba {
         padding: 20px;
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .logo {
+        font-size: 17px;
+    }
+
+    .adm-title {
+        font-size: 11px;
+    }
+
+    .admin-menu {
+        grid-template-columns: 1fr;
+    }
+
+    .login-box {
+        padding: 25px;
     }
 
 }
