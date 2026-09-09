@@ -108,16 +108,67 @@
             </div>
 
 
-            <div class="config-box">
+           <div class="config-box">
 
-                <h3>Serviços</h3>
+    <h3>Serviços</h3>
 
-                <div class="servico-linha">
-                    <input type="text" value="Corte de Cabelo">
-                    <input type="number" value="25" placeholder="Preço">
-                    <input type="number" value="30" placeholder="Minutos">
-                    <button>Excluir</button>
-                </div>
+    <div id="listaServicos">
+
+        <div class="servico-linha">
+            <input type="text" value="Corte de Cabelo" disabled>
+            <input type="number" value="25" disabled>
+            <input type="number" value="30" disabled>
+            <button onclick="editarServico(this)">Editar</button>
+            <button onclick="excluirServico(this)">Excluir</button>
+        </div>
+
+        <div class="servico-linha">
+            <input type="text" value="Barba" disabled>
+            <input type="number" value="20" disabled>
+            <input type="number" value="20" disabled>
+            <button onclick="editarServico(this)">Editar</button>
+            <button onclick="excluirServico(this)">Excluir</button>
+        </div>
+
+        <div class="servico-linha">
+            <input type="text" value="Sobrancelha" disabled>
+            <input type="number" value="10" disabled>
+            <input type="number" value="10" disabled>
+            <button onclick="editarServico(this)">Editar</button>
+            <button onclick="excluirServico(this)">Excluir</button>
+        </div>
+
+        <div class="servico-linha">
+            <input type="text" value="Corte + Barba" disabled>
+            <input type="number" value="40" disabled>
+            <input type="number" value="50" disabled>
+            <button onclick="editarServico(this)">Editar</button>
+            <button onclick="excluirServico(this)">Excluir</button>
+        </div>
+
+        <div class="servico-linha">
+            <input type="text" value="Corte + Barba + Sobrancelha" disabled>
+            <input type="number" value="50" disabled>
+            <input type="number" value="60" disabled>
+            <button onclick="editarServico(this)">Editar</button>
+            <button onclick="excluirServico(this)">Excluir</button>
+        </div>
+
+    </div>
+
+    <button class="botao-adicionar" onclick="adicionarServico()">
+        + ADICIONAR SERVIÇO
+    </button>
+
+    <br><br>
+
+    <button onclick="salvarServicos()">
+        SALVAR ALTERAÇÕES
+    </button>
+
+    <p id="mensagemSalvo"></p>
+
+</div>
 
                 <div class="servico-linha">
                     <input type="text" value="Barba">
