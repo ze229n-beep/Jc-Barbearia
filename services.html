@@ -1,36 +1,27 @@
 <!DOCTYPE html>
-
 <html lang="pt-BR">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Agendamento - JC Barbearia</title>
 
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Agendamento - JC Barbearia</title>
-
-<link rel="stylesheet" href="estilo.css">
-
-
+    <link rel="stylesheet" href="estilo.css">
 </head>
 
 <body>
 
 <header>
 
-<div class="logo">
-    JC <span>BARBEARIA</span>
-</div>
+    <div class="logo">
+        JC <span>BARBEARIA</span>
+    </div>
 
-<nav>
-
-    <a href="index.html">Início</a>
-
-    <a href="services.html">Agendamento</a>
-
-</nav>
+    <nav>
+        <a href="index.html">Início</a>
+        <a href="services.html">Agendamento</a>
+    </nav>
 
 </header>
 
@@ -38,305 +29,281 @@
 
 <section class="booking">
 
-<p class="subtitle">
-    JC BARBEARIA
-</p>
-
-<h1>
-    Agende seu horário
-</h1>
-
-<p class="booking-description">
-    Escolha o serviço, o dia e o horário.
-</p>
-
-
-
-<!-- =====================================
-     SERVIÇO
-====================================== -->
-
-<div class="booking-card">
-
-    <h2>
-        ✂️ 1. Escolha seu serviço
-    </h2>
-
-    <div
-        class="service-options"
-        id="serviceOptions">
-
-        <p>
-            Carregando serviços...
-        </p>
-
-    </div>
-
-</div>
-
-
-
-<!-- =====================================
-     DIA
-====================================== -->
-
-<div class="booking-card">
-
-    <h2>
-        📅 2. Escolha o dia
-    </h2>
-
-    <p class="small-text">
-        Toque no dia que deseja agendar.
-    </p>
-
-    <div
-        id="days"
-        class="days">
-    </div>
-
-</div>
-
-
-
-<!-- =====================================
-     HORÁRIO
-====================================== -->
-
-<div class="booking-card">
-
-    <h2>
-        🕐 3. Escolha o horário
-    </h2>
-
-    <p class="small-text">
-        Primeiro escolha um serviço e um dia.
-    </p>
-
-    <div
-        id="times"
-        class="times">
-
-        <p class="time-message">
-            Primeiro escolha um serviço e um dia.
-        </p>
-
-    </div>
-
-</div>
-
-
-
-<!-- =====================================
-     DADOS
-====================================== -->
-
-<div class="booking-card">
-
-    <h2>
-        4. Seus dados
-    </h2>
-
-    <label for="name">
-        Seu nome
-    </label>
-
-    <input
-        type="text"
-        id="name"
-        placeholder="Digite seu nome"
-    >
-
-
-    <label for="phone">
-        Seu WhatsApp
-    </label>
-
-    <input
-        type="tel"
-        id="phone"
-        placeholder="(99) 99999-9999"
-    >
-
-</div>
-
-
-
-<!-- =====================================
-     RESUMO
-====================================== -->
-
-<div class="summary">
-
-    <h2>
-        Resumo do agendamento
-    </h2>
-
-    <div class="summary-line">
-
-        <span>
-            Serviço
-        </span>
-
-        <strong id="summaryService">
-            —
-        </strong>
-
-    </div>
-
-
-    <div class="summary-line">
-
-        <span>
-            Dia
-        </span>
-
-        <strong id="summaryDate">
-            —
-        </strong>
-
-    </div>
-
-
-    <div class="summary-line">
-
-        <span>
-            Horário
-        </span>
-
-        <strong id="summaryTime">
-            —
-        </strong>
-
-    </div>
-
-
-    <div class="summary-line">
-
-        <span>
-            Valor
-        </span>
-
-        <strong id="summaryPrice">
-            —
-        </strong>
-
-    </div>
-
-</div>
-
-
-
-<!-- =====================================
-     CONFIRMAR
-====================================== -->
-
-<button
-    type="button"
-    class="confirm-button"
-    id="confirmButton">
-
-    Confirmar agendamento
-
-</button>
-
-
-
-<!-- =====================================
-     COMPROVANTE
-====================================== -->
-
-<div
-    id="receipt"
-    class="receipt"
-    style="display:none;">
-
-    <div class="receipt-check">
-        ✓
-    </div>
-
-    <h2>
-        Agendamento confirmado!
-    </h2>
-
-    <p class="receipt-title">
+    <p class="subtitle">
         JC BARBEARIA
     </p>
 
+    <h1>
+        Agende seu horário
+    </h1>
 
-    <div class="receipt-info">
+    <p class="booking-description">
+        Escolha o serviço, o dia e o horário.
+    </p>
 
-        <p>
-            <span>Cliente</span>
-            <strong id="receiptName"></strong>
-        </p>
 
-        <p>
-            <span>WhatsApp</span>
-            <strong id="receiptPhone"></strong>
-        </p>
+    <!-- SERVIÇO -->
 
-        <p>
-            <span>Serviço</span>
-            <strong id="receiptService"></strong>
-        </p>
+    <div class="booking-card">
 
-        <p>
-            <span>Dia</span>
-            <strong id="receiptDate"></strong>
-        </p>
+        <h2>
+            ✂️ 1. Escolha seu serviço
+        </h2>
 
-        <p>
-            <span>Horário</span>
-            <strong id="receiptTime"></strong>
-        </p>
+        <div
+            class="service-options"
+            id="serviceOptions">
 
-        <p>
-            <span>Valor</span>
-            <strong id="receiptPrice"></strong>
-        </p>
+            <p>
+                Carregando serviços...
+            </p>
+
+        </div>
 
     </div>
 
 
-    <p class="receipt-message">
-        Seu horário foi reservado com sucesso.
-    </p>
+    <!-- DIA -->
+
+    <div class="booking-card">
+
+        <h2>
+            📅 2. Escolha o dia
+        </h2>
+
+        <p class="small-text">
+            Toque no dia que deseja agendar.
+        </p>
+
+        <div
+            id="days"
+            class="days">
+        </div>
+
+    </div>
 
 
-    <a
-        id="whatsappButton"
-        class="whatsapp-button"
-        target="_blank">
+    <!-- HORÁRIO -->
 
-        Enviar agendamento para o WhatsApp
+    <div class="booking-card">
 
-    </a>
+        <h2>
+            🕐 3. Escolha o horário
+        </h2>
 
-</div>
+        <p class="small-text">
+            Primeiro escolha um serviço e um dia.
+        </p>
 
+        <div
+            id="times"
+            class="times">
+
+            <p class="time-message">
+                Primeiro escolha um serviço e um dia.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- DADOS -->
+
+    <div class="booking-card">
+
+        <h2>
+            4. Seus dados
+        </h2>
+
+        <label for="name">
+            Seu nome
+        </label>
+
+        <input
+            type="text"
+            id="name"
+            placeholder="Digite seu nome"
+        >
+
+
+        <label for="phone">
+            Seu WhatsApp
+        </label>
+
+        <input
+            type="tel"
+            id="phone"
+            placeholder="(99) 99999-9999"
+        >
+
+    </div>
+
+
+    <!-- RESUMO -->
+
+    <div class="summary">
+
+        <h2>
+            Resumo do agendamento
+        </h2>
+
+        <div class="summary-line">
+
+            <span>
+                Serviço
+            </span>
+
+            <strong id="summaryService">
+                —
+            </strong>
+
+        </div>
+
+
+        <div class="summary-line">
+
+            <span>
+                Dia
+            </span>
+
+            <strong id="summaryDate">
+                —
+            </strong>
+
+        </div>
+
+
+        <div class="summary-line">
+
+            <span>
+                Horário
+            </span>
+
+            <strong id="summaryTime">
+                —
+            </strong>
+
+        </div>
+
+
+        <div class="summary-line">
+
+            <span>
+                Valor
+            </span>
+
+            <strong id="summaryPrice">
+                —
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <!-- CONFIRMAR -->
+
+    <button
+        type="button"
+        class="confirm-button"
+        id="confirmButton">
+
+        Confirmar agendamento
+
+    </button>
+
+
+    <!-- COMPROVANTE -->
+
+    <div
+        id="receipt"
+        class="receipt"
+        style="display:none;">
+
+        <div class="receipt-check">
+            ✓
+        </div>
+
+        <h2>
+            Agendamento confirmado!
+        </h2>
+
+        <p class="receipt-title">
+            JC BARBEARIA
+        </p>
+
+
+        <div class="receipt-info">
+
+            <p>
+                <span>Cliente</span>
+                <strong id="receiptName"></strong>
+            </p>
+
+            <p>
+                <span>WhatsApp</span>
+                <strong id="receiptPhone"></strong>
+            </p>
+
+            <p>
+                <span>Serviço</span>
+                <strong id="receiptService"></strong>
+            </p>
+
+            <p>
+                <span>Dia</span>
+                <strong id="receiptDate"></strong>
+            </p>
+
+            <p>
+                <span>Horário</span>
+                <strong id="receiptTime"></strong>
+            </p>
+
+            <p>
+                <span>Valor</span>
+                <strong id="receiptPrice"></strong>
+            </p>
+
+        </div>
+
+
+        <p class="receipt-message">
+            Seu horário foi reservado com sucesso.
+        </p>
+
+
+        <a
+            id="whatsappButton"
+            class="whatsapp-button"
+            target="_blank">
+
+            Enviar agendamento para o WhatsApp
+
+        </a>
+
+    </div>
 
 </section>
 
 </main>
 
+
 <footer>
 
+    <p>
+        © 2026 JC Barbearia
+    </p>
 
-<p>
-    © 2026 JC Barbearia
-</p>
-
-<p>
-    Seu estilo, nossa missão.
-</p>
-
+    <p>
+        Seu estilo, nossa missão.
+    </p>
 
 </footer>
 
-<!-- =====================================
-     SUPABASE
-====================================== -->
+
+<!-- SUPABASE -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -352,13 +319,11 @@ const db = window.supabase.createClient(
 );
 
 
-
 /* =========================================
    CONFIGURAÇÕES
 ========================================= */
 
 const ADMIN_WHATSAPP = "559984863723";
-
 
 const HORARIOS = [
 
@@ -390,7 +355,6 @@ const HORARIOS = [
 ];
 
 
-
 /* =========================================
    VARIÁVEIS
 ========================================= */
@@ -401,7 +365,6 @@ let selectedPrice = 0;
 let selectedDuration = 0;
 let selectedDate = "";
 let selectedTime = "";
-
 
 
 /* =========================================
@@ -418,7 +381,6 @@ const timesContainer =
     document.getElementById("times");
 
 
-
 /* =========================================
    CARREGAR SERVIÇOS
 ========================================= */
@@ -428,8 +390,9 @@ async function loadServices() {
     serviceOptions.innerHTML =
         "<p>Carregando serviços...</p>";
 
-    console.log("Iniciando carregamento dos serviços...");
-
+    console.log(
+        "Iniciando carregamento dos serviços..."
+    );
 
     try {
 
@@ -440,8 +403,15 @@ async function loadServices() {
             .order("id");
 
 
-        console.log("Serviços recebidos:", data);
-        console.log("Erro Supabase:", error);
+        console.log(
+            "Serviços recebidos:",
+            data
+        );
+
+        console.log(
+            "Erro Supabase:",
+            error
+        );
 
 
         if (error) {
@@ -486,7 +456,8 @@ async function loadServices() {
 
             button.type = "button";
 
-            button.className = "service-option";
+            button.className =
+                "service-option";
 
 
             button.dataset.service =
@@ -522,7 +493,9 @@ async function loadServices() {
                 function() {
 
                     document
-                        .querySelectorAll(".service-option")
+                        .querySelectorAll(
+                            ".service-option"
+                        )
                         .forEach(function(item) {
 
                             item.classList.remove(
@@ -588,7 +561,6 @@ async function loadServices() {
 
     }
 
-
     catch (erro) {
 
         console.error(
@@ -601,7 +573,8 @@ async function loadServices() {
 
             <p>
 
-                Não foi possível conectar ao banco de dados.
+                Não foi possível conectar
+                ao banco de dados.
 
                 <br><br>
 
@@ -614,7 +587,6 @@ async function loadServices() {
     }
 
 }
-
 
 
 /* =========================================
@@ -701,7 +673,8 @@ function createDays() {
 
         button.type = "button";
 
-        button.className = "day-button";
+        button.className =
+            "day-button";
 
 
         if (i === 0) {
@@ -743,9 +716,10 @@ function createDays() {
             "click",
             function() {
 
-
                 document
-                    .querySelectorAll(".day-button")
+                    .querySelectorAll(
+                        ".day-button"
+                    )
                     .forEach(function(item) {
 
                         item.classList.remove(
@@ -770,7 +744,9 @@ function createDays() {
                 document.getElementById(
                     "summaryDate"
                 ).textContent =
-                    formatDate(selectedDate);
+                    formatDate(
+                        selectedDate
+                    );
 
 
                 document.getElementById(
@@ -792,7 +768,6 @@ function createDays() {
     }
 
 }
-
 
 
 /* =========================================
@@ -839,25 +814,29 @@ function showTimes() {
     HORARIOS.forEach(
         function(horario) {
 
-
             const button =
-                document.createElement("button");
+                document.createElement(
+                    "button"
+                );
 
 
             button.type = "button";
 
-            button.className = "time-button";
+            button.className =
+                "time-button";
 
-            button.textContent = horario;
+            button.textContent =
+                horario;
 
 
             button.addEventListener(
                 "click",
                 function() {
 
-
                     document
-                        .querySelectorAll(".time-button")
+                        .querySelectorAll(
+                            ".time-button"
+                        )
                         .forEach(function(item) {
 
                             item.classList.remove(
@@ -895,7 +874,6 @@ function showTimes() {
 }
 
 
-
 /* =========================================
    FORMATAR DATA
 ========================================= */
@@ -926,13 +904,11 @@ function formatDate(data) {
 }
 
 
-
 /* =========================================
    CONFIRMAR AGENDAMENTO
 ========================================= */
 
 async function confirmBooking() {
-
 
     const name =
         document
@@ -1003,10 +979,7 @@ async function confirmBooking() {
     }
 
 
-
-    /* =================================
-       SALVAR NO SUPABASE
-    ================================= */
+    /* SALVAR NO SUPABASE */
 
     const { error } = await db
         .from("appointments")
@@ -1047,15 +1020,11 @@ async function confirmBooking() {
     }
 
 
-
     const formattedDate =
         formatDate(selectedDate);
 
 
-
-    /* =================================
-       COMPROVANTE
-    ================================= */
+    /* COMPROVANTE */
 
     document.getElementById(
         "receiptName"
@@ -1098,10 +1067,7 @@ async function confirmBooking() {
             .replace(".", ",");
 
 
-
-    /* =================================
-       WHATSAPP DO ADM
-    ================================= */
+    /* WHATSAPP DO ADM */
 
     const message =
 
@@ -1157,7 +1123,6 @@ async function confirmBooking() {
         whatsappURL;
 
 
-
     document.getElementById(
         "receipt"
     ).style.display =
@@ -1175,7 +1140,6 @@ async function confirmBooking() {
 }
 
 
-
 /* =========================================
    BOTÃO CONFIRMAR
 ========================================= */
@@ -1186,7 +1150,6 @@ document
         "click",
         confirmBooking
     );
-
 
 
 /* =========================================
