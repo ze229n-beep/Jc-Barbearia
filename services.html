@@ -1,16 +1,23 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>Agendamento - JC Barbearia</title>
 
     <link rel="stylesheet" href="estilo.css">
+
 </head>
 
+
 <body>
+
 
 <header>
 
@@ -19,52 +26,82 @@
     </div>
 
     <nav>
-        <a href="index.html">Início</a>
-        <a href="services.html">Agendamento</a>
+
+        <a href="index.html">
+            Início
+        </a>
+
+        <a href="services.html">
+            Agendamento
+        </a>
+
     </nav>
 
 </header>
+
 
 
 <main>
 
 <section class="booking">
 
-    <p class="subtitle">JC BARBEARIA</p>
 
-    <h1>Agende seu horário</h1>
+    <p class="subtitle">
+        JC BARBEARIA
+    </p>
+
+
+    <h1>
+        Agende seu horário
+    </h1>
+
 
     <p class="booking-description">
         Escolha o serviço, o dia e o horário.
     </p>
 
 
-    <!-- SERVIÇO -->
+
+    <!-- =====================================
+         SERVIÇO
+    ====================================== -->
 
     <div class="booking-card">
 
-        <h2>✂️ 1. Escolha seu serviço</h2>
+        <h2>
+            ✂️ 1. Escolha seu serviço
+        </h2>
+
 
         <div
             class="service-options"
             id="serviceOptions">
 
-            <p>Carregando serviços...</p>
+            <p>
+                Carregando serviços...
+            </p>
 
         </div>
 
     </div>
 
 
-    <!-- DIA -->
+
+    <!-- =====================================
+         DIA
+    ====================================== -->
 
     <div class="booking-card">
 
-        <h2>📅 2. Escolha o dia</h2>
+        <h2>
+            📅 2. Escolha o dia
+        </h2>
+
 
         <p class="small-text">
             Toque no dia que deseja agendar.
         </p>
+
 
         <div
             id="days"
@@ -74,15 +111,22 @@
     </div>
 
 
-    <!-- HORÁRIO -->
+
+    <!-- =====================================
+         HORÁRIO
+    ====================================== -->
 
     <div class="booking-card">
 
-        <h2>🕐 3. Escolha o horário</h2>
+        <h2>
+            🕐 3. Escolha o horário
+        </h2>
+
 
         <p class="small-text">
             Primeiro escolha um dia.
         </p>
+
 
         <div
             id="times"
@@ -97,15 +141,22 @@
     </div>
 
 
-    <!-- DADOS -->
+
+    <!-- =====================================
+         DADOS
+    ====================================== -->
 
     <div class="booking-card">
 
-        <h2>4. Seus dados</h2>
+        <h2>
+            4. Seus dados
+        </h2>
+
 
         <label for="name">
             Seu nome
         </label>
+
 
         <input
             type="text"
@@ -114,9 +165,11 @@
         >
 
 
+
         <label for="phone">
             Seu WhatsApp
         </label>
+
 
         <input
             type="tel"
@@ -127,15 +180,24 @@
     </div>
 
 
-    <!-- RESUMO -->
+
+    <!-- =====================================
+         RESUMO
+    ====================================== -->
 
     <div class="summary">
 
-        <h2>Resumo do agendamento</h2>
+        <h2>
+            Resumo do agendamento
+        </h2>
+
 
         <div class="summary-line">
 
-            <span>Serviço</span>
+            <span>
+                Serviço
+            </span>
+
 
             <strong id="summaryService">
                 —
@@ -144,9 +206,13 @@
         </div>
 
 
+
         <div class="summary-line">
 
-            <span>Dia</span>
+            <span>
+                Dia
+            </span>
+
 
             <strong id="summaryDate">
                 —
@@ -155,9 +221,13 @@
         </div>
 
 
+
         <div class="summary-line">
 
-            <span>Horário</span>
+            <span>
+                Horário
+            </span>
+
 
             <strong id="summaryTime">
                 —
@@ -166,9 +236,13 @@
         </div>
 
 
+
         <div class="summary-line">
 
-            <span>Valor</span>
+            <span>
+                Valor
+            </span>
+
 
             <strong id="summaryPrice">
                 —
@@ -179,7 +253,10 @@
     </div>
 
 
-    <!-- CONFIRMAR -->
+
+    <!-- =====================================
+         CONFIRMAR
+    ====================================== -->
 
     <button
         type="button"
@@ -191,64 +268,117 @@
     </button>
 
 
-    <!-- COMPROVANTE -->
+
+    <!-- =====================================
+         COMPROVANTE
+    ====================================== -->
 
     <div
         id="receipt"
         class="receipt"
         style="display:none;">
 
+
         <div class="receipt-check">
             ✓
         </div>
 
+
         <h2>
             Agendamento confirmado!
         </h2>
+
 
         <p class="receipt-title">
             JC BARBEARIA
         </p>
 
 
+
         <div class="receipt-info">
 
+
             <p>
-                <span>Cliente</span>
+
+                <span>
+                    Cliente
+                </span>
+
                 <strong id="receiptName"></strong>
+
             </p>
 
+
+
             <p>
-                <span>WhatsApp</span>
+
+                <span>
+                    WhatsApp
+                </span>
+
                 <strong id="receiptPhone"></strong>
+
             </p>
 
+
+
             <p>
-                <span>Serviço</span>
+
+                <span>
+                    Serviço
+                </span>
+
                 <strong id="receiptService"></strong>
+
             </p>
 
+
+
             <p>
-                <span>Dia</span>
+
+                <span>
+                    Dia
+                </span>
+
                 <strong id="receiptDate"></strong>
+
             </p>
 
+
+
             <p>
-                <span>Horário</span>
+
+                <span>
+                    Horário
+                </span>
+
                 <strong id="receiptTime"></strong>
+
             </p>
 
+
+
             <p>
-                <span>Valor</span>
+
+                <span>
+                    Valor
+                </span>
+
                 <strong id="receiptPrice"></strong>
+
             </p>
+
 
         </div>
 
 
+
         <p class="receipt-message">
+
             Seu horário foi reservado com sucesso.
+
         </p>
+
 
 
         <a
@@ -260,11 +390,14 @@
 
         </a>
 
+
     </div>
+
 
 </section>
 
 </main>
+
 
 
 <footer>
@@ -273,6 +406,7 @@
         © 2026 JC Barbearia
     </p>
 
+
     <p>
         Seu estilo, nossa missão.
     </p>
@@ -280,13 +414,15 @@
 </footer>
 
 
-<!-- =========================================
+
+<!-- =====================================
      SUPABASE
-========================================= -->
+====================================== -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script src="config.js"></script>
+
 
 
 <script>
@@ -306,18 +442,21 @@ const HORARIOS = [
     "09:30",
     "10:00",
     "10:30",
+
     "11:00",
     "11:30",
     "12:00",
     "12:30",
     "13:00",
     "13:30",
+
     "14:00",
     "14:30",
     "15:00",
     "15:30",
     "16:00",
     "16:30",
+
     "17:00",
     "17:30",
     "18:00"
@@ -325,15 +464,21 @@ const HORARIOS = [
 ];
 
 
+
 /* =========================================
    VARIÁVEIS
 ========================================= */
 
 let selectedService = "";
+
 let selectedPrice = "";
+
 let selectedDuration = "";
+
 let selectedDate = "";
+
 let selectedTime = "";
+
 
 
 /* =========================================
@@ -341,166 +486,309 @@ let selectedTime = "";
 ========================================= */
 
 const serviceOptions =
-    document.getElementById("serviceOptions");
+    document.getElementById(
+        "serviceOptions"
+    );
+
 
 const daysContainer =
-    document.getElementById("days");
+    document.getElementById(
+        "days"
+    );
+
 
 const timesContainer =
-    document.getElementById("times");
+    document.getElementById(
+        "times"
+    );
+
 
 
 /* =========================================
-   CARREGAR SERVIÇOS DO SUPABASE
+   CARREGAR SERVIÇOS
 ========================================= */
 
 async function loadServices() {
 
+
     serviceOptions.innerHTML =
+
         "<p>Carregando serviços...</p>";
 
-    const { data, error } =
-        await supabase
-            .from("services")
-            .select("*")
-            .eq("active", true)
-            .order("id");
 
 
-    if (error) {
+    /* Verifica se o Supabase foi carregado */
+
+    if (
+        typeof supabase === "undefined"
+    ) {
+
+        serviceOptions.innerHTML =
+
+            "<p>Erro: Supabase não foi carregado.</p>";
 
         console.error(
-            "Erro ao carregar serviços:",
-            error
+            "Supabase não encontrado."
         );
 
-        serviceOptions.innerHTML =
-            "<p>Não foi possível carregar os serviços.</p>";
-
         return;
+
     }
 
 
-    serviceOptions.innerHTML = "";
+
+    try {
 
 
-    if (!data || data.length === 0) {
-
-        serviceOptions.innerHTML =
-            "<p>Nenhum serviço disponível.</p>";
-
-        return;
-    }
-
-
-    data.forEach(function(service) {
-
-        const button =
-            document.createElement("button");
+        const result =
+            await supabase
+                .from("services")
+                .select("*")
+                .eq("active", true)
+                .order("id");
 
 
-        button.type =
-            "button";
+        const data =
+            result.data;
 
 
-        button.className =
-            "service-option";
+        const error =
+            result.error;
 
 
-        button.dataset.service =
-            service.name;
+
+        /* =================================
+           ERRO
+        ================================= */
+
+        if (error) {
+
+            console.error(
+                "Erro Supabase:",
+                error
+            );
 
 
-        button.dataset.price =
-            service.price;
+            serviceOptions.innerHTML = `
+
+                <p>
+                    Erro ao carregar serviços.
+                </p>
+
+            `;
+
+            return;
+
+        }
 
 
-        button.dataset.duration =
-            service.duration;
+
+        /* =================================
+           NENHUM SERVIÇO
+        ================================= */
+
+        if (
+            !data ||
+            data.length === 0
+        ) {
+
+            serviceOptions.innerHTML = `
+
+                <p>
+                    Nenhum serviço disponível.
+                </p>
+
+            `;
+
+            return;
+
+        }
 
 
-        button.innerHTML = `
 
-            <span class="service-name">
-                ${service.name}
-            </span>
+        /* =================================
+           LIMPA "CARREGANDO"
+        ================================= */
 
-            <span class="service-price">
-                R$ ${Number(service.price)
-                    .toFixed(2)
-                    .replace(".", ",")}
-            </span>
-
-        `;
+        serviceOptions.innerHTML = "";
 
 
-        button.addEventListener(
-            "click",
-            function() {
+
+        /* =================================
+           CRIA OS SERVIÇOS
+        ================================= */
+
+        data.forEach(
+            function(service) {
 
 
-                document
-                    .querySelectorAll(".service-option")
-                    .forEach(function(item) {
-
-                        item.classList.remove(
-                            "selected"
-                        );
-
-                    });
+                const button =
+                    document.createElement(
+                        "button"
+                    );
 
 
-                button.classList.add(
-                    "selected"
-                );
+                button.type =
+                    "button";
 
 
-                selectedService =
+                button.className =
+                    "service-option";
+
+
+
+                button.dataset.service =
                     service.name;
 
 
-                selectedPrice =
+                button.dataset.price =
                     service.price;
 
 
-                selectedDuration =
+                button.dataset.duration =
                     service.duration;
 
 
-                document.getElementById(
-                    "summaryService"
-                ).textContent =
-                    selectedService;
+
+                button.innerHTML = `
+
+                    <span class="service-name">
+
+                        ${service.name}
+
+                    </span>
 
 
-                document.getElementById(
-                    "summaryPrice"
-                ).textContent =
+                    <span class="service-price">
 
-                    "R$ " +
-
-                    Number(selectedPrice)
+                        R$ ${Number(
+                            service.price
+                        )
                         .toFixed(2)
-                        .replace(".", ",");
+                        .replace(
+                            ".",
+                            ","
+                        )}
+
+                    </span>
+
+                `;
 
 
-                if (selectedDate) {
 
-                    showTimes();
+                /* =========================
+                   CLIQUE NO SERVIÇO
+                ========================== */
 
-                }
+                button.addEventListener(
+                    "click",
+                    function() {
+
+
+                        document
+                            .querySelectorAll(
+                                ".service-option"
+                            )
+                            .forEach(
+                                function(item) {
+
+                                    item.classList.remove(
+                                        "selected"
+                                    );
+
+                                }
+                            );
+
+
+
+                        button.classList.add(
+                            "selected"
+                        );
+
+
+
+                        selectedService =
+                            service.name;
+
+
+                        selectedPrice =
+                            service.price;
+
+
+                        selectedDuration =
+                            service.duration;
+
+
+
+                        document.getElementById(
+                            "summaryService"
+                        ).textContent =
+                            selectedService;
+
+
+
+                        document.getElementById(
+                            "summaryPrice"
+                        ).textContent =
+
+                            "R$ " +
+
+                            Number(
+                                selectedPrice
+                            )
+                            .toFixed(2)
+                            .replace(
+                                ".",
+                                ","
+                            );
+
+
+
+                        if (
+                            selectedDate
+                        ) {
+
+                            showTimes();
+
+                        }
+
+                    }
+                );
+
+
+
+                serviceOptions.appendChild(
+                    button
+                );
+
 
             }
         );
 
 
-        serviceOptions.appendChild(
-            button
+    }
+
+    catch (erro) {
+
+
+        console.error(
+            "Erro inesperado:",
+            erro
         );
 
-    });
+
+        serviceOptions.innerHTML = `
+
+            <p>
+                Não foi possível conectar ao banco de dados.
+            </p>
+
+        `;
+
+    }
 
 }
+
 
 
 /* =========================================
@@ -509,11 +797,17 @@ async function loadServices() {
 
 function createDays() {
 
+
     daysContainer.innerHTML = "";
 
-    const hoje = new Date();
+
+    const hoje =
+        new Date();
+
+
 
     const nomesDias = [
+
         "Dom",
         "Seg",
         "Ter",
@@ -521,9 +815,13 @@ function createDays() {
         "Qui",
         "Sex",
         "Sáb"
+
     ];
 
+
+
     const nomesMeses = [
+
         "Jan",
         "Fev",
         "Mar",
@@ -536,7 +834,10 @@ function createDays() {
         "Out",
         "Nov",
         "Dez"
+
     ];
+
+
 
     for (
         let i = 0;
@@ -544,85 +845,143 @@ function createDays() {
         i++
     ) {
 
+
         const data =
-            new Date(hoje);
+            new Date(
+                hoje
+            );
+
 
         data.setDate(
             hoje.getDate() + i
         );
 
+
+
         const ano =
             data.getFullYear();
+
+
 
         const mes =
             String(
                 data.getMonth() + 1
-            ).padStart(2, "0");
+            )
+            .padStart(
+                2,
+                "0"
+            );
+
+
 
         const dia =
             String(
                 data.getDate()
-            ).padStart(2, "0");
+            )
+            .padStart(
+                2,
+                "0"
+            );
+
+
 
         const dataCompleta =
-            ano + "-" +
-            mes + "-" +
+
+            ano +
+            "-" +
+            mes +
+            "-" +
             dia;
 
+
+
         const button =
-            document.createElement("button");
+            document.createElement(
+                "button"
+            );
+
 
         button.type =
             "button";
 
+
         button.className =
             "day-button";
 
-        if (i === 0) {
+
+
+        if (
+            i === 0
+        ) {
+
 
             button.innerHTML =
+
                 '<span class="day-name">Hoje</span>' +
+
                 '<span class="day-number">' +
                 dia +
                 '</span>' +
+
                 '<span class="day-month">' +
-                nomesMeses[data.getMonth()] +
+                nomesMeses[
+                    data.getMonth()
+                ] +
                 '</span>';
 
-        } else {
+
+        }
+
+        else {
+
 
             button.innerHTML =
+
                 '<span class="day-name">' +
-                nomesDias[data.getDay()] +
+                nomesDias[
+                    data.getDay()
+                ] +
                 '</span>' +
+
                 '<span class="day-number">' +
                 dia +
                 '</span>' +
+
                 '<span class="day-month">' +
-                nomesMeses[data.getMonth()] +
+                nomesMeses[
+                    data.getMonth()
+                ] +
                 '</span>';
 
         }
+
 
 
         button.addEventListener(
             "click",
             function() {
 
+
                 document
-                    .querySelectorAll(".day-button")
-                    .forEach(function(item) {
+                    .querySelectorAll(
+                        ".day-button"
+                    )
+                    .forEach(
+                        function(item) {
 
-                        item.classList.remove(
-                            "selected"
-                        );
+                            item.classList.remove(
+                                "selected"
+                            );
 
-                    });
+                        }
+                    );
+
 
 
                 button.classList.add(
                     "selected"
                 );
+
 
 
                 selectedDate =
@@ -633,6 +992,7 @@ function createDays() {
                     "";
 
 
+
                 document.getElementById(
                     "summaryDate"
                 ).textContent =
@@ -641,10 +1001,12 @@ function createDays() {
                     );
 
 
+
                 document.getElementById(
                     "summaryTime"
                 ).textContent =
                     "—";
+
 
 
                 showTimes();
@@ -653,12 +1015,15 @@ function createDays() {
         );
 
 
+
         daysContainer.appendChild(
             button
         );
 
     }
+
 }
+
 
 
 /* =========================================
@@ -667,20 +1032,35 @@ function createDays() {
 
 function showTimes() {
 
+
     timesContainer.innerHTML = "";
 
 
-    if (!selectedService) {
 
-        timesContainer.innerHTML =
-            "<p>Escolha primeiro um serviço.</p>";
+    if (
+        !selectedService
+    ) {
+
+
+        timesContainer.innerHTML = `
+
+            <p class="time-message">
+
+                Escolha primeiro um serviço.
+
+            </p>
+
+        `;
 
         return;
+
     }
+
 
 
     HORARIOS.forEach(
         function(horario) {
+
 
             const button =
                 document.createElement(
@@ -698,6 +1078,7 @@ function showTimes() {
 
             button.textContent =
                 horario;
+
 
 
             button.addEventListener(
@@ -720,13 +1101,16 @@ function showTimes() {
                         );
 
 
+
                     button.classList.add(
                         "selected"
                     );
 
 
+
                     selectedTime =
                         horario;
+
 
 
                     document.getElementById(
@@ -738,23 +1122,40 @@ function showTimes() {
             );
 
 
+
             timesContainer.appendChild(
                 button
             );
 
         }
     );
+
 }
+
 
 
 /* =========================================
    FORMATAR DATA
 ========================================= */
 
-function formatDate(data) {
+function formatDate(
+    data
+) {
+
+
+    if (
+        !data
+    ) {
+
+        return "—";
+
+    }
+
+
 
     const partes =
         data.split("-");
+
 
 
     return (
@@ -770,74 +1171,102 @@ function formatDate(data) {
 }
 
 
+
 /* =========================================
    CONFIRMAR AGENDAMENTO
 ========================================= */
 
 function confirmBooking() {
 
+
     const name =
         document
-            .getElementById("name")
+            .getElementById(
+                "name"
+            )
             .value
             .trim();
+
 
 
     const phone =
         document
-            .getElementById("phone")
+            .getElementById(
+                "phone"
+            )
             .value
             .trim();
 
 
-    if (!selectedService) {
+
+    if (
+        !selectedService
+    ) {
 
         alert(
             "Escolha um serviço."
         );
 
         return;
+
     }
 
 
-    if (!selectedDate) {
+
+    if (
+        !selectedDate
+    ) {
 
         alert(
             "Escolha um dia."
         );
 
         return;
+
     }
 
 
-    if (!selectedTime) {
+
+    if (
+        !selectedTime
+    ) {
 
         alert(
             "Escolha um horário."
         );
 
         return;
+
     }
 
 
-    if (!name) {
+
+    if (
+        !name
+    ) {
 
         alert(
             "Digite seu nome."
         );
 
         return;
+
     }
 
 
-    if (!phone) {
+
+    if (
+        !phone
+    ) {
 
         alert(
             "Digite seu WhatsApp."
         );
 
         return;
+
     }
+
 
 
     const formattedDate =
@@ -846,10 +1275,12 @@ function confirmBooking() {
         );
 
 
+
     document.getElementById(
         "receiptName"
     ).textContent =
         name;
+
 
 
     document.getElementById(
@@ -858,10 +1289,12 @@ function confirmBooking() {
         phone;
 
 
+
     document.getElementById(
         "receiptService"
     ).textContent =
         selectedService;
+
 
 
     document.getElementById(
@@ -870,20 +1303,34 @@ function confirmBooking() {
         formattedDate;
 
 
+
     document.getElementById(
         "receiptTime"
     ).textContent =
         selectedTime;
 
 
+
     document.getElementById(
         "receiptPrice"
     ).textContent =
-        "R$ " +
-        Number(selectedPrice)
-            .toFixed(2)
-            .replace(".", ",");
 
+        "R$ " +
+
+        Number(
+            selectedPrice
+        )
+        .toFixed(2)
+        .replace(
+            ".",
+            ","
+        );
+
+
+
+    /* =================================
+       WHATSAPP
+    ================================= */
 
     const message =
 
@@ -910,22 +1357,34 @@ function confirmBooking() {
         "\n" +
 
         "Valor: R$ " +
-        Number(selectedPrice)
-            .toFixed(2)
-            .replace(".", ",") +
+
+        Number(
+            selectedPrice
+        )
+        .toFixed(2)
+        .replace(
+            ".",
+            ","
+        ) +
+
         "\n\n" +
 
         "Agendamento realizado pelo site.";
 
 
+
     const whatsappURL =
 
         "https://wa.me/" +
+
         ADMIN_WHATSAPP +
+
         "?text=" +
+
         encodeURIComponent(
             message
         );
+
 
 
     document.getElementById(
@@ -934,10 +1393,12 @@ function confirmBooking() {
         whatsappURL;
 
 
+
     document.getElementById(
         "receipt"
     ).style.display =
         "block";
+
 
 
     document.getElementById(
@@ -951,16 +1412,20 @@ function confirmBooking() {
 }
 
 
+
 /* =========================================
    BOTÃO CONFIRMAR
 ========================================= */
 
 document
-    .getElementById("confirmButton")
+    .getElementById(
+        "confirmButton"
+    )
     .addEventListener(
         "click",
         confirmBooking
     );
+
 
 
 /* =========================================
@@ -974,8 +1439,7 @@ loadServices();
 </script>
 
 
-<script src="agendamentos.js"></script>
-
 </body>
 
 </html>
+```
