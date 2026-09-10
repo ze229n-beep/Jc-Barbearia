@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -5,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Painel ADM - JC Barbearia</title>
+    <title>ADM - JC Barbearia</title>
 
     <link rel="stylesheet" href="estilo.css">
     <link rel="stylesheet" href="admin.css">
@@ -13,63 +14,48 @@
 
 <body>
 
-<header>
+    <!-- =====================================================
+         CABEÇALHO
+    ====================================================== -->
 
-    <div class="logo">
-        JC BARBEARIA
-    </div>
+    <header>
 
-    <div class="adm-title">
-        PAINEL ADM
-    </div>
+        <div class="logo">
+            JC <span>BARBEARIA</span>
+        </div>
 
-</header>
+        <div class="admin-titulo">
+            PAINEL ADM
+        </div>
+
+    </header>
 
 
-<main class="admin-container">
-
-
-    <!-- =========================================
+    <!-- =====================================================
          LOGIN
-    ========================================== -->
+    ====================================================== -->
 
-    <section id="login">
+    <section id="loginArea" class="login-area">
 
-        <h1>Acesso do Administrador</h1>
+        <div class="config-box">
 
-        <div class="login-box">
-
-            <label for="loginUsuario">
-                Login
-            </label>
+            <h2>Login do Administrador</h2>
 
             <input
                 type="text"
                 id="loginUsuario"
-                placeholder="Digite o login"
-                autocomplete="username"
+                placeholder="Usuário"
             >
-
-
-            <label for="loginSenha">
-                Senha
-            </label>
 
             <input
                 type="password"
                 id="loginSenha"
-                placeholder="Digite a senha"
-                autocomplete="current-password"
+                placeholder="Senha"
             >
 
-
-            <button
-                type="button"
-                onclick="entrar()"
-            >
+            <button type="button" onclick="entrar()">
                 ENTRAR
             </button>
-
 
             <p id="erroLogin"></p>
 
@@ -78,52 +64,42 @@
     </section>
 
 
+    <!-- =====================================================
+         PAINEL ADMINISTRATIVO
+    ====================================================== -->
 
-    <!-- =========================================
-         PAINEL
-    ========================================== -->
+    <main id="painelAdmin" style="display: none;">
 
-    <section
-        id="painel"
-        style="display: none;"
-    >
-
-        <h1>Painel do Administrador</h1>
-
-
-        <!-- =====================================
+        <!-- =================================================
              MENU
-        ====================================== -->
+        ================================================== -->
 
-        <div class="admin-menu">
+        <div class="abas">
 
             <button
                 type="button"
-                onclick="abrirAba('configuracoes')"
+                onclick="mostrarAba('configuracoes')"
             >
                 Configurações do ADM
             </button>
 
-
             <button
                 type="button"
-                onclick="abrirAba('agendamentos')"
+                onclick="mostrarAba('agendamentos')"
             >
                 Agendamentos
             </button>
 
-
             <button
                 type="button"
-                onclick="abrirAba('caixa')"
+                onclick="mostrarAba('caixa')"
             >
                 Caixa
             </button>
 
-
             <button
                 type="button"
-                onclick="abrirAba('relatorio')"
+                onclick="mostrarAba('relatorio')"
             >
                 Relatório do Caixa
             </button>
@@ -131,112 +107,68 @@
         </div>
 
 
-
-        <!-- =========================================
+        <!-- =================================================
              CONFIGURAÇÕES
-        ========================================== -->
+        ================================================== -->
 
-        <div
+        <section
             id="configuracoes"
-            class="admin-aba"
+            class="aba-conteudo"
         >
 
-            <h2>
-                Configurações do ADM
-            </h2>
+            <h2>Configurações</h2>
 
 
-
-            <!-- =====================================
-                 ALTERAR LOGIN
-            ====================================== -->
+            <!-- =============================================
+                 ACESSO DO ADMINISTRADOR
+            ============================================== -->
 
             <div class="config-box">
 
-                <h3>
-                    Alterar acesso
-                </h3>
-
-
-                <label for="novoLogin">
-                    Novo login
-                </label>
+                <h3>Acesso do Administrador</h3>
 
                 <input
                     type="text"
-                    id="novoLogin"
-                    placeholder="Digite o novo login"
+                    id="novoUsuario"
+                    placeholder="Novo usuário"
                 >
-
-
-                <label for="novaSenha">
-                    Nova senha
-                </label>
 
                 <input
                     type="password"
                     id="novaSenha"
-                    placeholder="Digite a nova senha"
+                    placeholder="Nova senha"
                 >
-
 
                 <button
                     type="button"
                     onclick="alterarAcesso()"
                 >
-                    SALVAR ACESSO
+                    ALTERAR ACESSO
                 </button>
+
+                <p id="mensagemAcesso"></p>
 
             </div>
 
 
-
-            <!-- =====================================
+            <!-- =============================================
                  SERVIÇOS
-            ====================================== -->
+            ============================================== -->
 
             <div class="config-box">
 
-                <h3>
-                    Serviços
-                </h3>
-
-
-                <!-- CABEÇALHO -->
+                <h3>Serviços</h3>
 
                 <div class="servicos-cabecalho">
 
-                    <div>
-                        Serviço
-                    </div>
-
-                    <div>
-                        Preço
-                    </div>
-
-                    <div>
-                        Minutos
-                    </div>
-
-                    <div>
-                        Editar
-                    </div>
+                    <div>Serviço</div>
+                    <div>Preço</div>
+                    <div>Minutos</div>
+                    <div>Editar</div>
 
                 </div>
 
-
-                <!--
-                    IMPORTANTE:
-                    NÃO COLOCAR SERVIÇOS MANUALMENTE AQUI.
-
-                    O JavaScript vai criar
-                    automaticamente.
-                -->
-
                 <div id="listaServicos"></div>
-
-
-                <!-- ADICIONAR SERVIÇO -->
 
                 <button
                     type="button"
@@ -246,12 +178,8 @@
                     + ADICIONAR SERVIÇO
                 </button>
 
-
                 <br>
                 <br>
-
-
-                <!-- SALVAR ALTERAÇÕES -->
 
                 <button
                     type="button"
@@ -260,1040 +188,1089 @@
                     SALVAR ALTERAÇÕES
                 </button>
 
-
                 <p id="mensagemSalvo"></p>
 
             </div>
 
-        </div>
+        </section>
 
 
-
-        <!-- =========================================
+        <!-- =================================================
              AGENDAMENTOS
-        ========================================== -->
+        ================================================== -->
 
-        <div
+        <section
             id="agendamentos"
-            class="admin-aba"
+            class="aba-conteudo"
             style="display: none;"
         >
 
-            <h2>
-                Agendamentos Confirmados
-            </h2>
+            <h2>Agendamentos</h2>
 
+            <div class="config-box">
 
-            <div class="tabela">
+                <h3>Agendamentos realizados</h3>
 
-                <div class="tabela-cabecalho">
+                <div id="listaAgendamentos">
 
-                    <span>
-                        Cliente
-                    </span>
-
-                    <span>
-                        Serviço
-                    </span>
-
-                    <span>
-                        Data
-                    </span>
-
-                    <span>
-                        Horário
-                    </span>
-
-                    <span>
-                        Valor
-                    </span>
-
-                </div>
-
-
-                <div class="agendamento">
-
-                    <span>
-                        Sousa
-                    </span>
-
-                    <span>
-                        Corte de Cabelo
-                    </span>
-
-                    <span>
-                        09/09/2026
-                    </span>
-
-                    <span>
-                        14:00
-                    </span>
-
-                    <span>
-                        R$ 25
-                    </span>
+                    <p>
+                        Os agendamentos aparecerão aqui.
+                    </p>
 
                 </div>
 
             </div>
 
-        </div>
+        </section>
 
 
-
-        <!-- =========================================
+        <!-- =================================================
              CAIXA
-        ========================================== -->
+        ================================================== -->
 
-        <div
+        <section
             id="caixa"
-            class="admin-aba"
+            class="aba-conteudo"
             style="display: none;"
         >
 
-            <h2>
-                Caixa
-            </h2>
+            <h2>Caixa</h2>
 
+            <div class="config-box">
 
-            <div class="caixa-cards">
+                <h3>Movimentação do Caixa</h3>
 
+                <p>
+                    Clientes atendidos:
+                    <strong id="totalClientes">0</strong>
+                </p>
 
-                <div class="caixa-card">
+                <p>
+                    Serviços realizados:
+                    <strong id="totalServicos">0</strong>
+                </p>
 
-                    <h3>
-                        Clientes
-                    </h3>
-
-                    <strong>
-                        0
-                    </strong>
-
-                </div>
-
-
-                <div class="caixa-card">
-
-                    <h3>
-                        Serviços
-                    </h3>
-
-                    <strong>
-                        0
-                    </strong>
-
-                </div>
-
-
-                <div class="caixa-card">
-
-                    <h3>
-                        Faturamento
-                    </h3>
-
-                    <strong>
-                        R$ 0,00
-                    </strong>
-
-                </div>
-
+                <p>
+                    Faturamento:
+                    <strong id="faturamento">R$ 0,00</strong>
+                </p>
 
             </div>
 
+        </section>
 
 
-            <div class="fechamento">
-
-                <h3>
-                    Fechamento do Caixa
-                </h3>
-
-
-                <label for="mesFechamento">
-                    Mês
-                </label>
-
-                <input
-                    type="month"
-                    id="mesFechamento"
-                >
-
-
-                <button type="button">
-                    FECHAR CAIXA
-                </button>
-
-            </div>
-
-        </div>
-
-
-
-        <!-- =========================================
+        <!-- =================================================
              RELATÓRIO
-        ========================================== -->
+        ================================================== -->
 
-        <div
+        <section
             id="relatorio"
-            class="admin-aba"
+            class="aba-conteudo"
             style="display: none;"
         >
 
-            <h2>
-                Relatório do Caixa
-            </h2>
+            <h2>Relatório do Caixa</h2>
 
+            <div class="config-box">
 
-            <div class="relatorio-box">
+                <h3>Relatório mensal</h3>
 
-                <label for="mesRelatorio">
-                    Selecione o mês
-                </label>
+                <p>
+                    Clientes:
+                    <strong id="relClientes">0</strong>
+                </p>
 
-                <input
-                    type="month"
-                    id="mesRelatorio"
-                >
+                <p>
+                    Serviços:
+                    <strong id="relServicos">0</strong>
+                </p>
 
-
-                <div class="resumo-relatorio">
-
-                    <p>
-                        Total de clientes:
-                        <strong>0</strong>
-                    </p>
-
-
-                    <p>
-                        Total de serviços:
-                        <strong>0</strong>
-                    </p>
-
-
-                    <p>
-                        Faturamento:
-                        <strong>R$ 0,00</strong>
-                    </p>
-
-                </div>
-
-
-                <button type="button">
-                    GERAR PDF
-                </button>
-
-            </div>
-
-        </div>
-
-
-
-        <!-- =========================================
-             SAIR
-        ========================================== -->
-
-        <button
-            type="button"
-            class="sair"
-            onclick="sair()"
-        >
-            SAIR
-        </button>
-
-    </section>
-
-</main>
-
-
-
-<footer>
-
-    <p>
-        © 2026 JC Barbearia
-    </p>
-
-</footer>
-
-
-
-<script>
-
-/* =====================================================
-   LOGIN DO ADMINISTRADOR
-===================================================== */
-
-let usuario =
-    localStorage.getItem("jc_admin_usuario")
-    || "jcbarbearia";
-
-
-let senha =
-    localStorage.getItem("jc_admin_senha")
-    || "1234";
-
-
-
-/* =====================================================
-   ENTRAR
-===================================================== */
-
-function entrar() {
-
-    const login =
-        document
-            .getElementById("loginUsuario")
-            .value
-            .trim();
-
-
-    const senhaDigitada =
-        document
-            .getElementById("loginSenha")
-            .value;
-
-
-    const erro =
-        document.getElementById("erroLogin");
-
-
-    if (
-        login === usuario &&
-        senhaDigitada === senha
-    ) {
-
-        erro.textContent = "";
-
-
-        document
-            .getElementById("login")
-            .style.display = "none";
-
-
-        document
-            .getElementById("painel")
-            .style.display = "block";
-
-
-        abrirAba("configuracoes");
-
-
-        carregarServicos();
-
-    } else {
-
-        erro.textContent =
-            "Login ou senha incorretos.";
-
-    }
-
-}
-
-
-
-/* =====================================================
-   ENTER NO LOGIN
-===================================================== */
-
-document
-    .getElementById("loginSenha")
-    .addEventListener(
-        "keydown",
-        function(event) {
-
-            if (event.key === "Enter") {
-
-                entrar();
-
-            }
-
-        }
-    );
-
-
-
-/* =====================================================
-   ALTERAR ACESSO
-===================================================== */
-
-function alterarAcesso() {
-
-    const novoLogin =
-        document
-            .getElementById("novoLogin")
-            .value
-            .trim();
-
-
-    const novaSenha =
-        document
-            .getElementById("novaSenha")
-            .value;
-
-
-    if (
-        novoLogin === "" &&
-        novaSenha === ""
-    ) {
-
-        alert(
-            "Digite um novo login ou uma nova senha."
-        );
-
-        return;
-
-    }
-
-
-    if (novoLogin !== "") {
-
-        usuario = novoLogin;
-
-
-        localStorage.setItem(
-            "jc_admin_usuario",
-            usuario
-        );
-
-    }
-
-
-    if (novaSenha !== "") {
-
-        senha = novaSenha;
-
-
-        localStorage.setItem(
-            "jc_admin_senha",
-            senha
-        );
-
-    }
-
-
-    document
-        .getElementById("novoLogin")
-        .value = "";
-
-
-    document
-        .getElementById("novaSenha")
-        .value = "";
-
-
-    alert(
-        "Acesso alterado com sucesso!"
-    );
-
-}
-
-
-
-/* =====================================================
-   ABRIR ABA
-===================================================== */
-
-function abrirAba(nome) {
-
-    const abas =
-        document.querySelectorAll(
-            ".admin-aba"
-        );
-
-
-    abas.forEach(
-        function(aba) {
-
-            aba.style.display = "none";
-
-        }
-    );
-
-
-    const abaSelecionada =
-        document.getElementById(nome);
-
-
-    if (abaSelecionada) {
-
-        abaSelecionada.style.display =
-            "block";
-
-    }
-
-}
-
-
-
-/* =====================================================
-   SAIR
-===================================================== */
-
-function sair() {
-
-    document
-        .getElementById("painel")
-        .style.display = "none";
-
-
-    document
-        .getElementById("login")
-        .style.display = "block";
-
-
-    document
-        .getElementById("loginUsuario")
-        .value = "";
-
-
-    document
-        .getElementById("loginSenha")
-        .value = "";
-
-
-    document
-        .getElementById("erroLogin")
-        .textContent = "";
-
-}
-
-
-
-/* =====================================================
-   SERVIÇOS PADRÃO
-===================================================== */
-
-const SERVICOS_PADRAO = [
-
-    {
-        nome: "Corte de Cabelo",
-        preco: 25,
-        minutos: 30
-    },
-
-    {
-        nome: "Barba",
-        preco: 20,
-        minutos: 20
-    },
-
-    {
-        nome: "Sobrancelha",
-        preco: 10,
-        minutos: 10
-    },
-
-    {
-        nome: "Corte + Barba",
-        preco: 40,
-        minutos: 50
-    },
-
-    {
-        nome: "Corte + Barba + Sobrancelha",
-        preco: 50,
-        minutos: 60
-    }
-
-];
-
-
-
-let servicos = [];
-
-
-
-/* =====================================================
-   CARREGAR SERVIÇOS
-===================================================== */
-
-function carregarServicos() {
-
-    const salvos =
-        localStorage.getItem(
-            "jc_servicos"
-        );
-
-
-    if (salvos) {
-
-        try {
-
-            servicos =
-                JSON.parse(salvos);
-
-
-            if (!Array.isArray(servicos)) {
-
-                servicos =
-                    [...SERVICOS_PADRAO];
-
-            }
-
-        } catch (erro) {
-
-            servicos =
-                [...SERVICOS_PADRAO];
-
-        }
-
-    } else {
-
-        servicos =
-            [...SERVICOS_PADRAO];
-
-    }
-
-
-    mostrarServicos();
-
-}
-
-
-
-/* =====================================================
-   MOSTRAR SERVIÇOS
-===================================================== */
-
-function mostrarServicos() {
-
-    const lista =
-        document.getElementById(
-            "listaServicos"
-        );
-
-
-    if (!lista) {
-        return;
-    }
-
-
-    lista.innerHTML = "";
-
-
-    servicos.forEach(
-        function(servico, indice) {
-
-            const linha =
-                document.createElement("div");
-
-
-            linha.className =
-                "servico-linha";
-
-
-            linha.dataset.indice =
-                indice;
-
-
-            linha.innerHTML = `
-
-                <input
-                    type="text"
-                    value="${escaparHTML(servico.nome)}"
-                    disabled
-                >
-
-                <input
-                    type="number"
-                    value="${servico.preco}"
-                    disabled
-                    min="0"
-                    step="0.01"
-                >
-
-                <input
-                    type="number"
-                    value="${servico.minutos}"
-                    disabled
-                    min="1"
-                >
+                <p>
+                    Receita:
+                    <strong id="relReceita">R$ 0,00</strong>
+                </p>
 
                 <button
                     type="button"
-                    onclick="editarServico(this)"
+                    onclick="window.print()"
                 >
-                    Editar
+                    IMPRIMIR / SALVAR PDF
                 </button>
 
-            `;
+            </div>
+
+        </section>
 
 
-            lista.appendChild(linha);
+        <!-- =================================================
+             SAIR
+        ================================================== -->
 
-        }
-    );
+        <div class="sair-area">
 
-}
+            <button
+                type="button"
+                onclick="sair()"
+            >
+                SAIR
+            </button>
 
+        </div>
 
-
-/* =====================================================
-   ESCAPAR HTML
-===================================================== */
-
-function escaparHTML(texto) {
-
-    return String(texto)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-
-}
+    </main>
 
 
+    <!-- =====================================================
+         SUPABASE
+         IMPORTANTE: vem ANTES DO JAVASCRIPT DO ADM
+    ====================================================== -->
 
-/* =====================================================
-   EDITAR SERVIÇO
-===================================================== */
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-function editarServico(botao) {
+    <script>
 
-    const linha =
-        botao.closest(
-            ".servico-linha"
+        const db = window.supabase.createClient(
+            "https://zlfkdyxlfegojlgzulue.supabase.co",
+            "sb_publishable_suqAkNXSnGacL1vO_BaaOg_oeeHDKSs"
         );
 
+    </script>
 
-    if (!linha) {
-        return;
-    }
 
+    <!-- =====================================================
+         JAVASCRIPT DO ADMINISTRADOR
+    ====================================================== -->
 
-    const inputs =
-        linha.querySelectorAll(
-            "input"
-        );
+    <script>
 
+        /* =====================================================
+           LOGIN DO ADMINISTRADOR
+        ====================================================== */
 
-    const estaEditando =
-        !inputs[0].disabled;
+        let usuario =
+            localStorage.getItem("jc_admin_usuario")
+            || "jcbarbearia";
 
+        let senha =
+            localStorage.getItem("jc_admin_senha")
+            || "1234";
 
-    /* =========================================
-       SALVAR EDIÇÃO
-    ========================================= */
 
-    if (estaEditando) {
+        function entrar() {
 
-        const indice =
-            Number(
-                linha.dataset.indice
-            );
+            const usuarioDigitado =
+                document.getElementById("loginUsuario").value.trim();
 
+            const senhaDigitada =
+                document.getElementById("loginSenha").value;
 
-        const nome =
-            inputs[0]
-                .value
-                .trim();
-
-
-        const preco =
-            Number(
-                inputs[1].value
-            );
-
-
-        const minutos =
-            Number(
-                inputs[2].value
-            );
-
-
-        if (!nome) {
-
-            alert(
-                "Digite o nome do serviço."
-            );
-
-            inputs[0].focus();
-
-            return;
-
-        }
-
-
-        if (
-            !Number.isFinite(preco) ||
-            preco < 0
-        ) {
-
-            alert(
-                "Digite um preço válido."
-            );
-
-            inputs[1].focus();
-
-            return;
-
-        }
-
-
-        if (
-            !Number.isFinite(minutos) ||
-            minutos <= 0
-        ) {
-
-            alert(
-                "Digite uma duração válida."
-            );
-
-            inputs[2].focus();
-
-            return;
-
-        }
-
-
-        servicos[indice] = {
-
-            nome: nome,
-
-            preco: preco,
-
-            minutos: minutos
-
-        };
-
-
-        localStorage.setItem(
-            "jc_servicos",
-            JSON.stringify(servicos)
-        );
-
-
-        inputs.forEach(
-            function(input) {
-
-                input.disabled = true;
-
-            }
-        );
-
-
-        botao.textContent =
-            "Editar";
-
-
-        mostrarMensagem(
-            "Serviço atualizado com sucesso!"
-        );
-
-
-        return;
-
-    }
-
-
-    /* =========================================
-       ENTRAR NO MODO EDIÇÃO
-    ========================================= */
-
-    inputs.forEach(
-        function(input) {
-
-            input.disabled = false;
-
-        }
-    );
-
-
-    inputs[0].focus();
-
-
-    botao.textContent =
-        "Salvar";
-
-}
-
-
-
-/* =====================================================
-   ADICIONAR SERVIÇO
-===================================================== */
-
-function adicionarServico() {
-
-    servicos.push({
-
-        nome: "Novo Serviço",
-
-        preco: 0,
-
-        minutos: 30
-
-    });
-
-
-    localStorage.setItem(
-        "jc_servicos",
-        JSON.stringify(servicos)
-    );
-
-
-    mostrarServicos();
-
-
-    const linhas =
-        document.querySelectorAll(
-            ".servico-linha"
-        );
-
-
-    const ultimaLinha =
-        linhas[linhas.length - 1];
-
-
-    if (!ultimaLinha) {
-        return;
-    }
-
-
-    const botao =
-        ultimaLinha.querySelector(
-            "button"
-        );
-
-
-    editarServico(botao);
-
-}
-
-
-
-/* =====================================================
-   SALVAR TODOS OS SERVIÇOS
-===================================================== */
-
-function salvarServicos() {
-
-    const linhas =
-        document.querySelectorAll(
-            ".servico-linha"
-        );
-
-
-    const novosServicos = [];
-
-
-    linhas.forEach(
-        function(linha) {
-
-            const inputs =
-                linha.querySelectorAll(
-                    "input"
-                );
-
-
-            const nome =
-                inputs[0]
-                    .value
-                    .trim();
-
-
-            const preco =
-                Number(
-                    inputs[1].value
-                );
-
-
-            const minutos =
-                Number(
-                    inputs[2].value
-                );
+            const erro =
+                document.getElementById("erroLogin");
 
 
             if (
-                nome &&
-                Number.isFinite(preco) &&
-                preco >= 0 &&
-                Number.isFinite(minutos) &&
-                minutos > 0
+                usuarioDigitado === usuario &&
+                senhaDigitada === senha
             ) {
 
-                novosServicos.push({
+                document.getElementById("loginArea").style.display = "none";
 
-                    nome: nome,
+                document.getElementById("painelAdmin").style.display = "block";
 
-                    preco: preco,
+                erro.textContent = "";
 
-                    minutos: minutos
+                mostrarAba("configuracoes");
 
-                });
+                carregarServicos();
+
+                carregarAgendamentos();
+
+            } else {
+
+                erro.textContent = "Usuário ou senha incorretos.";
 
             }
 
         }
-    );
 
 
-    servicos =
-        novosServicos;
+        /* =====================================================
+           ALTERAR ACESSO
+        ====================================================== */
+
+        function alterarAcesso() {
+
+            const novoUsuario =
+                document.getElementById("novoUsuario").value.trim();
+
+            const novaSenha =
+                document.getElementById("novaSenha").value;
 
 
-    localStorage.setItem(
-        "jc_servicos",
-        JSON.stringify(servicos)
-    );
+            if (!novoUsuario || !novaSenha) {
+
+                mostrarMensagem(
+                    "mensagemAcesso",
+                    "Preencha usuário e senha."
+                );
+
+                return;
+
+            }
 
 
-    mostrarServicos();
+            usuario = novoUsuario;
+
+            senha = novaSenha;
 
 
-    mostrarMensagem(
-        "Serviços salvos com sucesso!"
-    );
+            localStorage.setItem(
+                "jc_admin_usuario",
+                usuario
+            );
 
-}
-
-
-
-/* =====================================================
-   MENSAGEM
-===================================================== */
-
-function mostrarMensagem(texto) {
-
-    const mensagem =
-        document.getElementById(
-            "mensagemSalvo"
-        );
+            localStorage.setItem(
+                "jc_admin_senha",
+                senha
+            );
 
 
-    if (!mensagem) {
-        return;
-    }
+            document.getElementById("novoUsuario").value = "";
+
+            document.getElementById("novaSenha").value = "";
 
 
-    mensagem.textContent =
-        texto;
+            mostrarMensagem(
+                "mensagemAcesso",
+                "Acesso alterado com sucesso!"
+            );
+
+        }
 
 
-    setTimeout(
-        function() {
+        /* =====================================================
+           ABAS
+        ====================================================== */
 
-            mensagem.textContent =
-                "";
+        function mostrarAba(nome) {
 
-        },
-        3000
-    );
+            const abas = [
+                "configuracoes",
+                "agendamentos",
+                "caixa",
+                "relatorio"
+            ];
 
-}
+
+            abas.forEach(function(aba) {
+
+                const elemento =
+                    document.getElementById(aba);
+
+                if (elemento) {
+
+                    elemento.style.display =
+                        aba === nome
+                            ? "block"
+                            : "none";
+
+                }
+
+            });
 
 
+            if (nome === "agendamentos") {
 
-/* =====================================================
-   INICIAR
-===================================================== */
+                carregarAgendamentos();
 
-carregarServicos();
+            }
 
-</script>
+        }
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="config.js"></script>
+
+        /* =====================================================
+           SERVIÇOS
+           
+           AGORA OS SERVIÇOS VÊM DO SUPABASE
+        ====================================================== */
+
+        let servicos = [];
+
+
+        /* =====================================================
+           CARREGAR SERVIÇOS DO BANCO
+        ====================================================== */
+
+        async function carregarServicos() {
+
+            const lista =
+                document.getElementById("listaServicos");
+
+
+            lista.innerHTML =
+                "<p>Carregando serviços...</p>";
+
+
+            const { data, error } = await db
+                .from("services")
+                .select("*")
+                .order("id");
+
+
+            if (error) {
+
+                console.error(
+                    "Erro ao carregar serviços:",
+                    error
+                );
+
+                lista.innerHTML =
+                    "<p>Erro ao carregar os serviços.</p>";
+
+                return;
+
+            }
+
+
+            servicos = data.map(function(service) {
+
+                return {
+
+                    id: service.id,
+
+                    nome: service.name,
+
+                    preco: Number(service.price),
+
+                    minutos: Number(service.duration),
+
+                    ativo: service.active
+
+                };
+
+            });
+
+
+            mostrarServicos();
+
+        }
+
+
+        /* =====================================================
+           MOSTRAR SERVIÇOS
+        ====================================================== */
+
+        function mostrarServicos() {
+
+            const lista =
+                document.getElementById("listaServicos");
+
+
+            lista.innerHTML = "";
+
+
+            if (servicos.length === 0) {
+
+                lista.innerHTML =
+                    "<p>Nenhum serviço cadastrado.</p>";
+
+                return;
+
+            }
+
+
+            servicos.forEach(function(servico, indice) {
+
+                const linha =
+                    document.createElement("div");
+
+                linha.className =
+                    "servico-linha";
+
+
+                linha.dataset.id =
+                    servico.id;
+
+
+                linha.innerHTML = `
+
+                    <input
+                        type="text"
+                        value="${escaparHTML(servico.nome)}"
+                        disabled
+                    >
+
+                    <input
+                        type="number"
+                        value="${servico.preco}"
+                        disabled
+                        min="0"
+                        step="0.01"
+                    >
+
+                    <input
+                        type="number"
+                        value="${servico.minutos}"
+                        disabled
+                        min="1"
+                    >
+
+                    <button
+                        type="button"
+                        onclick="editarServico(this)"
+                    >
+                        Editar
+                    </button>
+
+                `;
+
+
+                lista.appendChild(linha);
+
+            });
+
+        }
+
+
+        /* =====================================================
+           EDITAR SERVIÇO
+        ====================================================== */
+
+        async function editarServico(botao) {
+
+            const linha =
+                botao.closest(".servico-linha");
+
+
+            const inputs =
+                linha.querySelectorAll("input");
+
+
+            const id =
+                Number(linha.dataset.id);
+
+
+            /* ---------------------------------------------
+               MODO EDIÇÃO
+            ---------------------------------------------- */
+
+            if (botao.textContent.trim() === "Editar") {
+
+                inputs.forEach(function(input) {
+
+                    input.disabled = false;
+
+                });
+
+
+                inputs[0].focus();
+
+                botao.textContent = "Salvar";
+
+                return;
+
+            }
+
+
+            /* ---------------------------------------------
+               SALVAR EDIÇÃO
+            ---------------------------------------------- */
+
+            const nome =
+                inputs[0].value.trim();
+
+            const preco =
+                Number(inputs[1].value);
+
+            const minutos =
+                Number(inputs[2].value);
+
+
+            if (!nome) {
+
+                mostrarMensagem(
+                    "mensagemSalvo",
+                    "Digite o nome do serviço."
+                );
+
+                return;
+
+            }
+
+
+            if (isNaN(preco) || preco < 0) {
+
+                mostrarMensagem(
+                    "mensagemSalvo",
+                    "Digite um preço válido."
+                );
+
+                return;
+
+            }
+
+
+            if (isNaN(minutos) || minutos < 1) {
+
+                mostrarMensagem(
+                    "mensagemSalvo",
+                    "Digite uma duração válida."
+                );
+
+                return;
+
+            }
+
+
+            botao.disabled = true;
+
+            botao.textContent = "Salvando...";
+
+
+            const { error } = await db
+                .from("services")
+                .update({
+
+                    name: nome,
+
+                    price: preco,
+
+                    duration: minutos
+
+                })
+                .eq("id", id);
+
+
+            if (error) {
+
+                console.error(
+                    "Erro ao atualizar serviço:",
+                    error
+                );
+
+
+                botao.disabled = false;
+
+                botao.textContent = "Salvar";
+
+
+                mostrarMensagem(
+                    "mensagemSalvo",
+                    "Erro ao salvar o serviço."
+                );
+
+                return;
+
+            }
+
+
+            const indice =
+                servicos.findIndex(function(item) {
+
+                    return item.id === id;
+
+                });
+
+
+            if (indice !== -1) {
+
+                servicos[indice].nome = nome;
+
+                servicos[indice].preco = preco;
+
+                servicos[indice].minutos = minutos;
+
+            }
+
+
+            inputs.forEach(function(input) {
+
+                input.disabled = true;
+
+            });
+
+
+            botao.disabled = false;
+
+            botao.textContent = "Editar";
+
+
+            mostrarMensagem(
+                "mensagemSalvo",
+                "Serviço atualizado com sucesso!"
+            );
+
+        }
+
+
+        /* =====================================================
+           ADICIONAR SERVIÇO
+        ====================================================== */
+
+        async function adicionarServico() {
+
+            const botaoAdicionar =
+                document.querySelector(".botao-adicionar");
+
+
+            botaoAdicionar.disabled = true;
+
+            botaoAdicionar.textContent =
+                "ADICIONANDO...";
+
+
+            const { data, error } = await db
+                .from("services")
+                .insert({
+
+                    name: "Novo Serviço",
+
+                    price: 0,
+
+                    duration: 30,
+
+                    active: true
+
+                })
+                .select()
+                .single();
+
+
+            if (error) {
+
+                console.error(
+                    "Erro ao adicionar serviço:",
+                    error
+                );
+
+
+                botaoAdicionar.disabled = false;
+
+                botaoAdicionar.textContent =
+                    "+ ADICIONAR SERVIÇO";
+
+
+                mostrarMensagem(
+                    "mensagemSalvo",
+                    "Erro ao adicionar serviço."
+                );
+
+                return;
+
+            }
+
+
+            servicos.push({
+
+                id: data.id,
+
+                nome: data.name,
+
+                preco: Number(data.price),
+
+                minutos: Number(data.duration),
+
+                ativo: data.active
+
+            });
+
+
+            mostrarServicos();
+
+
+            botaoAdicionar.disabled = false;
+
+            botaoAdicionar.textContent =
+                "+ ADICIONAR SERVIÇO";
+
+
+            mostrarMensagem(
+                "mensagemSalvo",
+                "Serviço adicionado! Agora edite os dados e clique em Salvar."
+            );
+
+
+            /* ---------------------------------------------
+               Coloca automaticamente o último serviço
+               em modo de edição
+            ---------------------------------------------- */
+
+            const linhas =
+                document.querySelectorAll(".servico-linha");
+
+
+            const ultimaLinha =
+                linhas[linhas.length - 1];
+
+
+            if (ultimaLinha) {
+
+                const inputs =
+                    ultimaLinha.querySelectorAll("input");
+
+                const botao =
+                    ultimaLinha.querySelector("button");
+
+
+                inputs.forEach(function(input) {
+
+                    input.disabled = false;
+
+                });
+
+
+                botao.textContent = "Salvar";
+
+                inputs[0].focus();
+
+            }
+
+        }
+
+
+        /* =====================================================
+           SALVAR ALTERAÇÕES
+           
+           Os serviços já são salvos individualmente no banco.
+           Este botão apenas recarrega os dados para confirmar
+           que estão sincronizados com o Supabase.
+        ====================================================== */
+
+        async function salvarServicos() {
+
+            await carregarServicos();
+
+
+            mostrarMensagem(
+                "mensagemSalvo",
+                "Serviços sincronizados com sucesso!"
+            );
+
+        }
+
+
+        /* =====================================================
+           AGENDAMENTOS
+        ====================================================== */
+
+        async function carregarAgendamentos() {
+
+            const lista =
+                document.getElementById("listaAgendamentos");
+
+
+            if (!lista) return;
+
+
+            lista.innerHTML =
+                "<p>Carregando agendamentos...</p>";
+
+
+            const { data, error } = await db
+                .from("appointments")
+                .select("*")
+                .order("appointment_date", {
+                    ascending: true
+                })
+                .order("appointment_time", {
+                    ascending: true
+                });
+
+
+            if (error) {
+
+                console.error(
+                    "Erro ao carregar agendamentos:",
+                    error
+                );
+
+
+                lista.innerHTML =
+                    "<p>Erro ao carregar agendamentos.</p>";
+
+                return;
+
+            }
+
+
+            if (!data || data.length === 0) {
+
+                lista.innerHTML =
+                    "<p>Nenhum agendamento encontrado.</p>";
+
+                return;
+
+            }
+
+
+            lista.innerHTML = "";
+
+
+            data.forEach(function(agendamento) {
+
+                const item =
+                    document.createElement("div");
+
+                item.className =
+                    "agendamento-item";
+
+
+                item.innerHTML = `
+
+                    <strong>
+                        ${escaparHTML(agendamento.customer_name)}
+                    </strong>
+
+                    <p>
+                        Serviço:
+                        ${escaparHTML(agendamento.service_name)}
+                    </p>
+
+                    <p>
+                        Data:
+                        ${formatarData(agendamento.appointment_date)}
+                    </p>
+
+                    <p>
+                        Horário:
+                        ${agendamento.appointment_time}
+                    </p>
+
+                    <p>
+                        Duração:
+                        ${agendamento.duration} minutos
+                    </p>
+
+                    <p>
+                        Status:
+                        ${escaparHTML(agendamento.status)}
+                    </p>
+
+                    <hr>
+
+                `;
+
+
+                lista.appendChild(item);
+
+            });
+
+
+            atualizarCaixa(data);
+
+        }
+
+
+        /* =====================================================
+           ATUALIZAR CAIXA
+        ====================================================== */
+
+        function atualizarCaixa(agendamentos) {
+
+            const totalClientes =
+                agendamentos.length;
+
+
+            const totalServicos =
+                agendamentos.length;
+
+
+            let faturamento = 0;
+
+
+            agendamentos.forEach(function(item) {
+
+                const servico =
+                    servicos.find(function(service) {
+
+                        return service.id === item.service_id;
+
+                    });
+
+
+                if (servico) {
+
+                    faturamento += servico.preco;
+
+                }
+
+            });
+
+
+            const clienteElemento =
+                document.getElementById("totalClientes");
+
+            const servicoElemento =
+                document.getElementById("totalServicos");
+
+            const faturamentoElemento =
+                document.getElementById("faturamento");
+
+            const relClientes =
+                document.getElementById("relClientes");
+
+            const relServicos =
+                document.getElementById("relServicos");
+
+            const relReceita =
+                document.getElementById("relReceita");
+
+
+            if (clienteElemento) {
+
+                clienteElemento.textContent =
+                    totalClientes;
+
+            }
+
+
+            if (servicoElemento) {
+
+                servicoElemento.textContent =
+                    totalServicos;
+
+            }
+
+
+            if (faturamentoElemento) {
+
+                faturamentoElemento.textContent =
+                    formatarMoeda(faturamento);
+
+            }
+
+
+            if (relClientes) {
+
+                relClientes.textContent =
+                    totalClientes;
+
+            }
+
+
+            if (relServicos) {
+
+                relServicos.textContent =
+                    totalServicos;
+
+            }
+
+
+            if (relReceita) {
+
+                relReceita.textContent =
+                    formatarMoeda(faturamento);
+
+            }
+
+        }
+
+
+        /* =====================================================
+           FORMATAÇÕES
+        ====================================================== */
+
+        function formatarMoeda(valor) {
+
+            return Number(valor).toLocaleString(
+                "pt-BR",
+                {
+                    style: "currency",
+                    currency: "BRL"
+                }
+            );
+
+        }
+
+
+        function formatarData(data) {
+
+            if (!data) return "";
+
+            const partes =
+                data.split("-");
+
+
+            if (partes.length !== 3) {
+
+                return data;
+
+            }
+
+
+            return `${partes[2]}/${partes[1]}/${partes[0]}`;
+
+        }
+
+
+        function escaparHTML(texto) {
+
+            return String(texto)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
+        }
+
+
+        /* =====================================================
+           MENSAGENS
+        ====================================================== */
+
+        function mostrarMensagem(elementoId, texto) {
+
+            const elemento =
+                document.getElementById(elementoId);
+
+
+            if (!elemento) return;
+
+
+            elemento.textContent = texto;
+
+
+            setTimeout(function() {
+
+                elemento.textContent = "";
+
+            }, 3000);
+
+        }
+
+
+        /* =====================================================
+           SAIR
+        ====================================================== */
+
+        function sair() {
+
+            document.getElementById(
+                "painelAdmin"
+            ).style.display = "none";
+
+
+            document.getElementById(
+                "loginArea"
+            ).style.display = "block";
+
+
+            document.getElementById(
+                "loginUsuario"
+            ).value = "";
+
+
+            document.getElementById(
+                "loginSenha"
+            ).value = "";
+
+        }
+
+    </script>
+
 </body>
 
 </html>
+```
