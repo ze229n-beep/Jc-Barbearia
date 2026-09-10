@@ -1,419 +1,341 @@
-html
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 
 <head>
 
-    <meta charset="UTF-8">
+```
+<meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Agendamento - JC Barbearia</title>
+<title>Agendamento - JC Barbearia</title>
 
-    <link rel="stylesheet" href="estilo.css">
+<link rel="stylesheet" href="estilo.css">
+```
 
 </head>
 
-
 <body>
-
 
 <header>
 
-    <div class="logo">
-        JC <span>BARBEARIA</span>
-    </div>
+```
+<div class="logo">
+    JC <span>BARBEARIA</span>
+</div>
 
-    <nav>
+<nav>
 
-        <a href="index.html">
-            Início
-        </a>
+    <a href="index.html">Início</a>
 
-        <a href="services.html">
-            Agendamento
-        </a>
+    <a href="services.html">Agendamento</a>
 
-    </nav>
+</nav>
+```
 
 </header>
-
-
 
 <main>
 
 <section class="booking">
 
+```
+<p class="subtitle">
+    JC BARBEARIA
+</p>
 
-    <p class="subtitle">
+<h1>
+    Agende seu horário
+</h1>
+
+<p class="booking-description">
+    Escolha o serviço, o dia e o horário.
+</p>
+
+
+
+<!-- =====================================
+     SERVIÇO
+====================================== -->
+
+<div class="booking-card">
+
+    <h2>
+        ✂️ 1. Escolha seu serviço
+    </h2>
+
+    <div
+        class="service-options"
+        id="serviceOptions">
+
+        <p>
+            Carregando serviços...
+        </p>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================
+     DIA
+====================================== -->
+
+<div class="booking-card">
+
+    <h2>
+        📅 2. Escolha o dia
+    </h2>
+
+    <p class="small-text">
+        Toque no dia que deseja agendar.
+    </p>
+
+    <div
+        id="days"
+        class="days">
+    </div>
+
+</div>
+
+
+
+<!-- =====================================
+     HORÁRIO
+====================================== -->
+
+<div class="booking-card">
+
+    <h2>
+        🕐 3. Escolha o horário
+    </h2>
+
+    <p class="small-text">
+        Primeiro escolha um serviço e um dia.
+    </p>
+
+    <div
+        id="times"
+        class="times">
+
+        <p class="time-message">
+            Primeiro escolha um serviço e um dia.
+        </p>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================
+     DADOS
+====================================== -->
+
+<div class="booking-card">
+
+    <h2>
+        4. Seus dados
+    </h2>
+
+    <label for="name">
+        Seu nome
+    </label>
+
+    <input
+        type="text"
+        id="name"
+        placeholder="Digite seu nome"
+    >
+
+
+    <label for="phone">
+        Seu WhatsApp
+    </label>
+
+    <input
+        type="tel"
+        id="phone"
+        placeholder="(99) 99999-9999"
+    >
+
+</div>
+
+
+
+<!-- =====================================
+     RESUMO
+====================================== -->
+
+<div class="summary">
+
+    <h2>
+        Resumo do agendamento
+    </h2>
+
+    <div class="summary-line">
+
+        <span>
+            Serviço
+        </span>
+
+        <strong id="summaryService">
+            —
+        </strong>
+
+    </div>
+
+
+    <div class="summary-line">
+
+        <span>
+            Dia
+        </span>
+
+        <strong id="summaryDate">
+            —
+        </strong>
+
+    </div>
+
+
+    <div class="summary-line">
+
+        <span>
+            Horário
+        </span>
+
+        <strong id="summaryTime">
+            —
+        </strong>
+
+    </div>
+
+
+    <div class="summary-line">
+
+        <span>
+            Valor
+        </span>
+
+        <strong id="summaryPrice">
+            —
+        </strong>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================
+     CONFIRMAR
+====================================== -->
+
+<button
+    type="button"
+    class="confirm-button"
+    id="confirmButton">
+
+    Confirmar agendamento
+
+</button>
+
+
+
+<!-- =====================================
+     COMPROVANTE
+====================================== -->
+
+<div
+    id="receipt"
+    class="receipt"
+    style="display:none;">
+
+    <div class="receipt-check">
+        ✓
+    </div>
+
+    <h2>
+        Agendamento confirmado!
+    </h2>
+
+    <p class="receipt-title">
         JC BARBEARIA
     </p>
 
 
-    <h1>
-        Agende seu horário
-    </h1>
+    <div class="receipt-info">
+
+        <p>
+            <span>Cliente</span>
+            <strong id="receiptName"></strong>
+        </p>
+
+        <p>
+            <span>WhatsApp</span>
+            <strong id="receiptPhone"></strong>
+        </p>
+
+        <p>
+            <span>Serviço</span>
+            <strong id="receiptService"></strong>
+        </p>
+
+        <p>
+            <span>Dia</span>
+            <strong id="receiptDate"></strong>
+        </p>
+
+        <p>
+            <span>Horário</span>
+            <strong id="receiptTime"></strong>
+        </p>
+
+        <p>
+            <span>Valor</span>
+            <strong id="receiptPrice"></strong>
+        </p>
+
+    </div>
 
 
-    <p class="booking-description">
-        Escolha o serviço, o dia e o horário.
+    <p class="receipt-message">
+        Seu horário foi reservado com sucesso.
     </p>
 
 
+    <a
+        id="whatsappButton"
+        class="whatsapp-button"
+        target="_blank">
 
-    <!-- =====================================
-         SERVIÇO
-    ====================================== -->
+        Enviar agendamento para o WhatsApp
 
-    <div class="booking-card">
+    </a>
 
-        <h2>
-            ✂️ 1. Escolha seu serviço
-        </h2>
-
-
-        <div
-            class="service-options"
-            id="serviceOptions">
-
-            <p>
-                Carregando serviços...
-            </p>
-
-        </div>
-
-    </div>
-
-
-
-    <!-- =====================================
-         DIA
-    ====================================== -->
-
-    <div class="booking-card">
-
-        <h2>
-            📅 2. Escolha o dia
-        </h2>
-
-
-        <p class="small-text">
-            Toque no dia que deseja agendar.
-        </p>
-
-
-        <div
-            id="days"
-            class="days">
-        </div>
-
-    </div>
-
-
-
-    <!-- =====================================
-         HORÁRIO
-    ====================================== -->
-
-    <div class="booking-card">
-
-        <h2>
-            🕐 3. Escolha o horário
-        </h2>
-
-
-        <p class="small-text">
-            Primeiro escolha um dia.
-        </p>
-
-
-        <div
-            id="times"
-            class="times">
-
-            <p class="time-message">
-                Primeiro escolha um dia.
-            </p>
-
-        </div>
-
-    </div>
-
-
-
-    <!-- =====================================
-         DADOS
-    ====================================== -->
-
-    <div class="booking-card">
-
-        <h2>
-            4. Seus dados
-        </h2>
-
-
-        <label for="name">
-            Seu nome
-        </label>
-
-
-        <input
-            type="text"
-            id="name"
-            placeholder="Digite seu nome"
-        >
-
-
-
-        <label for="phone">
-            Seu WhatsApp
-        </label>
-
-
-        <input
-            type="tel"
-            id="phone"
-            placeholder="(99) 99999-9999"
-        >
-
-    </div>
-
-
-
-    <!-- =====================================
-         RESUMO
-    ====================================== -->
-
-    <div class="summary">
-
-        <h2>
-            Resumo do agendamento
-        </h2>
-
-
-        <div class="summary-line">
-
-            <span>
-                Serviço
-            </span>
-
-
-            <strong id="summaryService">
-                —
-            </strong>
-
-        </div>
-
-
-
-        <div class="summary-line">
-
-            <span>
-                Dia
-            </span>
-
-
-            <strong id="summaryDate">
-                —
-            </strong>
-
-        </div>
-
-
-
-        <div class="summary-line">
-
-            <span>
-                Horário
-            </span>
-
-
-            <strong id="summaryTime">
-                —
-            </strong>
-
-        </div>
-
-
-
-        <div class="summary-line">
-
-            <span>
-                Valor
-            </span>
-
-
-            <strong id="summaryPrice">
-                —
-            </strong>
-
-        </div>
-
-    </div>
-
-
-
-    <!-- =====================================
-         CONFIRMAR
-    ====================================== -->
-
-    <button
-        type="button"
-        class="confirm-button"
-        id="confirmButton">
-
-        Confirmar agendamento
-
-    </button>
-
-
-
-    <!-- =====================================
-         COMPROVANTE
-    ====================================== -->
-
-    <div
-        id="receipt"
-        class="receipt"
-        style="display:none;">
-
-
-        <div class="receipt-check">
-            ✓
-        </div>
-
-
-        <h2>
-            Agendamento confirmado!
-        </h2>
-
-
-        <p class="receipt-title">
-            JC BARBEARIA
-        </p>
-
-
-
-        <div class="receipt-info">
-
-
-            <p>
-
-                <span>
-                    Cliente
-                </span>
-
-                <strong id="receiptName"></strong>
-
-            </p>
-
-
-
-            <p>
-
-                <span>
-                    WhatsApp
-                </span>
-
-                <strong id="receiptPhone"></strong>
-
-            </p>
-
-
-
-            <p>
-
-                <span>
-                    Serviço
-                </span>
-
-                <strong id="receiptService"></strong>
-
-            </p>
-
-
-
-            <p>
-
-                <span>
-                    Dia
-                </span>
-
-                <strong id="receiptDate"></strong>
-
-            </p>
-
-
-
-            <p>
-
-                <span>
-                    Horário
-                </span>
-
-                <strong id="receiptTime"></strong>
-
-            </p>
-
-
-
-            <p>
-
-                <span>
-                    Valor
-                </span>
-
-                <strong id="receiptPrice"></strong>
-
-            </p>
-
-
-        </div>
-
-
-
-        <p class="receipt-message">
-
-            Seu horário foi reservado com sucesso.
-
-        </p>
-
-
-
-        <a
-            id="whatsappButton"
-            class="whatsapp-button"
-            target="_blank">
-
-            Enviar agendamento para o WhatsApp
-
-        </a>
-
-
-    </div>
-
+</div>
+```
 
 </section>
 
 </main>
 
-
-
 <footer>
 
-    <p>
-        © 2026 JC Barbearia
-    </p>
+```
+<p>
+    © 2026 JC Barbearia
+</p>
 
-
-    <p>
-        Seu estilo, nossa missão.
-    </p>
+<p>
+    Seu estilo, nossa missão.
+</p>
+```
 
 </footer>
-
-
 
 <!-- =====================================
      SUPABASE
@@ -421,11 +343,18 @@ html
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<script src="config.js"></script>
-
-
-
 <script>
+
+/* =========================================
+   CONEXÃO COM SUPABASE
+========================================= */
+
+const db = window.supabase.createClient(
+    "https://zlfkdyxlfegojlgzulue.supabase.co",
+    "sb_publishable_suqAkNXSnGacL1vO_BaaOg_oeeHDKSs"
+);
+
+
 
 /* =========================================
    CONFIGURAÇÕES
@@ -470,13 +399,10 @@ const HORARIOS = [
 ========================================= */
 
 let selectedService = "";
-
-let selectedPrice = "";
-
-let selectedDuration = "";
-
+let selectedServiceId = null;
+let selectedPrice = 0;
+let selectedDuration = 0;
 let selectedDate = "";
-
 let selectedTime = "";
 
 
@@ -486,21 +412,13 @@ let selectedTime = "";
 ========================================= */
 
 const serviceOptions =
-    document.getElementById(
-        "serviceOptions"
-    );
-
+    document.getElementById("serviceOptions");
 
 const daysContainer =
-    document.getElementById(
-        "days"
-    );
-
+    document.getElementById("days");
 
 const timesContainer =
-    document.getElementById(
-        "times"
-    );
+    document.getElementById("times");
 
 
 
@@ -510,268 +428,174 @@ const timesContainer =
 
 async function loadServices() {
 
-
     serviceOptions.innerHTML =
-
         "<p>Carregando serviços...</p>";
 
-
-
-    /* Verifica se o Supabase foi carregado */
-
-    if (
-        typeof supabase === "undefined"
-    ) {
-
-        serviceOptions.innerHTML =
-
-            "<p>Erro: Supabase não foi carregado.</p>";
-
-        console.error(
-            "Supabase não encontrado."
-        );
-
-        return;
-
-    }
-
+    console.log("Iniciando carregamento dos serviços...");
 
 
     try {
 
-
-        const result =
-            await supabase
-                .from("services")
-                .select("*")
-                .eq("active", true)
-                .order("id");
+        const { data, error } = await db
+            .from("services")
+            .select("*")
+            .eq("active", true)
+            .order("id");
 
 
-        const data =
-            result.data;
+        console.log("Serviços recebidos:", data);
+        console.log("Erro Supabase:", error);
 
 
-        const error =
-            result.error;
+        if (error) {
 
-
-
-        /* =================================
-           ERRO
-        ================================= */
-if (error) {
-
-    console.error("ERRO REAL DO SUPABASE:", error);
-
-    alert(
-        "Erro Supabase: " +
-        error.message
-    );
-
-    serviceOptions.innerHTML = `
-
-        <p>
-            Erro ao carregar serviços.
-        </p>
-
-    `;
-
-    return;
-
-}
-
-
-        /* =================================
-           NENHUM SERVIÇO
-        ================================= */
-
-        if (
-            !data ||
-            data.length === 0
-        ) {
+            console.error(
+                "ERRO SUPABASE:",
+                error
+            );
 
             serviceOptions.innerHTML = `
-
                 <p>
-                    Nenhum serviço disponível.
+                    Erro ao carregar serviços.
+                    <br><br>
+                    ${error.message}
                 </p>
-
             `;
 
             return;
-
         }
 
 
+        if (!data || data.length === 0) {
 
-        /* =================================
-           LIMPA "CARREGANDO"
-        ================================= */
+            serviceOptions.innerHTML = `
+                <p>
+                    Nenhum serviço disponível.
+                </p>
+            `;
+
+            return;
+        }
+
 
         serviceOptions.innerHTML = "";
 
 
+        data.forEach(function(service) {
 
-        /* =================================
-           CRIA OS SERVIÇOS
-        ================================= */
-
-        data.forEach(
-            function(service) {
+            const button =
+                document.createElement("button");
 
 
-                const button =
-                    document.createElement(
-                        "button"
+            button.type = "button";
+
+            button.className = "service-option";
+
+
+            button.dataset.service =
+                service.name;
+
+            button.dataset.price =
+                service.price;
+
+            button.dataset.duration =
+                service.duration;
+
+            button.dataset.id =
+                service.id;
+
+
+            button.innerHTML = `
+
+                <span class="service-name">
+                    ${service.name}
+                </span>
+
+                <span class="service-price">
+                    R$ ${Number(service.price)
+                        .toFixed(2)
+                        .replace(".", ",")}
+                </span>
+
+            `;
+
+
+            button.addEventListener(
+                "click",
+                function() {
+
+                    document
+                        .querySelectorAll(".service-option")
+                        .forEach(function(item) {
+
+                            item.classList.remove(
+                                "selected"
+                            );
+
+                        });
+
+
+                    button.classList.add(
+                        "selected"
                     );
 
 
-                button.type =
-                    "button";
+                    selectedService =
+                        service.name;
+
+                    selectedServiceId =
+                        service.id;
+
+                    selectedPrice =
+                        Number(service.price);
+
+                    selectedDuration =
+                        Number(service.duration);
 
 
-                button.className =
-                    "service-option";
+                    document.getElementById(
+                        "summaryService"
+                    ).textContent =
+                        selectedService;
 
 
-
-                button.dataset.service =
-                    service.name;
-
-
-                button.dataset.price =
-                    service.price;
-
-
-                button.dataset.duration =
-                    service.duration;
-
-
-
-                button.innerHTML = `
-
-                    <span class="service-name">
-
-                        ${service.name}
-
-                    </span>
-
-
-                    <span class="service-price">
-
-                        R$ ${Number(
-                            service.price
-                        )
-                        .toFixed(2)
-                        .replace(
-                            ".",
-                            ","
-                        )}
-
-                    </span>
-
-                `;
-
-
-
-                /* =========================
-                   CLIQUE NO SERVIÇO
-                ========================== */
-
-                button.addEventListener(
-                    "click",
-                    function() {
-
-
-                        document
-                            .querySelectorAll(
-                                ".service-option"
-                            )
-                            .forEach(
-                                function(item) {
-
-                                    item.classList.remove(
-                                        "selected"
-                                    );
-
-                                }
-                            );
-
-
-
-                        button.classList.add(
-                            "selected"
-                        );
-
-
-
-                        selectedService =
-                            service.name;
-
-
-                        selectedPrice =
-                            service.price;
-
-
-                        selectedDuration =
-                            service.duration;
-
-
-
-                        document.getElementById(
-                            "summaryService"
-                        ).textContent =
-                            selectedService;
-
-
-
-                        document.getElementById(
-                            "summaryPrice"
-                        ).textContent =
-
-                            "R$ " +
-
-                            Number(
-                                selectedPrice
-                            )
+                    document.getElementById(
+                        "summaryPrice"
+                    ).textContent =
+                        "R$ " +
+                        selectedPrice
                             .toFixed(2)
-                            .replace(
-                                ".",
-                                ","
-                            );
+                            .replace(".", ",");
 
 
+                    if (selectedDate) {
 
-                        if (
-                            selectedDate
-                        ) {
-
-                            showTimes();
-
-                        }
+                        showTimes();
 
                     }
-                );
+
+                }
+            );
 
 
+            serviceOptions.appendChild(
+                button
+            );
 
-                serviceOptions.appendChild(
-                    button
-                );
+        });
 
 
-            }
+        console.log(
+            "Serviços carregados com sucesso."
         );
-
 
     }
 
+
     catch (erro) {
 
-
         console.error(
-            "Erro inesperado:",
+            "ERRO AO CONECTAR AO SUPABASE:",
             erro
         );
 
@@ -779,7 +603,13 @@ if (error) {
         serviceOptions.innerHTML = `
 
             <p>
+
                 Não foi possível conectar ao banco de dados.
+
+                <br><br>
+
+                ${erro.message || erro}
+
             </p>
 
         `;
@@ -796,13 +626,10 @@ if (error) {
 
 function createDays() {
 
-
     daysContainer.innerHTML = "";
 
 
-    const hoje =
-        new Date();
-
+    const hoje = new Date();
 
 
     const nomesDias = [
@@ -816,7 +643,6 @@ function createDays() {
         "Sáb"
 
     ];
-
 
 
     const nomesMeses = [
@@ -837,18 +663,14 @@ function createDays() {
     ];
 
 
-
     for (
         let i = 0;
         i < 14;
         i++
     ) {
 
-
         const data =
-            new Date(
-                hoje
-            );
+            new Date(hoje);
 
 
         data.setDate(
@@ -856,63 +678,36 @@ function createDays() {
         );
 
 
-
         const ano =
             data.getFullYear();
-
 
 
         const mes =
             String(
                 data.getMonth() + 1
-            )
-            .padStart(
-                2,
-                "0"
-            );
-
+            ).padStart(2, "0");
 
 
         const dia =
             String(
                 data.getDate()
-            )
-            .padStart(
-                2,
-                "0"
-            );
-
+            ).padStart(2, "0");
 
 
         const dataCompleta =
-
-            ano +
-            "-" +
-            mes +
-            "-" +
-            dia;
-
+            ano + "-" + mes + "-" + dia;
 
 
         const button =
-            document.createElement(
-                "button"
-            );
+            document.createElement("button");
 
 
-        button.type =
-            "button";
+        button.type = "button";
+
+        button.className = "day-button";
 
 
-        button.className =
-            "day-button";
-
-
-
-        if (
-            i === 0
-        ) {
-
+        if (i === 0) {
 
             button.innerHTML =
 
@@ -923,23 +718,17 @@ function createDays() {
                 '</span>' +
 
                 '<span class="day-month">' +
-                nomesMeses[
-                    data.getMonth()
-                ] +
+                nomesMeses[data.getMonth()] +
                 '</span>';
-
 
         }
 
         else {
 
-
             button.innerHTML =
 
                 '<span class="day-name">' +
-                nomesDias[
-                    data.getDay()
-                ] +
+                nomesDias[data.getDay()] +
                 '</span>' +
 
                 '<span class="day-number">' +
@@ -947,13 +736,10 @@ function createDays() {
                 '</span>' +
 
                 '<span class="day-month">' +
-                nomesMeses[
-                    data.getMonth()
-                ] +
+                nomesMeses[data.getMonth()] +
                 '</span>';
 
         }
-
 
 
         button.addEventListener(
@@ -962,19 +748,14 @@ function createDays() {
 
 
                 document
-                    .querySelectorAll(
-                        ".day-button"
-                    )
-                    .forEach(
-                        function(item) {
+                    .querySelectorAll(".day-button")
+                    .forEach(function(item) {
 
-                            item.classList.remove(
-                                "selected"
-                            );
+                        item.classList.remove(
+                            "selected"
+                        );
 
-                        }
-                    );
-
+                    });
 
 
                 button.classList.add(
@@ -982,23 +763,17 @@ function createDays() {
                 );
 
 
-
                 selectedDate =
                     dataCompleta;
 
 
-                selectedTime =
-                    "";
-
+                selectedTime = "";
 
 
                 document.getElementById(
                     "summaryDate"
                 ).textContent =
-                    formatDate(
-                        selectedDate
-                    );
-
+                    formatDate(selectedDate);
 
 
                 document.getElementById(
@@ -1007,12 +782,10 @@ function createDays() {
                     "—";
 
 
-
                 showTimes();
 
             }
         );
-
 
 
         daysContainer.appendChild(
@@ -1031,15 +804,10 @@ function createDays() {
 
 function showTimes() {
 
-
     timesContainer.innerHTML = "";
 
 
-
-    if (
-        !selectedService
-    ) {
-
+    if (!selectedService) {
 
         timesContainer.innerHTML = `
 
@@ -1052,9 +820,23 @@ function showTimes() {
         `;
 
         return;
-
     }
 
+
+    if (!selectedDate) {
+
+        timesContainer.innerHTML = `
+
+            <p class="time-message">
+
+                Escolha primeiro um dia.
+
+            </p>
+
+        `;
+
+        return;
+    }
 
 
     HORARIOS.forEach(
@@ -1062,22 +844,14 @@ function showTimes() {
 
 
             const button =
-                document.createElement(
-                    "button"
-                );
+                document.createElement("button");
 
 
-            button.type =
-                "button";
+            button.type = "button";
 
+            button.className = "time-button";
 
-            button.className =
-                "time-button";
-
-
-            button.textContent =
-                horario;
-
+            button.textContent = horario;
 
 
             button.addEventListener(
@@ -1086,19 +860,14 @@ function showTimes() {
 
 
                     document
-                        .querySelectorAll(
-                            ".time-button"
-                        )
-                        .forEach(
-                            function(item) {
+                        .querySelectorAll(".time-button")
+                        .forEach(function(item) {
 
-                                item.classList.remove(
-                                    "selected"
-                                );
+                            item.classList.remove(
+                                "selected"
+                            );
 
-                            }
-                        );
-
+                        });
 
 
                     button.classList.add(
@@ -1106,10 +875,8 @@ function showTimes() {
                     );
 
 
-
                     selectedTime =
                         horario;
-
 
 
                     document.getElementById(
@@ -1119,7 +886,6 @@ function showTimes() {
 
                 }
             );
-
 
 
             timesContainer.appendChild(
@@ -1137,24 +903,17 @@ function showTimes() {
    FORMATAR DATA
 ========================================= */
 
-function formatDate(
-    data
-) {
+function formatDate(data) {
 
-
-    if (
-        !data
-    ) {
+    if (!data) {
 
         return "—";
 
     }
 
 
-
     const partes =
         data.split("-");
-
 
 
     return (
@@ -1175,32 +934,24 @@ function formatDate(
    CONFIRMAR AGENDAMENTO
 ========================================= */
 
-function confirmBooking() {
+async function confirmBooking() {
 
 
     const name =
         document
-            .getElementById(
-                "name"
-            )
+            .getElementById("name")
             .value
             .trim();
-
 
 
     const phone =
         document
-            .getElementById(
-                "phone"
-            )
+            .getElementById("phone")
             .value
             .trim();
 
 
-
-    if (
-        !selectedService
-    ) {
+    if (!selectedService) {
 
         alert(
             "Escolha um serviço."
@@ -1211,10 +962,7 @@ function confirmBooking() {
     }
 
 
-
-    if (
-        !selectedDate
-    ) {
+    if (!selectedDate) {
 
         alert(
             "Escolha um dia."
@@ -1225,10 +973,7 @@ function confirmBooking() {
     }
 
 
-
-    if (
-        !selectedTime
-    ) {
+    if (!selectedTime) {
 
         alert(
             "Escolha um horário."
@@ -1239,10 +984,7 @@ function confirmBooking() {
     }
 
 
-
-    if (
-        !name
-    ) {
+    if (!name) {
 
         alert(
             "Digite seu nome."
@@ -1253,10 +995,7 @@ function confirmBooking() {
     }
 
 
-
-    if (
-        !phone
-    ) {
+    if (!phone) {
 
         alert(
             "Digite seu WhatsApp."
@@ -1268,18 +1007,63 @@ function confirmBooking() {
 
 
 
-    const formattedDate =
-        formatDate(
-            selectedDate
+    /* =================================
+       SALVAR NO SUPABASE
+    ================================= */
+
+    const { error } = await db
+        .from("appointments")
+        .insert({
+
+            customer_name: name,
+
+            service_id: selectedServiceId,
+
+            service_name: selectedService,
+
+            appointment_date: selectedDate,
+
+            appointment_time: selectedTime,
+
+            duration: selectedDuration,
+
+            status: "pendente"
+
+        });
+
+
+    if (error) {
+
+        console.error(
+            "Erro ao salvar agendamento:",
+            error
         );
 
 
+        alert(
+            "Não foi possível salvar o agendamento.\n\n" +
+            error.message
+        );
+
+        return;
+
+    }
+
+
+
+    const formattedDate =
+        formatDate(selectedDate);
+
+
+
+    /* =================================
+       COMPROVANTE
+    ================================= */
 
     document.getElementById(
         "receiptName"
     ).textContent =
         name;
-
 
 
     document.getElementById(
@@ -1288,12 +1072,10 @@ function confirmBooking() {
         phone;
 
 
-
     document.getElementById(
         "receiptService"
     ).textContent =
         selectedService;
-
 
 
     document.getElementById(
@@ -1302,12 +1084,10 @@ function confirmBooking() {
         formattedDate;
 
 
-
     document.getElementById(
         "receiptTime"
     ).textContent =
         selectedTime;
-
 
 
     document.getElementById(
@@ -1316,19 +1096,14 @@ function confirmBooking() {
 
         "R$ " +
 
-        Number(
-            selectedPrice
-        )
-        .toFixed(2)
-        .replace(
-            ".",
-            ","
-        );
+        selectedPrice
+            .toFixed(2)
+            .replace(".", ",");
 
 
 
     /* =================================
-       WHATSAPP
+       WHATSAPP DO ADM
     ================================= */
 
     const message =
@@ -1357,19 +1132,13 @@ function confirmBooking() {
 
         "Valor: R$ " +
 
-        Number(
-            selectedPrice
-        )
-        .toFixed(2)
-        .replace(
-            ".",
-            ","
-        ) +
+        selectedPrice
+            .toFixed(2)
+            .replace(".", ",") +
 
         "\n\n" +
 
         "Agendamento realizado pelo site.";
-
 
 
     const whatsappURL =
@@ -1385,7 +1154,6 @@ function confirmBooking() {
         );
 
 
-
     document.getElementById(
         "whatsappButton"
     ).href =
@@ -1397,7 +1165,6 @@ function confirmBooking() {
         "receipt"
     ).style.display =
         "block";
-
 
 
     document.getElementById(
@@ -1417,9 +1184,7 @@ function confirmBooking() {
 ========================================= */
 
 document
-    .getElementById(
-        "confirmButton"
-    )
+    .getElementById("confirmButton")
     .addEventListener(
         "click",
         confirmBooking
@@ -1430,16 +1195,17 @@ document
 /* =========================================
    INICIAR
 ========================================= */
+
 createDays();
 
-console.log("SERVICES.HTML ESTÁ EXECUTANDO");
+console.log(
+    "SERVICES.HTML ESTÁ EXECUTANDO"
+);
 
 loadServices();
 
 </script>
 
-
 </body>
 
 </html>
-
