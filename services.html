@@ -560,27 +560,26 @@ async function loadServices() {
         /* =================================
            ERRO
         ================================= */
+if (error) {
 
-        if (error) {
+    console.error("ERRO REAL DO SUPABASE:", error);
 
-            console.error(
-                "Erro Supabase:",
-                error
-            );
+    alert(
+        "Erro Supabase: " +
+        error.message
+    );
 
+    serviceOptions.innerHTML = `
 
-            serviceOptions.innerHTML = `
+        <p>
+            Erro ao carregar serviços.
+        </p>
 
-                <p>
-                    Erro ao carregar serviços.
-                </p>
+    `;
 
-            `;
+    return;
 
-            return;
-
-        }
-
+}
 
 
         /* =================================
