@@ -756,77 +756,192 @@ function createDays() {
 
 
                 showTimes();
-
-            }
-        );
-
-
-        daysContainer.appendChild(
-            button
-        );
-
-    }
-
-}
-
-
 /* =========================================
-   MOSTRAR HORÁRIOS
+   MOSTRAR HORÁRIOS DISPONÍVEIS
 ========================================= */
 
-function showTimes() {
+async function showTimes() {
 
     timesContainer.innerHTML = "";
-
 
     if (!selectedService) {
 
         timesContainer.innerHTML = `
-
             <p class="time-message">
-
                 Escolha primeiro um serviço.
-
             </p>
-
         `;
 
         return;
     }
-
 
     if (!selectedDate) {
 
         timesContainer.innerHTML = `
-
             <p class="time-message">
-
                 Escolha primeiro um dia.
-
             </p>
+        `;
 
+        return;
+    }
+
+    timesContainer.innerHTML = `
+        <p class="time-message">
+            Verificando horários disponíveis...
+        </p>
+    `;
+
+
+    /* =========================================
+       BUSCAR AGENDAMENTOS DO DIA
+    ========================================= */
+
+    const { data: agendamentos, error } = await db
+        .from("appointments")
+        .select("appointment_time, duration, status")
+        .eq("appointment_date", selectedDate)
+        .neq("status", "cancelado");
+
+
+    if (error) {
+
+        console.error(
+            "Erro ao consultar horários:",
+            error
+        );
+
+        timesContainer.innerHTML = `
+            <p class="time-message">
+                Não foi possível verificar os horários.
+            </p>
         `;
 
         return;
     }
 
 
-    HORARIOS.forEach(
-        function(horario) {
+    /* =========================================
+       FUNÇÃO PARA CONVERTER HORÁRIO EM MINUTOS
+    ========================================= */
 
-            const button =
-                document.createElement(
-                    "button"
+    function horarioEmMinutos(horario) {
+
+        const partes = horario.substring(0, 5).split(":");
+
+        return (
+            Number(partes[0]) * 60 +
+            Number(partes[1])
+        );
+
+    }
+
+
+    /* =========================================
+       VERIFICAR SE DOIS HORÁRIOS SE SOBREPOEM
+    ========================================= */
+
+    function horarioOcupado(
+        horarioInicial,
+        duracao
+    ) {
+
+        const inicioNovo =
+            horarioEmMinutos(horarioInicial);
+
+        const fimNovo =
+            inicioNovo + duracao;
+
+
+        return agendamentos.some(function(agendamento) {
+
+            const inicioExistente =
+                horarioEmMinutos(
+                    agendamento.appointment_time
                 );
 
+            const fimExistente =
+                inicioExistente +
+                Number(agendamento.duration);
 
-            button.type = "button";
 
-            button.className =
-                "time-button";
+            /*
+             * Existe conflito quando:
+             *
+             * início novo < fim existente
+             * E
+             * fim novo > início existente
+             */
+
+            return (
+                inicioNovo < fimExistente &&
+                fimNovo > inicioExistente
+            );
+
+        });
+
+    }
+
+
+    /* =========================================
+       MOSTRAR HORÁRIOS
+    ========================================= */
+
+    timesContainer.innerHTML = "";
+
+
+    let quantidadeDisponivel = 0;
+
+
+    HORARIOS.forEach(function(horario) {
+
+        const ocupado =
+            horarioOcupado(
+                horario,
+                selectedDuration
+            );
+
+
+        const button =
+            document.createElement("button");
+
+
+        button.type = "button";
+
+        button.className =
+            "time-button";
+
+
+        button.textContent =
+            horario;
+
+
+        /* =====================================
+           HORÁRIO OCUPADO
+        ====================================== */
+
+        if (ocupado) {
+
+            button.disabled = true;
+
+            button.classList.add("indisponivel");
+
+            button.title =
+                "Horário indisponível";
 
             button.textContent =
-                horario;
+                horario + " - Ocupado";
+
+        }
+
+
+        /* =====================================
+           HORÁRIO DISPONÍVEL
+        ====================================== */
+
+        else {
+
+            quantidadeDisponivel++;
 
 
             button.addEventListener(
@@ -863,16 +978,31 @@ function showTimes() {
                 }
             );
 
-
-            timesContainer.appendChild(
-                button
-            );
-
         }
-    );
+
+
+        timesContainer.appendChild(
+            button
+        );
+
+    });
+
+
+    /* =========================================
+       NENHUM HORÁRIO
+    ========================================= */
+
+    if (quantidadeDisponivel === 0) {
+
+        timesContainer.innerHTML = `
+            <p class="time-message">
+                Não há horários disponíveis para este dia.
+            </p>
+        `;
+
+    }
 
 }
-
 
 /* =========================================
    FORMATAR DATA
