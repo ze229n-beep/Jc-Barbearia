@@ -43,9 +43,7 @@
     </p>
 
 
-    <!-- =========================================
-         SERVIÇO
-    ========================================== -->
+    <!-- SERVIÇO -->
 
     <div class="booking-card">
 
@@ -66,9 +64,7 @@
     </div>
 
 
-    <!-- =========================================
-         DIA
-    ========================================== -->
+    <!-- DIA -->
 
     <div class="booking-card">
 
@@ -88,9 +84,7 @@
     </div>
 
 
-    <!-- =========================================
-         HORÁRIO
-    ========================================== -->
+    <!-- HORÁRIO -->
 
     <div class="booking-card">
 
@@ -115,9 +109,7 @@
     </div>
 
 
-    <!-- =========================================
-         DADOS DO CLIENTE
-    ========================================== -->
+    <!-- DADOS -->
 
     <div class="booking-card">
 
@@ -149,9 +141,7 @@
     </div>
 
 
-    <!-- =========================================
-         RESUMO
-    ========================================== -->
+    <!-- RESUMO -->
 
     <div class="summary">
 
@@ -213,9 +203,7 @@
     </div>
 
 
-    <!-- =========================================
-         CONFIRMAR
-    ========================================== -->
+    <!-- CONFIRMAR -->
 
     <button
         type="button"
@@ -227,9 +215,7 @@
     </button>
 
 
-    <!-- =========================================
-         COMPROVANTE
-    ========================================== -->
+    <!-- COMPROVANTE -->
 
     <div
         id="receipt"
@@ -318,12 +304,9 @@
 </footer>
 
 
-<!-- =========================================
-     SUPABASE
-========================================= -->
+<!-- SUPABASE -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 
 <script>
 
@@ -718,7 +701,6 @@ function createDays() {
 
         }
 
-
         else {
 
             button.innerHTML =
@@ -786,7 +768,10 @@ function createDays() {
             }
         );
 
-        daysContainer.appendChild(button);
+
+        daysContainer.appendChild(
+            button
+        );
 
     }
 
@@ -836,7 +821,11 @@ async function showTimes() {
 
 
     /* =========================================
-       BUSCAR AGENDAMENTOS DO DIA
+       BUSCAR AGENDAMENTOS
+       
+       IMPORTANTE:
+       A tabela no Supabase se chama
+       "appointments".
     ========================================== */
 
     const {
@@ -844,7 +833,7 @@ async function showTimes() {
         error
     } = await db
 
-        .from("agendamentos")
+        .from("appointments")
 
         .select(
             "horário_da_consulta, duração, status"
@@ -1195,7 +1184,7 @@ async function confirmBooking() {
         error
     } = await db
 
-        .from("agendamentos")
+        .from("appointments")
 
         .insert({
 
@@ -1248,7 +1237,7 @@ async function confirmBooking() {
 
 
     /* =========================================
-       PREENCHER COMPROVANTE
+       COMPROVANTE
     ========================================== */
 
     document.getElementById(
@@ -1293,7 +1282,7 @@ async function confirmBooking() {
 
 
     /* =========================================
-       MENSAGEM WHATSAPP
+       WHATSAPP
     ========================================== */
 
     const message =
@@ -1350,9 +1339,7 @@ async function confirmBooking() {
         whatsappURL;
 
 
-    /* =========================================
-       MOSTRAR COMPROVANTE
-    ========================================== */
+    /* MOSTRAR COMPROVANTE */
 
     document.getElementById(
         "receipt"
