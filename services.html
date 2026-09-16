@@ -25,6 +25,7 @@
 
 </header>
 
+
 <main>
 
 <section class="booking">
@@ -42,7 +43,9 @@
     </p>
 
 
-    <!-- SERVIÇO -->
+    <!-- =========================================
+         SERVIÇO
+    ========================================== -->
 
     <div class="booking-card">
 
@@ -63,7 +66,9 @@
     </div>
 
 
-    <!-- DIA -->
+    <!-- =========================================
+         DIA
+    ========================================== -->
 
     <div class="booking-card">
 
@@ -83,7 +88,9 @@
     </div>
 
 
-    <!-- HORÁRIO -->
+    <!-- =========================================
+         HORÁRIO
+    ========================================== -->
 
     <div class="booking-card">
 
@@ -108,7 +115,9 @@
     </div>
 
 
-    <!-- DADOS -->
+    <!-- =========================================
+         DADOS DO CLIENTE
+    ========================================== -->
 
     <div class="booking-card">
 
@@ -140,7 +149,9 @@
     </div>
 
 
-    <!-- RESUMO -->
+    <!-- =========================================
+         RESUMO
+    ========================================== -->
 
     <div class="summary">
 
@@ -202,7 +213,9 @@
     </div>
 
 
-    <!-- CONFIRMAR -->
+    <!-- =========================================
+         CONFIRMAR
+    ========================================== -->
 
     <button
         type="button"
@@ -214,7 +227,9 @@
     </button>
 
 
-    <!-- COMPROVANTE -->
+    <!-- =========================================
+         COMPROVANTE
+    ========================================== -->
 
     <div
         id="receipt"
@@ -303,9 +318,12 @@
 </footer>
 
 
-<!-- SUPABASE -->
+<!-- =========================================
+     SUPABASE
+========================================= -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 
 <script>
 
@@ -324,6 +342,7 @@ const db = window.supabase.createClient(
 ========================================= */
 
 const ADMIN_WHATSAPP = "559984863723";
+
 
 const HORARIOS = [
 
@@ -394,6 +413,7 @@ async function loadServices() {
         "Iniciando carregamento dos serviços..."
     );
 
+
     try {
 
         const { data, error } = await db
@@ -408,6 +428,7 @@ async function loadServices() {
             data
         );
 
+
         console.log(
             "Erro Supabase:",
             error
@@ -421,6 +442,7 @@ async function loadServices() {
                 error
             );
 
+
             serviceOptions.innerHTML = `
                 <p>
                     Erro ao carregar serviços.
@@ -430,6 +452,7 @@ async function loadServices() {
             `;
 
             return;
+
         }
 
 
@@ -442,6 +465,7 @@ async function loadServices() {
             `;
 
             return;
+
         }
 
 
@@ -560,6 +584,7 @@ async function loadServices() {
         );
 
     }
+
 
     catch (erro) {
 
@@ -693,6 +718,7 @@ function createDays() {
 
         }
 
+
         else {
 
             button.innerHTML =
@@ -756,6 +782,17 @@ function createDays() {
 
 
                 showTimes();
+
+            }
+        );
+
+        daysContainer.appendChild(button);
+
+    }
+
+}
+
+
 /* =========================================
    MOSTRAR HORÁRIOS DISPONÍVEIS
 ========================================= */
@@ -763,6 +800,7 @@ function createDays() {
 async function showTimes() {
 
     timesContainer.innerHTML = "";
+
 
     if (!selectedService) {
 
@@ -773,7 +811,9 @@ async function showTimes() {
         `;
 
         return;
+
     }
+
 
     if (!selectedDate) {
 
@@ -784,7 +824,9 @@ async function showTimes() {
         `;
 
         return;
+
     }
+
 
     timesContainer.innerHTML = `
         <p class="time-message">
@@ -795,13 +837,28 @@ async function showTimes() {
 
     /* =========================================
        BUSCAR AGENDAMENTOS DO DIA
-    ========================================= */
+    ========================================== */
 
-    const { data: agendamentos, error } = await db
-    .from("agendamentos")
-    .select("horário_da_consulta, duração, status")
-    .eq("data_da_consulta", selectedDate)
-    .neq("status", "cancelado");
+    const {
+        data: agendamentos,
+        error
+    } = await db
+
+        .from("agendamentos")
+
+        .select(
+            "horário_da_consulta, duração, status"
+        )
+
+        .eq(
+            "data_da_consulta",
+            selectedDate
+        )
+
+        .neq(
+            "status",
+            "cancelado"
+        );
 
 
     if (error) {
@@ -811,6 +868,7 @@ async function showTimes() {
             error
         );
 
+
         timesContainer.innerHTML = `
             <p class="time-message">
                 Não foi possível verificar os horários.
@@ -818,16 +876,21 @@ async function showTimes() {
         `;
 
         return;
+
     }
 
 
     /* =========================================
-       FUNÇÃO PARA CONVERTER HORÁRIO EM MINUTOS
-    ========================================= */
+       CONVERTER HORÁRIO EM MINUTOS
+    ========================================== */
 
     function horarioEmMinutos(horario) {
 
-        const partes = horario.substring(0, 5).split(":");
+        const partes =
+            horario
+                .substring(0, 5)
+                .split(":");
+
 
         return (
             Number(partes[0]) * 60 +
@@ -838,8 +901,8 @@ async function showTimes() {
 
 
     /* =========================================
-       VERIFICAR SE DOIS HORÁRIOS SE SOBREPOEM
-    ========================================= */
+       VERIFICAR CONFLITO
+    ========================================== */
 
     function horarioOcupado(
         horarioInicial,
@@ -847,45 +910,52 @@ async function showTimes() {
     ) {
 
         const inicioNovo =
-            horarioEmMinutos(horarioInicial);
+            horarioEmMinutos(
+                horarioInicial
+            );
+
 
         const fimNovo =
             inicioNovo + duracao;
 
 
-        return agendamentos.some(function(agendamento) {
+        return agendamentos.some(
+            function(agendamento) {
 
-            const inicioExistente =
-                horarioEmMinutos(
-                    agendamento.horário_da_consulta
+                const inicioExistente =
+                    horarioEmMinutos(
+                        agendamento.horário_da_consulta
+                    );
+
+
+                const fimExistente =
+                    inicioExistente +
+                    Number(
+                        agendamento.duração
+                    );
+
+
+                return (
+
+                    inicioNovo <
+                    fimExistente
+
+                    &&
+
+                    fimNovo >
+                    inicioExistente
+
                 );
 
-            const fimExistente =
-                inicioExistente +
-                Number(agendamento.duração);
-
-
-            /*
-             * Existe conflito quando:
-             *
-             * início novo < fim existente
-             * E
-             * fim novo > início existente
-             */
-
-            return (
-                inicioNovo < fimExistente &&
-                fimNovo > inicioExistente
-            );
-
-        });
+            }
+        );
 
     }
 
 
     /* =========================================
        MOSTRAR HORÁRIOS
-    ========================================= */
+    ========================================== */
 
     timesContainer.innerHTML = "";
 
@@ -893,106 +963,113 @@ async function showTimes() {
     let quantidadeDisponivel = 0;
 
 
-    HORARIOS.forEach(function(horario) {
+    HORARIOS.forEach(
+        function(horario) {
 
-        const ocupado =
-            horarioOcupado(
-                horario,
-                selectedDuration
-            );
-
-
-        const button =
-            document.createElement("button");
+            const ocupado =
+                horarioOcupado(
+                    horario,
+                    selectedDuration
+                );
 
 
-        button.type = "button";
-
-        button.className =
-            "time-button";
-
-
-        button.textContent =
-            horario;
+            const button =
+                document.createElement(
+                    "button"
+                );
 
 
-        /* =====================================
-           HORÁRIO OCUPADO
-        ====================================== */
+            button.type = "button";
 
-        if (ocupado) {
+            button.className =
+                "time-button";
 
-            button.disabled = true;
-
-            button.classList.add("indisponivel");
-
-            button.title =
-                "Horário indisponível";
 
             button.textContent =
-                horario + " - Ocupado";
-
-        }
+                horario;
 
 
-        /* =====================================
-           HORÁRIO DISPONÍVEL
-        ====================================== */
+            /* HORÁRIO OCUPADO */
 
-        else {
+            if (ocupado) {
 
-            quantidadeDisponivel++;
+                button.disabled = true;
+
+                button.classList.add(
+                    "indisponivel"
+                );
+
+                button.title =
+                    "Horário indisponível";
+
+                button.textContent =
+                    horario +
+                    " - Ocupado";
+
+            }
 
 
-            button.addEventListener(
-                "click",
-                function() {
+            /* HORÁRIO DISPONÍVEL */
 
-                    document
-                        .querySelectorAll(
-                            ".time-button"
-                        )
-                        .forEach(function(item) {
+            else {
 
-                            item.classList.remove(
-                                "selected"
+                quantidadeDisponivel++;
+
+
+                button.addEventListener(
+                    "click",
+                    function() {
+
+                        document
+                            .querySelectorAll(
+                                ".time-button"
+                            )
+                            .forEach(
+                                function(item) {
+
+                                    item.classList.remove(
+                                        "selected"
+                                    );
+
+                                }
                             );
 
-                        });
+
+                        button.classList.add(
+                            "selected"
+                        );
 
 
-                    button.classList.add(
-                        "selected"
-                    );
+                        selectedTime =
+                            horario;
 
 
-                    selectedTime =
-                        horario;
+                        document.getElementById(
+                            "summaryTime"
+                        ).textContent =
+                            selectedTime;
+
+                    }
+                );
+
+            }
 
 
-                    document.getElementById(
-                        "summaryTime"
-                    ).textContent =
-                        selectedTime;
-
-                }
+            timesContainer.appendChild(
+                button
             );
 
         }
-
-
-        timesContainer.appendChild(
-            button
-        );
-
-    });
+    );
 
 
     /* =========================================
        NENHUM HORÁRIO
-    ========================================= */
+    ========================================== */
 
-    if (quantidadeDisponivel === 0) {
+    if (
+        quantidadeDisponivel === 0
+    ) {
 
         timesContainer.innerHTML = `
             <p class="time-message">
@@ -1003,6 +1080,7 @@ async function showTimes() {
     }
 
 }
+
 
 /* =========================================
    FORMATAR DATA
@@ -1109,19 +1187,40 @@ async function confirmBooking() {
     }
 
 
-    /* SALVAR NO SUPABASE */
+    /* =========================================
+       SALVAR NO SUPABASE
+    ========================================== */
 
-    const { error } = await db
-    .from("agendamentos")
-    .insert({
-        nome_do_cliente: name,
-        id_do_servico: selectedServiceId,
-        nome_do_servico: selectedService,
-        data_da_consulta: selectedDate,
-        horário_da_consulta: selectedTime,
-        duração: selectedDuration,
-        status: "pendente"
-    });
+    const {
+        error
+    } = await db
+
+        .from("agendamentos")
+
+        .insert({
+
+            nome_do_cliente:
+                name,
+
+            id_do_servico:
+                selectedServiceId,
+
+            nome_do_servico:
+                selectedService,
+
+            data_da_consulta:
+                selectedDate,
+
+            horário_da_consulta:
+                selectedTime,
+
+            duração:
+                selectedDuration,
+
+            status:
+                "pendente"
+
+        });
 
 
     if (error) {
@@ -1143,10 +1242,14 @@ async function confirmBooking() {
 
 
     const formattedDate =
-        formatDate(selectedDate);
+        formatDate(
+            selectedDate
+        );
 
 
-    /* COMPROVANTE */
+    /* =========================================
+       PREENCHER COMPROVANTE
+    ========================================== */
 
     document.getElementById(
         "receiptName"
@@ -1189,7 +1292,9 @@ async function confirmBooking() {
             .replace(".", ",");
 
 
-    /* WHATSAPP DO ADM */
+    /* =========================================
+       MENSAGEM WHATSAPP
+    ========================================== */
 
     const message =
 
@@ -1245,6 +1350,10 @@ async function confirmBooking() {
         whatsappURL;
 
 
+    /* =========================================
+       MOSTRAR COMPROVANTE
+    ========================================== */
+
     document.getElementById(
         "receipt"
     ).style.display =
@@ -1267,7 +1376,9 @@ async function confirmBooking() {
 ========================================= */
 
 document
-    .getElementById("confirmButton")
+    .getElementById(
+        "confirmButton"
+    )
     .addEventListener(
         "click",
         confirmBooking
@@ -1280,9 +1391,11 @@ document
 
 createDays();
 
+
 console.log(
     "SERVICES.HTML ESTÁ EXECUTANDO"
 );
+
 
 loadServices();
 
