@@ -798,10 +798,10 @@ async function showTimes() {
     ========================================= */
 
     const { data: agendamentos, error } = await db
-        .from("appointments")
-        .select("appointment_time, duration, status")
-        .eq("appointment_date", selectedDate)
-        .neq("status", "cancelado");
+    .from("agendamentos")
+    .select("horário_da_consulta, duração, status")
+    .eq("data_da_consulta", selectedDate)
+    .neq("status", "cancelado");
 
 
     if (error) {
