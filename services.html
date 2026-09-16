@@ -857,12 +857,12 @@ async function showTimes() {
 
             const inicioExistente =
                 horarioEmMinutos(
-                    agendamento.appointment_time
+                    agendamento.horário_da_consulta
                 );
 
             const fimExistente =
                 inicioExistente +
-                Number(agendamento.duration);
+                Number(agendamento.duração);
 
 
             /*
