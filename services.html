@@ -1112,24 +1112,17 @@ async function confirmBooking() {
     /* SALVAR NO SUPABASE */
 
     const { error } = await db
-        .from("appointments")
-        .insert({
-
-            customer_name: name,
-
-            service_id: selectedServiceId,
-
-            service_name: selectedService,
-
-            appointment_date: selectedDate,
-
-            appointment_time: selectedTime,
-
-            duration: selectedDuration,
-
-            status: "pendente"
-
-        });
+        const { error } = await db
+    .from("agendamentos")
+    .insert({
+        nome_do_cliente: name,
+        id_do_servico: selectedServiceId,
+        nome_do_servico: selectedService,
+        data_da_consulta: selectedDate,
+        horário_da_consulta: selectedTime,
+        duração: selectedDuration,
+        status: "pendente"
+    });
 
 
     if (error) {
