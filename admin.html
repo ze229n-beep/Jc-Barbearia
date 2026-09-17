@@ -11,6 +11,122 @@
 
 <link rel="stylesheet" href="estilo.css">
 <link rel="stylesheet" href="admin.css">
+
+<style>
+
+    /* =====================================================
+       BOTÕES DE AGENDAMENTO
+    ====================================================== */
+
+    .botao-confirmar,
+    .botao-finalizar {
+        border: none;
+        border-radius: 8px;
+        padding: 10px 16px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        margin-top: 10px;
+        transition: 0.2s ease;
+    }
+
+    .botao-confirmar {
+        background: #d4af37;
+        color: #111;
+    }
+
+    .botao-confirmar:hover {
+        transform: translateY(-1px);
+        opacity: 0.9;
+    }
+
+    .botao-finalizar {
+        background: #222;
+        color: #d4af37;
+        border: 1px solid #d4af37;
+    }
+
+    .botao-finalizar:hover {
+        background: #d4af37;
+        color: #111;
+    }
+
+    .status-confirmado {
+        display: inline-block;
+        margin-top: 8px;
+        padding: 5px 9px;
+        border-radius: 6px;
+        background: rgba(212, 175, 55, 0.12);
+        color: #d4af37;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    /* =====================================================
+       FORMULÁRIO DE PAGAMENTO
+    ====================================================== */
+
+    .pagamento-box {
+        margin-top: 15px;
+        padding: 15px;
+        border-radius: 10px;
+        background: #111;
+        border: 1px solid #333;
+    }
+
+    .pagamento-box label {
+        display: block;
+        margin-bottom: 7px;
+        font-weight: 600;
+    }
+
+    .pagamento-box select {
+        width: 100%;
+        padding: 10px;
+        border-radius: 7px;
+        border: 1px solid #555;
+        background: #222;
+        color: #fff;
+        margin-bottom: 10px;
+    }
+
+    .botao-pagamento {
+        border: none;
+        border-radius: 7px;
+        padding: 9px 14px;
+        background: #d4af37;
+        color: #111;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .botao-cancelar-pagamento {
+        border: 1px solid #555;
+        border-radius: 7px;
+        padding: 9px 14px;
+        background: transparent;
+        color: #fff;
+        cursor: pointer;
+        margin-left: 6px;
+    }
+
+    /* =====================================================
+       ABAS
+    ====================================================== */
+
+    .contador-aba {
+        display: inline-block;
+        min-width: 20px;
+        padding: 2px 6px;
+        margin-left: 5px;
+        border-radius: 10px;
+        background: #d4af37;
+        color: #111;
+        font-size: 11px;
+        font-weight: bold;
+    }
+
+</style>
 ```
 
 </head>
@@ -18,6 +134,10 @@
 <body>
 
 ```
+<!-- =====================================================
+     CABEÇALHO
+====================================================== -->
+
 <header>
 
     <div class="logo">
@@ -31,7 +151,9 @@
 </header>
 
 
-<!-- LOGIN -->
+<!-- =====================================================
+     LOGIN
+====================================================== -->
 
 <section id="loginArea" class="login-area">
 
@@ -62,11 +184,16 @@
 </section>
 
 
-<!-- PAINEL ADMINISTRATIVO -->
+<!-- =====================================================
+     PAINEL ADMINISTRATIVO
+====================================================== -->
 
 <main id="painelAdmin" style="display: none;">
 
-    <!-- MENU -->
+
+    <!-- =================================================
+         MENU
+    ================================================== -->
 
     <div class="abas">
 
@@ -77,12 +204,30 @@
             Configurações do ADM
         </button>
 
+
         <button
             type="button"
             onclick="mostrarAba('agendamentos')"
         >
             Agendamentos
+            <span
+                id="contadorPendentes"
+                class="contador-aba"
+            >0</span>
         </button>
+
+
+        <button
+            type="button"
+            onclick="mostrarAba('confirmados')"
+        >
+            Serviços Confirmados
+            <span
+                id="contadorConfirmados"
+                class="contador-aba"
+            >0</span>
+        </button>
+
 
         <button
             type="button"
@@ -90,6 +235,7 @@
         >
             Caixa
         </button>
+
 
         <button
             type="button"
@@ -101,7 +247,9 @@
     </div>
 
 
-    <!-- CONFIGURAÇÕES -->
+    <!-- =================================================
+         CONFIGURAÇÕES
+    ================================================== -->
 
     <section
         id="configuracoes"
@@ -181,7 +329,9 @@
     </section>
 
 
-    <!-- AGENDAMENTOS -->
+    <!-- =================================================
+         AGENDAMENTOS PENDENTES
+    ================================================== -->
 
     <section
         id="agendamentos"
@@ -193,7 +343,7 @@
 
         <div class="config-box">
 
-            <h3>Agendamentos realizados</h3>
+            <h3>Agendamentos pendentes</h3>
 
             <div id="listaAgendamentos">
 
@@ -208,7 +358,38 @@
     </section>
 
 
-    <!-- CAIXA -->
+    <!-- =================================================
+         SERVIÇOS CONFIRMADOS
+    ================================================== -->
+
+    <section
+        id="confirmados"
+        class="aba-conteudo"
+        style="display: none;"
+    >
+
+        <h2>Serviços Confirmados</h2>
+
+        <div class="config-box">
+
+            <h3>Clientes aguardando atendimento</h3>
+
+            <div id="listaConfirmados">
+
+                <p>
+                    Nenhum serviço confirmado.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         CAIXA
+    ================================================== -->
 
     <section
         id="caixa"
@@ -233,8 +414,35 @@
             </p>
 
             <p>
-                Faturamento:
-                <strong id="faturamento">R$ 0,00</strong>
+                Dinheiro:
+                <strong id="totalDinheiro">R$ 0,00</strong>
+            </p>
+
+            <p>
+                Pix:
+                <strong id="totalPix">R$ 0,00</strong>
+            </p>
+
+            <p>
+                Cartão:
+                <strong id="totalCartao">R$ 0,00</strong>
+            </p>
+
+            <p>
+                Outros:
+                <strong id="totalOutros">R$ 0,00</strong>
+            </p>
+
+            <hr>
+
+            <p>
+                <strong>
+                    Faturamento total:
+                </strong>
+
+                <strong id="faturamento">
+                    R$ 0,00
+                </strong>
             </p>
 
         </div>
@@ -242,7 +450,9 @@
     </section>
 
 
-    <!-- RELATÓRIO -->
+    <!-- =================================================
+         RELATÓRIO
+    ================================================== -->
 
     <section
         id="relatorio"
@@ -254,7 +464,7 @@
 
         <div class="config-box">
 
-            <h3>Relatório mensal</h3>
+            <h3>Resumo dos serviços finalizados</h3>
 
             <p>
                 Clientes:
@@ -268,8 +478,42 @@
 
             <p>
                 Receita:
-                <strong id="relReceita">R$ 0,00</strong>
+                <strong id="relReceita">
+                    R$ 0,00
+                </strong>
             </p>
+
+            <hr>
+
+            <p>
+                Dinheiro:
+                <strong id="relDinheiro">
+                    R$ 0,00
+                </strong>
+            </p>
+
+            <p>
+                Pix:
+                <strong id="relPix">
+                    R$ 0,00
+                </strong>
+            </p>
+
+            <p>
+                Cartão:
+                <strong id="relCartao">
+                    R$ 0,00
+                </strong>
+            </p>
+
+            <p>
+                Outros:
+                <strong id="relOutros">
+                    R$ 0,00
+                </strong>
+            </p>
+
+            <br>
 
             <button
                 type="button"
@@ -283,7 +527,9 @@
     </section>
 
 
-    <!-- SAIR -->
+    <!-- =================================================
+         SAIR
+    ================================================== -->
 
     <div class="sair-area">
 
@@ -299,7 +545,9 @@
 </main>
 
 
-<!-- SUPABASE -->
+<!-- =====================================================
+     SUPABASE
+====================================================== -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -313,9 +561,12 @@
 </script>
 
 
-<!-- JAVASCRIPT DO ADMIN -->
+<!-- =====================================================
+     JAVASCRIPT
+====================================================== -->
 
 <script>
+
 
     /* =====================================================
        LOGIN
@@ -361,7 +612,8 @@
 
         } else {
 
-            erro.textContent = "Usuário ou senha incorretos.";
+            erro.textContent =
+                "Usuário ou senha incorretos.";
 
         }
 
@@ -431,6 +683,7 @@
         const abas = [
             "configuracoes",
             "agendamentos",
+            "confirmados",
             "caixa",
             "relatorio"
         ];
@@ -459,6 +712,27 @@
 
         }
 
+
+        if (nome === "confirmados") {
+
+            carregarConfirmados();
+
+        }
+
+
+        if (nome === "caixa") {
+
+            carregarCaixa();
+
+        }
+
+
+        if (nome === "relatorio") {
+
+            carregarCaixa();
+
+        }
+
     }
 
 
@@ -473,6 +747,9 @@
 
         const lista =
             document.getElementById("listaServicos");
+
+
+        if (!lista) return;
 
 
         lista.innerHTML =
@@ -879,10 +1156,6 @@
     }
 
 
-    /* =====================================================
-       SALVAR SERVIÇOS
-    ====================================================== */
-
     async function salvarServicos() {
 
         await carregarServicos();
@@ -897,7 +1170,7 @@
 
 
     /* =====================================================
-       AGENDAMENTOS
+       CARREGAR AGENDAMENTOS PENDENTES
     ====================================================== */
 
     async function carregarAgendamentos() {
@@ -916,6 +1189,7 @@
         const { data, error } = await db
             .from("appointments")
             .select("*")
+            .eq("status", "pendente")
             .order("appointment_date", {
                 ascending: true
             })
@@ -940,10 +1214,21 @@
         }
 
 
+        const total =
+            data ? data.length : 0;
+
+
+        document.getElementById(
+            "contadorPendentes"
+        ).textContent = total;
+
+
         if (!data || data.length === 0) {
 
             lista.innerHTML =
-                "<p>Nenhum agendamento encontrado.</p>";
+                "<p>Nenhum agendamento pendente.</p>";
+
+            atualizarContadores();
 
             return;
 
@@ -960,43 +1245,6 @@
 
             item.className =
                 "agendamento-item";
-
-
-            const status =
-                String(agendamento.status || "")
-                    .toLowerCase();
-
-
-            let botaoConfirmar = "";
-
-
-            if (status === "pendente") {
-
-                botaoConfirmar = `
-
-                    <button
-                        type="button"
-                        onclick="confirmarAgendamento(${agendamento.id})"
-                    >
-                        ✅ CONFIRMAR AGENDAMENTO
-                    </button>
-
-                `;
-
-            } else if (status === "confirmado") {
-
-                botaoConfirmar = `
-
-                    <button
-                        type="button"
-                        disabled
-                    >
-                        ✅ AGENDAMENTO CONFIRMADO
-                    </button>
-
-                `;
-
-            }
 
 
             item.innerHTML = `
@@ -1028,12 +1276,16 @@
 
                 <p>
                     Status:
-                    <strong>
-                        ${escaparHTML(agendamento.status)}
-                    </strong>
+                    <strong>Pendente</strong>
                 </p>
 
-                ${botaoConfirmar}
+                <button
+                    type="button"
+                    class="botao-confirmar"
+                    onclick="confirmarAgendamento(${agendamento.id})"
+                >
+                    Confirmar
+                </button>
 
                 <hr>
 
@@ -1045,7 +1297,7 @@
         });
 
 
-        atualizarCaixa(data);
+        atualizarContadores();
 
     }
 
@@ -1062,11 +1314,7 @@
             );
 
 
-        if (!confirmar) {
-
-            return;
-
-        }
+        if (!confirmar) return;
 
 
         const { error } = await db
@@ -1096,31 +1344,353 @@
         }
 
 
-        alert(
-            "Agendamento confirmado com sucesso!"
-        );
+        await carregarAgendamentos();
 
-
-        carregarAgendamentos();
+        await carregarConfirmados();
 
     }
 
 
     /* =====================================================
-       ATUALIZAR CAIXA
+       SERVIÇOS CONFIRMADOS
     ====================================================== */
+
+    async function carregarConfirmados() {
+
+        const lista =
+            document.getElementById("listaConfirmados");
+
+
+        if (!lista) return;
+
+
+        lista.innerHTML =
+            "<p>Carregando...</p>";
+
+
+        const { data, error } = await db
+            .from("appointments")
+            .select("*")
+            .eq("status", "confirmado")
+            .order("appointment_date", {
+                ascending: true
+            })
+            .order("appointment_time", {
+                ascending: true
+            });
+
+
+        if (error) {
+
+            console.error(
+                "Erro ao carregar confirmados:",
+                error
+            );
+
+
+            lista.innerHTML =
+                "<p>Erro ao carregar serviços confirmados.</p>";
+
+            return;
+
+        }
+
+
+        document.getElementById(
+            "contadorConfirmados"
+        ).textContent = data ? data.length : 0;
+
+
+        if (!data || data.length === 0) {
+
+            lista.innerHTML =
+                "<p>Nenhum serviço confirmado aguardando atendimento.</p>";
+
+            return;
+
+        }
+
+
+        lista.innerHTML = "";
+
+
+        data.forEach(function(agendamento) {
+
+            const item =
+                document.createElement("div");
+
+            item.className =
+                "agendamento-item";
+
+
+            item.innerHTML = `
+
+                <strong>
+                    ${escaparHTML(agendamento.customer_name)}
+                </strong>
+
+                <p>
+                    Serviço:
+                    ${escaparHTML(agendamento.service_name)}
+                </p>
+
+                <p>
+                    Data:
+                    ${formatarData(agendamento.appointment_date)}
+                </p>
+
+                <p>
+                    Horário:
+                    ${escaparHTML(agendamento.appointment_time)}
+                </p>
+
+                <p>
+                    Duração:
+                    ${escaparHTML(agendamento.duration)}
+                    minutos
+                </p>
+
+                <span class="status-confirmado">
+                    CONFIRMADO
+                </span>
+
+                <br>
+
+                <button
+                    type="button"
+                    class="botao-finalizar"
+                    onclick="mostrarPagamento(${agendamento.id})"
+                >
+                    Finalizar serviço
+                </button>
+
+                <div
+                    id="pagamento-${agendamento.id}"
+                    class="pagamento-box"
+                    style="display: none;"
+                >
+
+                    <label>
+                        Forma de pagamento
+                    </label>
+
+                    <select
+                        id="formaPagamento-${agendamento.id}"
+                    >
+
+                        <option value="">
+                            Selecione
+                        </option>
+
+                        <option value="dinheiro">
+                            Dinheiro
+                        </option>
+
+                        <option value="pix">
+                            Pix
+                        </option>
+
+                        <option value="cartao">
+                            Cartão
+                        </option>
+
+                        <option value="outros">
+                            Outros
+                        </option>
+
+                    </select>
+
+                    <button
+                        type="button"
+                        class="botao-pagamento"
+                        onclick="finalizarServico(${agendamento.id})"
+                    >
+                        Finalizar atendimento
+                    </button>
+
+                    <button
+                        type="button"
+                        class="botao-cancelar-pagamento"
+                        onclick="fecharPagamento(${agendamento.id})"
+                    >
+                        Cancelar
+                    </button>
+
+                </div>
+
+                <hr>
+
+            `;
+
+
+            lista.appendChild(item);
+
+        });
+
+
+    }
+
+
+    /* =====================================================
+       MOSTRAR PAGAMENTO
+    ====================================================== */
+
+    function mostrarPagamento(id) {
+
+        const elemento =
+            document.getElementById(
+                "pagamento-" + id
+            );
+
+
+        if (!elemento) return;
+
+
+        elemento.style.display = "block";
+
+    }
+
+
+    /* =====================================================
+       FECHAR PAGAMENTO
+    ====================================================== */
+
+    function fecharPagamento(id) {
+
+        const elemento =
+            document.getElementById(
+                "pagamento-" + id
+            );
+
+
+        if (!elemento) return;
+
+
+        elemento.style.display = "none";
+
+    }
+
+
+    /* =====================================================
+       FINALIZAR SERVIÇO
+    ====================================================== */
+
+    async function finalizarServico(id) {
+
+        const select =
+            document.getElementById(
+                "formaPagamento-" + id
+            );
+
+
+        if (!select || !select.value) {
+
+            alert(
+                "Selecione a forma de pagamento."
+            );
+
+            return;
+
+        }
+
+
+        const formaPagamento =
+            select.value;
+
+
+        const confirmar =
+            confirm(
+                "Deseja finalizar este atendimento?"
+            );
+
+
+        if (!confirmar) return;
+
+
+        const { error } = await db
+            .from("appointments")
+            .update({
+
+                status: "finalizado",
+
+                payment_method: formaPagamento,
+
+                completed_at: new Date().toISOString()
+
+            })
+            .eq("id", id);
+
+
+        if (error) {
+
+            console.error(
+                "Erro ao finalizar serviço:",
+                error
+            );
+
+
+            alert(
+                "Não foi possível finalizar o atendimento."
+            );
+
+            return;
+
+        }
+
+
+        alert(
+            "Atendimento finalizado e enviado para o Caixa!"
+        );
+
+
+        await carregarConfirmados();
+
+        await carregarCaixa();
+
+    }
+
+
+    /* =====================================================
+       CAIXA
+    ====================================================== */
+
+    async function carregarCaixa() {
+
+        const { data, error } = await db
+            .from("appointments")
+            .select("*")
+            .eq("status", "finalizado")
+            .order("completed_at", {
+                ascending: true
+            });
+
+
+        if (error) {
+
+            console.error(
+                "Erro ao carregar caixa:",
+                error
+            );
+
+            return;
+
+        }
+
+
+        atualizarCaixa(data || []);
+
+    }
+
 
     function atualizarCaixa(agendamentos) {
 
-        const totalClientes =
-            agendamentos.length;
+        let dinheiro = 0;
 
+        let pix = 0;
 
-        const totalServicos =
-            agendamentos.length;
+        let cartao = 0;
 
-
-        let faturamento = 0;
+        let outros = 0;
 
 
         agendamentos.forEach(function(item) {
@@ -1133,80 +1703,168 @@
                 });
 
 
-            if (servico) {
+            const valor =
+                servico
+                    ? Number(servico.preco)
+                    : 0;
 
-                faturamento += servico.preco;
+
+            const forma =
+                String(
+                    item.payment_method || ""
+                ).toLowerCase();
+
+
+            if (forma === "dinheiro") {
+
+                dinheiro += valor;
+
+            } else if (forma === "pix") {
+
+                pix += valor;
+
+            } else if (forma === "cartao") {
+
+                cartao += valor;
+
+            } else {
+
+                outros += valor;
 
             }
 
         });
 
 
-        const clienteElemento =
-            document.getElementById("totalClientes");
-
-        const servicoElemento =
-            document.getElementById("totalServicos");
-
-        const faturamentoElemento =
-            document.getElementById("faturamento");
-
-        const relClientes =
-            document.getElementById("relClientes");
-
-        const relServicos =
-            document.getElementById("relServicos");
-
-        const relReceita =
-            document.getElementById("relReceita");
+        const faturamento =
+            dinheiro +
+            pix +
+            cartao +
+            outros;
 
 
-        if (clienteElemento) {
-
-            clienteElemento.textContent =
-                totalClientes;
-
-        }
+        const totalClientes =
+            agendamentos.length;
 
 
-        if (servicoElemento) {
-
-            servicoElemento.textContent =
-                totalServicos;
-
-        }
+        const totalServicos =
+            agendamentos.length;
 
 
-        if (faturamentoElemento) {
+        definirTexto(
+            "totalClientes",
+            totalClientes
+        );
 
-            faturamentoElemento.textContent =
-                formatarMoeda(faturamento);
+        definirTexto(
+            "totalServicos",
+            totalServicos
+        );
 
-        }
+        definirTexto(
+            "totalDinheiro",
+            formatarMoeda(dinheiro)
+        );
+
+        definirTexto(
+            "totalPix",
+            formatarMoeda(pix)
+        );
+
+        definirTexto(
+            "totalCartao",
+            formatarMoeda(cartao)
+        );
+
+        definirTexto(
+            "totalOutros",
+            formatarMoeda(outros)
+        );
+
+        definirTexto(
+            "faturamento",
+            formatarMoeda(faturamento)
+        );
 
 
-        if (relClientes) {
+        definirTexto(
+            "relClientes",
+            totalClientes
+        );
 
-            relClientes.textContent =
-                totalClientes;
+        definirTexto(
+            "relServicos",
+            totalServicos
+        );
 
-        }
+        definirTexto(
+            "relReceita",
+            formatarMoeda(faturamento)
+        );
+
+        definirTexto(
+            "relDinheiro",
+            formatarMoeda(dinheiro)
+        );
+
+        definirTexto(
+            "relPix",
+            formatarMoeda(pix)
+        );
+
+        definirTexto(
+            "relCartao",
+            formatarMoeda(cartao)
+        );
+
+        definirTexto(
+            "relOutros",
+            formatarMoeda(outros)
+        );
+
+    }
 
 
-        if (relServicos) {
+    /* =====================================================
+       CONTADORES
+    ====================================================== */
 
-            relServicos.textContent =
-                totalServicos;
+    async function atualizarContadores() {
 
-        }
+        const { data, error } = await db
+            .from("appointments")
+            .select("status");
 
 
-        if (relReceita) {
+        if (error) return;
 
-            relReceita.textContent =
-                formatarMoeda(faturamento);
 
-        }
+        const pendentes =
+            data.filter(function(item) {
+
+                return item.status === "pendente";
+
+            }).length;
+
+
+        const confirmados =
+            data.filter(function(item) {
+
+                return item.status === "confirmado";
+
+            }).length;
+
+
+        definirTexto(
+            "contadorPendentes",
+            pendentes
+        );
+
+
+        definirTexto(
+            "contadorConfirmados",
+            confirmados
+        );
 
     }
 
@@ -1256,6 +1914,21 @@
             .replace(/>/g, "&gt;")
             .replace(/"/g, "&quot;")
             .replace(/'/g, "&#039;");
+
+    }
+
+
+    function definirTexto(id, texto) {
+
+        const elemento =
+            document.getElementById(id);
+
+
+        if (elemento) {
+
+            elemento.textContent = texto;
+
+        }
 
     }
 
