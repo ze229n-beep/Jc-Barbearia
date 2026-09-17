@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -370,6 +371,146 @@ label{
     font-weight:bold;
 }
 
+/* =========================
+   DASHBOARD
+========================= */
+
+.dashboard-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    margin-bottom:25px;
+}
+
+.dashboard-card{
+    background:#151515;
+    border:1px solid #292929;
+    border-radius:14px;
+    padding:20px;
+    position:relative;
+    overflow:hidden;
+}
+
+.dashboard-card::before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:0;
+    width:4px;
+    height:100%;
+    background:#d4af37;
+}
+
+.dashboard-icone{
+    font-size:25px;
+    margin-bottom:12px;
+}
+
+.dashboard-card span{
+    display:block;
+    color:#999;
+    font-size:13px;
+}
+
+.dashboard-card strong{
+    display:block;
+    color:#d4af37;
+    font-size:26px;
+    margin-top:7px;
+}
+
+.dashboard-card small{
+    display:block;
+    color:#777;
+    margin-top:5px;
+}
+
+.dashboard-duplo{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.dashboard-lista{
+    margin-top:15px;
+}
+
+.dashboard-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    padding:14px 0;
+    border-bottom:1px solid #292929;
+}
+
+.dashboard-item:last-child{
+    border-bottom:none;
+}
+
+.dashboard-item-info strong{
+    display:block;
+    color:#fff;
+    margin-bottom:5px;
+}
+
+.dashboard-item-info span{
+    color:#999;
+    font-size:13px;
+}
+
+.dashboard-valor{
+    color:#d4af37;
+    font-weight:bold;
+    white-space:nowrap;
+}
+
+.dashboard-data{
+    color:#aaa;
+    font-size:12px;
+}
+
+.dashboard-titulo{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    margin-bottom:15px;
+}
+
+.dashboard-titulo h3{
+    margin:0;
+    color:#fff;
+}
+
+.dashboard-atualizar{
+    background:#222;
+    color:#d4af37;
+    border:1px solid #d4af37;
+    border-radius:7px;
+    padding:8px 12px;
+    cursor:pointer;
+}
+
+.dashboard-atualizar:hover{
+    background:#d4af37;
+    color:#111;
+}
+
+.dashboard-dia{
+    color:#aaa;
+    margin-top:-10px;
+    margin-bottom:20px;
+}
+
+@media(max-width:900px){
+
+    .dashboard-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
 @media(max-width:700px){
 
     .card-topo{
@@ -378,7 +519,9 @@ label{
 
     .caixa-grid,
     .config-grid,
-    .filtro-grid{
+    .filtro-grid,
+    .dashboard-grid,
+    .dashboard-duplo{
         grid-template-columns:1fr;
     }
 
@@ -401,7 +544,14 @@ label{
     .acoes button{
         width:100%;
     }
+
+    .dashboard-item{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
 }
+
 </style>
 </head>
 
@@ -466,13 +616,15 @@ label{
 <!-- ABAS -->
 
 <div class="tabs">
+
 <button
     class="tab-button active"
     onclick="mostrarAba('dashboard',this)">
     📊 Dashboard
 </button>
+
 <button
-    class="tab-button active"
+    class="tab-button"
     onclick="mostrarAba('configuracoes',this)">
     Configurações
 </button>
@@ -506,9 +658,246 @@ label{
 </div>
 
 
+<!-- =========================
+     DASHBOARD
+========================= -->
+
+<section id="dashboard" class="aba active">
+
+<div class="dashboard-titulo">
+
+    <div>
+        <h2 class="titulo-aba">
+            Dashboard
+        </h2>
+
+        <div class="dashboard-dia" id="dashboardData">
+            Carregando...
+        </div>
+    </div>
+
+    <button
+        class="dashboard-atualizar"
+        onclick="carregarDashboard()">
+
+        🔄 Atualizar
+
+    </button>
+
+</div>
+
+
+<div class="dashboard-grid">
+
+    <div class="dashboard-card">
+
+        <div class="dashboard-icone">
+            📅
+        </div>
+
+        <span>
+            Agendamentos pendentes
+        </span>
+
+        <strong id="dashPendentes">
+            0
+        </strong>
+
+        <small>
+            Aguardando confirmação
+        </small>
+
+    </div>
+
+
+    <div class="dashboard-card">
+
+        <div class="dashboard-icone">
+            ✂️
+        </div>
+
+        <span>
+            Serviços confirmados
+        </span>
+
+        <strong id="dashConfirmados">
+            0
+        </strong>
+
+        <small>
+            Na agenda
+        </small>
+
+    </div>
+
+
+    <div class="dashboard-card">
+
+        <div class="dashboard-icone">
+            💰
+        </div>
+
+        <span>
+            Faturamento total
+        </span>
+
+        <strong id="dashFaturamento">
+            R$ 0,00
+        </strong>
+
+        <small>
+            Serviços finalizados
+        </small>
+
+    </div>
+
+
+    <div class="dashboard-card">
+
+        <div class="dashboard-icone">
+            🧾
+        </div>
+
+        <span>
+            Serviços realizados
+        </span>
+
+        <strong id="dashRealizados">
+            0
+        </strong>
+
+        <small>
+            Serviços finalizados
+        </small>
+
+    </div>
+
+</div>
+
+
+<div class="dashboard-duplo">
+
+    <div class="card">
+
+        <div class="dashboard-titulo">
+
+            <h3>
+                📅 Próximos agendamentos
+            </h3>
+
+        </div>
+
+        <div
+            id="dashboardAgendamentos"
+            class="dashboard-lista">
+
+            <div class="mensagem">
+                Carregando...
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="dashboard-titulo">
+
+            <h3>
+                💳 Formas de pagamento
+            </h3>
+
+        </div>
+
+        <div
+            id="dashboardPagamentos"
+            class="dashboard-lista">
+
+            <div class="mensagem">
+                Carregando...
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="card">
+
+    <div class="dashboard-titulo">
+
+        <h3>
+            💰 Resumo financeiro
+        </h3>
+
+    </div>
+
+    <div class="caixa-grid">
+
+        <div class="caixa-card">
+
+            <span>
+                Dinheiro
+            </span>
+
+            <strong id="dashDinheiro">
+                R$ 0,00
+            </strong>
+
+        </div>
+
+
+        <div class="caixa-card">
+
+            <span>
+                Pix
+            </span>
+
+            <strong id="dashPix">
+                R$ 0,00
+            </strong>
+
+        </div>
+
+
+        <div class="caixa-card">
+
+            <span>
+                Cartão
+            </span>
+
+            <strong id="dashCartao">
+                R$ 0,00
+            </strong>
+
+        </div>
+
+
+        <div class="caixa-card">
+
+            <span>
+                Outros
+            </span>
+
+            <strong id="dashOutros">
+                R$ 0,00
+            </strong>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
 <!-- CONFIGURAÇÕES -->
 
-<section id="configuracoes" class="aba active">
+<section id="configuracoes" class="aba">
 
 <h2 class="titulo-aba">
     Configurações do ADM
@@ -928,8 +1317,6 @@ o ideal é usar autenticação do Supabase.
 </h2>
 
 
-<!-- RELATÓRIO DIÁRIO -->
-
 <div class="card">
 
 <h3>
@@ -980,8 +1367,6 @@ o ideal é usar autenticação do Supabase.
 </div>
 
 
-
-<!-- FILTRO -->
 
 <div class="card">
 
@@ -1339,6 +1724,8 @@ async function carregarTudo(){
 
     await carregarCaixa();
 
+    await carregarDashboard();
+
 }
 
 
@@ -1382,6 +1769,13 @@ function mostrarAba(
     if(botao){
 
         botao.classList.add("active");
+
+    }
+
+
+    if(nome === "dashboard"){
+
+        carregarDashboard();
 
     }
 
@@ -1437,6 +1831,428 @@ function mostrarAba(
 
 
         gerarRelatorioDiario();
+
+    }
+
+}
+
+
+
+/* =====================================================
+   DASHBOARD
+===================================================== */
+
+async function carregarDashboard(){
+
+    const dataElemento =
+        document.getElementById(
+            "dashboardData"
+        );
+
+    if(dataElemento){
+
+        dataElemento.textContent =
+            "Hoje: " +
+            new Date()
+            .toLocaleDateString(
+                "pt-BR",
+                {
+                    weekday:"long",
+                    day:"2-digit",
+                    month:"long",
+                    year:"numeric"
+                }
+            );
+
+    }
+
+
+    try{
+
+        await carregarServicosMapa();
+
+
+        const {data,error} =
+            await db
+            .from("appointments")
+            .select("*");
+
+
+        if(error){
+
+            throw error;
+
+        }
+
+
+        const agendamentos =
+            data || [];
+
+
+        const pendentes =
+            agendamentos.filter(
+                a =>
+                    a.status ===
+                    "pendente"
+            );
+
+
+        const confirmados =
+            agendamentos.filter(
+                a =>
+                    a.status ===
+                    "confirmado"
+            );
+
+
+        const finalizados =
+            agendamentos.filter(
+                a =>
+                    a.status ===
+                    "finalizado"
+            );
+
+
+        let faturamento = 0;
+
+        let dinheiro = 0;
+
+        let pix = 0;
+
+        let cartao = 0;
+
+        let outros = 0;
+
+
+        finalizados.forEach(a => {
+
+            const valor =
+                obterPreco(a);
+
+
+            faturamento += valor;
+
+
+            if(
+                a.payment_method ===
+                "Dinheiro"
+            ){
+
+                dinheiro += valor;
+
+            }
+            else if(
+                a.payment_method ===
+                "Pix"
+            ){
+
+                pix += valor;
+
+            }
+            else if(
+                a.payment_method ===
+                "Cartão"
+            ){
+
+                cartao += valor;
+
+            }
+            else{
+
+                outros += valor;
+
+            }
+
+        });
+
+
+        document
+        .getElementById(
+            "dashPendentes"
+        )
+        .textContent =
+            pendentes.length;
+
+
+        document
+        .getElementById(
+            "dashConfirmados"
+        )
+        .textContent =
+            confirmados.length;
+
+
+        document
+        .getElementById(
+            "dashFaturamento"
+        )
+        .textContent =
+            formatarMoeda(
+                faturamento
+            );
+
+
+        document
+        .getElementById(
+            "dashRealizados"
+        )
+        .textContent =
+            finalizados.length;
+
+
+        document
+        .getElementById(
+            "dashDinheiro"
+        )
+        .textContent =
+            formatarMoeda(
+                dinheiro
+            );
+
+
+        document
+        .getElementById(
+            "dashPix"
+        )
+        .textContent =
+            formatarMoeda(
+                pix
+            );
+
+
+        document
+        .getElementById(
+            "dashCartao"
+        )
+        .textContent =
+            formatarMoeda(
+                cartao
+            );
+
+
+        document
+        .getElementById(
+            "dashOutros"
+        )
+        .textContent =
+            formatarMoeda(
+                outros
+            );
+
+
+        /* PRÓXIMOS AGENDAMENTOS */
+
+        const hoje =
+            hojeLocal();
+
+
+        const proximos =
+            agendamentos
+            .filter(
+                a =>
+                    (
+                        a.status ===
+                        "pendente" ||
+                        a.status ===
+                        "confirmado"
+                    ) &&
+                    String(
+                        a.appointment_date
+                    ).slice(0,10) >= hoje
+            )
+            .sort(
+                (a,b) => {
+
+                    const dataA =
+                        String(
+                            a.appointment_date
+                        ).slice(0,10) +
+                        " " +
+                        String(
+                            a.appointment_time ||
+                            ""
+                        );
+
+                    const dataB =
+                        String(
+                            b.appointment_date
+                        ).slice(0,10) +
+                        " " +
+                        String(
+                            b.appointment_time ||
+                            ""
+                        );
+
+                    return dataA.localeCompare(
+                        dataB
+                    );
+
+                }
+            )
+            .slice(0,5);
+
+
+        const listaAgendamentos =
+            document.getElementById(
+                "dashboardAgendamentos"
+            );
+
+
+        if(!proximos.length){
+
+            listaAgendamentos.innerHTML =
+                '<div class="mensagem">Nenhum próximo agendamento.</div>';
+
+        }else{
+
+            listaAgendamentos.innerHTML =
+                proximos
+                .map(a => `
+
+                    <div class="dashboard-item">
+
+                        <div class="dashboard-item-info">
+
+                            <strong>
+                                ${escaparHTML(
+                                    a.customer_name ||
+                                    "Cliente"
+                                )}
+                            </strong>
+
+                            <span>
+                                ✂️
+                                ${escaparHTML(
+                                    a.service_name ||
+                                    "Serviço"
+                                )}
+                            </span>
+
+                            <div class="dashboard-data">
+                                📅
+                                ${formatarData(
+                                    a.appointment_date
+                                )}
+                                &nbsp; ⏰
+                                ${escaparHTML(
+                                    a.appointment_time ||
+                                    ""
+                                )}
+                            </div>
+
+                        </div>
+
+                        <span
+                            class="status ${
+                                a.status === "pendente"
+                                ? "status-pendente"
+                                : "status-confirmado"
+                            }">
+
+                            ${
+                                a.status === "pendente"
+                                ? "Pendente"
+                                : "Confirmado"
+                            }
+
+                        </span>
+
+                    </div>
+
+                `)
+                .join("");
+
+        }
+
+
+        /* PAGAMENTOS */
+
+        const pagamentos = [
+
+            {
+                nome:"Dinheiro",
+                valor:dinheiro
+            },
+
+            {
+                nome:"Pix",
+                valor:pix
+            },
+
+            {
+                nome:"Cartão",
+                valor:cartao
+            },
+
+            {
+                nome:"Outros",
+                valor:outros
+            }
+
+        ];
+
+
+        const listaPagamentos =
+            document.getElementById(
+                "dashboardPagamentos"
+            );
+
+
+        listaPagamentos.innerHTML =
+            pagamentos
+            .map(p => `
+
+                <div class="dashboard-item">
+
+                    <div class="dashboard-item-info">
+
+                        <strong>
+                            ${p.nome}
+                        </strong>
+
+                        <span>
+                            Recebido
+                        </span>
+
+                    </div>
+
+                    <span class="dashboard-valor">
+
+                        ${formatarMoeda(
+                            p.valor
+                        )}
+
+                    </span>
+
+                </div>
+
+            `)
+            .join("");
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Erro no Dashboard:",
+            error
+        );
+
+
+        document
+        .getElementById(
+            "dashboardAgendamentos"
+        )
+        .innerHTML =
+            '<div class="mensagem">Erro ao carregar o Dashboard.</div>';
+
+
+        document
+        .getElementById(
+            "dashboardPagamentos"
+        )
+        .innerHTML =
+            '<div class="mensagem">Erro ao carregar informações.</div>';
 
     }
 
@@ -1646,6 +2462,8 @@ async function confirmarAgendamento(id){
     await carregarAgendamentos();
 
     await carregarConfirmados();
+
+    await carregarDashboard();
 
 
     alert(
@@ -1965,6 +2783,8 @@ async function finalizarServico(id){
     await carregarConfirmados();
 
     await carregarCaixa();
+
+    await carregarDashboard();
 
 
     alert(
@@ -2719,6 +3539,8 @@ async function salvarServico(id){
 
     await carregarCaixa();
 
+    await carregarDashboard();
+
 
     alert(
         "Serviço atualizado!"
@@ -2850,6 +3672,9 @@ async function adicionarServico(){
 
 
     await carregarServicosConfig();
+
+
+    await carregarDashboard();
 
 
     alert(
@@ -3882,3 +4707,4 @@ document
 
 </body>
 </html>
+```
