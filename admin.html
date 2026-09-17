@@ -1,882 +1,803 @@
-
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>ADM - JC Barbearia</title>
+```
+<title>ADM - JC Barbearia</title>
 
-    <link rel="stylesheet" href="estilo.css">
-    <link rel="stylesheet" href="admin.css">
+<link rel="stylesheet" href="estilo.css">
+<link rel="stylesheet" href="admin.css">
+```
+
 </head>
 
 <body>
 
-    <!-- =====================================================
-         CABEÇALHO
-    ====================================================== -->
+```
+<header>
 
-    <header>
+    <div class="logo">
+        JC <span>BARBEARIA</span>
+    </div>
 
-        <div class="logo">
-            JC <span>BARBEARIA</span>
-        </div>
+    <div class="admin-titulo">
+        PAINEL ADM
+    </div>
 
-        <div class="admin-titulo">
-            PAINEL ADM
-        </div>
-
-    </header>
+</header>
 
 
-    <!-- =====================================================
-         LOGIN
-    ====================================================== -->
+<!-- LOGIN -->
 
-    <section id="loginArea" class="login-area">
+<section id="loginArea" class="login-area">
+
+    <div class="config-box">
+
+        <h2>Login do Administrador</h2>
+
+        <input
+            type="text"
+            id="loginUsuario"
+            placeholder="Usuário"
+        >
+
+        <input
+            type="password"
+            id="loginSenha"
+            placeholder="Senha"
+        >
+
+        <button type="button" onclick="entrar()">
+            ENTRAR
+        </button>
+
+        <p id="erroLogin"></p>
+
+    </div>
+
+</section>
+
+
+<!-- PAINEL ADMINISTRATIVO -->
+
+<main id="painelAdmin" style="display: none;">
+
+    <!-- MENU -->
+
+    <div class="abas">
+
+        <button
+            type="button"
+            onclick="mostrarAba('configuracoes')"
+        >
+            Configurações do ADM
+        </button>
+
+        <button
+            type="button"
+            onclick="mostrarAba('agendamentos')"
+        >
+            Agendamentos
+        </button>
+
+        <button
+            type="button"
+            onclick="mostrarAba('caixa')"
+        >
+            Caixa
+        </button>
+
+        <button
+            type="button"
+            onclick="mostrarAba('relatorio')"
+        >
+            Relatório do Caixa
+        </button>
+
+    </div>
+
+
+    <!-- CONFIGURAÇÕES -->
+
+    <section
+        id="configuracoes"
+        class="aba-conteudo"
+    >
+
+        <h2>Configurações</h2>
+
 
         <div class="config-box">
 
-            <h2>Login do Administrador</h2>
+            <h3>Acesso do Administrador</h3>
 
             <input
                 type="text"
-                id="loginUsuario"
-                placeholder="Usuário"
+                id="novoUsuario"
+                placeholder="Novo usuário"
             >
 
             <input
                 type="password"
-                id="loginSenha"
-                placeholder="Senha"
+                id="novaSenha"
+                placeholder="Nova senha"
             >
 
-            <button type="button" onclick="entrar()">
-                ENTRAR
+            <button
+                type="button"
+                onclick="alterarAcesso()"
+            >
+                ALTERAR ACESSO
             </button>
 
-            <p id="erroLogin"></p>
+            <p id="mensagemAcesso"></p>
+
+        </div>
+
+
+        <!-- SERVIÇOS -->
+
+        <div class="config-box">
+
+            <h3>Serviços</h3>
+
+            <div class="servicos-cabecalho">
+
+                <div>Serviço</div>
+                <div>Preço</div>
+                <div>Minutos</div>
+                <div>Editar</div>
+
+            </div>
+
+            <div id="listaServicos"></div>
+
+            <button
+                type="button"
+                class="botao-adicionar"
+                onclick="adicionarServico()"
+            >
+                + ADICIONAR SERVIÇO
+            </button>
+
+            <br>
+            <br>
+
+            <button
+                type="button"
+                onclick="salvarServicos()"
+            >
+                SALVAR ALTERAÇÕES
+            </button>
+
+            <p id="mensagemSalvo"></p>
 
         </div>
 
     </section>
 
 
-    <!-- =====================================================
-         PAINEL ADMINISTRATIVO
-    ====================================================== -->
+    <!-- AGENDAMENTOS -->
 
-    <main id="painelAdmin" style="display: none;">
+    <section
+        id="agendamentos"
+        class="aba-conteudo"
+        style="display: none;"
+    >
 
-        <!-- =================================================
-             MENU
-        ================================================== -->
+        <h2>Agendamentos</h2>
 
-        <div class="abas">
+        <div class="config-box">
+
+            <h3>Agendamentos realizados</h3>
+
+            <div id="listaAgendamentos">
+
+                <p>
+                    Os agendamentos aparecerão aqui.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CAIXA -->
+
+    <section
+        id="caixa"
+        class="aba-conteudo"
+        style="display: none;"
+    >
+
+        <h2>Caixa</h2>
+
+        <div class="config-box">
+
+            <h3>Movimentação do Caixa</h3>
+
+            <p>
+                Clientes atendidos:
+                <strong id="totalClientes">0</strong>
+            </p>
+
+            <p>
+                Serviços realizados:
+                <strong id="totalServicos">0</strong>
+            </p>
+
+            <p>
+                Faturamento:
+                <strong id="faturamento">R$ 0,00</strong>
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- RELATÓRIO -->
+
+    <section
+        id="relatorio"
+        class="aba-conteudo"
+        style="display: none;"
+    >
+
+        <h2>Relatório do Caixa</h2>
+
+        <div class="config-box">
+
+            <h3>Relatório mensal</h3>
+
+            <p>
+                Clientes:
+                <strong id="relClientes">0</strong>
+            </p>
+
+            <p>
+                Serviços:
+                <strong id="relServicos">0</strong>
+            </p>
+
+            <p>
+                Receita:
+                <strong id="relReceita">R$ 0,00</strong>
+            </p>
 
             <button
                 type="button"
-                onclick="mostrarAba('configuracoes')"
+                onclick="window.print()"
             >
-                Configurações do ADM
-            </button>
-
-            <button
-                type="button"
-                onclick="mostrarAba('agendamentos')"
-            >
-                Agendamentos
-            </button>
-
-            <button
-                type="button"
-                onclick="mostrarAba('caixa')"
-            >
-                Caixa
-            </button>
-
-            <button
-                type="button"
-                onclick="mostrarAba('relatorio')"
-            >
-                Relatório do Caixa
+                IMPRIMIR / SALVAR PDF
             </button>
 
         </div>
 
+    </section>
 
-        <!-- =================================================
-             CONFIGURAÇÕES
-        ================================================== -->
 
-        <section
-            id="configuracoes"
-            class="aba-conteudo"
+    <!-- SAIR -->
+
+    <div class="sair-area">
+
+        <button
+            type="button"
+            onclick="sair()"
         >
+            SAIR
+        </button>
 
-            <h2>Configurações</h2>
+    </div>
 
+</main>
 
-            <!-- =============================================
-                 ACESSO DO ADMINISTRADOR
-            ============================================== -->
 
-            <div class="config-box">
+<!-- SUPABASE -->
 
-                <h3>Acesso do Administrador</h3>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-                <input
-                    type="text"
-                    id="novoUsuario"
-                    placeholder="Novo usuário"
-                >
+<script>
 
-                <input
-                    type="password"
-                    id="novaSenha"
-                    placeholder="Nova senha"
-                >
+    const db = window.supabase.createClient(
+        "https://zlfkdyxlfegojlgzulue.supabase.co",
+        "sb_publishable_suqAkNXSnGacL1vO_BaaOg_oeeHDKSs"
+    );
 
-                <button
-                    type="button"
-                    onclick="alterarAcesso()"
-                >
-                    ALTERAR ACESSO
-                </button>
+</script>
 
-                <p id="mensagemAcesso"></p>
 
-            </div>
+<!-- JAVASCRIPT DO ADMIN -->
 
+<script>
 
-            <!-- =============================================
-                 SERVIÇOS
-            ============================================== -->
+    /* =====================================================
+       LOGIN
+    ====================================================== */
 
-            <div class="config-box">
+    let usuario =
+        localStorage.getItem("jc_admin_usuario")
+        || "jcbarbearia";
 
-                <h3>Serviços</h3>
+    let senha =
+        localStorage.getItem("jc_admin_senha")
+        || "1234";
 
-                <div class="servicos-cabecalho">
 
-                    <div>Serviço</div>
-                    <div>Preço</div>
-                    <div>Minutos</div>
-                    <div>Editar</div>
+    function entrar() {
 
-                </div>
+        const usuarioDigitado =
+            document.getElementById("loginUsuario").value.trim();
 
-                <div id="listaServicos"></div>
+        const senhaDigitada =
+            document.getElementById("loginSenha").value;
 
-                <button
-                    type="button"
-                    class="botao-adicionar"
-                    onclick="adicionarServico()"
-                >
-                    + ADICIONAR SERVIÇO
-                </button>
+        const erro =
+            document.getElementById("erroLogin");
 
-                <br>
-                <br>
 
-                <button
-                    type="button"
-                    onclick="salvarServicos()"
-                >
-                    SALVAR ALTERAÇÕES
-                </button>
+        if (
+            usuarioDigitado === usuario &&
+            senhaDigitada === senha
+        ) {
 
-                <p id="mensagemSalvo"></p>
+            document.getElementById("loginArea").style.display = "none";
 
-            </div>
+            document.getElementById("painelAdmin").style.display = "block";
 
-        </section>
+            erro.textContent = "";
 
+            mostrarAba("configuracoes");
 
-        <!-- =================================================
-             AGENDAMENTOS
-        ================================================== -->
+            carregarServicos();
 
-        <section
-            id="agendamentos"
-            class="aba-conteudo"
-            style="display: none;"
-        >
+            carregarAgendamentos();
 
-            <h2>Agendamentos</h2>
+        } else {
 
-            <div class="config-box">
-
-                <h3>Agendamentos realizados</h3>
-
-                <div id="listaAgendamentos">
-
-                    <p>
-                        Os agendamentos aparecerão aqui.
-                    </p>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             CAIXA
-        ================================================== -->
-
-        <section
-            id="caixa"
-            class="aba-conteudo"
-            style="display: none;"
-        >
-
-            <h2>Caixa</h2>
-
-            <div class="config-box">
-
-                <h3>Movimentação do Caixa</h3>
-
-                <p>
-                    Clientes atendidos:
-                    <strong id="totalClientes">0</strong>
-                </p>
-
-                <p>
-                    Serviços realizados:
-                    <strong id="totalServicos">0</strong>
-                </p>
-
-                <p>
-                    Faturamento:
-                    <strong id="faturamento">R$ 0,00</strong>
-                </p>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             RELATÓRIO
-        ================================================== -->
-
-        <section
-            id="relatorio"
-            class="aba-conteudo"
-            style="display: none;"
-        >
-
-            <h2>Relatório do Caixa</h2>
-
-            <div class="config-box">
-
-                <h3>Relatório mensal</h3>
-
-                <p>
-                    Clientes:
-                    <strong id="relClientes">0</strong>
-                </p>
-
-                <p>
-                    Serviços:
-                    <strong id="relServicos">0</strong>
-                </p>
-
-                <p>
-                    Receita:
-                    <strong id="relReceita">R$ 0,00</strong>
-                </p>
-
-                <button
-                    type="button"
-                    onclick="window.print()"
-                >
-                    IMPRIMIR / SALVAR PDF
-                </button>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             SAIR
-        ================================================== -->
-
-        <div class="sair-area">
-
-            <button
-                type="button"
-                onclick="sair()"
-            >
-                SAIR
-            </button>
-
-        </div>
-
-    </main>
-
-
-    <!-- =====================================================
-         SUPABASE
-         IMPORTANTE: vem ANTES DO JAVASCRIPT DO ADM
-    ====================================================== -->
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-    <script>
-
-        const db = window.supabase.createClient(
-            "https://zlfkdyxlfegojlgzulue.supabase.co",
-            "sb_publishable_suqAkNXSnGacL1vO_BaaOg_oeeHDKSs"
-        );
-
-    </script>
-
-
-    <!-- =====================================================
-         JAVASCRIPT DO ADMINISTRADOR
-    ====================================================== -->
-
-    <script>
-
-        /* =====================================================
-           LOGIN DO ADMINISTRADOR
-        ====================================================== */
-
-        let usuario =
-            localStorage.getItem("jc_admin_usuario")
-            || "jcbarbearia";
-
-        let senha =
-            localStorage.getItem("jc_admin_senha")
-            || "1234";
-
-
-        function entrar() {
-
-            const usuarioDigitado =
-                document.getElementById("loginUsuario").value.trim();
-
-            const senhaDigitada =
-                document.getElementById("loginSenha").value;
-
-            const erro =
-                document.getElementById("erroLogin");
-
-
-            if (
-                usuarioDigitado === usuario &&
-                senhaDigitada === senha
-            ) {
-
-                document.getElementById("loginArea").style.display = "none";
-
-                document.getElementById("painelAdmin").style.display = "block";
-
-                erro.textContent = "";
-
-                mostrarAba("configuracoes");
-
-                carregarServicos();
-
-                carregarAgendamentos();
-
-            } else {
-
-                erro.textContent = "Usuário ou senha incorretos.";
-
-            }
+            erro.textContent = "Usuário ou senha incorretos.";
 
         }
 
-
-        /* =====================================================
-           ALTERAR ACESSO
-        ====================================================== */
-
-        function alterarAcesso() {
-
-            const novoUsuario =
-                document.getElementById("novoUsuario").value.trim();
-
-            const novaSenha =
-                document.getElementById("novaSenha").value;
+    }
 
 
-            if (!novoUsuario || !novaSenha) {
+    /* =====================================================
+       ALTERAR ACESSO
+    ====================================================== */
 
-                mostrarMensagem(
-                    "mensagemAcesso",
-                    "Preencha usuário e senha."
-                );
+    function alterarAcesso() {
 
-                return;
+        const novoUsuario =
+            document.getElementById("novoUsuario").value.trim();
 
-            }
-
-
-            usuario = novoUsuario;
-
-            senha = novaSenha;
+        const novaSenha =
+            document.getElementById("novaSenha").value;
 
 
-            localStorage.setItem(
-                "jc_admin_usuario",
-                usuario
-            );
-
-            localStorage.setItem(
-                "jc_admin_senha",
-                senha
-            );
-
-
-            document.getElementById("novoUsuario").value = "";
-
-            document.getElementById("novaSenha").value = "";
-
+        if (!novoUsuario || !novaSenha) {
 
             mostrarMensagem(
                 "mensagemAcesso",
-                "Acesso alterado com sucesso!"
+                "Preencha usuário e senha."
             );
 
+            return;
+
         }
 
 
-        /* =====================================================
-           ABAS
-        ====================================================== */
+        usuario = novoUsuario;
 
-        function mostrarAba(nome) {
-
-            const abas = [
-                "configuracoes",
-                "agendamentos",
-                "caixa",
-                "relatorio"
-            ];
+        senha = novaSenha;
 
 
-            abas.forEach(function(aba) {
+        localStorage.setItem(
+            "jc_admin_usuario",
+            usuario
+        );
 
-                const elemento =
-                    document.getElementById(aba);
-
-                if (elemento) {
-
-                    elemento.style.display =
-                        aba === nome
-                            ? "block"
-                            : "none";
-
-                }
-
-            });
+        localStorage.setItem(
+            "jc_admin_senha",
+            senha
+        );
 
 
-            if (nome === "agendamentos") {
+        document.getElementById("novoUsuario").value = "";
 
-                carregarAgendamentos();
+        document.getElementById("novaSenha").value = "";
+
+
+        mostrarMensagem(
+            "mensagemAcesso",
+            "Acesso alterado com sucesso!"
+        );
+
+    }
+
+
+    /* =====================================================
+       ABAS
+    ====================================================== */
+
+    function mostrarAba(nome) {
+
+        const abas = [
+            "configuracoes",
+            "agendamentos",
+            "caixa",
+            "relatorio"
+        ];
+
+
+        abas.forEach(function(aba) {
+
+            const elemento =
+                document.getElementById(aba);
+
+            if (elemento) {
+
+                elemento.style.display =
+                    aba === nome
+                        ? "block"
+                        : "none";
 
             }
 
+        });
+
+
+        if (nome === "agendamentos") {
+
+            carregarAgendamentos();
+
         }
 
-
-        /* =====================================================
-           SERVIÇOS
-           
-           AGORA OS SERVIÇOS VÊM DO SUPABASE
-        ====================================================== */
-
-        let servicos = [];
+    }
 
 
-        /* =====================================================
-           CARREGAR SERVIÇOS DO BANCO
-        ====================================================== */
+    /* =====================================================
+       SERVIÇOS
+    ====================================================== */
 
-        async function carregarServicos() {
+    let servicos = [];
 
-            const lista =
-                document.getElementById("listaServicos");
 
+    async function carregarServicos() {
+
+        const lista =
+            document.getElementById("listaServicos");
+
+
+        lista.innerHTML =
+            "<p>Carregando serviços...</p>";
+
+
+        const { data, error } = await db
+            .from("services")
+            .select("*")
+            .order("id");
+
+
+        if (error) {
+
+            console.error(
+                "Erro ao carregar serviços:",
+                error
+            );
 
             lista.innerHTML =
-                "<p>Carregando serviços...</p>";
+                "<p>Erro ao carregar os serviços.</p>";
 
-
-            const { data, error } = await db
-                .from("services")
-                .select("*")
-                .order("id");
-
-
-            if (error) {
-
-                console.error(
-                    "Erro ao carregar serviços:",
-                    error
-                );
-
-                lista.innerHTML =
-                    "<p>Erro ao carregar os serviços.</p>";
-
-                return;
-
-            }
-
-
-            servicos = data.map(function(service) {
-
-                return {
-
-                    id: service.id,
-
-                    nome: service.name,
-
-                    preco: Number(service.price),
-
-                    minutos: Number(service.duration),
-
-                    ativo: service.active
-
-                };
-
-            });
-
-
-            mostrarServicos();
+            return;
 
         }
 
 
-        /* =====================================================
-           MOSTRAR SERVIÇOS
-        ====================================================== */
+        servicos = data.map(function(service) {
 
-        function mostrarServicos() {
+            return {
 
-            const lista =
-                document.getElementById("listaServicos");
+                id: service.id,
 
+                nome: service.name,
 
-            lista.innerHTML = "";
+                preco: Number(service.price),
 
+                minutos: Number(service.duration),
 
-            if (servicos.length === 0) {
+                ativo: service.active
 
-                lista.innerHTML =
-                    "<p>Nenhum serviço cadastrado.</p>";
+            };
 
-                return;
-
-            }
+        });
 
 
-            servicos.forEach(function(servico, indice) {
+        mostrarServicos();
 
-                const linha =
-                    document.createElement("div");
-
-                linha.className =
-                    "servico-linha";
+    }
 
 
-                linha.dataset.id =
-                    servico.id;
+    function mostrarServicos() {
+
+        const lista =
+            document.getElementById("listaServicos");
 
 
-                linha.innerHTML = `
-
-                    <input
-                        type="text"
-                        value="${escaparHTML(servico.nome)}"
-                        disabled
-                    >
-
-                    <input
-                        type="number"
-                        value="${servico.preco}"
-                        disabled
-                        min="0"
-                        step="0.01"
-                    >
-
-                    <input
-                        type="number"
-                        value="${servico.minutos}"
-                        disabled
-                        min="1"
-                    >
-
-                    <button
-                        type="button"
-                        onclick="editarServico(this)"
-                    >
-                        Editar
-                    </button>
-
-                `;
+        lista.innerHTML = "";
 
 
-                lista.appendChild(linha);
+        if (servicos.length === 0) {
 
-            });
+            lista.innerHTML =
+                "<p>Nenhum serviço cadastrado.</p>";
+
+            return;
 
         }
 
 
-        /* =====================================================
-           EDITAR SERVIÇO
-        ====================================================== */
-
-        async function editarServico(botao) {
+        servicos.forEach(function(servico) {
 
             const linha =
-                botao.closest(".servico-linha");
+                document.createElement("div");
 
+            linha.className =
+                "servico-linha";
 
-            const inputs =
-                linha.querySelectorAll("input");
 
+            linha.dataset.id =
+                servico.id;
 
-            const id =
-                Number(linha.dataset.id);
 
+            linha.innerHTML = `
 
-            /* ---------------------------------------------
-               MODO EDIÇÃO
-            ---------------------------------------------- */
+                <input
+                    type="text"
+                    value="${escaparHTML(servico.nome)}"
+                    disabled
+                >
 
-            if (botao.textContent.trim() === "Editar") {
+                <input
+                    type="number"
+                    value="${servico.preco}"
+                    disabled
+                    min="0"
+                    step="0.01"
+                >
 
-                inputs.forEach(function(input) {
+                <input
+                    type="number"
+                    value="${servico.minutos}"
+                    disabled
+                    min="1"
+                >
 
-                    input.disabled = false;
+                <button
+                    type="button"
+                    onclick="editarServico(this)"
+                >
+                    Editar
+                </button>
 
-                });
+            `;
 
 
-                inputs[0].focus();
+            lista.appendChild(linha);
 
-                botao.textContent = "Salvar";
+        });
 
-                return;
+    }
 
-            }
 
+    /* =====================================================
+       EDITAR SERVIÇO
+    ====================================================== */
 
-            /* ---------------------------------------------
-               SALVAR EDIÇÃO
-            ---------------------------------------------- */
+    async function editarServico(botao) {
 
-            const nome =
-                inputs[0].value.trim();
+        const linha =
+            botao.closest(".servico-linha");
 
-            const preco =
-                Number(inputs[1].value);
 
-            const minutos =
-                Number(inputs[2].value);
+        const inputs =
+            linha.querySelectorAll("input");
 
 
-            if (!nome) {
+        const id =
+            Number(linha.dataset.id);
 
-                mostrarMensagem(
-                    "mensagemSalvo",
-                    "Digite o nome do serviço."
-                );
 
-                return;
-
-            }
-
-
-            if (isNaN(preco) || preco < 0) {
-
-                mostrarMensagem(
-                    "mensagemSalvo",
-                    "Digite um preço válido."
-                );
-
-                return;
-
-            }
-
-
-            if (isNaN(minutos) || minutos < 1) {
-
-                mostrarMensagem(
-                    "mensagemSalvo",
-                    "Digite uma duração válida."
-                );
-
-                return;
-
-            }
-
-
-            botao.disabled = true;
-
-            botao.textContent = "Salvando...";
-
-
-            const { error } = await db
-                .from("services")
-                .update({
-
-                    name: nome,
-
-                    price: preco,
-
-                    duration: minutos
-
-                })
-                .eq("id", id);
-
-
-            if (error) {
-
-                console.error(
-                    "Erro ao atualizar serviço:",
-                    error
-                );
-
-
-                botao.disabled = false;
-
-                botao.textContent = "Salvar";
-
-
-                mostrarMensagem(
-                    "mensagemSalvo",
-                    "Erro ao salvar o serviço."
-                );
-
-                return;
-
-            }
-
-
-            const indice =
-                servicos.findIndex(function(item) {
-
-                    return item.id === id;
-
-                });
-
-
-            if (indice !== -1) {
-
-                servicos[indice].nome = nome;
-
-                servicos[indice].preco = preco;
-
-                servicos[indice].minutos = minutos;
-
-            }
-
+        if (botao.textContent.trim() === "Editar") {
 
             inputs.forEach(function(input) {
 
-                input.disabled = true;
+                input.disabled = false;
 
             });
+
+
+            inputs[0].focus();
+
+            botao.textContent = "Salvar";
+
+            return;
+
+        }
+
+
+        const nome =
+            inputs[0].value.trim();
+
+        const preco =
+            Number(inputs[1].value);
+
+        const minutos =
+            Number(inputs[2].value);
+
+
+        if (!nome) {
+
+            mostrarMensagem(
+                "mensagemSalvo",
+                "Digite o nome do serviço."
+            );
+
+            return;
+
+        }
+
+
+        if (isNaN(preco) || preco < 0) {
+
+            mostrarMensagem(
+                "mensagemSalvo",
+                "Digite um preço válido."
+            );
+
+            return;
+
+        }
+
+
+        if (isNaN(minutos) || minutos < 1) {
+
+            mostrarMensagem(
+                "mensagemSalvo",
+                "Digite uma duração válida."
+            );
+
+            return;
+
+        }
+
+
+        botao.disabled = true;
+
+        botao.textContent = "Salvando...";
+
+
+        const { error } = await db
+            .from("services")
+            .update({
+
+                name: nome,
+
+                price: preco,
+
+                duration: minutos
+
+            })
+            .eq("id", id);
+
+
+        if (error) {
+
+            console.error(
+                "Erro ao atualizar serviço:",
+                error
+            );
 
 
             botao.disabled = false;
 
-            botao.textContent = "Editar";
+            botao.textContent = "Salvar";
 
 
             mostrarMensagem(
                 "mensagemSalvo",
-                "Serviço atualizado com sucesso!"
+                "Erro ao salvar o serviço."
             );
+
+            return;
 
         }
 
 
-        /* =====================================================
-           ADICIONAR SERVIÇO
-        ====================================================== */
+        const indice =
+            servicos.findIndex(function(item) {
 
-        async function adicionarServico() {
-
-            const botaoAdicionar =
-                document.querySelector(".botao-adicionar");
-
-
-            botaoAdicionar.disabled = true;
-
-            botaoAdicionar.textContent =
-                "ADICIONANDO...";
-
-
-            const { data, error } = await db
-                .from("services")
-                .insert({
-
-                    name: "Novo Serviço",
-
-                    price: 0,
-
-                    duration: 30,
-
-                    active: true
-
-                })
-                .select()
-                .single();
-
-
-            if (error) {
-
-                console.error(
-                    "Erro ao adicionar serviço:",
-                    error
-                );
-
-
-                botaoAdicionar.disabled = false;
-
-                botaoAdicionar.textContent =
-                    "+ ADICIONAR SERVIÇO";
-
-
-                mostrarMensagem(
-                    "mensagemSalvo",
-                    "Erro ao adicionar serviço."
-                );
-
-                return;
-
-            }
-
-
-            servicos.push({
-
-                id: data.id,
-
-                nome: data.name,
-
-                preco: Number(data.price),
-
-                minutos: Number(data.duration),
-
-                ativo: data.active
+                return item.id === id;
 
             });
 
 
-            mostrarServicos();
+        if (indice !== -1) {
+
+            servicos[indice].nome = nome;
+
+            servicos[indice].preco = preco;
+
+            servicos[indice].minutos = minutos;
+
+        }
+
+
+        inputs.forEach(function(input) {
+
+            input.disabled = true;
+
+        });
+
+
+        botao.disabled = false;
+
+        botao.textContent = "Editar";
+
+
+        mostrarMensagem(
+            "mensagemSalvo",
+            "Serviço atualizado com sucesso!"
+        );
+
+    }
+
+
+    /* =====================================================
+       ADICIONAR SERVIÇO
+    ====================================================== */
+
+    async function adicionarServico() {
+
+        const botaoAdicionar =
+            document.querySelector(".botao-adicionar");
+
+
+        botaoAdicionar.disabled = true;
+
+        botaoAdicionar.textContent =
+            "ADICIONANDO...";
+
+
+        const { data, error } = await db
+            .from("services")
+            .insert({
+
+                name: "Novo Serviço",
+
+                price: 0,
+
+                duration: 30,
+
+                active: true
+
+            })
+            .select()
+            .single();
+
+
+        if (error) {
+
+            console.error(
+                "Erro ao adicionar serviço:",
+                error
+            );
 
 
             botaoAdicionar.disabled = false;
@@ -887,390 +808,513 @@
 
             mostrarMensagem(
                 "mensagemSalvo",
-                "Serviço adicionado! Agora edite os dados e clique em Salvar."
+                "Erro ao adicionar serviço."
             );
 
-
-            /* ---------------------------------------------
-               Coloca automaticamente o último serviço
-               em modo de edição
-            ---------------------------------------------- */
-
-            const linhas =
-                document.querySelectorAll(".servico-linha");
-
-
-            const ultimaLinha =
-                linhas[linhas.length - 1];
-
-
-            if (ultimaLinha) {
-
-                const inputs =
-                    ultimaLinha.querySelectorAll("input");
-
-                const botao =
-                    ultimaLinha.querySelector("button");
-
-
-                inputs.forEach(function(input) {
-
-                    input.disabled = false;
-
-                });
-
-
-                botao.textContent = "Salvar";
-
-                inputs[0].focus();
-
-            }
+            return;
 
         }
 
 
-        /* =====================================================
-           SALVAR ALTERAÇÕES
-           
-           Os serviços já são salvos individualmente no banco.
-           Este botão apenas recarrega os dados para confirmar
-           que estão sincronizados com o Supabase.
-        ====================================================== */
+        servicos.push({
 
-        async function salvarServicos() {
+            id: data.id,
 
-            await carregarServicos();
+            nome: data.name,
+
+            preco: Number(data.price),
+
+            minutos: Number(data.duration),
+
+            ativo: data.active
+
+        });
 
 
-            mostrarMensagem(
-                "mensagemSalvo",
-                "Serviços sincronizados com sucesso!"
-            );
+        mostrarServicos();
+
+
+        botaoAdicionar.disabled = false;
+
+        botaoAdicionar.textContent =
+            "+ ADICIONAR SERVIÇO";
+
+
+        mostrarMensagem(
+            "mensagemSalvo",
+            "Serviço adicionado! Agora edite os dados e clique em Salvar."
+        );
+
+
+        const linhas =
+            document.querySelectorAll(".servico-linha");
+
+
+        const ultimaLinha =
+            linhas[linhas.length - 1];
+
+
+        if (ultimaLinha) {
+
+            const inputs =
+                ultimaLinha.querySelectorAll("input");
+
+            const botao =
+                ultimaLinha.querySelector("button");
+
+
+            inputs.forEach(function(input) {
+
+                input.disabled = false;
+
+            });
+
+
+            botao.textContent = "Salvar";
+
+            inputs[0].focus();
 
         }
 
-
-        /* =====================================================
-           AGENDAMENTOS
-        ====================================================== */
-
-        async function carregarAgendamentos() {
-
-            const lista =
-                document.getElementById("listaAgendamentos");
+    }
 
 
-            if (!lista) return;
+    /* =====================================================
+       SALVAR SERVIÇOS
+    ====================================================== */
+
+    async function salvarServicos() {
+
+        await carregarServicos();
+
+
+        mostrarMensagem(
+            "mensagemSalvo",
+            "Serviços sincronizados com sucesso!"
+        );
+
+    }
+
+
+    /* =====================================================
+       AGENDAMENTOS
+    ====================================================== */
+
+    async function carregarAgendamentos() {
+
+        const lista =
+            document.getElementById("listaAgendamentos");
+
+
+        if (!lista) return;
+
+
+        lista.innerHTML =
+            "<p>Carregando agendamentos...</p>";
+
+
+        const { data, error } = await db
+            .from("appointments")
+            .select("*")
+            .order("appointment_date", {
+                ascending: true
+            })
+            .order("appointment_time", {
+                ascending: true
+            });
+
+
+        if (error) {
+
+            console.error(
+                "Erro ao carregar agendamentos:",
+                error
+            );
 
 
             lista.innerHTML =
-                "<p>Carregando agendamentos...</p>";
+                "<p>Erro ao carregar agendamentos.</p>";
+
+            return;
+
+        }
 
 
-            const { data, error } = await db
-                .from("appointments")
-                .select("*")
-                .order("appointment_date", {
-                    ascending: true
-                })
-                .order("appointment_time", {
-                    ascending: true
-                });
+        if (!data || data.length === 0) {
+
+            lista.innerHTML =
+                "<p>Nenhum agendamento encontrado.</p>";
+
+            return;
+
+        }
 
 
-            if (error) {
-
-                console.error(
-                    "Erro ao carregar agendamentos:",
-                    error
-                );
+        lista.innerHTML = "";
 
 
-                lista.innerHTML =
-                    "<p>Erro ao carregar agendamentos.</p>";
+        data.forEach(function(agendamento) {
 
-                return;
+            const item =
+                document.createElement("div");
 
-            }
-
-
-            if (!data || data.length === 0) {
-
-                lista.innerHTML =
-                    "<p>Nenhum agendamento encontrado.</p>";
-
-                return;
-
-            }
+            item.className =
+                "agendamento-item";
 
 
-            lista.innerHTML = "";
+            const status =
+                String(agendamento.status || "")
+                    .toLowerCase();
 
 
-            data.forEach(function(agendamento) {
-
-                const item =
-                    document.createElement("div");
-
-                item.className =
-                    "agendamento-item";
+            let botaoConfirmar = "";
 
 
-                item.innerHTML = `
+            if (status === "pendente") {
 
-                    <strong>
-                        ${escaparHTML(agendamento.customer_name)}
-                    </strong>
+                botaoConfirmar = `
 
-                    <p>
-                        Serviço:
-                        ${escaparHTML(agendamento.service_name)}
-                    </p>
-
-                    <p>
-                        Data:
-                        ${formatarData(agendamento.appointment_date)}
-                    </p>
-
-                    <p>
-                        Horário:
-                        ${agendamento.appointment_time}
-                    </p>
-
-                    <p>
-                        Duração:
-                        ${agendamento.duration} minutos
-                    </p>
-
-                    <p>
-                        Status:
-                        ${escaparHTML(agendamento.status)}
-                    </p>
-
-                    <hr>
+                    <button
+                        type="button"
+                        onclick="confirmarAgendamento(${agendamento.id})"
+                    >
+                        ✅ CONFIRMAR AGENDAMENTO
+                    </button>
 
                 `;
 
+            } else if (status === "confirmado") {
 
-                lista.appendChild(item);
+                botaoConfirmar = `
 
-            });
+                    <button
+                        type="button"
+                        disabled
+                    >
+                        ✅ AGENDAMENTO CONFIRMADO
+                    </button>
 
-
-            atualizarCaixa(data);
-
-        }
-
-
-        /* =====================================================
-           ATUALIZAR CAIXA
-        ====================================================== */
-
-        function atualizarCaixa(agendamentos) {
-
-            const totalClientes =
-                agendamentos.length;
-
-
-            const totalServicos =
-                agendamentos.length;
-
-
-            let faturamento = 0;
-
-
-            agendamentos.forEach(function(item) {
-
-                const servico =
-                    servicos.find(function(service) {
-
-                        return service.id === item.service_id;
-
-                    });
-
-
-                if (servico) {
-
-                    faturamento += servico.preco;
-
-                }
-
-            });
-
-
-            const clienteElemento =
-                document.getElementById("totalClientes");
-
-            const servicoElemento =
-                document.getElementById("totalServicos");
-
-            const faturamentoElemento =
-                document.getElementById("faturamento");
-
-            const relClientes =
-                document.getElementById("relClientes");
-
-            const relServicos =
-                document.getElementById("relServicos");
-
-            const relReceita =
-                document.getElementById("relReceita");
-
-
-            if (clienteElemento) {
-
-                clienteElemento.textContent =
-                    totalClientes;
+                `;
 
             }
 
 
-            if (servicoElemento) {
+            item.innerHTML = `
 
-                servicoElemento.textContent =
-                    totalServicos;
+                <strong>
+                    ${escaparHTML(agendamento.customer_name)}
+                </strong>
 
-            }
+                <p>
+                    Serviço:
+                    ${escaparHTML(agendamento.service_name)}
+                </p>
+
+                <p>
+                    Data:
+                    ${formatarData(agendamento.appointment_date)}
+                </p>
+
+                <p>
+                    Horário:
+                    ${escaparHTML(agendamento.appointment_time)}
+                </p>
+
+                <p>
+                    Duração:
+                    ${escaparHTML(agendamento.duration)}
+                    minutos
+                </p>
+
+                <p>
+                    Status:
+                    <strong>
+                        ${escaparHTML(agendamento.status)}
+                    </strong>
+                </p>
+
+                ${botaoConfirmar}
+
+                <hr>
+
+            `;
 
 
-            if (faturamentoElemento) {
+            lista.appendChild(item);
 
-                faturamentoElemento.textContent =
-                    formatarMoeda(faturamento);
-
-            }
+        });
 
 
-            if (relClientes) {
+        atualizarCaixa(data);
 
-                relClientes.textContent =
-                    totalClientes;
-
-            }
+    }
 
 
-            if (relServicos) {
+    /* =====================================================
+       CONFIRMAR AGENDAMENTO
+    ====================================================== */
 
-                relServicos.textContent =
-                    totalServicos;
+    async function confirmarAgendamento(id) {
 
-            }
-
-
-            if (relReceita) {
-
-                relReceita.textContent =
-                    formatarMoeda(faturamento);
-
-            }
-
-        }
-
-
-        /* =====================================================
-           FORMATAÇÕES
-        ====================================================== */
-
-        function formatarMoeda(valor) {
-
-            return Number(valor).toLocaleString(
-                "pt-BR",
-                {
-                    style: "currency",
-                    currency: "BRL"
-                }
+        const confirmar =
+            confirm(
+                "Deseja confirmar este agendamento?"
             );
 
+
+        if (!confirmar) {
+
+            return;
+
         }
 
 
-        function formatarData(data) {
+        const { error } = await db
+            .from("appointments")
+            .update({
 
-            if (!data) return "";
+                status: "confirmado"
 
-            const partes =
-                data.split("-");
+            })
+            .eq("id", id);
 
 
-            if (partes.length !== 3) {
+        if (error) {
 
-                return data;
+            console.error(
+                "Erro ao confirmar agendamento:",
+                error
+            );
+
+
+            alert(
+                "Não foi possível confirmar o agendamento."
+            );
+
+            return;
+
+        }
+
+
+        alert(
+            "Agendamento confirmado com sucesso!"
+        );
+
+
+        carregarAgendamentos();
+
+    }
+
+
+    /* =====================================================
+       ATUALIZAR CAIXA
+    ====================================================== */
+
+    function atualizarCaixa(agendamentos) {
+
+        const totalClientes =
+            agendamentos.length;
+
+
+        const totalServicos =
+            agendamentos.length;
+
+
+        let faturamento = 0;
+
+
+        agendamentos.forEach(function(item) {
+
+            const servico =
+                servicos.find(function(service) {
+
+                    return service.id === item.service_id;
+
+                });
+
+
+            if (servico) {
+
+                faturamento += servico.preco;
 
             }
 
-
-            return `${partes[2]}/${partes[1]}/${partes[0]}`;
-
-        }
+        });
 
 
-        function escaparHTML(texto) {
+        const clienteElemento =
+            document.getElementById("totalClientes");
 
-            return String(texto)
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
+        const servicoElemento =
+            document.getElementById("totalServicos");
 
-        }
+        const faturamentoElemento =
+            document.getElementById("faturamento");
 
+        const relClientes =
+            document.getElementById("relClientes");
 
-        /* =====================================================
-           MENSAGENS
-        ====================================================== */
+        const relServicos =
+            document.getElementById("relServicos");
 
-        function mostrarMensagem(elementoId, texto) {
-
-            const elemento =
-                document.getElementById(elementoId);
+        const relReceita =
+            document.getElementById("relReceita");
 
 
-            if (!elemento) return;
+        if (clienteElemento) {
 
-
-            elemento.textContent = texto;
-
-
-            setTimeout(function() {
-
-                elemento.textContent = "";
-
-            }, 3000);
+            clienteElemento.textContent =
+                totalClientes;
 
         }
 
 
-        /* =====================================================
-           SAIR
-        ====================================================== */
+        if (servicoElemento) {
 
-        function sair() {
-
-            document.getElementById(
-                "painelAdmin"
-            ).style.display = "none";
-
-
-            document.getElementById(
-                "loginArea"
-            ).style.display = "block";
-
-
-            document.getElementById(
-                "loginUsuario"
-            ).value = "";
-
-
-            document.getElementById(
-                "loginSenha"
-            ).value = "";
+            servicoElemento.textContent =
+                totalServicos;
 
         }
 
-    </script>
+
+        if (faturamentoElemento) {
+
+            faturamentoElemento.textContent =
+                formatarMoeda(faturamento);
+
+        }
+
+
+        if (relClientes) {
+
+            relClientes.textContent =
+                totalClientes;
+
+        }
+
+
+        if (relServicos) {
+
+            relServicos.textContent =
+                totalServicos;
+
+        }
+
+
+        if (relReceita) {
+
+            relReceita.textContent =
+                formatarMoeda(faturamento);
+
+        }
+
+    }
+
+
+    /* =====================================================
+       FORMATAÇÕES
+    ====================================================== */
+
+    function formatarMoeda(valor) {
+
+        return Number(valor).toLocaleString(
+            "pt-BR",
+            {
+                style: "currency",
+                currency: "BRL"
+            }
+        );
+
+    }
+
+
+    function formatarData(data) {
+
+        if (!data) return "";
+
+        const partes =
+            data.split("-");
+
+
+        if (partes.length !== 3) {
+
+            return data;
+
+        }
+
+
+        return `${partes[2]}/${partes[1]}/${partes[0]}`;
+
+    }
+
+
+    function escaparHTML(texto) {
+
+        return String(texto)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+    }
+
+
+    /* =====================================================
+       MENSAGENS
+    ====================================================== */
+
+    function mostrarMensagem(elementoId, texto) {
+
+        const elemento =
+            document.getElementById(elementoId);
+
+
+        if (!elemento) return;
+
+
+        elemento.textContent = texto;
+
+
+        setTimeout(function() {
+
+            elemento.textContent = "";
+
+        }, 3000);
+
+    }
+
+
+    /* =====================================================
+       SAIR
+    ====================================================== */
+
+    function sair() {
+
+        document.getElementById(
+            "painelAdmin"
+        ).style.display = "none";
+
+
+        document.getElementById(
+            "loginArea"
+        ).style.display = "block";
+
+
+        document.getElementById(
+            "loginUsuario"
+        ).value = "";
+
+
+        document.getElementById(
+            "loginSenha"
+        ).value = "";
+
+    }
+
+</script>
+```
 
 </body>
 
 </html>
-
