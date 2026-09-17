@@ -1164,25 +1164,94 @@ async function finalizarServico(id) {
    CARREGAR CAIXA
 ===================================================== */
 
-async function carregarCaixa() {
+/* =====================================================
+   RELATÓRIO DO CAIXA
+===================================================== */
+
+let dadosRelatorio = [];
+
+
+async function gerarRelatorio() {
+
+    const inicio =
+        document.getElementById("relatorioInicio").value;
+
+    const fim =
+        document.getElementById("relatorioFim").value;
+
+
+    if (!inicio || !fim) {
+
+        alert("Selecione a data inicial e a data final.");
+
+        return;
+    }
+
+
+    if (inicio > fim) {
+
+        alert("A data inicial não pode ser maior que a data final.");
+
+        return;
+    }
+
+
+    const resultado =
+        document.getElementById("relatorioResultado");
+
+
+    resultado.innerHTML =
+        '<div class="mensagem">Gerando relatório...</div>';
+
 
     const { data, error } = await db
         .from("appointments")
         .select("*")
         .eq("status", "finalizado")
-        .order("completed_at", {
-            ascending: false
+        .gte("appointment_date", inicio)
+        .lte("appointment_date", fim)
+        .order("appointment_date", {
+            ascending: true
+        })
+        .order("appointment_time", {
+            ascending: true
         });
 
 
     if (error) {
 
         console.error(
-            "Erro ao carregar caixa:",
+            "Erro ao gerar relatório:",
             error
         );
 
+        resultado.innerHTML =
+            '<div class="mensagem">Erro ao gerar o relatório.</div>';
+
         return;
+    }
+
+
+    dadosRelatorio = data || [];
+
+
+    /*
+       Buscar os preços dos serviços
+    */
+
+    const { data: servicos, error: erroServicos } =
+        await db
+            .from("services")
+            .select("*");
+
+
+    if (erroServicos) {
+
+        console.error(
+            "Erro ao buscar serviços:",
+            erroServicos
+        );
+
     }
 
 
@@ -1196,180 +1265,11 @@ async function carregarCaixa() {
 
     data.forEach(item => {
 
-        const valor =
-            Number(item.price || 0);
-
-        /*
-           Caso a tabela appointments não tenha
-           uma coluna price, usamos o preço do
-           serviço pelo campo service_name abaixo.
-        */
-
-        total += valor;
-
-
-        if (item.payment_method === "Dinheiro") {
-            dinheiro += valor;
-        }
-
-        if (item.payment_method === "Pix") {
-            pix += valor;
-        }
-
-        if (item.payment_method === "Cartão") {
-            cartao += valor;
-        }
-
-        if (item.payment_method === "Outros") {
-            outros += valor;
-        }
-
-    });
-
-
-    /*
-       Busca os preços dos serviços para calcular
-       corretamente o caixa.
-    */
-
-    const { data: servicos } = await db
-        .from("services")
-        .select("*");
-
-
-    if (servicos) {
-
-        total = 0;
-        dinheiro = 0;
-        pix = 0;
-        cartao = 0;
-        outros = 0;
-
-
-        data.forEach(item => {
-
-            const servico =
-                servicos.find(
-                    s =>
-                        s.name === item.service_name
-                );
-
-
-            const valor =
-                servico
-                    ? Number(servico.price || 0)
-                    : 0;
-
-
-            total += valor;
-
-
-            if (item.payment_method === "Dinheiro") {
-                dinheiro += valor;
-            }
-
-            if (item.payment_method === "Pix") {
-                pix += valor;
-            }
-
-            if (item.payment_method === "Cartão") {
-                cartao += valor;
-            }
-
-            if (item.payment_method === "Outros") {
-                outros += valor;
-            }
-
-        });
-
-    }
-
-
-    document.getElementById(
-        "totalCaixa"
-    ).textContent =
-        formatarMoeda(total);
-
-
-    document.getElementById(
-        "quantidadeServicos"
-    ).textContent =
-        data.length;
-
-
-    document.getElementById(
-        "totalDinheiro"
-    ).textContent =
-        formatarMoeda(dinheiro);
-
-
-    document.getElementById(
-        "totalPix"
-    ).textContent =
-        formatarMoeda(pix);
-
-
-    document.getElementById(
-        "totalCartao"
-    ).textContent =
-        formatarMoeda(cartao);
-
-
-    document.getElementById(
-        "totalOutros"
-    ).textContent =
-        formatarMoeda(outros);
-
-
-    const lista =
-        document.getElementById(
-            "listaCaixa"
-        );
-
-
-    if (!data.length) {
-
-        lista.innerHTML =
-            '<div class="mensagem">Nenhum serviço finalizado ainda.</div>';
-
-        document.getElementById(
-            "relatorioDetalhado"
-        ).innerHTML = "";
-
-        return;
-    }
-
-
-    let html = `
-
-        <table class="tabela">
-
-            <thead>
-
-                <tr>
-                    <th>Cliente</th>
-                    <th>Serviço</th>
-                    <th>Pagamento</th>
-                    <th>Data</th>
-                    <th>Valor</th>
-                </tr>
-
-            </thead>
-
-            <tbody>
-
-    `;
-
-
-    data.forEach(item => {
-
         const servico =
-            servicos
-                ? servicos.find(
-                    s =>
-                        s.name === item.service_name
-                )
-                : null;
+            (servicos || []).find(
+                s =>
+                    s.name === item.service_name
+            );
 
 
         const valor =
@@ -1378,17 +1278,161 @@ async function carregarCaixa() {
                 : 0;
 
 
-        const dataConclusao =
-            item.completed_at
-                ? new Date(
-                    item.completed_at
-                ).toLocaleDateString("pt-BR")
-                : "";
+        total += valor;
+
+
+        if (item.payment_method === "Dinheiro") {
+            dinheiro += valor;
+        }
+
+        else if (item.payment_method === "Pix") {
+            pix += valor;
+        }
+
+        else if (item.payment_method === "Cartão") {
+            cartao += valor;
+        }
+
+        else {
+            outros += valor;
+        }
+
+    });
+
+
+    let html = `
+
+        <div class="caixa-grid">
+
+            <div class="caixa-card">
+                <span>Período</span>
+                <strong style="font-size:18px;">
+                    ${formatarData(inicio)}
+                    até
+                    ${formatarData(fim)}
+                </strong>
+            </div>
+
+            <div class="caixa-card">
+                <span>Serviços realizados</span>
+                <strong>
+                    ${data.length}
+                </strong>
+            </div>
+
+            <div class="caixa-card">
+                <span>Total faturado</span>
+                <strong>
+                    ${formatarMoeda(total)}
+                </strong>
+            </div>
+
+            <div class="caixa-card">
+                <span>Dinheiro</span>
+                <strong>
+                    ${formatarMoeda(dinheiro)}
+                </strong>
+            </div>
+
+            <div class="caixa-card">
+                <span>Pix</span>
+                <strong>
+                    ${formatarMoeda(pix)}
+                </strong>
+            </div>
+
+            <div class="caixa-card">
+                <span>Cartão</span>
+                <strong>
+                    ${formatarMoeda(cartao)}
+                </strong>
+            </div>
+
+            <div class="caixa-card">
+                <span>Outros</span>
+                <strong>
+                    ${formatarMoeda(outros)}
+                </strong>
+            </div>
+
+        </div>
+    `;
+
+
+    if (!data.length) {
+
+        html += `
+
+            <div class="mensagem">
+
+                Nenhum serviço finalizado
+                neste período.
+
+            </div>
+
+        `;
+
+        resultado.innerHTML = html;
+
+        return;
+    }
+
+
+    html += `
+
+        <div class="card">
+
+            <h3>
+                Serviços realizados
+            </h3>
+
+            <div style="overflow-x:auto;">
+
+                <table class="tabela">
+
+                    <thead>
+
+                        <tr>
+                            <th>Data</th>
+                            <th>Horário</th>
+                            <th>Cliente</th>
+                            <th>Serviço</th>
+                            <th>Pagamento</th>
+                            <th>Valor</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+    `;
+
+
+    data.forEach(item => {
+
+        const servico =
+            (servicos || []).find(
+                s =>
+                    s.name === item.service_name
+            );
+
+
+        const valor =
+            servico
+                ? Number(servico.price || 0)
+                : 0;
 
 
         html += `
 
             <tr>
+
+                <td>
+                    ${formatarData(item.appointment_date)}
+                </td>
+
+                <td>
+                    ${item.appointment_time || ""}
+                </td>
 
                 <td>
                     ${item.customer_name || ""}
@@ -1399,11 +1443,7 @@ async function carregarCaixa() {
                 </td>
 
                 <td>
-                    ${item.payment_method || ""}
-                </td>
-
-                <td>
-                    ${dataConclusao}
+                    ${item.payment_method || "Outros"}
                 </td>
 
                 <td>
@@ -1418,17 +1458,334 @@ async function carregarCaixa() {
 
 
     html += `
-            </tbody>
-        </table>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
     `;
 
 
-    lista.innerHTML = html;
+    resultado.innerHTML = html;
+
+}
 
 
-    document.getElementById(
-        "relatorioDetalhado"
-    ).innerHTML = html;
+/* =====================================================
+   GERAR PDF DO RELATÓRIO
+===================================================== */
+
+function gerarPDFRelatorio() {
+
+    if (!dadosRelatorio.length) {
+
+        alert(
+            "Primeiro gere um relatório com algum serviço realizado."
+        );
+
+        return;
+    }
+
+
+    const inicio =
+        document.getElementById("relatorioInicio").value;
+
+    const fim =
+        document.getElementById("relatorioFim").value;
+
+
+    /*
+       Abrimos uma página própria para impressão.
+       O navegador permite salvar como PDF.
+    */
+
+
+    let total = 0;
+    let dinheiro = 0;
+    let pix = 0;
+    let cartao = 0;
+    let outros = 0;
+
+
+    let linhas = "";
+
+
+    dadosRelatorio.forEach(item => {
+
+        const valor =
+            Number(item.valor_relatorio || 0);
+
+
+        total += valor;
+
+
+        if (item.payment_method === "Dinheiro") {
+            dinheiro += valor;
+        }
+
+        else if (item.payment_method === "Pix") {
+            pix += valor;
+        }
+
+        else if (item.payment_method === "Cartão") {
+            cartao += valor;
+        }
+
+        else {
+            outros += valor;
+        }
+
+
+        linhas += `
+
+            <tr>
+
+                <td>
+                    ${formatarData(item.appointment_date)}
+                </td>
+
+                <td>
+                    ${item.appointment_time || ""}
+                </td>
+
+                <td>
+                    ${item.customer_name || ""}
+                </td>
+
+                <td>
+                    ${item.service_name || ""}
+                </td>
+
+                <td>
+                    ${item.payment_method || "Outros"}
+                </td>
+
+                <td>
+                    ${formatarMoeda(valor)}
+                </td>
+
+            </tr>
+
+        `;
+
+    });
+
+
+    const janela =
+        window.open(
+            "",
+            "_blank"
+        );
+
+
+    if (!janela) {
+
+        alert(
+            "O navegador bloqueou a janela do relatório. Permita pop-ups para este site."
+        );
+
+        return;
+    }
+
+
+    janela.document.write(`
+
+        <!DOCTYPE html>
+
+        <html lang="pt-BR">
+
+        <head>
+
+            <meta charset="UTF-8">
+
+            <title>
+                Relatório - JC Barbearia
+            </title>
+
+            <style>
+
+                body {
+                    font-family: Arial, sans-serif;
+                    padding: 35px;
+                    color: #111;
+                }
+
+                h1 {
+                    text-align: center;
+                    margin-bottom: 5px;
+                }
+
+                h2 {
+                    text-align: center;
+                    font-weight: normal;
+                    font-size: 16px;
+                    margin-top: 0;
+                }
+
+                .resumo {
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 12px;
+                    margin: 25px 0;
+                }
+
+                .box {
+                    border: 1px solid #ccc;
+                    padding: 15px;
+                    border-radius: 8px;
+                }
+
+                .box strong {
+                    display: block;
+                    font-size: 20px;
+                    margin-top: 7px;
+                }
+
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin-top: 25px;
+                }
+
+                th,
+                td {
+                    border: 1px solid #ccc;
+                    padding: 9px;
+                    text-align: left;
+                }
+
+                th {
+                    background: #eee;
+                }
+
+                .total {
+                    font-size: 22px;
+                    font-weight: bold;
+                    margin-top: 25px;
+                    text-align: right;
+                }
+
+            </style>
+
+        </head>
+
+        <body>
+
+            <h1>JC BARBEARIA</h1>
+
+            <h2>
+                Relatório do Caixa
+            </h2>
+
+            <p>
+                <strong>Período:</strong>
+                ${formatarData(inicio)}
+                até
+                ${formatarData(fim)}
+            </p>
+
+
+            <div class="resumo">
+
+                <div class="box">
+                    Serviços
+                    <strong>
+                        ${dadosRelatorio.length}
+                    </strong>
+                </div>
+
+                <div class="box">
+                    Dinheiro
+                    <strong>
+                        ${formatarMoeda(dinheiro)}
+                    </strong>
+                </div>
+
+                <div class="box">
+                    Pix
+                    <strong>
+                        ${formatarMoeda(pix)}
+                    </strong>
+                </div>
+
+                <div class="box">
+                    Cartão
+                    <strong>
+                        ${formatarMoeda(cartao)}
+                    </strong>
+                </div>
+
+                <div class="box">
+                    Outros
+                    <strong>
+                        ${formatarMoeda(outros)}
+                    </strong>
+                </div>
+
+                <div class="box">
+                    Total
+                    <strong>
+                        ${formatarMoeda(total)}
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Data</th>
+                        <th>Horário</th>
+                        <th>Cliente</th>
+                        <th>Serviço</th>
+                        <th>Pagamento</th>
+                        <th>Valor</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    ${linhas}
+
+                </tbody>
+
+            </table>
+
+
+            <div class="total">
+
+                Total recebido:
+                ${formatarMoeda(total)}
+
+            </div>
+
+
+            <script>
+
+                window.onload = function() {
+                    window.print();
+                };
+
+            <\/script>
+
+        </body>
+
+        </html>
+
+    `);
+
+
+    janela.document.close();
 
 }
 
