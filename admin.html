@@ -485,37 +485,90 @@ button {
 
     <!-- RELATÓRIO -->
 
-    <section id="relatorio" class="aba">
+   <section id="relatorio" class="aba">
 
-        <h2 class="titulo-aba">Relatório do Caixa</h2>
+    <h2 class="titulo-aba">Relatório do Caixa</h2>
 
-        <div class="caixa-grid">
+    <div class="card">
 
-            <div class="caixa-card">
-                <span>Dinheiro</span>
-                <strong id="totalDinheiro">R$ 0,00</strong>
+        <h3>Filtrar período</h3>
+
+        <div style="
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:12px;
+            margin-top:15px;
+        ">
+
+            <div>
+                <label>Data inicial</label>
+
+                <input
+                    type="date"
+                    id="relatorioInicio"
+                    style="
+                        width:100%;
+                        padding:11px;
+                        margin-top:6px;
+                        background:#101010;
+                        color:white;
+                        border:1px solid #444;
+                        border-radius:7px;
+                    "
+                >
             </div>
 
-            <div class="caixa-card">
-                <span>Pix</span>
-                <strong id="totalPix">R$ 0,00</strong>
-            </div>
+            <div>
+                <label>Data final</label>
 
-            <div class="caixa-card">
-                <span>Cartão</span>
-                <strong id="totalCartao">R$ 0,00</strong>
-            </div>
-
-            <div class="caixa-card">
-                <span>Outros</span>
-                <strong id="totalOutros">R$ 0,00</strong>
+                <input
+                    type="date"
+                    id="relatorioFim"
+                    style="
+                        width:100%;
+                        padding:11px;
+                        margin-top:6px;
+                        background:#101010;
+                        color:white;
+                        border:1px solid #444;
+                        border-radius:7px;
+                    "
+                >
             </div>
 
         </div>
 
-        <div id="relatorioDetalhado"></div>
+        <button
+            class="botao-confirmar"
+            onclick="gerarRelatorio()"
+            style="margin-right:8px;">
 
-    </section>
+            🔎 Filtrar relatório
+
+        </button>
+
+        <button
+            class="botao-finalizar"
+            onclick="gerarPDFRelatorio()">
+
+            📄 Gerar relatório em PDF
+
+        </button>
+
+    </div>
+
+
+    <div
+        id="relatorioResultado"
+        style="margin-top:20px;">
+
+        <div class="mensagem">
+            Selecione o período e clique em "Filtrar relatório".
+        </div>
+
+    </div>
+
+</section>
 
 </div>
 
