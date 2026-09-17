@@ -1307,48 +1307,40 @@
     ====================================================== */
 
     async function confirmarAgendamento(id) {
+    const confirmar = confirm("Deseja confirmar este agendamento?");
 
-        const confirmar =
-            confirm(
-                "Deseja confirmar este agendamento?"
-            );
+    if (!confirmar) return;
 
-
-        if (!confirmar) return;
-
-
-        const { error } = await db
+    try {
+        const { data, error } = await db
             .from("appointments")
             .update({
-
                 status: "confirmado"
-
             })
-            .eq("id", id);
-
+            .eq("id", id)
+            .select();
 
         if (error) {
-
-            console.error(
-                "Erro ao confirmar agendamento:",
-                error
-            );
-
-
-            alert(
-                "Não foi possível confirmar o agendamento."
-            );
-
+            console.error("Erro ao confirmar:", error);
+            alert("Erro ao confirmar o agendamento: " + error.message);
             return;
-
         }
 
+        if (!data || data.length === 0) {
+            alert("O agendamento não foi encontrado.");
+            return;
+        }
+
+        alert("Agendamento confirmado com sucesso!");
 
         await carregarAgendamentos();
-
         await carregarConfirmados();
 
+    } catch (erro) {
+        console.error("Erro inesperado:", erro);
+        alert("Ocorreu um erro ao confirmar o agendamento.");
     }
+}
 
 
     /* =====================================================
