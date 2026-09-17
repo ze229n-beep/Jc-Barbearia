@@ -1,854 +1,840 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Agendamento - JC Barbearia</title>
+<title>Agendamento - JC Barbearia</title>
 
-    <link rel="stylesheet" href="estilo.css">
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #080808;
+    color: #fff;
+}
+
+header {
+    background: #000;
+    border-bottom: 1px solid #2a2a2a;
+    padding: 18px 20px;
+}
+
+.header-content {
+    max-width: 1100px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.logo span {
+    color: #d4af37;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #d4af37;
+}
+
+.booking {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.booking-card {
+    background: #111;
+    border: 1px solid #292929;
+    border-radius: 18px;
+    padding: 30px;
+    box-shadow: 0 10px 40px rgba(0,0,0,.35);
+}
+
+.booking h1 {
+    text-align: center;
+    margin: 0 0 8px;
+    color: #d4af37;
+}
+
+.subtitle {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #aaa;
+}
+
+.step-title {
+    color: #d4af37;
+    margin-top: 28px;
+    margin-bottom: 14px;
+    font-size: 18px;
+}
+
+.service-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+}
+
+.service-option {
+    background: #181818;
+    border: 1px solid #333;
+    color: #fff;
+    border-radius: 12px;
+    padding: 16px;
+    cursor: pointer;
+    text-align: left;
+    transition: .2s;
+}
+
+.service-option:hover {
+    border-color: #d4af37;
+}
+
+.service-option.selected {
+    background: #d4af37 !important;
+    color: #000 !important;
+    border-color: #d4af37;
+}
+
+.service-name {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.service-info {
+    margin-top: 7px;
+    font-size: 14px;
+    opacity: .8;
+}
+
+.days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+}
+
+.day-button,
+.time-button {
+    border: 1px solid #333;
+    background: #181818;
+    color: #fff;
+    border-radius: 10px;
+    padding: 13px 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.day-button:hover,
+.time-button:hover:not(:disabled) {
+    border-color: #d4af37;
+}
+
+.day-button.selected,
+.time-button.selected {
+    background: #d4af37 !important;
+    color: #000 !important;
+    border-color: #d4af37;
+}
+
+.times {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+}
+
+.time-button:disabled {
+    opacity: .25;
+    cursor: not-allowed;
+    text-decoration: line-through;
+}
+
+.form-group {
+    margin-top: 18px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 7px;
+    color: #d4af37;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 14px;
+    border-radius: 10px;
+    border: 1px solid #333;
+    background: #181818;
+    color: #fff;
+    font-size: 16px;
+    outline: none;
+}
+
+.form-group input:focus {
+    border-color: #d4af37;
+}
+
+.summary {
+    margin-top: 28px;
+    padding: 20px;
+    border-radius: 12px;
+    background: #181818;
+    border: 1px solid #333;
+}
+
+.summary p {
+    margin: 9px 0;
+}
+
+.summary strong {
+    color: #d4af37;
+}
+
+.confirm-button,
+.whatsapp-button {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    padding: 15px;
+    border: 0;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.confirm-button {
+    background: linear-gradient(135deg, #d4af37, #f1d46a);
+    color: #000;
+}
+
+.confirm-button:disabled {
+    opacity: .4;
+    cursor: not-allowed;
+}
+
+.whatsapp-button {
+    background: #25d366;
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+}
+
+.receipt {
+    display: none;
+    margin-top: 25px;
+    padding: 22px;
+    border-radius: 12px;
+    background: #181818;
+    border: 1px solid #d4af37;
+}
+
+.receipt h2 {
+    color: #d4af37;
+    margin-top: 0;
+}
+
+.message {
+    text-align: center;
+    padding: 15px;
+    color: #aaa;
+}
+
+.error {
+    color: #ff6b6b;
+    text-align: center;
+    padding: 15px;
+}
+
+@media (max-width: 700px) {
+    .header-content {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav a {
+        margin: 0 8px;
+    }
+
+    .booking {
+        margin: 20px auto;
+        padding: 10px;
+    }
+
+    .booking-card {
+        padding: 20px 15px;
+    }
+
+    .service-options {
+        grid-template-columns: 1fr;
+    }
+
+    .days {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .times {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+</style>
+
 </head>
 
 <body>
 
 <header>
+    <div class="header-content">
+        <div class="logo">
+            JC <span>BARBEARIA</span>
+        </div>
 
-    <div class="logo">
-        JC <span>BARBEARIA</span>
-    </div>
-
+```
     <nav>
         <a href="index.html">Início</a>
         <a href="services.html">Agendamento</a>
     </nav>
+</div>
+```
 
 </header>
 
-
-<main>
-
 <section class="booking">
 
-    <p class="subtitle">
-        JC BARBEARIA
-    </p>
+```
+<div class="booking-card">
 
-    <h1>
-        Agende seu horário
-    </h1>
+    <h1>Agende seu horário</h1>
 
-    <p class="booking-description">
+    <div class="subtitle">
+        JC BARBEARIA<br>
         Escolha o serviço, o dia e o horário.
-    </p>
-
-
-    <!-- SERVIÇO -->
-
-    <div class="booking-card">
-
-        <h2>
-            ✂️ 1. Escolha seu serviço
-        </h2>
-
-        <div
-            class="service-options"
-            id="serviceOptions">
-
-            <p>
-                Carregando serviços...
-            </p>
-
-        </div>
-
     </div>
 
+    <h3 class="step-title">1. Escolha o serviço</h3>
 
-    <!-- DIA -->
-
-    <div class="booking-card">
-
-        <h2>
-            📅 2. Escolha o dia
-        </h2>
-
-        <p class="small-text">
-            Toque no dia que deseja agendar.
-        </p>
-
-        <div
-            id="days"
-            class="days">
-        </div>
-
+    <div id="serviceOptions" class="service-options">
+        <div class="message">Carregando serviços...</div>
     </div>
 
+    <h3 class="step-title">2. Escolha o dia</h3>
 
-    <!-- HORÁRIO -->
-
-    <div class="booking-card">
-
-        <h2>
-            🕐 3. Escolha o horário
-        </h2>
-
-        <p class="small-text">
-            Primeiro escolha um serviço e um dia.
-        </p>
-
-        <div
-            id="times"
-            class="times">
-
-            <p class="time-message">
-                Primeiro escolha um serviço e um dia.
-            </p>
-
-        </div>
-
+    <div id="days" class="days">
+        <div class="message">Carregando dias...</div>
     </div>
 
+    <h3 class="step-title">3. Escolha o horário</h3>
 
-    <!-- DADOS -->
+    <div id="times" class="times">
+        <div class="message">
+            Escolha um serviço e um dia primeiro.
+        </div>
+    </div>
 
-    <div class="booking-card">
+    <h3 class="step-title">4. Seus dados</h3>
 
-        <h2>
-            4. Seus dados
-        </h2>
-
-        <label for="name">
-            Seu nome
-        </label>
-
+    <div class="form-group">
+        <label for="name">Nome</label>
         <input
             type="text"
             id="name"
             placeholder="Digite seu nome"
         >
+    </div>
 
-
-        <label for="phone">
-            Seu WhatsApp
-        </label>
-
+    <div class="form-group">
+        <label for="phone">WhatsApp</label>
         <input
             type="tel"
             id="phone"
-            placeholder="(99) 99999-9999"
+            placeholder="Digite seu WhatsApp"
         >
-
     </div>
-
-
-    <!-- RESUMO -->
 
     <div class="summary">
 
-        <h2>
-            Resumo do agendamento
-        </h2>
+        <p>
+            <strong>Serviço:</strong>
+            <span id="summaryService">-</span>
+        </p>
 
-        <div class="summary-line">
+        <p>
+            <strong>Data:</strong>
+            <span id="summaryDate">-</span>
+        </p>
 
-            <span>
-                Serviço
-            </span>
+        <p>
+            <strong>Horário:</strong>
+            <span id="summaryTime">-</span>
+        </p>
 
-            <strong id="summaryService">
-                —
-            </strong>
-
-        </div>
-
-
-        <div class="summary-line">
-
-            <span>
-                Dia
-            </span>
-
-            <strong id="summaryDate">
-                —
-            </strong>
-
-        </div>
-
-
-        <div class="summary-line">
-
-            <span>
-                Horário
-            </span>
-
-            <strong id="summaryTime">
-                —
-            </strong>
-
-        </div>
-
-
-        <div class="summary-line">
-
-            <span>
-                Valor
-            </span>
-
-            <strong id="summaryPrice">
-                —
-            </strong>
-
-        </div>
+        <p>
+            <strong>Preço:</strong>
+            <span id="summaryPrice">-</span>
+        </p>
 
     </div>
 
-
-    <!-- CONFIRMAR -->
-
     <button
-        type="button"
+        id="confirmButton"
         class="confirm-button"
-        id="confirmButton">
-
+        disabled
+    >
         Confirmar agendamento
-
     </button>
 
+    <div id="statusMessage"></div>
 
-    <!-- COMPROVANTE -->
+    <div id="receipt" class="receipt">
 
-    <div
-        id="receipt"
-        class="receipt"
-        style="display:none;">
+        <h2>Agendamento confirmado!</h2>
 
-        <div class="receipt-check">
-            ✓
-        </div>
-
-        <h2>
-            Agendamento confirmado!
-        </h2>
-
-        <p class="receipt-title">
-            JC BARBEARIA
+        <p>
+            <strong>Nome:</strong>
+            <span id="receiptName"></span>
         </p>
 
-
-        <div class="receipt-info">
-
-            <p>
-                <span>Cliente</span>
-                <strong id="receiptName"></strong>
-            </p>
-
-            <p>
-                <span>WhatsApp</span>
-                <strong id="receiptPhone"></strong>
-            </p>
-
-            <p>
-                <span>Serviço</span>
-                <strong id="receiptService"></strong>
-            </p>
-
-            <p>
-                <span>Dia</span>
-                <strong id="receiptDate"></strong>
-            </p>
-
-            <p>
-                <span>Horário</span>
-                <strong id="receiptTime"></strong>
-            </p>
-
-            <p>
-                <span>Valor</span>
-                <strong id="receiptPrice"></strong>
-            </p>
-
-        </div>
-
-
-        <p class="receipt-message">
-            Seu horário foi reservado com sucesso.
+        <p>
+            <strong>WhatsApp:</strong>
+            <span id="receiptPhone"></span>
         </p>
 
+        <p>
+            <strong>Serviço:</strong>
+            <span id="receiptService"></span>
+        </p>
+
+        <p>
+            <strong>Data:</strong>
+            <span id="receiptDate"></span>
+        </p>
+
+        <p>
+            <strong>Horário:</strong>
+            <span id="receiptTime"></span>
+        </p>
+
+        <p>
+            <strong>Preço:</strong>
+            <span id="receiptPrice"></span>
+        </p>
 
         <a
             id="whatsappButton"
             class="whatsapp-button"
-            target="_blank">
-
-            Enviar agendamento para o WhatsApp
-
+            target="_blank"
+            href="#"
+        >
+            Enviar para o WhatsApp
         </a>
 
     </div>
 
+</div>
+```
+
 </section>
-
-</main>
-
-
-<footer>
-
-    <p>
-        © 2026 JC Barbearia
-    </p>
-
-    <p>
-        Seu estilo, nossa missão.
-    </p>
-
-</footer>
-
-
-<!-- SUPABASE -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 
-/* =========================================
-   CONEXÃO COM SUPABASE
-========================================= */
+const SUPABASE_URL =
+    "https://zlfkdyxlfegojlgzulue.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_suqAkNXSnGacL1vO_BaaOg_oeeHDKSs";
 
 const db = window.supabase.createClient(
-    "https://zlfkdyxlfegojlgzulue.supabase.co",
-    "sb_publishable_suqAkNXSnGacL1vO_BaaOg_oeeHDKSs"
+    SUPABASE_URL,
+    SUPABASE_KEY
 );
-
-
-/* =========================================
-   CONFIGURAÇÕES
-========================================= */
 
 const ADMIN_WHATSAPP = "559984863723";
 
-
 const HORARIOS = [
-
     "08:00",
     "08:30",
     "09:00",
     "09:30",
     "10:00",
     "10:30",
-
     "11:00",
     "11:30",
     "12:00",
     "12:30",
     "13:00",
     "13:30",
-
     "14:00",
     "14:30",
     "15:00",
     "15:30",
     "16:00",
     "16:30",
-
     "17:00",
     "17:30",
     "18:00"
-
 ];
 
-
-/* =========================================
-   VARIÁVEIS
-========================================= */
-
-let selectedService = "";
 let selectedServiceId = null;
-let selectedPrice = 0;
-let selectedDuration = 0;
-let selectedDate = "";
-let selectedTime = "";
+let selectedService = null;
+let selectedPrice = null;
+let selectedDuration = null;
 
-
-/* =========================================
-   ELEMENTOS
-========================================= */
+let selectedDate = null;
+let selectedTime = null;
 
 const serviceOptions =
     document.getElementById("serviceOptions");
 
-const daysContainer =
+const days =
     document.getElementById("days");
 
-const timesContainer =
+const times =
     document.getElementById("times");
 
+const confirmButton =
+    document.getElementById("confirmButton");
 
-/* =========================================
-   CARREGAR SERVIÇOS
-========================================= */
+const statusMessage =
+    document.getElementById("statusMessage");
+
+
+// ==========================================
+// FORMATAR DATA
+// ==========================================
+
+function formatarData(data) {
+
+    const partes = data.split("-");
+
+    return (
+        partes[2] +
+        "/" +
+        partes[1] +
+        "/" +
+        partes[0]
+    );
+}
+
+
+// ==========================================
+// FORMATAR PREÇO
+// ==========================================
+
+function formatarPreco(valor) {
+
+    return Number(valor).toLocaleString(
+        "pt-BR",
+        {
+            style: "currency",
+            currency: "BRL"
+        }
+    );
+}
+
+
+// ==========================================
+// CARREGAR SERVIÇOS
+// ==========================================
 
 async function loadServices() {
 
     serviceOptions.innerHTML =
-        "<p>Carregando serviços...</p>";
+        '<div class="message">Carregando serviços...</div>';
 
-    console.log(
-        "Iniciando carregamento dos serviços..."
-    );
+    const { data, error } = await db
+        .from("services")
+        .select("id, name, price, duration")
+        .eq("active", true)
+        .order("id");
 
+    if (error) {
 
-    try {
-
-        const { data, error } = await db
-            .from("services")
-            .select("*")
-            .eq("active", true)
-            .order("id");
-
-
-        console.log(
-            "Serviços recebidos:",
-            data
-        );
-
-
-        console.log(
-            "Erro Supabase:",
+        console.error(
+            "Erro ao carregar serviços:",
             error
         );
 
+        serviceOptions.innerHTML =
+            '<div class="error">Não foi possível carregar os serviços.</div>';
 
-        if (error) {
-
-            console.error(
-                "ERRO SUPABASE:",
-                error
-            );
-
-
-            serviceOptions.innerHTML = `
-                <p>
-                    Erro ao carregar serviços.
-                    <br><br>
-                    ${error.message}
-                </p>
-            `;
-
-            return;
-
-        }
-
-
-        if (!data || data.length === 0) {
-
-            serviceOptions.innerHTML = `
-                <p>
-                    Nenhum serviço disponível.
-                </p>
-            `;
-
-            return;
-
-        }
-
-
-        serviceOptions.innerHTML = "";
-
-
-        data.forEach(function(service) {
-
-            const button =
-                document.createElement("button");
-
-
-            button.type = "button";
-
-            button.className =
-                "service-option";
-
-
-            button.dataset.service =
-                service.name;
-
-            button.dataset.price =
-                service.price;
-
-            button.dataset.duration =
-                service.duration;
-
-            button.dataset.id =
-                service.id;
-
-
-            button.innerHTML = `
-
-                <span class="service-name">
-                    ${service.name}
-                </span>
-
-                <span class="service-price">
-                    R$ ${Number(service.price)
-                        .toFixed(2)
-                        .replace(".", ",")}
-                </span>
-
-            `;
-
-
-            button.addEventListener(
-                "click",
-                function() {
-
-                    document
-                        .querySelectorAll(
-                            ".service-option"
-                        )
-                        .forEach(function(item) {
-
-                            item.classList.remove(
-                                "selected"
-                            );
-
-                        });
-
-
-                    button.classList.add(
-                        "selected"
-                    );
-
-
-                    selectedService =
-                        service.name;
-
-                    selectedServiceId =
-                        service.id;
-
-                    selectedPrice =
-                        Number(service.price);
-
-                    selectedDuration =
-                        Number(service.duration);
-
-
-                    document.getElementById(
-                        "summaryService"
-                    ).textContent =
-                        selectedService;
-
-
-                    document.getElementById(
-                        "summaryPrice"
-                    ).textContent =
-                        "R$ " +
-                        selectedPrice
-                            .toFixed(2)
-                            .replace(".", ",");
-
-
-                    if (selectedDate) {
-
-                        showTimes();
-
-                    }
-
-                }
-            );
-
-
-            serviceOptions.appendChild(
-                button
-            );
-
-        });
-
-
-        console.log(
-            "Serviços carregados com sucesso."
-        );
-
+        return;
     }
 
+    if (!data || data.length === 0) {
 
-    catch (erro) {
+        serviceOptions.innerHTML =
+            '<div class="message">Nenhum serviço cadastrado.</div>';
 
-        console.error(
-            "ERRO AO CONECTAR AO SUPABASE:",
-            erro
-        );
-
-
-        serviceOptions.innerHTML = `
-
-            <p>
-
-                Não foi possível conectar
-                ao banco de dados.
-
-                <br><br>
-
-                ${erro.message || erro}
-
-            </p>
-
-        `;
-
+        return;
     }
 
-}
+    serviceOptions.innerHTML = "";
 
-
-/* =========================================
-   CRIAR DIAS
-========================================= */
-
-function createDays() {
-
-    daysContainer.innerHTML = "";
-
-
-    const hoje = new Date();
-
-
-    const nomesDias = [
-
-        "Dom",
-        "Seg",
-        "Ter",
-        "Qua",
-        "Qui",
-        "Sex",
-        "Sáb"
-
-    ];
-
-
-    const nomesMeses = [
-
-        "Jan",
-        "Fev",
-        "Mar",
-        "Abr",
-        "Mai",
-        "Jun",
-        "Jul",
-        "Ago",
-        "Set",
-        "Out",
-        "Nov",
-        "Dez"
-
-    ];
-
-
-    for (
-        let i = 0;
-        i < 14;
-        i++
-    ) {
-
-        const data =
-            new Date(hoje);
-
-
-        data.setDate(
-            hoje.getDate() + i
-        );
-
-
-        const ano =
-            data.getFullYear();
-
-
-        const mes =
-            String(
-                data.getMonth() + 1
-            ).padStart(2, "0");
-
-
-        const dia =
-            String(
-                data.getDate()
-            ).padStart(2, "0");
-
-
-        const dataCompleta =
-            ano + "-" + mes + "-" + dia;
-
+    data.forEach(function(service) {
 
         const button =
             document.createElement("button");
 
-
         button.type = "button";
 
         button.className =
-            "day-button";
+            "service-option";
 
+        button.innerHTML = `
+            <div class="service-name">
+                ${service.name}
+            </div>
 
-        if (i === 0) {
-
-            button.innerHTML =
-
-                '<span class="day-name">Hoje</span>' +
-
-                '<span class="day-number">' +
-                dia +
-                '</span>' +
-
-                '<span class="day-month">' +
-                nomesMeses[data.getMonth()] +
-                '</span>';
-
-        }
-
-        else {
-
-            button.innerHTML =
-
-                '<span class="day-name">' +
-                nomesDias[data.getDay()] +
-                '</span>' +
-
-                '<span class="day-number">' +
-                dia +
-                '</span>' +
-
-                '<span class="day-month">' +
-                nomesMeses[data.getMonth()] +
-                '</span>';
-
-        }
-
+            <div class="service-info">
+                ${formatarPreco(service.price)}
+                ${service.duration ? " • " + service.duration + " min" : ""}
+            </div>
+        `;
 
         button.addEventListener(
             "click",
             function() {
 
                 document
-                    .querySelectorAll(
-                        ".day-button"
-                    )
+                    .querySelectorAll(".service-option")
                     .forEach(function(item) {
-
-                        item.classList.remove(
-                            "selected"
-                        );
-
+                        item.classList.remove("selected");
                     });
 
+                button.classList.add("selected");
 
-                button.classList.add(
-                    "selected"
-                );
+                selectedServiceId =
+                    service.id;
 
+                selectedService =
+                    service.name;
+
+                selectedPrice =
+                    service.price;
+
+                selectedDuration =
+                    Number(service.duration) || 30;
+
+                document.getElementById(
+                    "summaryService"
+                ).textContent =
+                    selectedService;
+
+                document.getElementById(
+                    "summaryPrice"
+                ).textContent =
+                    formatarPreco(selectedPrice);
+
+                selectedTime = null;
+
+                updateButton();
+
+                if (selectedDate) {
+                    showTimes();
+                }
+
+            }
+        );
+
+        serviceOptions.appendChild(button);
+
+    });
+}
+
+
+// ==========================================
+// CRIAR DIAS
+// ==========================================
+
+function createDays() {
+
+    days.innerHTML = "";
+
+    const hoje = new Date();
+
+    for (let i = 0; i < 14; i++) {
+
+        const data =
+            new Date(hoje);
+
+        data.setDate(
+            hoje.getDate() + i
+        );
+
+        const ano =
+            data.getFullYear();
+
+        const mes =
+            String(
+                data.getMonth() + 1
+            ).padStart(2, "0");
+
+        const dia =
+            String(
+                data.getDate()
+            ).padStart(2, "0");
+
+        const dataISO =
+            `${ano}-${mes}-${dia}`;
+
+        const button =
+            document.createElement("button");
+
+        button.type = "button";
+
+        button.className =
+            "day-button";
+
+        button.textContent =
+            `${dia}/${mes}`;
+
+        button.addEventListener(
+            "click",
+            function() {
+
+                document
+                    .querySelectorAll(".day-button")
+                    .forEach(function(item) {
+                        item.classList.remove("selected");
+                    });
+
+                button.classList.add("selected");
 
                 selectedDate =
-                    dataCompleta;
+                    dataISO;
 
-
-                selectedTime = "";
-
+                selectedTime = null;
 
                 document.getElementById(
                     "summaryDate"
                 ).textContent =
-                    formatDate(
-                        selectedDate
-                    );
+                    formatarData(selectedDate);
 
-
-                document.getElementById(
-                    "summaryTime"
-                ).textContent =
-                    "—";
-
+                updateButton();
 
                 showTimes();
 
             }
         );
 
-
-        daysContainer.appendChild(
-            button
-        );
-
+        days.appendChild(button);
     }
-
 }
 
 
-/* =========================================
-   MOSTRAR HORÁRIOS DISPONÍVEIS
-========================================= */
+// ==========================================
+// CONVERTER HORÁRIO EM MINUTOS
+// ==========================================
+
+function horarioEmMinutos(horario) {
+
+    if (!horario) {
+        return 0;
+    }
+
+    const partes =
+        String(horario)
+            .substring(0, 5)
+            .split(":");
+
+    return (
+        Number(partes[0]) * 60 +
+        Number(partes[1])
+    );
+}
+
+
+// ==========================================
+// VERIFICAR SE HORÁRIO ESTÁ OCUPADO
+// ==========================================
+
+function horarioOcupado(
+    horarioInicial,
+    duracao,
+    agendamentos
+) {
+
+    const inicioNovo =
+        horarioEmMinutos(horarioInicial);
+
+    const fimNovo =
+        inicioNovo + Number(duracao);
+
+    return agendamentos.some(
+        function(agendamento) {
+
+            const inicioExistente =
+                horarioEmMinutos(
+                    agendamento.appointment_time
+                );
+
+            const fimExistente =
+                inicioExistente +
+                Number(agendamento.duration || 30);
+
+            return (
+                inicioNovo < fimExistente &&
+                fimNovo > inicioExistente
+            );
+
+        }
+    );
+}
+
+
+// ==========================================
+// MOSTRAR HORÁRIOS
+// ==========================================
 
 async function showTimes() {
 
-    timesContainer.innerHTML = "";
-
-
-    if (!selectedService) {
-
-        timesContainer.innerHTML = `
-            <p class="time-message">
-                Escolha primeiro um serviço.
-            </p>
-        `;
-
-        return;
-
-    }
-
+    times.innerHTML =
+        '<div class="message">Verificando horários...</div>';
 
     if (!selectedDate) {
 
-        timesContainer.innerHTML = `
-            <p class="time-message">
-                Escolha primeiro um dia.
-            </p>
-        `;
+        times.innerHTML =
+            '<div class="message">Escolha um dia primeiro.</div>';
 
         return;
-
     }
-
-
-    timesContainer.innerHTML = `
-        <p class="time-message">
-            Verificando horários disponíveis...
-        </p>
-    `;
-
-
-    /* =========================================
-       BUSCAR AGENDAMENTOS
-       
-       IMPORTANTE:
-       A tabela no Supabase se chama
-       "appointments".
-    ========================================== */
 
     const {
         data: agendamentos,
         error
     } = await db
-
         .from("appointments")
-
         .select(
-            "horário_da_consulta, duração, status"
+            "appointment_time, duration, status"
         )
-
         .eq(
-            "data_da_consulta",
+            "appointment_date",
             selectedDate
         )
-
         .neq(
             "status",
             "cancelado"
         );
-
 
     if (error) {
 
@@ -857,537 +843,314 @@ async function showTimes() {
             error
         );
 
-
-        timesContainer.innerHTML = `
-            <p class="time-message">
-                Não foi possível verificar os horários.
-            </p>
-        `;
+        times.innerHTML =
+            '<div class="error">Não foi possível verificar os horários.</div>';
 
         return;
-
     }
 
-
-    /* =========================================
-       CONVERTER HORÁRIO EM MINUTOS
-    ========================================== */
-
-    function horarioEmMinutos(horario) {
-
-        const partes =
-            horario
-                .substring(0, 5)
-                .split(":");
-
-
-        return (
-            Number(partes[0]) * 60 +
-            Number(partes[1])
-        );
-
-    }
-
-
-    /* =========================================
-       VERIFICAR CONFLITO
-    ========================================== */
-
-    function horarioOcupado(
-        horarioInicial,
-        duracao
-    ) {
-
-        const inicioNovo =
-            horarioEmMinutos(
-                horarioInicial
-            );
-
-
-        const fimNovo =
-            inicioNovo + duracao;
-
-
-        return agendamentos.some(
-            function(agendamento) {
-
-                const inicioExistente =
-                    horarioEmMinutos(
-                        agendamento.horário_da_consulta
-                    );
-
-
-                const fimExistente =
-                    inicioExistente +
-                    Number(
-                        agendamento.duração
-                    );
-
-
-                return (
-
-                    inicioNovo <
-                    fimExistente
-
-                    &&
-
-                    fimNovo >
-                    inicioExistente
-
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =========================================
-       MOSTRAR HORÁRIOS
-    ========================================== */
-
-    timesContainer.innerHTML = "";
-
-
-    let quantidadeDisponivel = 0;
-
+    times.innerHTML = "";
 
     HORARIOS.forEach(
         function(horario) {
 
-            const ocupado =
-                horarioOcupado(
-                    horario,
-                    selectedDuration
-                );
-
-
             const button =
-                document.createElement(
-                    "button"
-                );
-
+                document.createElement("button");
 
             button.type = "button";
 
             button.className =
                 "time-button";
 
-
             button.textContent =
                 horario;
 
-
-            /* HORÁRIO OCUPADO */
+            const ocupado =
+                selectedDuration &&
+                horarioOcupado(
+                    horario,
+                    selectedDuration,
+                    agendamentos || []
+                );
 
             if (ocupado) {
 
                 button.disabled = true;
 
-                button.classList.add(
-                    "indisponivel"
-                );
-
-                button.title =
-                    "Horário indisponível";
-
-                button.textContent =
-                    horario +
-                    " - Ocupado";
-
-            }
-
-
-            /* HORÁRIO DISPONÍVEL */
-
-            else {
-
-                quantidadeDisponivel++;
-
+            } else {
 
                 button.addEventListener(
                     "click",
                     function() {
 
                         document
-                            .querySelectorAll(
-                                ".time-button"
-                            )
+                            .querySelectorAll(".time-button")
                             .forEach(
                                 function(item) {
-
                                     item.classList.remove(
                                         "selected"
                                     );
-
                                 }
                             );
-
 
                         button.classList.add(
                             "selected"
                         );
 
-
                         selectedTime =
                             horario;
-
 
                         document.getElementById(
                             "summaryTime"
                         ).textContent =
                             selectedTime;
 
+                        updateButton();
+
                     }
                 );
-
             }
 
-
-            timesContainer.appendChild(
-                button
-            );
+            times.appendChild(button);
 
         }
     );
-
-
-    /* =========================================
-       NENHUM HORÁRIO
-    ========================================== */
-
-    if (
-        quantidadeDisponivel === 0
-    ) {
-
-        timesContainer.innerHTML = `
-            <p class="time-message">
-                Não há horários disponíveis para este dia.
-            </p>
-        `;
-
-    }
-
 }
 
 
-/* =========================================
-   FORMATAR DATA
-========================================= */
+// ==========================================
+// ATIVAR / DESATIVAR BOTÃO
+// ==========================================
 
-function formatDate(data) {
+function updateButton() {
 
-    if (!data) {
+    const nome =
+        document.getElementById(
+            "name"
+        ).value.trim();
 
-        return "—";
+    const telefone =
+        document.getElementById(
+            "phone"
+        ).value.trim();
 
-    }
-
-
-    const partes =
-        data.split("-");
-
-
-    return (
-
-        partes[2] +
-        "/" +
-        partes[1] +
-        "/" +
-        partes[0]
-
-    );
-
+    confirmButton.disabled =
+        !selectedServiceId ||
+        !selectedDate ||
+        !selectedTime ||
+        !nome ||
+        !telefone;
 }
 
 
-/* =========================================
-   CONFIRMAR AGENDAMENTO
-========================================= */
-
-async function confirmBooking() {
-
-    const name =
-        document
-            .getElementById("name")
-            .value
-            .trim();
-
-
-    const phone =
-        document
-            .getElementById("phone")
-            .value
-            .trim();
-
-
-    if (!selectedService) {
-
-        alert(
-            "Escolha um serviço."
-        );
-
-        return;
-
-    }
-
-
-    if (!selectedDate) {
-
-        alert(
-            "Escolha um dia."
-        );
-
-        return;
-
-    }
-
-
-    if (!selectedTime) {
-
-        alert(
-            "Escolha um horário."
-        );
-
-        return;
-
-    }
-
-
-    if (!name) {
-
-        alert(
-            "Digite seu nome."
-        );
-
-        return;
-
-    }
-
-
-    if (!phone) {
-
-        alert(
-            "Digite seu WhatsApp."
-        );
-
-        return;
-
-    }
-
-
-    /* =========================================
-       SALVAR NO SUPABASE
-    ========================================== */
-
-    const {
-        error
-    } = await db
-
-        .from("appointments")
-
-        .insert({
-
-            nome_do_cliente:
-                name,
-
-            id_do_servico:
-                selectedServiceId,
-
-            nome_do_servico:
-                selectedService,
-
-            data_da_consulta:
-                selectedDate,
-
-            horário_da_consulta:
-                selectedTime,
-
-            duração:
-                selectedDuration,
-
-            status:
-                "pendente"
-
-        });
-
-
-    if (error) {
-
-        console.error(
-            "Erro ao salvar agendamento:",
-            error
-        );
-
-
-        alert(
-            "Não foi possível salvar o agendamento.\n\n" +
-            error.message
-        );
-
-        return;
-
-    }
-
-
-    const formattedDate =
-        formatDate(
-            selectedDate
-        );
-
-
-    /* =========================================
-       COMPROVANTE
-    ========================================== */
-
-    document.getElementById(
-        "receiptName"
-    ).textContent =
-        name;
-
-
-    document.getElementById(
-        "receiptPhone"
-    ).textContent =
-        phone;
-
-
-    document.getElementById(
-        "receiptService"
-    ).textContent =
-        selectedService;
-
-
-    document.getElementById(
-        "receiptDate"
-    ).textContent =
-        formattedDate;
-
-
-    document.getElementById(
-        "receiptTime"
-    ).textContent =
-        selectedTime;
-
-
-    document.getElementById(
-        "receiptPrice"
-    ).textContent =
-
-        "R$ " +
-
-        selectedPrice
-            .toFixed(2)
-            .replace(".", ",");
-
-
-    /* =========================================
-       WHATSAPP
-    ========================================== */
-
-    const message =
-
-        "NOVO AGENDAMENTO - JC BARBEARIA\n\n" +
-
-        "Cliente: " +
-        name +
-        "\n" +
-
-        "WhatsApp: " +
-        phone +
-        "\n\n" +
-
-        "Serviço: " +
-        selectedService +
-        "\n" +
-
-        "Dia: " +
-        formattedDate +
-        "\n" +
-
-        "Horário: " +
-        selectedTime +
-        "\n" +
-
-        "Valor: R$ " +
-
-        selectedPrice
-            .toFixed(2)
-            .replace(".", ",") +
-
-        "\n\n" +
-
-        "Agendamento realizado pelo site.";
-
-
-    const whatsappURL =
-
-        "https://wa.me/" +
-
-        ADMIN_WHATSAPP +
-
-        "?text=" +
-
-        encodeURIComponent(
-            message
-        );
-
-
-    document.getElementById(
-        "whatsappButton"
-    ).href =
-        whatsappURL;
-
-
-    /* MOSTRAR COMPROVANTE */
-
-    document.getElementById(
-        "receipt"
-    ).style.display =
-        "block";
-
-
-    document.getElementById(
-        "receipt"
-    ).scrollIntoView({
-
-        behavior: "smooth"
-
-    });
-
-}
-
-
-/* =========================================
-   BOTÃO CONFIRMAR
-========================================= */
+// ==========================================
+// CAMPOS
+// ==========================================
 
 document
-    .getElementById(
-        "confirmButton"
-    )
+    .getElementById("name")
     .addEventListener(
-        "click",
-        confirmBooking
+        "input",
+        updateButton
+    );
+
+document
+    .getElementById("phone")
+    .addEventListener(
+        "input",
+        updateButton
     );
 
 
-/* =========================================
-   INICIAR
-========================================= */
+// ==========================================
+// CONFIRMAR AGENDAMENTO
+// ==========================================
 
-createDays();
+confirmButton.addEventListener(
+    "click",
+    async function() {
 
+        const name =
+            document.getElementById(
+                "name"
+            ).value.trim();
 
-console.log(
-    "SERVICES.HTML ESTÁ EXECUTANDO"
+        const phone =
+            document.getElementById(
+                "phone"
+            ).value.trim();
+
+        if (
+            !name ||
+            !phone ||
+            !selectedServiceId ||
+            !selectedDate ||
+            !selectedTime
+        ) {
+
+            return;
+        }
+
+        confirmButton.disabled = true;
+
+        statusMessage.innerHTML =
+            '<div class="message">Salvando agendamento...</div>';
+
+        // Verifica novamente antes de salvar
+        // para evitar conflito de horários.
+
+        const {
+            data: conflito,
+            error: erroConsulta
+        } = await db
+            .from("appointments")
+            .select(
+                "appointment_time, duration, status"
+            )
+            .eq(
+                "appointment_date",
+                selectedDate
+            )
+            .neq(
+                "status",
+                "cancelado"
+            );
+
+        if (erroConsulta) {
+
+            console.error(
+                "Erro ao verificar conflito:",
+                erroConsulta
+            );
+
+            statusMessage.innerHTML =
+                '<div class="error">Não foi possível verificar o horário. Tente novamente.</div>';
+
+            confirmButton.disabled = false;
+
+            return;
+        }
+
+        if (
+            horarioOcupado(
+                selectedTime,
+                selectedDuration,
+                conflito || []
+            )
+        ) {
+
+            statusMessage.innerHTML =
+                '<div class="error">Esse horário acabou de ser ocupado. Escolha outro horário.</div>';
+
+            await showTimes();
+
+            confirmButton.disabled = false;
+
+            return;
+        }
+
+        const {
+            error
+        } = await db
+            .from("appointments")
+            .insert({
+                customer_name: name,
+                service_id: selectedServiceId,
+                service_name: selectedService,
+                appointment_date: selectedDate,
+                appointment_time: selectedTime,
+                duration: selectedDuration,
+                status: "pendente"
+            });
+
+        if (error) {
+
+            console.error(
+                "Erro ao salvar agendamento:",
+                error
+            );
+
+            statusMessage.innerHTML =
+                '<div class="error">Não foi possível salvar o agendamento.</div>';
+
+            confirmButton.disabled = false;
+
+            return;
+        }
+
+        // ==================================
+        // RECIBO
+        // ==================================
+
+        document.getElementById(
+            "receiptName"
+        ).textContent = name;
+
+        document.getElementById(
+            "receiptPhone"
+        ).textContent = phone;
+
+        document.getElementById(
+            "receiptService"
+        ).textContent = selectedService;
+
+        document.getElementById(
+            "receiptDate"
+        ).textContent =
+            formatarData(selectedDate);
+
+        document.getElementById(
+            "receiptTime"
+        ).textContent = selectedTime;
+
+        document.getElementById(
+            "receiptPrice"
+        ).textContent =
+            formatarPreco(selectedPrice);
+
+        document.getElementById(
+            "receipt"
+        ).style.display = "block";
+
+        statusMessage.innerHTML = "";
+
+        // ==================================
+        // WHATSAPP
+        // ==================================
+
+        const mensagem =
+            `Olá! Gostaria de confirmar meu agendamento na JC Barbearia.%0A%0A` +
+            `Nome: ${encodeURIComponent(name)}%0A` +
+            `WhatsApp: ${encodeURIComponent(phone)}%0A` +
+            `Serviço: ${encodeURIComponent(selectedService)}%0A` +
+            `Data: ${encodeURIComponent(formatarData(selectedDate))}%0A` +
+            `Horário: ${encodeURIComponent(selectedTime)}%0A` +
+            `Valor: ${encodeURIComponent(formatarPreco(selectedPrice))}`;
+
+        document.getElementById(
+            "whatsappButton"
+        ).href =
+            `https://wa.me/${ADMIN_WHATSAPP}?text=${mensagem}`;
+
+        confirmButton.textContent =
+            "Agendamento realizado";
+
+        // Atualiza horários
+        await showTimes();
+
+    }
 );
 
 
+// ==========================================
+// INICIALIZAR
+// ==========================================
+
 loadServices();
+
+createDays();
 
 </script>
 
 </body>
-
 </html>
