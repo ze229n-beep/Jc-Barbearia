@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -9,331 +8,398 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-* {
-    box-sizing: border-box;
+*{box-sizing:border-box}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#0b0b0b;
+    color:#fff;
 }
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #0b0b0b;
-    color: #fff;
+header{
+    background:#111;
+    border-bottom:1px solid #333;
+    padding:20px;
+    text-align:center;
 }
 
-header {
-    background: #111;
-    border-bottom: 1px solid #333;
-    padding: 20px;
-    text-align: center;
+header h1{
+    margin:0;
+    color:#d4af37;
+    font-size:25px;
 }
 
-header h1 {
-    margin: 0;
-    color: #d4af37;
-    font-size: 25px;
+header p{
+    margin:6px 0 0;
+    color:#aaa;
 }
 
-header p {
-    margin: 6px 0 0;
-    color: #aaa;
+.container{
+    width:95%;
+    max-width:1100px;
+    margin:25px auto;
 }
 
-.container {
-    width: 95%;
-    max-width: 1100px;
-    margin: 25px auto;
+.tabs{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:25px;
 }
 
-/* ABAS */
-
-.tabs {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 25px;
+.tab-button{
+    background:#181818;
+    color:#ddd;
+    border:1px solid #333;
+    padding:12px 18px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
 }
 
-.tab-button {
-    background: #181818;
-    color: #ddd;
-    border: 1px solid #333;
-    padding: 12px 18px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
+.tab-button:hover{
+    border-color:#d4af37;
+    color:#d4af37;
 }
 
-.tab-button:hover {
-    border-color: #d4af37;
-    color: #d4af37;
+.tab-button.active{
+    background:#d4af37;
+    color:#111;
+    border-color:#d4af37;
 }
 
-.tab-button.active {
-    background: #d4af37;
-    color: #111;
-    border-color: #d4af37;
+.aba{
+    display:none;
 }
 
-/* ABAS */
-
-.aba {
-    display: none;
+.aba.active{
+    display:block;
 }
 
-.aba.active {
-    display: block;
+.titulo-aba{
+    color:#d4af37;
+    margin-bottom:20px;
 }
 
-.titulo-aba {
-    color: #d4af37;
-    margin-bottom: 20px;
+.lista{
+    display:grid;
+    gap:15px;
 }
 
-/* CARDS */
-
-.lista {
-    display: grid;
-    gap: 15px;
+.card{
+    background:#151515;
+    border:1px solid #292929;
+    border-radius:12px;
+    padding:18px;
+    margin-bottom:15px;
 }
 
-.card {
-    background: #151515;
-    border: 1px solid #292929;
-    border-radius: 12px;
-    padding: 18px;
+.card h3{
+    margin:0 0 8px;
 }
 
-.card:hover {
-    border-color: #555;
+.card p{
+    margin:6px 0;
+    color:#bbb;
 }
 
-.card-topo {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 15px;
+.card-topo{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:15px;
 }
 
-.card h3 {
-    margin: 0 0 8px;
-    color: #fff;
+.status{
+    display:inline-block;
+    padding:6px 10px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
 }
 
-.card p {
-    margin: 6px 0;
-    color: #bbb;
+.status-pendente{
+    background:#3a3018;
+    color:#f1d46a;
 }
 
-.status {
-    display: inline-block;
-    padding: 6px 10px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: bold;
+.status-confirmado{
+    background:#18351f;
+    color:#75d98c;
 }
 
-.status-pendente {
-    background: #3a3018;
-    color: #f1d46a;
+.mensagem{
+    background:#151515;
+    border:1px solid #292929;
+    border-radius:10px;
+    padding:20px;
+    color:#999;
+    text-align:center;
 }
 
-.status-confirmado {
-    background: #18351f;
-    color: #75d98c;
-}
-
-.status-finalizado {
-    background: #252525;
-    color: #aaa;
-}
-
-/* BOTÕES */
-
-button {
-    font-family: inherit;
+button{
+    font-family:inherit;
 }
 
 .botao-confirmar,
-.botao-finalizar {
-    border: none;
-    border-radius: 8px;
-    padding: 11px 17px;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 15px;
+.botao-finalizar,
+.botao-secundario,
+.botao-perigo{
+    border-radius:8px;
+    padding:10px 15px;
+    font-size:13px;
+    font-weight:600;
+    cursor:pointer;
+    margin-top:10px;
 }
 
-.botao-confirmar {
-    background: #d4af37;
-    color: #111;
+.botao-confirmar{
+    background:#d4af37;
+    color:#111;
+    border:1px solid #d4af37;
 }
 
-.botao-confirmar:hover {
-    background: #f1d46a;
+.botao-confirmar:hover{
+    background:#f1d46a;
 }
 
-.botao-finalizar {
-    background: #222;
-    color: #d4af37;
-    border: 1px solid #d4af37;
+.botao-finalizar{
+    background:#222;
+    color:#d4af37;
+    border:1px solid #d4af37;
 }
 
-.botao-finalizar:hover {
-    background: #d4af37;
-    color: #111;
+.botao-finalizar:hover{
+    background:#d4af37;
+    color:#111;
 }
 
-/* PAGAMENTO */
-
-.pagamento {
-    margin-top: 15px;
-    padding: 15px;
-    background: #101010;
-    border-radius: 8px;
-    border: 1px solid #292929;
+.botao-secundario{
+    background:#222;
+    color:#ddd;
+    border:1px solid #444;
 }
 
-.pagamento select {
-    width: 100%;
-    padding: 11px;
-    margin-top: 8px;
-    background: #181818;
-    color: #fff;
-    border: 1px solid #444;
-    border-radius: 7px;
+.botao-secundario:hover{
+    border-color:#d4af37;
+    color:#d4af37;
 }
 
-.pagamento button {
-    width: 100%;
-    margin-top: 10px;
-    padding: 11px;
-    background: #d4af37;
-    color: #111;
-    border: none;
-    border-radius: 7px;
-    font-weight: bold;
-    cursor: pointer;
+.botao-perigo{
+    background:#321515;
+    color:#ff9b9b;
+    border:1px solid #632727;
 }
 
-/* CAIXA */
-
-.caixa-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-    margin-bottom: 25px;
+.pagamento{
+    margin-top:15px;
+    padding:15px;
+    background:#101010;
+    border-radius:8px;
+    border:1px solid #292929;
 }
 
-.caixa-card {
-    background: #151515;
-    border: 1px solid #292929;
-    border-radius: 12px;
-    padding: 20px;
+.pagamento select,
+.campo,
+.campo-select{
+    width:100%;
+    padding:11px;
+    margin-top:6px;
+    background:#101010;
+    color:#fff;
+    border:1px solid #444;
+    border-radius:7px;
 }
 
-.caixa-card span {
-    color: #aaa;
-    font-size: 14px;
+label{
+    display:block;
+    color:#ccc;
+    font-size:13px;
+    margin-top:12px;
 }
 
-.caixa-card strong {
-    display: block;
-    margin-top: 8px;
-    color: #d4af37;
-    font-size: 24px;
+.caixa-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+    margin-bottom:25px;
 }
 
-.tabela {
-    width: 100%;
-    border-collapse: collapse;
-    background: #151515;
-    border-radius: 10px;
-    overflow: hidden;
+.caixa-card{
+    background:#151515;
+    border:1px solid #292929;
+    border-radius:12px;
+    padding:20px;
+}
+
+.caixa-card span{
+    color:#aaa;
+    font-size:14px;
+}
+
+.caixa-card strong{
+    display:block;
+    margin-top:8px;
+    color:#d4af37;
+    font-size:24px;
+}
+
+.tabela{
+    width:100%;
+    border-collapse:collapse;
+    background:#151515;
+    border-radius:10px;
+    overflow:hidden;
 }
 
 .tabela th,
-.tabela td {
-    padding: 12px;
-    border-bottom: 1px solid #292929;
-    text-align: left;
+.tabela td{
+    padding:12px;
+    border-bottom:1px solid #292929;
+    text-align:left;
 }
 
-.tabela th {
-    color: #d4af37;
+.tabela th{
+    color:#d4af37;
 }
 
-.tabela td {
-    color: #ccc;
+.tabela td{
+    color:#ccc;
 }
 
-/* MENSAGEM */
-
-.mensagem {
-    background: #151515;
-    border: 1px solid #292929;
-    border-radius: 10px;
-    padding: 20px;
-    color: #999;
-    text-align: center;
+.filtro-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
 }
 
-/* LOGIN */
-
-#login {
-    max-width: 400px;
-    margin: 70px auto;
-    padding: 25px;
-    background: #151515;
-    border: 1px solid #292929;
-    border-radius: 12px;
+.acoes{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:15px;
 }
 
-#login h2 {
-    color: #d4af37;
-    text-align: center;
+.acoes button{
+    margin-top:0;
 }
 
-#login input {
-    width: 100%;
-    padding: 12px;
-    margin-top: 10px;
-    background: #0e0e0e;
-    color: white;
-    border: 1px solid #444;
-    border-radius: 7px;
+.servico-linha{
+    display:grid;
+    grid-template-columns:1.5fr .8fr .8fr .7fr auto;
+    gap:10px;
+    align-items:end;
+    padding:14px 0;
+    border-bottom:1px solid #292929;
 }
 
-#login button {
-    width: 100%;
-    margin-top: 15px;
-    padding: 12px;
-    background: #d4af37;
-    color: #111;
-    border: none;
-    border-radius: 7px;
-    font-weight: bold;
-    cursor: pointer;
+.servico-linha:first-child{
+    padding-top:0;
 }
 
-/* RESPONSIVO */
+.servico-linha .acao-servico{
+    display:flex;
+    gap:6px;
+}
 
-@media (max-width: 700px) {
+.checkbox-wrap{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    height:42px;
+    color:#ccc;
+}
 
-    .card-topo {
-        flex-direction: column;
+.checkbox-wrap input{
+    width:18px;
+    height:18px;
+}
+
+.separador{
+    height:1px;
+    background:#292929;
+    margin:25px 0;
+}
+
+.config-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+#login{
+    max-width:430px;
+    margin:70px auto;
+    padding:28px;
+    background:#151515;
+    border:1px solid #292929;
+    border-radius:12px;
+}
+
+#login h2{
+    color:#d4af37;
+    text-align:center;
+    margin-top:0;
+}
+
+#login button{
+    width:100%;
+    margin-top:15px;
+    padding:12px;
+    background:#d4af37;
+    color:#111;
+    border:none;
+    border-radius:7px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+#login .campo{
+    margin-top:8px;
+}
+
+.pequeno{
+    font-size:12px;
+    color:#888;
+    line-height:1.5;
+}
+
+.valor-destaque{
+    color:#d4af37;
+    font-weight:bold;
+}
+
+@media(max-width:700px){
+
+    .card-topo{
+        flex-direction:column;
     }
 
-    .caixa-grid {
-        grid-template-columns: 1fr;
+    .caixa-grid,
+    .config-grid,
+    .filtro-grid{
+        grid-template-columns:1fr;
     }
 
-    .tabs {
-        flex-direction: column;
+    .tabs{
+        flex-direction:column;
     }
 
-    .tab-button {
-        width: 100%;
+    .tab-button{
+        width:100%;
+    }
+
+    .servico-linha{
+        grid-template-columns:1fr;
+    }
+
+    .acoes{
+        flex-direction:column;
+    }
+
+    .acoes button{
+        width:100%;
     }
 }
 </style>
@@ -346,233 +412,653 @@ button {
     <p>Painel Administrativo</p>
 </header>
 
+
 <!-- LOGIN -->
 
 <div id="login">
 
     <h2>Acesso ADM</h2>
 
+    <label for="loginUsuario">
+        Login
+    </label>
+
     <input
-        type="password"
-        id="senha"
-        placeholder="Digite a senha"
+        class="campo"
+        type="text"
+        id="loginUsuario"
+        placeholder="Digite seu login"
+        autocomplete="username"
     >
 
-    <button onclick="entrar()">Entrar</button>
+    <label for="senha">
+        Senha
+    </label>
+
+    <input
+        class="campo"
+        type="password"
+        id="senha"
+        placeholder="Digite sua senha"
+        autocomplete="current-password"
+    >
+
+    <button onclick="entrar()">
+        Entrar
+    </button>
+
+    <p class="pequeno">
+        Primeiro acesso: login <strong>admin</strong>
+        e senha <strong>1234</strong>.
+        Você poderá alterar depois em Configurações.
+    </p>
 
 </div>
 
 
 <!-- PAINEL -->
 
-<div id="painel" style="display:none;">
+<div id="painel" style="display:none">
 
 <div class="container">
 
-    <!-- ABAS -->
 
-    <div class="tabs">
+<!-- ABAS -->
 
-        <button
-            class="tab-button active"
-            onclick="mostrarAba('configuracoes', this)">
-            Configurações
-        </button>
+<div class="tabs">
 
-        <button
-            class="tab-button"
-            onclick="mostrarAba('agendamentos', this)">
-            Agendamentos
-            (<span id="contadorPendentes">0</span>)
-        </button>
+<button
+    class="tab-button active"
+    onclick="mostrarAba('configuracoes',this)">
+    Configurações
+</button>
 
-        <button
-            class="tab-button"
-            onclick="mostrarAba('confirmados', this)">
-            Serviços Confirmados
-            (<span id="contadorConfirmados">0</span>)
-        </button>
+<button
+    class="tab-button"
+    onclick="mostrarAba('agendamentos',this)">
+    Agendamentos
+    (<span id="contadorPendentes">0</span>)
+</button>
 
-        <button
-            class="tab-button"
-            onclick="mostrarAba('caixa', this)">
-            Caixa
-        </button>
+<button
+    class="tab-button"
+    onclick="mostrarAba('confirmados',this)">
+    Serviços Confirmados
+    (<span id="contadorConfirmados">0</span>)
+</button>
 
-        <button
-            class="tab-button"
-            onclick="mostrarAba('relatorio', this)">
-            Relatório do Caixa
-        </button>
+<button
+    class="tab-button"
+    onclick="mostrarAba('caixa',this)">
+    Caixa
+</button>
 
+<button
+    class="tab-button"
+    onclick="mostrarAba('relatorio',this)">
+    Relatório do Caixa
+</button>
+
+</div>
+
+
+<!-- CONFIGURAÇÕES -->
+
+<section id="configuracoes" class="aba active">
+
+<h2 class="titulo-aba">
+    Configurações do ADM
+</h2>
+
+
+<div class="card">
+
+<h3>🔐 Login e senha</h3>
+
+<div class="config-grid">
+
+<div>
+
+<label>
+    Login atual
+</label>
+
+<input
+    class="campo"
+    id="novoLogin"
+    type="text"
+>
+
+</div>
+
+
+<div>
+
+<label>
+    Nova senha
+</label>
+
+<input
+    class="campo"
+    id="novaSenha"
+    type="password"
+    placeholder="Digite uma nova senha"
+>
+
+</div>
+
+</div>
+
+
+<label>
+    Confirmar nova senha
+</label>
+
+<input
+    class="campo"
+    id="confirmarSenha"
+    type="password"
+    placeholder="Repita a nova senha"
+>
+
+
+<div class="acoes">
+
+<button
+    class="botao-confirmar"
+    onclick="salvarLoginSenha()">
+
+    💾 Salvar login e senha
+
+</button>
+
+</div>
+
+
+<p class="pequeno">
+
+O acesso deste painel é armazenado no navegador.
+Para um sistema público com segurança real,
+o ideal é usar autenticação do Supabase.
+
+</p>
+
+</div>
+
+
+
+<!-- SERVIÇOS -->
+
+<div class="card">
+
+<h3>✂️ Serviços e valores</h3>
+
+<div id="listaServicosConfig">
+
+<div class="mensagem">
+    Carregando serviços...
+</div>
+
+</div>
+
+
+<div class="separador"></div>
+
+
+<h3>
+    ➕ Adicionar serviço
+</h3>
+
+
+<div class="config-grid">
+
+<div>
+
+<label>
+    Nome do serviço
+</label>
+
+<input
+    class="campo"
+    id="novoServicoNome"
+    type="text"
+    placeholder="Ex.: Corte de cabelo"
+>
+
+</div>
+
+
+<div>
+
+<label>
+    Preço (R$)
+</label>
+
+<input
+    class="campo"
+    id="novoServicoPreco"
+    type="number"
+    step="0.01"
+    min="0"
+    placeholder="25.00"
+>
+
+</div>
+
+
+<div>
+
+<label>
+    Duração (minutos)
+</label>
+
+<input
+    class="campo"
+    id="novoServicoDuracao"
+    type="number"
+    min="1"
+    value="30"
+>
+
+</div>
+
+</div>
+
+
+<button
+    class="botao-confirmar"
+    onclick="adicionarServico()">
+
+    ➕ Adicionar serviço
+
+</button>
+
+</div>
+
+
+
+<!-- CONFIGURAÇÕES PESSOAIS -->
+
+<div class="card">
+
+<h3>
+    👤 Configurações pessoais
+</h3>
+
+
+<div class="config-grid">
+
+<div>
+
+<label>
+    Nome do responsável
+</label>
+
+<input
+    class="campo"
+    id="configNome"
+    type="text"
+    placeholder="Nome"
+>
+
+</div>
+
+
+<div>
+
+<label>
+    WhatsApp da barbearia
+</label>
+
+<input
+    class="campo"
+    id="configWhatsApp"
+    type="text"
+    placeholder="99 99999-9999"
+>
+
+</div>
+
+
+<div>
+
+<label>
+    Nome da barbearia
+</label>
+
+<input
+    class="campo"
+    id="configBarbearia"
+    type="text"
+    value="JC Barbearia"
+>
+
+</div>
+
+
+<div>
+
+<label>
+    Observações
+</label>
+
+<input
+    class="campo"
+    id="configObservacoes"
+    type="text"
+    placeholder="Informações pessoais"
+>
+
+</div>
+
+</div>
+
+
+<button
+    class="botao-confirmar"
+    onclick="salvarConfiguracoesPessoais()">
+
+    💾 Salvar configurações
+
+</button>
+
+</div>
+
+</section>
+
+
+
+<!-- AGENDAMENTOS -->
+
+<section id="agendamentos" class="aba">
+
+<h2 class="titulo-aba">
+    Agendamentos Pendentes
+</h2>
+
+<div
+    id="listaAgendamentos"
+    class="lista">
+
+    <div class="mensagem">
+        Carregando...
     </div>
 
+</div>
 
-    <!-- CONFIGURAÇÕES -->
-
-    <section id="configuracoes" class="aba active">
-
-        <h2 class="titulo-aba">Configurações do ADM</h2>
-
-        <div class="card">
-
-            <h3>JC Barbearia</h3>
-
-            <p>
-                Painel administrativo para controlar os agendamentos,
-                serviços confirmados e caixa.
-            </p>
-
-        </div>
-
-    </section>
+</section>
 
 
-    <!-- AGENDAMENTOS -->
 
-    <section id="agendamentos" class="aba">
+<!-- CONFIRMADOS -->
 
-        <h2 class="titulo-aba">Agendamentos Pendentes</h2>
+<section id="confirmados" class="aba">
 
-        <div id="listaAgendamentos" class="lista">
-            <div class="mensagem">
-                Carregando...
-            </div>
-        </div>
+<h2 class="titulo-aba">
+    Serviços Confirmados
+</h2>
 
-    </section>
+<div
+    id="listaConfirmados"
+    class="lista">
 
-
-    <!-- CONFIRMADOS -->
-
-    <section id="confirmados" class="aba">
-
-        <h2 class="titulo-aba">Serviços Confirmados</h2>
-
-        <div id="listaConfirmados" class="lista">
-            <div class="mensagem">
-                Carregando...
-            </div>
-        </div>
-
-    </section>
-
-
-    <!-- CAIXA -->
-
-    <section id="caixa" class="aba">
-
-        <h2 class="titulo-aba">Caixa</h2>
-
-        <div class="caixa-grid">
-
-            <div class="caixa-card">
-                <span>Total recebido</span>
-                <strong id="totalCaixa">R$ 0,00</strong>
-            </div>
-
-            <div class="caixa-card">
-                <span>Serviços realizados</span>
-                <strong id="quantidadeServicos">0</strong>
-            </div>
-
-        </div>
-
-        <div id="listaCaixa"></div>
-
-    </section>
-
-
-    <!-- RELATÓRIO -->
-
-   <section id="relatorio" class="aba">
-
-    <h2 class="titulo-aba">Relatório do Caixa</h2>
-
-    <div class="card">
-
-        <h3>Filtrar período</h3>
-
-        <div style="
-            display:grid;
-            grid-template-columns:1fr 1fr;
-            gap:12px;
-            margin-top:15px;
-        ">
-
-            <div>
-                <label>Data inicial</label>
-
-                <input
-                    type="date"
-                    id="relatorioInicio"
-                    style="
-                        width:100%;
-                        padding:11px;
-                        margin-top:6px;
-                        background:#101010;
-                        color:white;
-                        border:1px solid #444;
-                        border-radius:7px;
-                    "
-                >
-            </div>
-
-            <div>
-                <label>Data final</label>
-
-                <input
-                    type="date"
-                    id="relatorioFim"
-                    style="
-                        width:100%;
-                        padding:11px;
-                        margin-top:6px;
-                        background:#101010;
-                        color:white;
-                        border:1px solid #444;
-                        border-radius:7px;
-                    "
-                >
-            </div>
-
-        </div>
-
-        <button
-            class="botao-confirmar"
-            onclick="gerarRelatorio()"
-            style="margin-right:8px;">
-
-            🔎 Filtrar relatório
-
-        </button>
-
-        <button
-            class="botao-finalizar"
-            onclick="gerarPDFRelatorio()">
-
-            📄 Gerar relatório em PDF
-
-        </button>
-
+    <div class="mensagem">
+        Carregando...
     </div>
 
+</div>
 
-    <div
-        id="relatorioResultado"
-        style="margin-top:20px;">
+</section>
 
-        <div class="mensagem">
-            Selecione o período e clique em "Filtrar relatório".
-        </div>
 
+
+<!-- CAIXA -->
+
+<section id="caixa" class="aba">
+
+<h2 class="titulo-aba">
+    Caixa
+</h2>
+
+
+<div class="caixa-grid">
+
+<div class="caixa-card">
+
+<span>
+    Total recebido
+</span>
+
+<strong id="totalCaixa">
+    R$ 0,00
+</strong>
+
+</div>
+
+
+<div class="caixa-card">
+
+<span>
+    Serviços realizados
+</span>
+
+<strong id="quantidadeServicos">
+    0
+</strong>
+
+</div>
+
+
+<div class="caixa-card">
+
+<span>
+    Dinheiro
+</span>
+
+<strong id="totalDinheiroCaixa">
+    R$ 0,00
+</strong>
+
+</div>
+
+
+<div class="caixa-card">
+
+<span>
+    Pix
+</span>
+
+<strong id="totalPixCaixa">
+    R$ 0,00
+</strong>
+
+</div>
+
+
+<div class="caixa-card">
+
+<span>
+    Cartão
+</span>
+
+<strong id="totalCartaoCaixa">
+    R$ 0,00
+</strong>
+
+</div>
+
+
+<div class="caixa-card">
+
+<span>
+    Outros
+</span>
+
+<strong id="totalOutrosCaixa">
+    R$ 0,00
+</strong>
+
+</div>
+
+</div>
+
+
+<div id="listaCaixa">
+
+<div class="mensagem">
+    Carregando...
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- RELATÓRIO -->
+
+<section id="relatorio" class="aba">
+
+<h2 class="titulo-aba">
+    Relatório do Caixa
+</h2>
+
+
+<!-- RELATÓRIO DIÁRIO -->
+
+<div class="card">
+
+<h3>
+    📅 Relatório diário
+</h3>
+
+
+<div class="filtro-grid">
+
+<div>
+
+<label>
+    Dia
+</label>
+
+<input
+    class="campo"
+    type="date"
+    id="relatorioDia"
+>
+
+</div>
+
+</div>
+
+
+<div class="acoes">
+
+<button
+    class="botao-confirmar"
+    onclick="gerarRelatorioDiario()">
+
+    📊 Ver relatório do dia
+
+</button>
+
+
+<button
+    class="botao-finalizar"
+    onclick="gerarPDFRelatorioDiario()">
+
+    📄 PDF do dia
+
+</button>
+
+</div>
+
+</div>
+
+
+
+<!-- FILTRO -->
+
+<div class="card">
+
+<h3>
+    🔎 Filtrar período
+</h3>
+
+
+<div class="filtro-grid">
+
+<div>
+
+<label>
+    Data inicial
+</label>
+
+<input
+    class="campo"
+    type="date"
+    id="relatorioInicio"
+>
+
+</div>
+
+
+<div>
+
+<label>
+    Data final
+</label>
+
+<input
+    class="campo"
+    type="date"
+    id="relatorioFim"
+>
+
+</div>
+
+</div>
+
+
+<div class="acoes">
+
+<button
+    class="botao-confirmar"
+    onclick="gerarRelatorio()">
+
+    🔎 Filtrar relatório
+
+</button>
+
+
+<button
+    class="botao-finalizar"
+    onclick="gerarPDFRelatorio()">
+
+    📄 Gerar relatório em PDF
+
+</button>
+
+</div>
+
+</div>
+
+
+<div
+    id="relatorioResultado"
+    style="margin-top:20px">
+
+    <div class="mensagem">
+        Selecione o dia ou período para visualizar o relatório.
     </div>
+
+</div>
 
 </section>
 
 </div>
-
 </div>
+
 
 
 <script>
@@ -582,576 +1068,268 @@ button {
 ===================================================== */
 
 const SUPABASE_URL =
-    "https://zlfkdyxlfegojlgzulue.supabase.co";
+"https://zlfkdyxlfegojlgzulue.supabase.co";
 
 const SUPABASE_KEY =
-    "sb_publishable_suqAkNXSnGacL1vO_BaaOg_oeeHDKSs";
+"sb_publishable_suqAkNXSnGacL1vO_BaaOg_oeeHDKSs";
 
 const db =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-    );
+window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+
+
+/* =====================================================
+   CONFIGURAÇÕES
+===================================================== */
+
+const CHAVE_LOGIN =
+"jc_adm_login";
+
+const CHAVE_SENHA =
+"jc_adm_senha";
+
+const CHAVE_PESSOAL =
+"jc_adm_pessoal";
+
+
+let dadosRelatorio = [];
+
+let mapaServicos = new Map();
+
+
+
+/* =====================================================
+   FUNÇÕES AUXILIARES
+===================================================== */
+
+function hojeLocal(){
+
+    const d = new Date();
+
+    const y = d.getFullYear();
+
+    const m =
+        String(d.getMonth()+1)
+        .padStart(2,"0");
+
+    const day =
+        String(d.getDate())
+        .padStart(2,"0");
+
+    return `${y}-${m}-${day}`;
+}
+
+
+function escaparHTML(valor){
+
+    return String(valor ?? "")
+        .replace(
+            /[&<>"']/g,
+            c => ({
+                "&":"&amp;",
+                "<":"&lt;",
+                ">":"&gt;",
+                '"':"&quot;",
+                "'":"&#039;"
+            }[c])
+        );
+
+}
+
+
+function formatarMoeda(valor){
+
+    return Number(valor || 0)
+        .toLocaleString(
+            "pt-BR",
+            {
+                style:"currency",
+                currency:"BRL"
+            }
+        );
+
+}
+
+
+function formatarData(data){
+
+    if(!data) return "";
+
+    const p =
+        String(data)
+        .slice(0,10)
+        .split("-");
+
+    if(p.length === 3){
+
+        return `${p[2]}/${p[1]}/${p[0]}`;
+
+    }
+
+    return data;
+}
+
+
+async function carregarServicosMapa(){
+
+    const {data,error} =
+        await db
+        .from("services")
+        .select("*");
+
+    if(error){
+
+        console.error(
+            "Erro ao carregar serviços:",
+            error
+        );
+
+        return [];
+
+    }
+
+    mapaServicos =
+        new Map(
+            (data || [])
+            .map(
+                s => [
+                    String(s.id),
+                    s
+                ]
+            )
+        );
+
+    return data || [];
+
+}
+
+
+function obterPreco(item){
+
+    const s =
+        mapaServicos.get(
+            String(item.service_id)
+        );
+
+    if(s){
+
+        return Number(
+            s.price || 0
+        );
+
+    }
+
+    const porNome =
+        [...mapaServicos.values()]
+        .find(
+            x =>
+                x.name === item.service_name
+        );
+
+    return porNome
+        ? Number(porNome.price || 0)
+        : 0;
+
+}
+
 
 
 /* =====================================================
    LOGIN
 ===================================================== */
 
-function entrar() {
+function obterCredenciais(){
+
+    return {
+
+        login:
+            localStorage.getItem(
+                CHAVE_LOGIN
+            ) || "admin",
+
+        senha:
+            localStorage.getItem(
+                CHAVE_SENHA
+            ) || "1234"
+
+    };
+
+}
+
+
+function entrar(){
+
+    const usuario =
+        document
+        .getElementById("loginUsuario")
+        .value
+        .trim();
 
     const senha =
-        document.getElementById("senha").value;
+        document
+        .getElementById("senha")
+        .value;
 
-    /*
-       MANTEMOS UMA SENHA SIMPLES PARA O PAINEL.
-       Se sua senha atual for diferente, altere aqui.
-    */
+    const cred =
+        obterCredenciais();
 
-    if (senha === "1234") {
 
-        document.getElementById("login").style.display =
-            "none";
+    if(
+        usuario === cred.login &&
+        senha === cred.senha
+    ){
 
-        document.getElementById("painel").style.display =
-            "block";
+        document
+        .getElementById("login")
+        .style.display = "none";
 
-        carregarAgendamentos();
-        carregarConfirmados();
-        carregarCaixa();
+        document
+        .getElementById("painel")
+        .style.display = "block";
 
-    } else {
+        carregarTudo();
 
-        alert("Senha incorreta.");
+    }else{
+
+        alert(
+            "Login ou senha incorretos."
+        );
 
     }
 
 }
 
 
-/* =====================================================
-   ABAS
-===================================================== */
+document
+.getElementById("senha")
+.addEventListener(
+    "keydown",
+    e => {
 
-function mostrarAba(nome, botao) {
+        if(e.key === "Enter"){
 
-    document.querySelectorAll(".aba")
-        .forEach(aba => {
-            aba.classList.remove("active");
-        });
+            entrar();
 
-    document.getElementById(nome)
-        .classList.add("active");
-
-    document.querySelectorAll(".tab-button")
-        .forEach(btn => {
-            btn.classList.remove("active");
-        });
-
-    botao.classList.add("active");
-
-
-    if (nome === "agendamentos") {
-        carregarAgendamentos();
-    }
-
-    if (nome === "confirmados") {
-        carregarConfirmados();
-    }
-
-    if (nome === "caixa") {
-        carregarCaixa();
-    }
-
-    if (nome === "relatorio") {
-        carregarCaixa();
-    }
-
-}
-
-
-/* =====================================================
-   FORMATAR VALOR
-===================================================== */
-
-function formatarMoeda(valor) {
-
-    return Number(valor || 0).toLocaleString(
-        "pt-BR",
-        {
-            style: "currency",
-            currency: "BRL"
         }
-    );
 
-}
+    }
+);
+
 
 
 /* =====================================================
-   FORMATAR DATA
+   CARREGAR TUDO
 ===================================================== */
 
-function formatarData(data) {
+async function carregarTudo(){
 
-    if (!data) return "";
+    carregarConfiguracoes();
 
-    const partes = data.split("-");
-
-    if (partes.length !== 3) return data;
-
-    return `${partes[2]}/${partes[1]}/${partes[0]}`;
-
-}
-
-
-/* =====================================================
-   CARREGAR AGENDAMENTOS PENDENTES
-===================================================== */
-
-async function carregarAgendamentos() {
-
-    const lista =
-        document.getElementById("listaAgendamentos");
-
-    lista.innerHTML =
-        '<div class="mensagem">Carregando agendamentos...</div>';
-
-
-    const { data, error } = await db
-        .from("appointments")
-        .select("*")
-        .eq("status", "pendente")
-        .order("appointment_date", {
-            ascending: true
-        })
-        .order("appointment_time", {
-            ascending: true
-        });
-
-
-    if (error) {
-
-        console.error(
-            "Erro ao carregar agendamentos:",
-            error
-        );
-
-        lista.innerHTML =
-            '<div class="mensagem">Erro ao carregar os agendamentos.</div>';
-
-        return;
-    }
-
-
-    document.getElementById(
-        "contadorPendentes"
-    ).textContent = data.length;
-
-
-    if (!data.length) {
-
-        lista.innerHTML =
-            '<div class="mensagem">Nenhum agendamento pendente.</div>';
-
-        return;
-    }
-
-
-    lista.innerHTML = "";
-
-
-    data.forEach(agendamento => {
-
-        const card =
-            document.createElement("div");
-
-        card.className = "card";
-
-
-        card.innerHTML = `
-
-            <div class="card-topo">
-
-                <div>
-
-                    <h3>
-                        ${agendamento.customer_name || "Cliente"}
-                    </h3>
-
-                    <p>
-                        ✂️ ${agendamento.service_name || "Serviço"}
-                    </p>
-
-                    <p>
-                        📅 ${formatarData(agendamento.appointment_date)}
-                    </p>
-
-                    <p>
-                        ⏰ ${agendamento.appointment_time || ""}
-                    </p>
-
-                </div>
-
-                <span class="status status-pendente">
-                    Pendente
-                </span>
-
-            </div>
-
-            <button
-                class="botao-confirmar"
-                onclick="confirmarAgendamento('${agendamento.id}')">
-
-                ✓ Confirmar agendamento
-
-            </button>
-
-        `;
-
-
-        lista.appendChild(card);
-
-    });
-
-}
-
-
-/* =====================================================
-   CONFIRMAR AGENDAMENTO
-===================================================== */
-
-async function confirmarAgendamento(id) {
-
-    const confirmar =
-        confirm(
-            "Deseja confirmar este agendamento?"
-        );
-
-    if (!confirmar) return;
-
-
-    console.log(
-        "Confirmando agendamento ID:",
-        id
-    );
-
-
-    const { data, error } = await db
-        .from("appointments")
-        .update({
-            status: "confirmado"
-        })
-        .eq("id", id)
-        .select();
-
-
-    if (error) {
-
-        console.error(
-            "Erro ao confirmar:",
-            error
-        );
-
-        alert(
-            "Erro ao confirmar o agendamento:\n\n" +
-            error.message
-        );
-
-        return;
-    }
-
-
-    console.log(
-        "Agendamento atualizado:",
-        data
-    );
-
-
-    if (!data || data.length === 0) {
-
-        alert(
-            "O agendamento não foi encontrado no banco de dados."
-        );
-
-        return;
-    }
-
-
-    alert(
-        "Agendamento confirmado com sucesso!"
-    );
-
+    await carregarServicosConfig();
 
     await carregarAgendamentos();
-
-    await carregarConfirmados();
-
-}
-
-
-/* =====================================================
-   CARREGAR CONFIRMADOS
-===================================================== */
-
-async function carregarConfirmados() {
-
-    const lista =
-        document.getElementById("listaConfirmados");
-
-    lista.innerHTML =
-        '<div class="mensagem">Carregando...</div>';
-
-
-    const { data, error } = await db
-        .from("appointments")
-        .select("*")
-        .eq("status", "confirmado")
-        .order("appointment_date", {
-            ascending: true
-        })
-        .order("appointment_time", {
-            ascending: true
-        });
-
-
-    if (error) {
-
-        console.error(
-            "Erro ao carregar confirmados:",
-            error
-        );
-
-        lista.innerHTML =
-            '<div class="mensagem">Erro ao carregar serviços confirmados.</div>';
-
-        return;
-    }
-
-
-    document.getElementById(
-        "contadorConfirmados"
-    ).textContent = data.length;
-
-
-    if (!data.length) {
-
-        lista.innerHTML =
-            '<div class="mensagem">Nenhum serviço confirmado.</div>';
-
-        return;
-    }
-
-
-    lista.innerHTML = "";
-
-
-    data.forEach(agendamento => {
-
-        const card =
-            document.createElement("div");
-
-        card.className = "card";
-
-
-        card.innerHTML = `
-
-            <div class="card-topo">
-
-                <div>
-
-                    <h3>
-                        ${agendamento.customer_name || "Cliente"}
-                    </h3>
-
-                    <p>
-                        ✂️ ${agendamento.service_name || "Serviço"}
-                    </p>
-
-                    <p>
-                        📅 ${formatarData(agendamento.appointment_date)}
-                    </p>
-
-                    <p>
-                        ⏰ ${agendamento.appointment_time || ""}
-                    </p>
-
-                </div>
-
-                <span class="status status-confirmado">
-                    Confirmado
-                </span>
-
-            </div>
-
-            <button
-                class="botao-finalizar"
-                onclick="mostrarPagamento('${agendamento.id}')">
-
-                ✓ Finalizar serviço
-
-            </button>
-
-            <div
-                id="pagamento-${agendamento.id}"
-                class="pagamento"
-                style="display:none;">
-
-                <strong>
-                    Forma de pagamento
-                </strong>
-
-                <select
-                    id="forma-${agendamento.id}">
-
-                    <option value="">
-                        Selecione
-                    </option>
-
-                    <option value="Dinheiro">
-                        Dinheiro
-                    </option>
-
-                    <option value="Pix">
-                        Pix
-                    </option>
-
-                    <option value="Cartão">
-                        Cartão
-                    </option>
-
-                    <option value="Outros">
-                        Outros
-                    </option>
-
-                </select>
-
-                <button
-                    onclick="finalizarServico('${agendamento.id}')">
-
-                    Confirmar pagamento e finalizar
-
-                </button>
-
-            </div>
-
-        `;
-
-
-        lista.appendChild(card);
-
-    });
-
-}
-
-
-/* =====================================================
-   MOSTRAR PAGAMENTO
-===================================================== */
-
-function mostrarPagamento(id) {
-
-    const elemento =
-        document.getElementById(
-            "pagamento-" + id
-        );
-
-    if (!elemento) return;
-
-
-    if (elemento.style.display === "none") {
-
-        elemento.style.display = "block";
-
-    } else {
-
-        elemento.style.display = "none";
-
-    }
-
-}
-
-
-/* =====================================================
-   FINALIZAR SERVIÇO
-===================================================== */
-
-async function finalizarServico(id) {
-
-    const select =
-        document.getElementById(
-            "forma-" + id
-        );
-
-
-    const formaPagamento =
-        select.value;
-
-
-    if (!formaPagamento) {
-
-        alert(
-            "Selecione a forma de pagamento."
-        );
-
-        return;
-    }
-
-
-    const confirmar =
-        confirm(
-            "Deseja finalizar este serviço?"
-        );
-
-    if (!confirmar) return;
-
-
-    const { data, error } = await db
-        .from("appointments")
-        .update({
-
-            status: "finalizado",
-
-            payment_method:
-                formaPagamento,
-
-            completed_at:
-                new Date().toISOString()
-
-        })
-        .eq("id", id)
-        .select();
-
-
-    if (error) {
-
-        console.error(
-            "Erro ao finalizar:",
-            error
-        );
-
-        alert(
-            "Erro ao finalizar o serviço:\n\n" +
-            error.message
-        );
-
-        return;
-    }
-
-
-    if (!data || data.length === 0) {
-
-        alert(
-            "O serviço não foi encontrado."
-        );
-
-        return;
-    }
-
-
-    alert(
-        "Serviço finalizado e enviado para o caixa!"
-    );
-
 
     await carregarConfirmados();
 
@@ -1160,415 +1338,2158 @@ async function finalizarServico(id) {
 }
 
 
-/* =====================================================
-   CARREGAR CAIXA
-===================================================== */
 
 /* =====================================================
-   RELATÓRIO DO CAIXA
+   ABAS
 ===================================================== */
 
-let dadosRelatorio = [];
+function mostrarAba(
+    nome,
+    botao
+){
+
+    document
+    .querySelectorAll(".aba")
+    .forEach(
+        a =>
+            a.classList.remove("active")
+    );
 
 
-async function gerarRelatorio() {
-
-    const inicio =
-        document.getElementById("relatorioInicio").value;
-
-    const fim =
-        document.getElementById("relatorioFim").value;
+    const alvo =
+        document.getElementById(nome);
 
 
-    if (!inicio || !fim) {
+    if(alvo){
 
-        alert("Selecione a data inicial e a data final.");
+        alvo.classList.add("active");
 
-        return;
     }
 
 
-    if (inicio > fim) {
+    document
+    .querySelectorAll(".tab-button")
+    .forEach(
+        b =>
+            b.classList.remove("active")
+    );
 
-        alert("A data inicial não pode ser maior que a data final.");
+
+    if(botao){
+
+        botao.classList.add("active");
+
+    }
+
+
+    if(nome === "configuracoes"){
+
+        carregarConfiguracoes();
+
+        carregarServicosConfig();
+
+    }
+
+
+    if(nome === "agendamentos"){
+
+        carregarAgendamentos();
+
+    }
+
+
+    if(nome === "confirmados"){
+
+        carregarConfirmados();
+
+    }
+
+
+    if(nome === "caixa"){
+
+        carregarCaixa();
+
+    }
+
+
+    if(nome === "relatorio"){
+
+        const dia =
+            document
+            .getElementById(
+                "relatorioDia"
+            );
+
+
+        if(
+            dia &&
+            !dia.value
+        ){
+
+            dia.value =
+                hojeLocal();
+
+        }
+
+
+        gerarRelatorioDiario();
+
+    }
+
+}
+
+
+
+/* =====================================================
+   AGENDAMENTOS
+===================================================== */
+
+async function carregarAgendamentos(){
+
+    const lista =
+        document
+        .getElementById(
+            "listaAgendamentos"
+        );
+
+
+    lista.innerHTML =
+        '<div class="mensagem">Carregando agendamentos...</div>';
+
+
+    const {data,error} =
+        await db
+        .from("appointments")
+        .select("*")
+        .eq(
+            "status",
+            "pendente"
+        )
+        .order(
+            "appointment_date",
+            {
+                ascending:true
+            }
+        )
+        .order(
+            "appointment_time",
+            {
+                ascending:true
+            }
+        );
+
+
+    if(error){
+
+        console.error(error);
+
+        lista.innerHTML =
+            '<div class="mensagem">Erro ao carregar agendamentos.</div>';
 
         return;
+
+    }
+
+
+    document
+    .getElementById(
+        "contadorPendentes"
+    )
+    .textContent =
+        (data || []).length;
+
+
+    if(!data?.length){
+
+        lista.innerHTML =
+            '<div class="mensagem">Nenhum agendamento pendente.</div>';
+
+        return;
+
+    }
+
+
+    lista.innerHTML = "";
+
+
+    data.forEach(a => {
+
+        const card =
+            document.createElement("div");
+
+        card.className = "card";
+
+
+        card.innerHTML = `
+
+        <div class="card-topo">
+
+            <div>
+
+                <h3>
+                    ${escaparHTML(
+                        a.customer_name ||
+                        "Cliente"
+                    )}
+                </h3>
+
+                <p>
+                    ✂️
+                    ${escaparHTML(
+                        a.service_name ||
+                        "Serviço"
+                    )}
+                </p>
+
+                <p>
+                    📅
+                    ${formatarData(
+                        a.appointment_date
+                    )}
+                </p>
+
+                <p>
+                    ⏰
+                    ${escaparHTML(
+                        a.appointment_time ||
+                        ""
+                    )}
+                </p>
+
+            </div>
+
+            <span class="status status-pendente">
+                Pendente
+            </span>
+
+        </div>
+
+
+        <button
+            class="botao-confirmar"
+            onclick="confirmarAgendamento('${String(a.id)}')">
+
+            ✓ Confirmar agendamento
+
+        </button>
+
+        `;
+
+
+        lista.appendChild(card);
+
+    });
+
+}
+
+
+
+/* =====================================================
+   CONFIRMAR
+===================================================== */
+
+async function confirmarAgendamento(id){
+
+    if(
+        !confirm(
+            "Deseja confirmar este agendamento?"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    const {data,error} =
+        await db
+        .from("appointments")
+        .update({
+            status:"confirmado"
+        })
+        .eq(
+            "id",
+            id
+        )
+        .select();
+
+
+    if(error){
+
+        console.error(error);
+
+        alert(
+            "Erro ao confirmar o agendamento:\n\n" +
+            error.message
+        );
+
+        return;
+
+    }
+
+
+    if(!data?.length){
+
+        alert(
+            "O agendamento não foi encontrado no banco de dados."
+        );
+
+        return;
+
+    }
+
+
+    await carregarAgendamentos();
+
+    await carregarConfirmados();
+
+
+    alert(
+        "Agendamento confirmado com sucesso!"
+    );
+
+}
+
+
+
+/* =====================================================
+   SERVIÇOS CONFIRMADOS
+===================================================== */
+
+async function carregarConfirmados(){
+
+    const lista =
+        document
+        .getElementById(
+            "listaConfirmados"
+        );
+
+
+    lista.innerHTML =
+        '<div class="mensagem">Carregando...</div>';
+
+
+    const {data,error} =
+        await db
+        .from("appointments")
+        .select("*")
+        .eq(
+            "status",
+            "confirmado"
+        )
+        .order(
+            "appointment_date",
+            {
+                ascending:true
+            }
+        )
+        .order(
+            "appointment_time",
+            {
+                ascending:true
+            }
+        );
+
+
+    if(error){
+
+        console.error(error);
+
+        lista.innerHTML =
+            '<div class="mensagem">Erro ao carregar serviços confirmados.</div>';
+
+        return;
+
+    }
+
+
+    document
+    .getElementById(
+        "contadorConfirmados"
+    )
+    .textContent =
+        (data || []).length;
+
+
+    if(!data?.length){
+
+        lista.innerHTML =
+            '<div class="mensagem">Nenhum serviço confirmado.</div>';
+
+        return;
+
+    }
+
+
+    lista.innerHTML = "";
+
+
+    data.forEach(a => {
+
+        const card =
+            document.createElement("div");
+
+        card.className = "card";
+
+
+        card.innerHTML = `
+
+        <div class="card-topo">
+
+            <div>
+
+                <h3>
+                    ${escaparHTML(
+                        a.customer_name ||
+                        "Cliente"
+                    )}
+                </h3>
+
+                <p>
+                    ✂️
+                    ${escaparHTML(
+                        a.service_name ||
+                        "Serviço"
+                    )}
+                </p>
+
+                <p>
+                    📅
+                    ${formatarData(
+                        a.appointment_date
+                    )}
+                </p>
+
+                <p>
+                    ⏰
+                    ${escaparHTML(
+                        a.appointment_time ||
+                        ""
+                    )}
+                </p>
+
+                <p>
+                    Valor:
+                    <span class="valor-destaque">
+                        ${formatarMoeda(
+                            obterPreco(a)
+                        )}
+                    </span>
+                </p>
+
+            </div>
+
+            <span class="status status-confirmado">
+                Confirmado
+            </span>
+
+        </div>
+
+
+        <button
+            class="botao-finalizar"
+            onclick="mostrarPagamento('${String(a.id)}')">
+
+            ✓ Finalizar serviço
+
+        </button>
+
+
+        <div
+            id="pagamento-${String(a.id)}"
+            class="pagamento"
+            style="display:none"
+        >
+
+            <strong>
+                Forma de pagamento
+            </strong>
+
+
+            <select
+                id="forma-${String(a.id)}"
+            >
+
+                <option value="">
+                    Selecione
+                </option>
+
+                <option value="Dinheiro">
+                    Dinheiro
+                </option>
+
+                <option value="Pix">
+                    Pix
+                </option>
+
+                <option value="Cartão">
+                    Cartão
+                </option>
+
+                <option value="Outros">
+                    Outros
+                </option>
+
+            </select>
+
+
+            <button
+                class="botao-confirmar"
+                onclick="finalizarServico('${String(a.id)}')">
+
+                Confirmar pagamento e finalizar
+
+            </button>
+
+        </div>
+
+        `;
+
+
+        lista.appendChild(card);
+
+    });
+
+}
+
+
+
+function mostrarPagamento(id){
+
+    const elemento =
+        document.getElementById(
+            "pagamento-" + id
+        );
+
+
+    if(elemento){
+
+        elemento.style.display =
+            elemento.style.display === "none"
+            ? "block"
+            : "none";
+
+    }
+
+}
+
+
+
+/* =====================================================
+   FINALIZAR SERVIÇO
+===================================================== */
+
+async function finalizarServico(id){
+
+    const select =
+        document.getElementById(
+            "forma-" + id
+        );
+
+
+    const forma =
+        select?.value;
+
+
+    if(!forma){
+
+        alert(
+            "Selecione a forma de pagamento."
+        );
+
+        return;
+
+    }
+
+
+    if(
+        !confirm(
+            "Deseja finalizar este serviço?"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    const {data,error} =
+        await db
+        .from("appointments")
+        .update({
+
+            status:"finalizado",
+
+            payment_method:forma,
+
+            completed_at:
+                new Date().toISOString()
+
+        })
+        .eq(
+            "id",
+            id
+        )
+        .select();
+
+
+    if(error){
+
+        console.error(error);
+
+        alert(
+            "Erro ao finalizar o serviço:\n\n" +
+            error.message
+        );
+
+        return;
+
+    }
+
+
+    if(!data?.length){
+
+        alert(
+            "O serviço não foi encontrado."
+        );
+
+        return;
+
+    }
+
+
+    await carregarConfirmados();
+
+    await carregarCaixa();
+
+
+    alert(
+        "Serviço finalizado e enviado para o caixa!"
+    );
+
+}
+
+
+
+/* =====================================================
+   CAIXA
+===================================================== */
+
+async function carregarCaixa(){
+
+    const lista =
+        document
+        .getElementById(
+            "listaCaixa"
+        );
+
+
+    lista.innerHTML =
+        '<div class="mensagem">Carregando caixa...</div>';
+
+
+    await carregarServicosMapa();
+
+
+    const {data,error} =
+        await db
+        .from("appointments")
+        .select("*")
+        .eq(
+            "status",
+            "finalizado"
+        )
+        .order(
+            "completed_at",
+            {
+                ascending:false
+            }
+        );
+
+
+    if(error){
+
+        console.error(error);
+
+        lista.innerHTML =
+            '<div class="mensagem">Erro ao carregar o caixa.</div>';
+
+        return;
+
+    }
+
+
+    let total = 0;
+
+    let dinheiro = 0;
+
+    let pix = 0;
+
+    let cartao = 0;
+
+    let outros = 0;
+
+
+    (data || [])
+    .forEach(a => {
+
+        const valor =
+            obterPreco(a);
+
+
+        total += valor;
+
+
+        if(
+            a.payment_method ===
+            "Dinheiro"
+        ){
+
+            dinheiro += valor;
+
+        }
+
+        else if(
+            a.payment_method ===
+            "Pix"
+        ){
+
+            pix += valor;
+
+        }
+
+        else if(
+            a.payment_method ===
+            "Cartão"
+        ){
+
+            cartao += valor;
+
+        }
+
+        else{
+
+            outros += valor;
+
+        }
+
+    });
+
+
+    document
+    .getElementById(
+        "totalCaixa"
+    )
+    .textContent =
+        formatarMoeda(total);
+
+
+    document
+    .getElementById(
+        "quantidadeServicos"
+    )
+    .textContent =
+        (data || []).length;
+
+
+    document
+    .getElementById(
+        "totalDinheiroCaixa"
+    )
+    .textContent =
+        formatarMoeda(dinheiro);
+
+
+    document
+    .getElementById(
+        "totalPixCaixa"
+    )
+    .textContent =
+        formatarMoeda(pix);
+
+
+    document
+    .getElementById(
+        "totalCartaoCaixa"
+    )
+    .textContent =
+        formatarMoeda(cartao);
+
+
+    document
+    .getElementById(
+        "totalOutrosCaixa"
+    )
+    .textContent =
+        formatarMoeda(outros);
+
+
+    if(!data?.length){
+
+        lista.innerHTML =
+            '<div class="mensagem">Nenhum serviço finalizado ainda.</div>';
+
+        return;
+
+    }
+
+
+    let html = `
+
+    <div class="card">
+
+        <h3>
+            Serviços finalizados
+        </h3>
+
+        <div style="overflow-x:auto">
+
+        <table class="tabela">
+
+        <thead>
+
+        <tr>
+
+            <th>Data</th>
+
+            <th>Horário</th>
+
+            <th>Cliente</th>
+
+            <th>Serviço</th>
+
+            <th>Pagamento</th>
+
+            <th>Valor</th>
+
+        </tr>
+
+        </thead>
+
+        <tbody>
+
+    `;
+
+
+    data.forEach(a => {
+
+        html += `
+
+        <tr>
+
+            <td>
+                ${formatarData(
+                    a.appointment_date
+                )}
+            </td>
+
+            <td>
+                ${escaparHTML(
+                    a.appointment_time || ""
+                )}
+            </td>
+
+            <td>
+                ${escaparHTML(
+                    a.customer_name || ""
+                )}
+            </td>
+
+            <td>
+                ${escaparHTML(
+                    a.service_name || ""
+                )}
+            </td>
+
+            <td>
+                ${escaparHTML(
+                    a.payment_method || ""
+                )}
+            </td>
+
+            <td>
+                ${formatarMoeda(
+                    obterPreco(a)
+                )}
+            </td>
+
+        </tr>
+
+        `;
+
+    });
+
+
+    html += `
+
+        </tbody>
+
+        </table>
+
+        </div>
+
+    </div>
+
+    `;
+
+
+    lista.innerHTML =
+        html;
+
+}
+
+
+
+/* =====================================================
+   CONFIGURAÇÕES
+===================================================== */
+
+function carregarConfiguracoes(){
+
+    const cred =
+        obterCredenciais();
+
+
+    document
+    .getElementById(
+        "novoLogin"
+    )
+    .value =
+        cred.login;
+
+
+    const p =
+        JSON.parse(
+            localStorage.getItem(
+                CHAVE_PESSOAL
+            ) || "{}"
+        );
+
+
+    document
+    .getElementById(
+        "configNome"
+    )
+    .value =
+        p.nome || "";
+
+
+    document
+    .getElementById(
+        "configWhatsApp"
+    )
+    .value =
+        p.whatsapp || "";
+
+
+    document
+    .getElementById(
+        "configBarbearia"
+    )
+    .value =
+        p.barbearia ||
+        "JC Barbearia";
+
+
+    document
+    .getElementById(
+        "configObservacoes"
+    )
+    .value =
+        p.observacoes || "";
+
+}
+
+
+
+function salvarLoginSenha(){
+
+    const login =
+        document
+        .getElementById(
+            "novoLogin"
+        )
+        .value
+        .trim();
+
+
+    const nova =
+        document
+        .getElementById(
+            "novaSenha"
+        )
+        .value;
+
+
+    const confirmar =
+        document
+        .getElementById(
+            "confirmarSenha"
+        )
+        .value;
+
+
+    if(!login){
+
+        alert(
+            "Digite um login."
+        );
+
+        return;
+
+    }
+
+
+    if(nova || confirmar){
+
+        if(nova.length < 4){
+
+            alert(
+                "A senha deve ter pelo menos 4 caracteres."
+            );
+
+            return;
+
+        }
+
+
+        if(nova !== confirmar){
+
+            alert(
+                "As senhas não conferem."
+            );
+
+            return;
+
+        }
+
+
+        localStorage.setItem(
+            CHAVE_SENHA,
+            nova
+        );
+
+    }
+
+
+    localStorage.setItem(
+        CHAVE_LOGIN,
+        login
+    );
+
+
+    document
+    .getElementById(
+        "novaSenha"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "confirmarSenha"
+    )
+    .value = "";
+
+
+    alert(
+        "Login e senha salvos com sucesso!"
+    );
+
+}
+
+
+
+function salvarConfiguracoesPessoais(){
+
+    const p = {
+
+        nome:
+            document
+            .getElementById(
+                "configNome"
+            )
+            .value
+            .trim(),
+
+        whatsapp:
+            document
+            .getElementById(
+                "configWhatsApp"
+            )
+            .value
+            .trim(),
+
+        barbearia:
+            document
+            .getElementById(
+                "configBarbearia"
+            )
+            .value
+            .trim() ||
+            "JC Barbearia",
+
+        observacoes:
+            document
+            .getElementById(
+                "configObservacoes"
+            )
+            .value
+            .trim()
+
+    };
+
+
+    localStorage.setItem(
+        CHAVE_PESSOAL,
+        JSON.stringify(p)
+    );
+
+
+    alert(
+        "Configurações pessoais salvas!"
+    );
+
+}
+
+
+
+/* =====================================================
+   SERVIÇOS
+===================================================== */
+
+async function carregarServicosConfig(){
+
+    const box =
+        document
+        .getElementById(
+            "listaServicosConfig"
+        );
+
+
+    const servicos =
+        await carregarServicosMapa();
+
+
+    if(!servicos.length){
+
+        box.innerHTML =
+            '<div class="mensagem">Nenhum serviço cadastrado.</div>';
+
+        return;
+
+    }
+
+
+    box.innerHTML = "";
+
+
+    servicos.forEach(s => {
+
+        const row =
+            document.createElement(
+                "div"
+            );
+
+
+        row.className =
+            "servico-linha";
+
+
+        row.innerHTML = `
+
+        <div>
+
+            <label>
+                Serviço
+            </label>
+
+            <input
+                class="campo"
+                id="sn-${s.id}"
+                value="${escaparHTML(s.name)}"
+            >
+
+        </div>
+
+
+        <div>
+
+            <label>
+                Preço
+            </label>
+
+            <input
+                class="campo"
+                id="sp-${s.id}"
+                type="number"
+                step="0.01"
+                min="0"
+                value="${Number(s.price || 0)}"
+            >
+
+        </div>
+
+
+        <div>
+
+            <label>
+                Duração
+            </label>
+
+            <input
+                class="campo"
+                id="sd-${s.id}"
+                type="number"
+                min="1"
+                value="${Number(s.duration || 30)}"
+            >
+
+        </div>
+
+
+        <div class="checkbox-wrap">
+
+            <input
+                id="sa-${s.id}"
+                type="checkbox"
+                ${s.active !== false ? "checked" : ""}
+            >
+
+            <span>
+                Ativo
+            </span>
+
+        </div>
+
+
+        <div class="acao-servico">
+
+            <button
+                class="botao-confirmar"
+                onclick="salvarServico('${String(s.id)}')">
+
+                Salvar
+
+            </button>
+
+
+            <button
+                class="botao-perigo"
+                onclick="desativarServico('${String(s.id)}')">
+
+                Desativar
+
+            </button>
+
+        </div>
+
+        `;
+
+
+        box.appendChild(row);
+
+    });
+
+}
+
+
+
+async function salvarServico(id){
+
+    const nome =
+        document
+        .getElementById(
+            "sn-" + id
+        )
+        .value
+        .trim();
+
+
+    const preco =
+        Number(
+            document
+            .getElementById(
+                "sp-" + id
+            )
+            .value
+        );
+
+
+    const duracao =
+        Number(
+            document
+            .getElementById(
+                "sd-" + id
+            )
+            .value
+        );
+
+
+    const ativo =
+        document
+        .getElementById(
+            "sa-" + id
+        )
+        .checked;
+
+
+    if(!nome){
+
+        alert(
+            "Digite o nome do serviço."
+        );
+
+        return;
+
+    }
+
+
+    if(
+        !Number.isFinite(preco) ||
+        preco < 0
+    ){
+
+        alert(
+            "Informe um preço válido."
+        );
+
+        return;
+
+    }
+
+
+    if(
+        !Number.isFinite(duracao) ||
+        duracao < 1
+    ){
+
+        alert(
+            "Informe uma duração válida."
+        );
+
+        return;
+
+    }
+
+
+    const {error} =
+        await db
+        .from("services")
+        .update({
+
+            name:nome,
+
+            price:preco,
+
+            duration:duracao,
+
+            active:ativo
+
+        })
+        .eq(
+            "id",
+            id
+        );
+
+
+    if(error){
+
+        console.error(error);
+
+        alert(
+            "Não foi possível salvar o serviço:\n\n" +
+            error.message
+        );
+
+        return;
+
+    }
+
+
+    await carregarServicosConfig();
+
+    await carregarServicosMapa();
+
+    await carregarConfirmados();
+
+    await carregarCaixa();
+
+
+    alert(
+        "Serviço atualizado!"
+    );
+
+}
+
+
+
+async function adicionarServico(){
+
+    const nome =
+        document
+        .getElementById(
+            "novoServicoNome"
+        )
+        .value
+        .trim();
+
+
+    const preco =
+        Number(
+            document
+            .getElementById(
+                "novoServicoPreco"
+            )
+            .value
+        );
+
+
+    const duracao =
+        Number(
+            document
+            .getElementById(
+                "novoServicoDuracao"
+            )
+            .value
+        );
+
+
+    if(!nome){
+
+        alert(
+            "Digite o nome do serviço."
+        );
+
+        return;
+
+    }
+
+
+    if(
+        !Number.isFinite(preco) ||
+        preco < 0
+    ){
+
+        alert(
+            "Informe um preço válido."
+        );
+
+        return;
+
+    }
+
+
+    if(
+        !Number.isFinite(duracao) ||
+        duracao < 1
+    ){
+
+        alert(
+            "Informe uma duração válida."
+        );
+
+        return;
+
+    }
+
+
+    const {error} =
+        await db
+        .from("services")
+        .insert({
+
+            name:nome,
+
+            price:preco,
+
+            duration:duracao,
+
+            active:true
+
+        });
+
+
+    if(error){
+
+        console.error(error);
+
+        alert(
+            "Não foi possível adicionar o serviço:\n\n" +
+            error.message
+        );
+
+        return;
+
+    }
+
+
+    document
+    .getElementById(
+        "novoServicoNome"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "novoServicoPreco"
+    )
+    .value = "";
+
+
+    document
+    .getElementById(
+        "novoServicoDuracao"
+    )
+    .value = "30";
+
+
+    await carregarServicosConfig();
+
+
+    alert(
+        "Serviço adicionado!"
+    );
+
+}
+
+
+
+async function desativarServico(id){
+
+    if(
+        !confirm(
+            "Deseja desativar este serviço?"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    const {error} =
+        await db
+        .from("services")
+        .update({
+            active:false
+        })
+        .eq(
+            "id",
+            id
+        );
+
+
+    if(error){
+
+        console.error(error);
+
+        alert(
+            "Não foi possível desativar:\n\n" +
+            error.message
+        );
+
+        return;
+
+    }
+
+
+    await carregarServicosConfig();
+
+
+    alert(
+        "Serviço desativado."
+    );
+
+}
+
+
+
+/* =====================================================
+   RELATÓRIOS
+===================================================== */
+
+async function buscarFinalizados(
+    inicio,
+    fim
+){
+
+    await carregarServicosMapa();
+
+
+    const {data,error} =
+        await db
+        .from("appointments")
+        .select("*")
+        .eq(
+            "status",
+            "finalizado"
+        )
+        .gte(
+            "appointment_date",
+            inicio
+        )
+        .lte(
+            "appointment_date",
+            fim
+        )
+        .order(
+            "appointment_date",
+            {
+                ascending:true
+            }
+        )
+        .order(
+            "appointment_time",
+            {
+                ascending:true
+            }
+        );
+
+
+    if(error){
+
+        console.error(error);
+
+        throw error;
+
+    }
+
+
+    return data || [];
+
+}
+
+
+
+function calcularResumo(data){
+
+    let total = 0;
+
+    let dinheiro = 0;
+
+    let pix = 0;
+
+    let cartao = 0;
+
+    let outros = 0;
+
+
+    data.forEach(a => {
+
+        const valor =
+            obterPreco(a);
+
+
+        total += valor;
+
+
+        if(
+            a.payment_method ===
+            "Dinheiro"
+        ){
+
+            dinheiro += valor;
+
+        }
+
+        else if(
+            a.payment_method ===
+            "Pix"
+        ){
+
+            pix += valor;
+
+        }
+
+        else if(
+            a.payment_method ===
+            "Cartão"
+        ){
+
+            cartao += valor;
+
+        }
+
+        else{
+
+            outros += valor;
+
+        }
+
+    });
+
+
+    return {
+
+        total,
+
+        dinheiro,
+
+        pix,
+
+        cartao,
+
+        outros,
+
+        quantidade:
+            data.length
+
+    };
+
+}
+
+
+
+function montarRelatorioHTML(
+    data,
+    inicio,
+    fim
+){
+
+    const r =
+        calcularResumo(data);
+
+
+    let html = `
+
+    <div class="caixa-grid">
+
+        <div class="caixa-card">
+
+            <span>
+                Período
+            </span>
+
+            <strong style="font-size:18px">
+
+                ${formatarData(inicio)}
+                até
+                ${formatarData(fim)}
+
+            </strong>
+
+        </div>
+
+
+        <div class="caixa-card">
+
+            <span>
+                Serviços realizados
+            </span>
+
+            <strong>
+                ${r.quantidade}
+            </strong>
+
+        </div>
+
+
+        <div class="caixa-card">
+
+            <span>
+                Total faturado
+            </span>
+
+            <strong>
+                ${formatarMoeda(r.total)}
+            </strong>
+
+        </div>
+
+
+        <div class="caixa-card">
+
+            <span>
+                Dinheiro
+            </span>
+
+            <strong>
+                ${formatarMoeda(r.dinheiro)}
+            </strong>
+
+        </div>
+
+
+        <div class="caixa-card">
+
+            <span>
+                Pix
+            </span>
+
+            <strong>
+                ${formatarMoeda(r.pix)}
+            </strong>
+
+        </div>
+
+
+        <div class="caixa-card">
+
+            <span>
+                Cartão
+            </span>
+
+            <strong>
+                ${formatarMoeda(r.cartao)}
+            </strong>
+
+        </div>
+
+
+        <div class="caixa-card">
+
+            <span>
+                Outros
+            </span>
+
+            <strong>
+                ${formatarMoeda(r.outros)}
+            </strong>
+
+        </div>
+
+    </div>
+
+    `;
+
+
+    if(!data.length){
+
+        return html +
+
+        `
+
+        <div class="mensagem">
+
+            Nenhum serviço finalizado
+            neste período.
+
+        </div>
+
+        `;
+
+    }
+
+
+    html += `
+
+    <div class="card">
+
+        <h3>
+            Serviços realizados
+        </h3>
+
+        <div style="overflow-x:auto">
+
+        <table class="tabela">
+
+        <thead>
+
+        <tr>
+
+            <th>Data</th>
+
+            <th>Horário</th>
+
+            <th>Cliente</th>
+
+            <th>Serviço</th>
+
+            <th>Pagamento</th>
+
+            <th>Valor</th>
+
+        </tr>
+
+        </thead>
+
+        <tbody>
+
+    `;
+
+
+    data.forEach(a => {
+
+        html += `
+
+        <tr>
+
+            <td>
+                ${formatarData(
+                    a.appointment_date
+                )}
+            </td>
+
+            <td>
+                ${escaparHTML(
+                    a.appointment_time || ""
+                )}
+            </td>
+
+            <td>
+                ${escaparHTML(
+                    a.customer_name || ""
+                )}
+            </td>
+
+            <td>
+                ${escaparHTML(
+                    a.service_name || ""
+                )}
+            </td>
+
+            <td>
+                ${escaparHTML(
+                    a.payment_method || ""
+                )}
+            </td>
+
+            <td>
+                ${formatarMoeda(
+                    obterPreco(a)
+                )}
+            </td>
+
+        </tr>
+
+        `;
+
+    });
+
+
+    html += `
+
+        </tbody>
+
+        </table>
+
+        </div>
+
+    </div>
+
+    `;
+
+
+    return html;
+
+}
+
+
+
+/* =====================================================
+   RELATÓRIO POR PERÍODO
+===================================================== */
+
+async function gerarRelatorio(){
+
+    const inicio =
+        document
+        .getElementById(
+            "relatorioInicio"
+        )
+        .value;
+
+
+    const fim =
+        document
+        .getElementById(
+            "relatorioFim"
+        )
+        .value;
+
+
+    if(!inicio || !fim){
+
+        alert(
+            "Selecione a data inicial e a data final."
+        );
+
+        return;
+
+    }
+
+
+    if(inicio > fim){
+
+        alert(
+            "A data inicial não pode ser maior que a data final."
+        );
+
+        return;
+
     }
 
 
     const resultado =
-        document.getElementById("relatorioResultado");
+        document
+        .getElementById(
+            "relatorioResultado"
+        );
 
 
     resultado.innerHTML =
         '<div class="mensagem">Gerando relatório...</div>';
 
 
-    const { data, error } = await db
-        .from("appointments")
-        .select("*")
-        .eq("status", "finalizado")
-        .gte("appointment_date", inicio)
-        .lte("appointment_date", fim)
-        .order("appointment_date", {
-            ascending: true
-        })
-        .order("appointment_time", {
-            ascending: true
-        });
+    try{
 
+        dadosRelatorio =
+            await buscarFinalizados(
+                inicio,
+                fim
+            );
 
-    if (error) {
-
-        console.error(
-            "Erro ao gerar relatório:",
-            error
-        );
 
         resultado.innerHTML =
-            '<div class="mensagem">Erro ao gerar o relatório.</div>';
-
-        return;
-    }
-
-
-    dadosRelatorio = data || [];
-
-
-    /*
-       Buscar os preços dos serviços
-    */
-
-    const { data: servicos, error: erroServicos } =
-        await db
-            .from("services")
-            .select("*");
-
-
-    if (erroServicos) {
-
-        console.error(
-            "Erro ao buscar serviços:",
-            erroServicos
-        );
-
-    }
-
-
-    let total = 0;
-
-    let dinheiro = 0;
-    let pix = 0;
-    let cartao = 0;
-    let outros = 0;
-
-
-    data.forEach(item => {
-
-        const servico =
-            (servicos || []).find(
-                s =>
-                    s.name === item.service_name
+            montarRelatorioHTML(
+                dadosRelatorio,
+                inicio,
+                fim
             );
 
-
-        const valor =
-            servico
-                ? Number(servico.price || 0)
-                : 0;
-
-
-        total += valor;
-
-
-        if (item.payment_method === "Dinheiro") {
-            dinheiro += valor;
-        }
-
-        else if (item.payment_method === "Pix") {
-            pix += valor;
-        }
-
-        else if (item.payment_method === "Cartão") {
-            cartao += valor;
-        }
-
-        else {
-            outros += valor;
-        }
-
-    });
-
-
-    let html = `
-
-        <div class="caixa-grid">
-
-            <div class="caixa-card">
-                <span>Período</span>
-                <strong style="font-size:18px;">
-                    ${formatarData(inicio)}
-                    até
-                    ${formatarData(fim)}
-                </strong>
-            </div>
-
-            <div class="caixa-card">
-                <span>Serviços realizados</span>
-                <strong>
-                    ${data.length}
-                </strong>
-            </div>
-
-            <div class="caixa-card">
-                <span>Total faturado</span>
-                <strong>
-                    ${formatarMoeda(total)}
-                </strong>
-            </div>
-
-            <div class="caixa-card">
-                <span>Dinheiro</span>
-                <strong>
-                    ${formatarMoeda(dinheiro)}
-                </strong>
-            </div>
-
-            <div class="caixa-card">
-                <span>Pix</span>
-                <strong>
-                    ${formatarMoeda(pix)}
-                </strong>
-            </div>
-
-            <div class="caixa-card">
-                <span>Cartão</span>
-                <strong>
-                    ${formatarMoeda(cartao)}
-                </strong>
-            </div>
-
-            <div class="caixa-card">
-                <span>Outros</span>
-                <strong>
-                    ${formatarMoeda(outros)}
-                </strong>
-            </div>
-
-        </div>
-    `;
-
-
-    if (!data.length) {
-
-        html += `
-
-            <div class="mensagem">
-
-                Nenhum serviço finalizado
-                neste período.
-
-            </div>
-
-        `;
-
-        resultado.innerHTML = html;
-
-        return;
     }
 
+    catch(e){
 
-    html += `
+        console.error(e);
 
-        <div class="card">
+        resultado.innerHTML =
+            '<div class="mensagem">Erro ao gerar relatório.</div>';
 
-            <h3>
-                Serviços realizados
-            </h3>
-
-            <div style="overflow-x:auto;">
-
-                <table class="tabela">
-
-                    <thead>
-
-                        <tr>
-                            <th>Data</th>
-                            <th>Horário</th>
-                            <th>Cliente</th>
-                            <th>Serviço</th>
-                            <th>Pagamento</th>
-                            <th>Valor</th>
-                        </tr>
-
-                    </thead>
-
-                    <tbody>
-    `;
-
-
-    data.forEach(item => {
-
-        const servico =
-            (servicos || []).find(
-                s =>
-                    s.name === item.service_name
-            );
-
-
-        const valor =
-            servico
-                ? Number(servico.price || 0)
-                : 0;
-
-
-        html += `
-
-            <tr>
-
-                <td>
-                    ${formatarData(item.appointment_date)}
-                </td>
-
-                <td>
-                    ${item.appointment_time || ""}
-                </td>
-
-                <td>
-                    ${item.customer_name || ""}
-                </td>
-
-                <td>
-                    ${item.service_name || ""}
-                </td>
-
-                <td>
-                    ${item.payment_method || "Outros"}
-                </td>
-
-                <td>
-                    ${formatarMoeda(valor)}
-                </td>
-
-            </tr>
-
-        `;
-
-    });
-
-
-    html += `
-
-                    </tbody>
-
-                </table>
-
-            </div>
-
-        </div>
-
-    `;
-
-
-    resultado.innerHTML = html;
+    }
 
 }
 
 
+
 /* =====================================================
-   GERAR PDF DO RELATÓRIO
+   RELATÓRIO DIÁRIO
 ===================================================== */
 
-function gerarPDFRelatorio() {
+async function gerarRelatorioDiario(){
 
-    if (!dadosRelatorio.length) {
+    const dia =
+        document
+        .getElementById(
+            "relatorioDia"
+        )
+        .value ||
+        hojeLocal();
 
-        alert(
-            "Primeiro gere um relatório com algum serviço realizado."
+
+    document
+    .getElementById(
+        "relatorioDia"
+    )
+    .value =
+        dia;
+
+
+    const resultado =
+        document
+        .getElementById(
+            "relatorioResultado"
         );
 
-        return;
+
+    resultado.innerHTML =
+        '<div class="mensagem">Gerando relatório diário...</div>';
+
+
+    try{
+
+        dadosRelatorio =
+            await buscarFinalizados(
+                dia,
+                dia
+            );
+
+
+        resultado.innerHTML =
+            montarRelatorioHTML(
+                dadosRelatorio,
+                dia,
+                dia
+            );
+
     }
 
+    catch(e){
 
-    const inicio =
-        document.getElementById("relatorioInicio").value;
+        console.error(e);
 
-    const fim =
-        document.getElementById("relatorioFim").value;
+        resultado.innerHTML =
+            '<div class="mensagem">Erro ao gerar relatório diário.</div>';
 
+    }
 
-    /*
-       Abrimos uma página própria para impressão.
-       O navegador permite salvar como PDF.
-    */
+}
 
 
-    let total = 0;
-    let dinheiro = 0;
-    let pix = 0;
-    let cartao = 0;
-    let outros = 0;
+
+/* =====================================================
+   PDF
+===================================================== */
+
+function abrirPDF(
+    data,
+    inicio,
+    fim,
+    titulo
+){
+
+    const r =
+        calcularResumo(data);
 
 
     let linhas = "";
 
 
-    dadosRelatorio.forEach(item => {
-
-        const valor =
-            Number(item.valor_relatorio || 0);
-
-
-        total += valor;
-
-
-        if (item.payment_method === "Dinheiro") {
-            dinheiro += valor;
-        }
-
-        else if (item.payment_method === "Pix") {
-            pix += valor;
-        }
-
-        else if (item.payment_method === "Cartão") {
-            cartao += valor;
-        }
-
-        else {
-            outros += valor;
-        }
-
+    data.forEach(a => {
 
         linhas += `
 
-            <tr>
+        <tr>
 
-                <td>
-                    ${formatarData(item.appointment_date)}
-                </td>
+            <td>
+                ${formatarData(
+                    a.appointment_date
+                )}
+            </td>
 
-                <td>
-                    ${item.appointment_time || ""}
-                </td>
+            <td>
+                ${escaparHTML(
+                    a.appointment_time || ""
+                )}
+            </td>
 
-                <td>
-                    ${item.customer_name || ""}
-                </td>
+            <td>
+                ${escaparHTML(
+                    a.customer_name || ""
+                )}
+            </td>
 
-                <td>
-                    ${item.service_name || ""}
-                </td>
+            <td>
+                ${escaparHTML(
+                    a.service_name || ""
+                )}
+            </td>
 
-                <td>
-                    ${item.payment_method || "Outros"}
-                </td>
+            <td>
+                ${escaparHTML(
+                    a.payment_method || ""
+                )}
+            </td>
 
-                <td>
-                    ${formatarMoeda(valor)}
-                </td>
+            <td>
+                ${formatarMoeda(
+                    obterPreco(a)
+                )}
+            </td>
 
-            </tr>
+        </tr>
 
         `;
 
@@ -1582,205 +3503,272 @@ function gerarPDFRelatorio() {
         );
 
 
-    if (!janela) {
+    if(!janela){
 
         alert(
-            "O navegador bloqueou a janela do relatório. Permita pop-ups para este site."
+            "Permita pop-ups para gerar o PDF."
         );
 
         return;
+
     }
 
 
     janela.document.write(`
 
-        <!DOCTYPE html>
+    <!DOCTYPE html>
 
-        <html lang="pt-BR">
+    <html lang="pt-BR">
 
-        <head>
+    <head>
 
-            <meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-            <title>
-                Relatório - JC Barbearia
-            </title>
-
-            <style>
-
-                body {
-                    font-family: Arial, sans-serif;
-                    padding: 35px;
-                    color: #111;
-                }
-
-                h1 {
-                    text-align: center;
-                    margin-bottom: 5px;
-                }
-
-                h2 {
-                    text-align: center;
-                    font-weight: normal;
-                    font-size: 16px;
-                    margin-top: 0;
-                }
-
-                .resumo {
-                    display: grid;
-                    grid-template-columns: repeat(3, 1fr);
-                    gap: 12px;
-                    margin: 25px 0;
-                }
-
-                .box {
-                    border: 1px solid #ccc;
-                    padding: 15px;
-                    border-radius: 8px;
-                }
-
-                .box strong {
-                    display: block;
-                    font-size: 20px;
-                    margin-top: 7px;
-                }
-
-                table {
-                    width: 100%;
-                    border-collapse: collapse;
-                    margin-top: 25px;
-                }
-
-                th,
-                td {
-                    border: 1px solid #ccc;
-                    padding: 9px;
-                    text-align: left;
-                }
-
-                th {
-                    background: #eee;
-                }
-
-                .total {
-                    font-size: 22px;
-                    font-weight: bold;
-                    margin-top: 25px;
-                    text-align: right;
-                }
-
-            </style>
-
-        </head>
-
-        <body>
-
-            <h1>JC BARBEARIA</h1>
-
-            <h2>
-                Relatório do Caixa
-            </h2>
-
-            <p>
-                <strong>Período:</strong>
-                ${formatarData(inicio)}
-                até
-                ${formatarData(fim)}
-            </p>
+    <title>
+        ${titulo}
+    </title>
 
 
-            <div class="resumo">
+    <style>
 
-                <div class="box">
-                    Serviços
-                    <strong>
-                        ${dadosRelatorio.length}
-                    </strong>
-                </div>
+    body{
+        font-family:Arial,sans-serif;
+        padding:30px;
+        color:#111;
+    }
 
-                <div class="box">
-                    Dinheiro
-                    <strong>
-                        ${formatarMoeda(dinheiro)}
-                    </strong>
-                </div>
+    h1{
+        text-align:center;
+        margin-bottom:5px;
+    }
 
-                <div class="box">
-                    Pix
-                    <strong>
-                        ${formatarMoeda(pix)}
-                    </strong>
-                </div>
+    h2{
+        text-align:center;
+        font-size:16px;
+        font-weight:normal;
+    }
 
-                <div class="box">
-                    Cartão
-                    <strong>
-                        ${formatarMoeda(cartao)}
-                    </strong>
-                </div>
+    .resumo{
+        display:grid;
+        grid-template-columns:repeat(3,1fr);
+        gap:10px;
+        margin:20px 0;
+    }
 
-                <div class="box">
-                    Outros
-                    <strong>
-                        ${formatarMoeda(outros)}
-                    </strong>
-                </div>
+    .box{
+        border:1px solid #ccc;
+        padding:12px;
+        border-radius:7px;
+    }
 
-                <div class="box">
-                    Total
-                    <strong>
-                        ${formatarMoeda(total)}
-                    </strong>
-                </div>
+    .box strong{
+        display:block;
+        font-size:18px;
+        margin-top:6px;
+    }
 
-            </div>
+    table{
+        width:100%;
+        border-collapse:collapse;
+        margin-top:20px;
+    }
 
+    th,
+    td{
+        border:1px solid #ccc;
+        padding:8px;
+        text-align:left;
+    }
 
-            <table>
+    th{
+        background:#eee;
+    }
 
-                <thead>
+    .total{
+        text-align:right;
+        font-size:20px;
+        font-weight:bold;
+        margin-top:20px;
+    }
 
-                    <tr>
+    @media(max-width:700px){
 
-                        <th>Data</th>
-                        <th>Horário</th>
-                        <th>Cliente</th>
-                        <th>Serviço</th>
-                        <th>Pagamento</th>
-                        <th>Valor</th>
+        .resumo{
+            grid-template-columns:1fr 1fr;
+        }
 
-                    </tr>
+        body{
+            padding:15px;
+        }
 
-                </thead>
+    }
 
-                <tbody>
+    </style>
 
-                    ${linhas}
-
-                </tbody>
-
-            </table>
-
-
-            <div class="total">
-
-                Total recebido:
-                ${formatarMoeda(total)}
-
-            </div>
+    </head>
 
 
-            <script>
+    <body>
 
-                window.onload = function() {
-                    window.print();
-                };
+    <h1>
+        JC BARBEARIA
+    </h1>
 
-            <\/script>
+    <h2>
+        ${titulo}
+    </h2>
 
-        </body>
 
-        </html>
+    <p>
+
+        <strong>
+            Período:
+        </strong>
+
+        ${formatarData(inicio)}
+        até
+        ${formatarData(fim)}
+
+    </p>
+
+
+    <div class="resumo">
+
+        <div class="box">
+
+            Serviços
+
+            <strong>
+                ${r.quantidade}
+            </strong>
+
+        </div>
+
+
+        <div class="box">
+
+            Dinheiro
+
+            <strong>
+                ${formatarMoeda(
+                    r.dinheiro
+                )}
+            </strong>
+
+        </div>
+
+
+        <div class="box">
+
+            Pix
+
+            <strong>
+                ${formatarMoeda(
+                    r.pix
+                )}
+            </strong>
+
+        </div>
+
+
+        <div class="box">
+
+            Cartão
+
+            <strong>
+                ${formatarMoeda(
+                    r.cartao
+                )}
+            </strong>
+
+        </div>
+
+
+        <div class="box">
+
+            Outros
+
+            <strong>
+                ${formatarMoeda(
+                    r.outros
+                )}
+            </strong>
+
+        </div>
+
+
+        <div class="box">
+
+            Total
+
+            <strong>
+                ${formatarMoeda(
+                    r.total
+                )}
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <table>
+
+    <thead>
+
+    <tr>
+
+        <th>Data</th>
+
+        <th>Horário</th>
+
+        <th>Cliente</th>
+
+        <th>Serviço</th>
+
+        <th>Pagamento</th>
+
+        <th>Valor</th>
+
+    </tr>
+
+    </thead>
+
+
+    <tbody>
+
+    ${
+        linhas ||
+        '<tr><td colspan="6">Nenhum serviço no período.</td></tr>'
+    }
+
+    </tbody>
+
+    </table>
+
+
+    <div class="total">
+
+        Total recebido:
+        ${formatarMoeda(r.total)}
+
+    </div>
+
+
+    <script>
+
+    window.onload=function(){
+
+        window.print();
+
+    }
+
+    <\/script>
+
+
+    </body>
+
+    </html>
 
     `);
 
@@ -1790,16 +3778,103 @@ function gerarPDFRelatorio() {
 }
 
 
+
+function gerarPDFRelatorio(){
+
+    if(!dadosRelatorio.length){
+
+        alert(
+            "Primeiro gere um relatório com algum serviço realizado."
+        );
+
+        return;
+
+    }
+
+
+    const inicio =
+        document
+        .getElementById(
+            "relatorioInicio"
+        )
+        .value;
+
+
+    const fim =
+        document
+        .getElementById(
+            "relatorioFim"
+        )
+        .value;
+
+
+    if(!inicio || !fim){
+
+        alert(
+            "Selecione o período e gere o relatório."
+        );
+
+        return;
+
+    }
+
+
+    abrirPDF(
+        dadosRelatorio,
+        inicio,
+        fim,
+        "Relatório do Caixa"
+    );
+
+}
+
+
+
+function gerarPDFRelatorioDiario(){
+
+    if(!dadosRelatorio.length){
+
+        alert(
+            "Primeiro gere o relatório do dia."
+        );
+
+        return;
+
+    }
+
+
+    const dia =
+        document
+        .getElementById(
+            "relatorioDia"
+        )
+        .value ||
+        hojeLocal();
+
+
+    abrirPDF(
+        dadosRelatorio,
+        dia,
+        dia,
+        "Relatório Diário do Caixa"
+    );
+
+}
+
+
+
 /* =====================================================
-   INICIALIZAÇÃO
+   DATA INICIAL
 ===================================================== */
 
-console.log(
-    "ADM JC Barbearia carregado."
-);
+document
+.getElementById(
+    "relatorioDia"
+)
+.value =
+    hojeLocal();
 
 </script>
 
 </body>
 </html>
-```
