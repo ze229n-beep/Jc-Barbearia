@@ -1137,6 +1137,50 @@ async function showTimes() {
     }
 
 
+    // ==================================
+    // HORÁRIOS BLOQUEADOS PELO ADM
+    // ==================================
+
+    const {
+        data: bloqueios,
+        error: erroBloqueios
+    } = await db
+
+        .from("blocked_slots")
+
+        .select("blocked_time")
+
+        .eq(
+            "blocked_date",
+            selectedDate
+        )
+
+        .eq(
+            "active",
+            true
+        );
+
+
+    if (erroBloqueios) {
+
+        console.error(
+            "Erro ao consultar horários bloqueados:",
+            erroBloqueios
+        );
+
+        times.innerHTML =
+            '<div class="error">Não foi possível verificar os horários bloqueados.</div>';
+
+        return;
+    }
+
+
+    const horariosBloqueados = (bloqueios || [])
+        .map(function(item) {
+            return String(item.blocked_time || "").substring(0, 5);
+        });
+
+
     times.innerHTML = "";
 
 
@@ -1180,6 +1224,10 @@ async function showTimes() {
                 horario;
 
 
+            const bloqueado =
+                horariosBloqueados.includes(horario);
+
+
             const ocupado =
                 selectedDuration &&
                 horarioOcupado(
@@ -1189,10 +1237,14 @@ async function showTimes() {
                 );
 
 
-            if (ocupado) {
+            if (bloqueado || ocupado) {
 
                 button.disabled =
                     true;
+
+                if (bloqueado) {
+                    button.title = "Horário bloqueado pela administração";
+                }
 
             } else {
 
@@ -1419,6 +1471,75 @@ confirmButton.addEventListener(
 
             return;
 
+        }
+
+
+        // ==================================
+        // VERIFICAR BLOQUEIO DO ADM NOVAMENTE
+        // ==================================
+
+        const {
+            data: bloqueioAtual,
+            error: erroBloqueioAtual
+        } = await db
+
+            .from("blocked_slots")
+
+            .select("id, blocked_time")
+
+            .eq(
+                "blocked_date",
+                selectedDate
+            )
+
+            .eq(
+                "active",
+                true
+            );
+
+
+        if (erroBloqueioAtual) {
+
+            console.error(
+                "Erro ao verificar bloqueio:",
+                erroBloqueioAtual
+            );
+
+            statusMessage.innerHTML =
+                '<div class="error">Não foi possível verificar se o horário está bloqueado. Tente novamente.</div>';
+
+            confirmButton.disabled =
+                false;
+
+            return;
+        }
+
+
+        const horarioFoiBloqueado =
+            (bloqueioAtual || []).some(
+                function(item) {
+                    return String(item.blocked_time || "").substring(0, 5) === selectedTime;
+                }
+            );
+
+
+        if (horarioFoiBloqueado) {
+
+            statusMessage.innerHTML =
+                '<div class="error">Esse horário foi bloqueado pela administração. Escolha outro horário.</div>';
+
+            selectedTime = null;
+
+            document.getElementById(
+                "summaryTime"
+            ).textContent = "-";
+
+            await showTimes();
+
+            confirmButton.disabled =
+                false;
+
+            return;
         }
 
 
