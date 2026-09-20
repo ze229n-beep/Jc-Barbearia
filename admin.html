@@ -1,4 +1,4 @@
-```html
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -502,6 +502,31 @@ label{
     margin-top:-10px;
     margin-bottom:20px;
 }
+
+/* =========================
+   CAIXA - CONTROLE DE ABERTURA E FECHAMENTO
+========================= */
+.caixa-status{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    flex-wrap:wrap;
+    background:#151515;
+    border:1px solid #292929;
+    border-radius:12px;
+    padding:18px;
+    margin-bottom:20px;
+}
+.caixa-status-texto strong{display:block;color:#d4af37;font-size:18px;margin-bottom:5px}
+.caixa-status-texto span{color:#aaa;font-size:13px}
+.caixa-botoes{display:flex;gap:8px;flex-wrap:wrap}
+.botao-abrir-caixa,.botao-fechar-caixa{border-radius:8px;padding:11px 16px;font-size:13px;font-weight:bold;cursor:pointer}
+.botao-abrir-caixa{background:#d4af37;color:#111;border:1px solid #d4af37}
+.botao-abrir-caixa:hover{background:#f1d46a}
+.botao-fechar-caixa{background:#321515;color:#ffb0b0;border:1px solid #632727}
+.botao-fechar-caixa:hover{background:#4a1c1c}
+@media(max-width:700px){.caixa-status{align-items:stretch}.caixa-botoes{width:100%;flex-direction:column}.caixa-botoes button{width:100%}}
 
 @media(max-width:900px){
 
@@ -1213,99 +1238,63 @@ o ideal é usar autenticação do Supabase.
     Caixa
 </h2>
 
+<div class="caixa-status">
+
+    <div class="caixa-status-texto">
+        <strong id="statusCaixa">Caixa fechado</strong>
+        <span id="statusCaixaDetalhe">Abra o caixa para iniciar o movimento.</span>
+    </div>
+
+    <div class="caixa-botoes">
+        <button class="botao-abrir-caixa" id="botaoAbrirCaixa" onclick="abrirCaixa()">
+            🔓 Abrir Caixa
+        </button>
+        <button class="botao-fechar-caixa" id="botaoFecharCaixa" onclick="fecharCaixa()">
+            🔒 Fechar Caixa
+        </button>
+    </div>
+
+</div>
 
 <div class="caixa-grid">
 
 <div class="caixa-card">
-
-<span>
-    Total recebido
-</span>
-
-<strong id="totalCaixa">
-    R$ 0,00
-</strong>
-
+<span>Total recebido</span>
+<strong id="totalCaixa">R$ 0,00</strong>
 </div>
-
 
 <div class="caixa-card">
-
-<span>
-    Serviços realizados
-</span>
-
-<strong id="quantidadeServicos">
-    0
-</strong>
-
+<span>Serviços realizados</span>
+<strong id="quantidadeServicos">0</strong>
 </div>
-
 
 <div class="caixa-card">
-
-<span>
-    Dinheiro
-</span>
-
-<strong id="totalDinheiroCaixa">
-    R$ 0,00
-</strong>
-
+<span>Dinheiro</span>
+<strong id="totalDinheiroCaixa">R$ 0,00</strong>
 </div>
-
 
 <div class="caixa-card">
-
-<span>
-    Pix
-</span>
-
-<strong id="totalPixCaixa">
-    R$ 0,00
-</strong>
-
+<span>Pix</span>
+<strong id="totalPixCaixa">R$ 0,00</strong>
 </div>
-
 
 <div class="caixa-card">
-
-<span>
-    Cartão
-</span>
-
-<strong id="totalCartaoCaixa">
-    R$ 0,00
-</strong>
-
+<span>Cartão</span>
+<strong id="totalCartaoCaixa">R$ 0,00</strong>
 </div>
-
 
 <div class="caixa-card">
-
-<span>
-    Outros
-</span>
-
-<strong id="totalOutrosCaixa">
-    R$ 0,00
-</strong>
-
+<span>Outros</span>
+<strong id="totalOutrosCaixa">R$ 0,00</strong>
 </div>
 
 </div>
-
 
 <div id="listaCaixa">
-
-<div class="mensagem">
-    Carregando...
-</div>
-
+<div class="mensagem">Abra o caixa para visualizar os serviços realizados nesta abertura.</div>
 </div>
 
 </section>
-
 
 
 <!-- RELATÓRIO -->
@@ -1481,6 +1470,18 @@ const CHAVE_SENHA =
 
 const CHAVE_PESSOAL =
 "jc_adm_pessoal";
+
+const CHAVE_CAIXA_ABERTO =
+"jc_caixa_aberto";
+
+const CHAVE_CAIXA_DATA =
+"jc_caixa_data";
+
+const CHAVE_CAIXA_ABERTURA =
+"jc_caixa_abertura";
+
+const CHAVE_CAIXA_FECHAMENTO =
+"jc_caixa_fechamento";
 
 
 let dadosRelatorio = [];
@@ -2803,265 +2804,227 @@ async function carregarCaixa(){
 
     const lista =
         document
-        .getElementById(
-            "listaCaixa"
-        );
+        .getElementById("listaCaixa");
 
+    const status =
+        document.getElementById("statusCaixa");
+
+    const detalhe =
+        document.getElementById("statusCaixaDetalhe");
+
+    const botaoAbrir =
+        document.getElementById("botaoAbrirCaixa");
+
+    const botaoFechar =
+        document.getElementById("botaoFecharCaixa");
+
+    const hoje = hojeLocal();
+    const aberto = localStorage.getItem(CHAVE_CAIXA_ABERTO) === "true";
+    const dataCaixa = localStorage.getItem(CHAVE_CAIXA_DATA);
+    const abertura = localStorage.getItem(CHAVE_CAIXA_ABERTURA);
+
+    /* Se um caixa ficou aberto no navegador e o dia mudou,
+       ele é encerrado automaticamente para não misturar dias. */
+    if(aberto && dataCaixa !== hoje){
+        localStorage.setItem(CHAVE_CAIXA_ABERTO,"false");
+        localStorage.setItem(CHAVE_CAIXA_FECHAMENTO,new Date().toISOString());
+    }
+
+    const caixaAbertoAgora =
+        localStorage.getItem(CHAVE_CAIXA_ABERTO) === "true" &&
+        localStorage.getItem(CHAVE_CAIXA_DATA) === hoje;
+
+    if(caixaAbertoAgora){
+        status.textContent = "Caixa aberto";
+        detalhe.textContent = "Movimento de hoje desde " +
+            new Date(localStorage.getItem(CHAVE_CAIXA_ABERTURA)).toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
+        botaoAbrir.disabled = true;
+        botaoAbrir.style.opacity = "0.5";
+        botaoAbrir.style.cursor = "not-allowed";
+        botaoFechar.disabled = false;
+        botaoFechar.style.opacity = "1";
+        botaoFechar.style.cursor = "pointer";
+    }else{
+        status.textContent = "Caixa fechado";
+        detalhe.textContent = "Abra o caixa para iniciar um novo movimento.";
+        botaoAbrir.disabled = false;
+        botaoAbrir.style.opacity = "1";
+        botaoAbrir.style.cursor = "pointer";
+        botaoFechar.disabled = true;
+        botaoFechar.style.opacity = "0.5";
+        botaoFechar.style.cursor = "not-allowed";
+    }
+
+    /* Caixa fechado = valores zerados. Os dados antigos continuam
+       disponíveis normalmente nos relatórios por período. */
+    if(!caixaAbertoAgora){
+        document.getElementById("totalCaixa").textContent = formatarMoeda(0);
+        document.getElementById("quantidadeServicos").textContent = "0";
+        document.getElementById("totalDinheiroCaixa").textContent = formatarMoeda(0);
+        document.getElementById("totalPixCaixa").textContent = formatarMoeda(0);
+        document.getElementById("totalCartaoCaixa").textContent = formatarMoeda(0);
+        document.getElementById("totalOutrosCaixa").textContent = formatarMoeda(0);
+        lista.innerHTML = '<div class="mensagem">Caixa fechado. Os valores serão iniciados do zero ao abrir um novo caixa.</div>';
+        return;
+    }
 
     lista.innerHTML =
         '<div class="mensagem">Carregando caixa...</div>';
 
-
     await carregarServicosMapa();
 
+    const inicioSessao =
+        localStorage.getItem(CHAVE_CAIXA_ABERTURA);
 
     const {data,error} =
         await db
         .from("appointments")
         .select("*")
-        .eq(
-            "status",
-            "finalizado"
-        )
-        .order(
-            "completed_at",
-            {
-                ascending:false
-            }
-        );
-
+        .eq("status","finalizado")
+        .gte("completed_at",inicioSessao)
+        .order("completed_at",{ascending:false});
 
     if(error){
-
         console.error(error);
-
-        lista.innerHTML =
-            '<div class="mensagem">Erro ao carregar o caixa.</div>';
-
+        lista.innerHTML = '<div class="mensagem">Erro ao carregar o caixa.</div>';
         return;
-
     }
-
 
     let total = 0;
-
     let dinheiro = 0;
-
     let pix = 0;
-
     let cartao = 0;
-
     let outros = 0;
 
-
-    (data || [])
-    .forEach(a => {
-
-        const valor =
-            obterPreco(a);
-
-
+    (data || []).forEach(a => {
+        const valor = obterPreco(a);
         total += valor;
 
+        const forma = String(a.payment_method || "").toLowerCase();
 
-        if(
-            a.payment_method ===
-            "Dinheiro"
-        ){
-
-            dinheiro += valor;
-
-        }
-
-        else if(
-            a.payment_method ===
-            "Pix"
-        ){
-
-            pix += valor;
-
-        }
-
-        else if(
-            a.payment_method ===
-            "Cartão"
-        ){
-
-            cartao += valor;
-
-        }
-
-        else{
-
-            outros += valor;
-
-        }
-
+        if(forma === "dinheiro") dinheiro += valor;
+        else if(forma === "pix") pix += valor;
+        else if(forma === "cartão" || forma === "cartao") cartao += valor;
+        else outros += valor;
     });
 
-
-    document
-    .getElementById(
-        "totalCaixa"
-    )
-    .textContent =
-        formatarMoeda(total);
-
-
-    document
-    .getElementById(
-        "quantidadeServicos"
-    )
-    .textContent =
-        (data || []).length;
-
-
-    document
-    .getElementById(
-        "totalDinheiroCaixa"
-    )
-    .textContent =
-        formatarMoeda(dinheiro);
-
-
-    document
-    .getElementById(
-        "totalPixCaixa"
-    )
-    .textContent =
-        formatarMoeda(pix);
-
-
-    document
-    .getElementById(
-        "totalCartaoCaixa"
-    )
-    .textContent =
-        formatarMoeda(cartao);
-
-
-    document
-    .getElementById(
-        "totalOutrosCaixa"
-    )
-    .textContent =
-        formatarMoeda(outros);
-
+    document.getElementById("totalCaixa").textContent = formatarMoeda(total);
+    document.getElementById("quantidadeServicos").textContent = (data || []).length;
+    document.getElementById("totalDinheiroCaixa").textContent = formatarMoeda(dinheiro);
+    document.getElementById("totalPixCaixa").textContent = formatarMoeda(pix);
+    document.getElementById("totalCartaoCaixa").textContent = formatarMoeda(cartao);
+    document.getElementById("totalOutrosCaixa").textContent = formatarMoeda(outros);
 
     if(!data?.length){
-
-        lista.innerHTML =
-            '<div class="mensagem">Nenhum serviço finalizado ainda.</div>';
-
+        lista.innerHTML = '<div class="mensagem">Nenhum serviço finalizado nesta abertura do caixa.</div>';
         return;
-
     }
 
-
     let html = `
-
     <div class="card">
-
-        <h3>
-            Serviços finalizados
-        </h3>
-
+        <h3>Serviços finalizados nesta abertura</h3>
         <div style="overflow-x:auto">
-
         <table class="tabela">
-
         <thead>
-
         <tr>
-
             <th>Data</th>
-
             <th>Horário</th>
-
             <th>Cliente</th>
-
             <th>Serviço</th>
-
             <th>Pagamento</th>
-
             <th>Valor</th>
-
         </tr>
-
         </thead>
-
         <tbody>
-
     `;
-
 
     data.forEach(a => {
-
         html += `
-
         <tr>
-
-            <td>
-                ${formatarData(
-                    a.appointment_date
-                )}
-            </td>
-
-            <td>
-                ${escaparHTML(
-                    a.appointment_time || ""
-                )}
-            </td>
-
-            <td>
-                ${escaparHTML(
-                    a.customer_name || ""
-                )}
-            </td>
-
-            <td>
-                ${escaparHTML(
-                    a.service_name || ""
-                )}
-            </td>
-
-            <td>
-                ${escaparHTML(
-                    a.payment_method || ""
-                )}
-            </td>
-
-            <td>
-                ${formatarMoeda(
-                    obterPreco(a)
-                )}
-            </td>
-
+            <td>${formatarData(a.appointment_date)}</td>
+            <td>${escaparHTML(a.appointment_time || "")}</td>
+            <td>${escaparHTML(a.customer_name || "")}</td>
+            <td>${escaparHTML(a.service_name || "")}</td>
+            <td>${escaparHTML(a.payment_method || "")}</td>
+            <td>${formatarMoeda(obterPreco(a))}</td>
         </tr>
-
         `;
-
     });
 
-
     html += `
-
         </tbody>
-
         </table>
-
         </div>
-
     </div>
-
     `;
 
-
-    lista.innerHTML =
-        html;
-
+    lista.innerHTML = html;
 }
 
+
+function abrirCaixa(){
+
+    const hoje = hojeLocal();
+    const aberto = localStorage.getItem(CHAVE_CAIXA_ABERTO) === "true";
+
+    if(aberto && localStorage.getItem(CHAVE_CAIXA_DATA) === hoje){
+        alert("O caixa de hoje já está aberto.");
+        return;
+    }
+
+    if(!confirm("Deseja abrir o caixa de hoje e iniciar um novo movimento do zero?")){
+        return;
+    }
+
+    const agora = new Date();
+
+    localStorage.setItem(CHAVE_CAIXA_ABERTO,"true");
+    localStorage.setItem(CHAVE_CAIXA_DATA,hoje);
+    localStorage.setItem(CHAVE_CAIXA_ABERTURA,agora.toISOString());
+    localStorage.removeItem(CHAVE_CAIXA_FECHAMENTO);
+
+    carregarCaixa();
+}
+
+
+async function fecharCaixa(){
+
+    const aberto = localStorage.getItem(CHAVE_CAIXA_ABERTO) === "true";
+
+    if(!aberto){
+        alert("O caixa já está fechado.");
+        return;
+    }
+
+    const totalAtual =
+        document.getElementById("totalCaixa").textContent;
+
+    const quantidadeAtual =
+        document.getElementById("quantidadeServicos").textContent;
+
+    const confirmar = confirm(
+        "Deseja fechar o caixa?\n\n" +
+        "Total recebido: " + totalAtual + "\n" +
+        "Serviços realizados: " + quantidadeAtual + "\n\n" +
+        "Após fechar, o caixa ficará zerado para a próxima abertura.\n" +
+        "Os dados continuarão disponíveis nos relatórios."
+    );
+
+    if(!confirmar){
+        return;
+    }
+
+    localStorage.setItem(CHAVE_CAIXA_ABERTO,"false");
+    localStorage.setItem(CHAVE_CAIXA_FECHAMENTO,new Date().toISOString());
+
+    await carregarCaixa();
+
+    alert(
+        "Caixa fechado com sucesso!\n\n" +
+        "Total encerrado: " + totalAtual + "\n" +
+        "O próximo caixa começará do zero."
+    );
+}
 
 
 /* =====================================================
@@ -4707,4 +4670,3 @@ document
 
 </body>
 </html>
-```
