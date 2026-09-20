@@ -43,20 +43,24 @@ header p{
 }
 
 .tabs{
-    display:flex;
-    flex-wrap:wrap;
+    display:grid;
+    grid-template-columns:repeat(8,minmax(0,1fr));
     gap:10px;
     margin-bottom:25px;
+    align-items:stretch;
 }
 
 .tab-button{
     background:#181818;
     color:#ddd;
     border:1px solid #333;
-    padding:12px 18px;
+    padding:12px 9px;
     border-radius:8px;
     cursor:pointer;
     font-weight:bold;
+    font-size:12px;
+    line-height:1.2;
+    min-height:54px;
 }
 
 .tab-button:hover{
@@ -511,6 +515,25 @@ label{
 @media(max-width:700px){.filtro-linha{flex-direction:column;align-items:stretch}.cliente-linha,.bloqueio-linha{align-items:flex-start;flex-direction:column}}
 
 /* =========================
+   HORÁRIOS DA LOJA
+========================= */
+.horarios-semana{display:grid;gap:12px;margin-top:15px}
+.horario-dia{background:#101010;border:1px solid #292929;border-radius:10px;padding:15px}
+.horario-dia-topo{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}
+.horario-dia-nome{font-weight:bold;color:#fff;font-size:15px}
+.horario-dia-controles{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px}
+.horario-dia-controles label{margin-top:0}
+.horario-fechado{opacity:.65}
+.horario-fechado .horario-dia-controles{opacity:.55}
+.fechamento-linha{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:14px 0;border-bottom:1px solid #292929}
+.fechamento-linha:last-child{border-bottom:none}
+.fechamento-info strong{display:block;color:#fff;margin-bottom:4px}
+.fechamento-info span{color:#999;font-size:13px}
+.botao-excluir-fechamento{background:#321515;color:#ffb0b0;border:1px solid #632727;border-radius:7px;padding:9px 12px;cursor:pointer}
+@media(max-width:900px){.horario-dia-controles{grid-template-columns:1fr 1fr}}
+@media(max-width:700px){.horario-dia-topo{align-items:flex-start;flex-direction:column}.horario-dia-controles{grid-template-columns:1fr}.fechamento-linha{align-items:flex-start;flex-direction:column}.horario-dia-controles .campo{margin-top:4px}}
+
+/* =========================
    CAIXA - CONTROLE DE ABERTURA E FECHAMENTO
 ========================= */
 .caixa-status{
@@ -558,7 +581,7 @@ label{
     }
 
     .tabs{
-        flex-direction:column;
+        grid-template-columns:repeat(2,minmax(0,1fr));
     }
 
     .tab-button{
@@ -649,55 +672,14 @@ label{
 
 <div class="tabs">
 
-<button
-    class="tab-button active"
-    onclick="mostrarAba('dashboard',this)">
-    📊 Dashboard
-</button>
-
-<button
-    class="tab-button"
-    onclick="mostrarAba('configuracoes',this)">
-    Configurações
-</button>
-
-<button
-    class="tab-button"
-    onclick="mostrarAba('agendamentos',this)">
-    Agendamentos
-    (<span id="contadorPendentes">0</span>)
-</button>
-
-<button
-    class="tab-button"
-    onclick="mostrarAba('confirmados',this)">
-    Serviços Confirmados
-    (<span id="contadorConfirmados">0</span>)
-</button>
-
-<button
-    class="tab-button"
-    onclick="mostrarAba('caixa',this)">
-    Caixa
-</button>
-
-<button
-    class="tab-button"
-    onclick="mostrarAba('relatorio',this)">
-    Relatório do Caixa
-</button>
-
-<button
-    class="tab-button"
-    onclick="mostrarAba('clientes',this)">
-    👥 Clientes
-</button>
-
-<button
-    class="tab-button"
-    onclick="mostrarAba('bloqueios',this)">
-    🚫 Bloquear horários
-</button>
+<button class="tab-button active" onclick="mostrarAba('dashboard',this)">📊 Dashboard</button>
+<button class="tab-button" onclick="mostrarAba('configuracoes',this)">Configurações</button>
+<button class="tab-button" onclick="mostrarAba('agendamentos',this)">Agendamentos (<span id="contadorPendentes">0</span>)</button>
+<button class="tab-button" onclick="mostrarAba('confirmados',this)">Serviços Confirmados (<span id="contadorConfirmados">0</span>)</button>
+<button class="tab-button" onclick="mostrarAba('caixa',this)">Caixa</button>
+<button class="tab-button" onclick="mostrarAba('relatorio',this)">Relatório do Caixa</button>
+<button class="tab-button" onclick="mostrarAba('clientes',this)">👥 Clientes</button>
+<button class="tab-button" onclick="mostrarAba('horarios',this)">🕒 Horários</button>
 
 </div>
 
@@ -1467,22 +1449,66 @@ o ideal é usar autenticação do Supabase.
 </div>
 </section>
 
-<!-- BLOQUEIOS -->
-<section id="bloqueios" class="aba">
-<h2 class="titulo-aba">🚫 Bloquear horários</h2>
+<!-- HORÁRIOS -->
+<section id="horarios" class="aba">
+
+<h2 class="titulo-aba">🕒 Horários</h2>
+
 <div class="card">
-<p class="pequeno">Bloqueie um horário para impedir novos agendamentos. Esta função usa a tabela <strong>blocked_slots</strong> do Supabase.</p>
+<h3>🏪 Horário de funcionamento</h3>
+<p class="pequeno">Defina quais dias a barbearia abre, o horário de atendimento e o intervalo de almoço. Essas configurações serão usadas também na página de agendamento.</p>
+
+<div id="gradeHorariosSemana" class="horarios-semana">
+    <div class="mensagem">Carregando horários...</div>
+</div>
+
+<div class="acoes">
+    <button class="botao-confirmar" onclick="salvarHorariosLoja()">💾 Salvar horários da loja</button>
+    <button class="botao-secundario" onclick="carregarHorariosLoja()">🔄 Recarregar</button>
+</div>
+</div>
+
+<div class="card">
+<h3>📅 Fechar um dia específico</h3>
+<p class="pequeno">Use esta opção para fechar a barbearia em uma data específica, mesmo que normalmente seja um dia aberto. Ex.: feriado, viagem ou compromisso.</p>
+
 <div class="config-grid">
-<div><label>Data</label><input class="campo" type="date" id="bloqueioData"></div>
-<div><label>Horário</label><input class="campo" type="time" id="bloqueioHora"></div>
-<div><label>Motivo (opcional)</label><input class="campo" type="text" id="bloqueioMotivo" placeholder="Ex.: compromisso pessoal"></div>
+    <div>
+        <label>Data que ficará fechada</label>
+        <input class="campo" type="date" id="dataFechamentoEspecial">
+    </div>
+    <div>
+        <label>Motivo (opcional)</label>
+        <input class="campo" type="text" id="motivoFechamentoEspecial" placeholder="Ex.: feriado">
+    </div>
+</div>
+
+<button class="botao-confirmar" onclick="fecharDiaEspecial()">🔒 Fechar este dia</button>
+</div>
+
+<div class="card">
+<div class="dashboard-titulo">
+    <h3>🚫 Horários bloqueados</h3>
+    <button class="dashboard-atualizar" onclick="carregarBloqueios()">🔄 Atualizar</button>
+</div>
+<p class="pequeno">Bloqueie apenas um horário específico. O horário bloqueado deixa de aparecer para o cliente.</p>
+<div class="config-grid">
+    <div><label>Data</label><input class="campo" type="date" id="bloqueioData"></div>
+    <div><label>Horário</label><input class="campo" type="time" id="bloqueioHora"></div>
+    <div><label>Motivo (opcional)</label><input class="campo" type="text" id="bloqueioMotivo" placeholder="Ex.: compromisso pessoal"></div>
 </div>
 <button class="botao-confirmar" onclick="bloquearHorario()">🚫 Bloquear horário</button>
+<div id="listaBloqueios" style="margin-top:15px"><div class="mensagem">Carregando...</div></div>
 </div>
+
 <div class="card">
-<div class="dashboard-titulo"><h3>Horários bloqueados</h3><button class="dashboard-atualizar" onclick="carregarBloqueios()">🔄 Atualizar</button></div>
-<div id="listaBloqueios"><div class="mensagem">Carregando...</div></div>
+<div class="dashboard-titulo">
+    <h3>📌 Dias fechados manualmente</h3>
+    <button class="dashboard-atualizar" onclick="carregarHorariosLoja()">🔄 Atualizar</button>
 </div>
+<div id="listaFechamentosEspeciais"><div class="mensagem">Carregando...</div></div>
+</div>
+
 </section>
 
 </div>
@@ -1533,6 +1559,31 @@ const CHAVE_CAIXA_ABERTURA =
 const CHAVE_CAIXA_FECHAMENTO =
 "jc_caixa_fechamento";
 
+const DIAS_SEMANA = [
+    {id:1,nome:"Segunda-feira"},
+    {id:2,nome:"Terça-feira"},
+    {id:3,nome:"Quarta-feira"},
+    {id:4,nome:"Quinta-feira"},
+    {id:5,nome:"Sexta-feira"},
+    {id:6,nome:"Sábado"},
+    {id:0,nome:"Domingo"}
+];
+
+function horariosPadrao(){
+    const obj={};
+    DIAS_SEMANA.forEach(d=>{
+        obj[d.id]={
+            aberto:d.id !== 0,
+            inicio:"08:00",
+            fim:"18:00",
+            almocoInicio:"12:00",
+            almocoFim:"13:00"
+        };
+    });
+    return obj;
+}
+
+let configuracaoHorarios = {dias:horariosPadrao(), fechamentos:[]};
 
 let dadosRelatorio = [];
 
@@ -1775,6 +1826,8 @@ async function carregarTudo(){
 
     await carregarCaixa();
 
+    await carregarHorariosLoja();
+
     await carregarDashboard();
 
 }
@@ -1865,8 +1918,9 @@ function mostrarAba(
         carregarClientes();
     }
 
-    if(nome === "bloqueios"){
+    if(nome === "horarios"){
         prepararBloqueio();
+        carregarHorariosLoja();
         carregarBloqueios();
     }
 
@@ -1966,10 +2020,179 @@ function filtrarClientes(){
 }
 
 /* =====================================================
+   HORÁRIOS DA LOJA
+===================================================== */
+
+function normalizarConfiguracaoHorarios(settings){
+    const padrao=horariosPadrao();
+    const recebido=settings && typeof settings === "object" ? settings : {};
+    const dias=(recebido.dias && typeof recebido.dias === "object") ? recebido.dias : {};
+    const fechamentos=Array.isArray(recebido.fechamentos) ? recebido.fechamentos : [];
+
+    DIAS_SEMANA.forEach(d=>{
+        const atual=dias[d.id] || {};
+        padrao[d.id]={
+            aberto:atual.aberto !== undefined ? Boolean(atual.aberto) : padrao[d.id].aberto,
+            inicio:atual.inicio || padrao[d.id].inicio,
+            fim:atual.fim || padrao[d.id].fim,
+            almocoInicio:atual.almocoInicio || "",
+            almocoFim:atual.almocoFim || ""
+        };
+    });
+
+    return {dias:padrao,fechamentos:fechamentos};
+}
+
+function renderizarHorariosLoja(){
+    const grade=document.getElementById("gradeHorariosSemana");
+    if(!grade)return;
+
+    grade.innerHTML=DIAS_SEMANA.map(d=>{
+        const h=configuracaoHorarios.dias[d.id] || {};
+        const classe=h.aberto ? "" : " horario-fechado";
+        return `<div class="horario-dia${classe}" id="horarioDia_${d.id}">
+            <div class="horario-dia-topo">
+                <span class="horario-dia-nome">${d.nome}</span>
+                <label class="checkbox-wrap" style="height:auto;margin:0">
+                    <input type="checkbox" id="diaAberto_${d.id}" ${h.aberto ? "checked" : ""} onchange="alterarDiaAberto(${d.id})">
+                    Loja aberta
+                </label>
+            </div>
+            <div class="horario-dia-controles">
+                <div><label>Abre</label><input class="campo" type="time" id="inicio_${d.id}" value="${h.inicio || ""}"></div>
+                <div><label>Fecha</label><input class="campo" type="time" id="fim_${d.id}" value="${h.fim || ""}"></div>
+                <div><label>Início do almoço</label><input class="campo" type="time" id="almocoInicio_${d.id}" value="${h.almocoInicio || ""}"></div>
+                <div><label>Fim do almoço</label><input class="campo" type="time" id="almocoFim_${d.id}" value="${h.almocoFim || ""}"></div>
+            </div>
+        </div>`;
+    }).join("");
+}
+
+function alterarDiaAberto(id){
+    const aberto=document.getElementById(`diaAberto_${id}`)?.checked;
+    const bloco=document.getElementById(`horarioDia_${id}`);
+    if(bloco)bloco.classList.toggle("horario-fechado",!aberto);
+}
+
+async function carregarHorariosLoja(){
+    const grade=document.getElementById("gradeHorariosSemana");
+    if(grade)grade.innerHTML='<div class="mensagem">Carregando horários da loja...</div>';
+
+    const {data,error}=await db.from("store_settings").select("settings").eq("id",1).maybeSingle();
+    if(error){
+        console.error(error);
+        if(grade)grade.innerHTML='<div class="mensagem">Não foi possível carregar os horários. Confira se a tabela store_settings foi criada no Supabase.</div>';
+        return;
+    }
+
+    configuracaoHorarios=normalizarConfiguracaoHorarios(data?.settings || {});
+    renderizarHorariosLoja();
+    renderizarFechamentosEspeciais();
+}
+
+function coletarHorariosTela(){
+    const dias={};
+    DIAS_SEMANA.forEach(d=>{
+        dias[d.id]={
+            aberto:Boolean(document.getElementById(`diaAberto_${d.id}`)?.checked),
+            inicio:document.getElementById(`inicio_${d.id}`)?.value || "",
+            fim:document.getElementById(`fim_${d.id}`)?.value || "",
+            almocoInicio:document.getElementById(`almocoInicio_${d.id}`)?.value || "",
+            almocoFim:document.getElementById(`almocoFim_${d.id}`)?.value || ""
+        };
+    });
+    return dias;
+}
+
+function validarHorariosLoja(dias){
+    for(const d of DIAS_SEMANA){
+        const h=dias[d.id];
+        if(!h.aberto)continue;
+        if(!h.inicio || !h.fim){
+            alert(`Preencha o horário de abertura e fechamento de ${d.nome}.`);
+            return false;
+        }
+        if(h.inicio >= h.fim){
+            alert(`O horário de fechamento de ${d.nome} deve ser depois do horário de abertura.`);
+            return false;
+        }
+        const temAlmoco=Boolean(h.almocoInicio || h.almocoFim);
+        if(temAlmoco && (!h.almocoInicio || !h.almocoFim)){
+            alert(`Preencha início e fim do almoço de ${d.nome}, ou deixe os dois campos vazios.`);
+            return false;
+        }
+        if(temAlmoco && (h.almocoInicio >= h.almocoFim || h.almocoInicio < h.inicio || h.almocoFim > h.fim)){
+            alert(`O intervalo de almoço de ${d.nome} precisa ficar dentro do horário de funcionamento.`);
+            return false;
+        }
+    }
+    return true;
+}
+
+async function salvarHorariosLoja(){
+    const dias=coletarHorariosTela();
+    if(!validarHorariosLoja(dias))return;
+
+    const configuracao={dias,fechamentos:configuracaoHorarios.fechamentos || []};
+    const {error}=await db.from("store_settings").upsert({id:1,settings:configuracao,updated_at:new Date().toISOString()},{onConflict:"id"});
+    if(error){
+        console.error(error);
+        alert("Erro ao salvar os horários:\n\n"+error.message);
+        return;
+    }
+    configuracaoHorarios=normalizarConfiguracaoHorarios(configuracao);
+    renderizarHorariosLoja();
+    renderizarFechamentosEspeciais();
+    alert("Horários da loja salvos com sucesso!");
+}
+
+function renderizarFechamentosEspeciais(){
+    const lista=document.getElementById("listaFechamentosEspeciais");
+    if(!lista)return;
+    const fechamentos=[...(configuracaoHorarios.fechamentos || [])].sort((a,b)=>String(a.data).localeCompare(String(b.data)));
+    if(!fechamentos.length){
+        lista.innerHTML='<div class="mensagem">Nenhum dia fechado manualmente.</div>';
+        return;
+    }
+    lista.innerHTML=fechamentos.map((f,i)=>`<div class="fechamento-linha"><div class="fechamento-info"><strong>🔒 ${formatarData(f.data)}</strong><span>${escaparHTML(f.motivo || "Fechamento manual")}</span></div><button class="botao-excluir-fechamento" onclick="reabrirDiaEspecial('${String(f.data)}')">Reabrir dia</button></div>`).join("");
+}
+
+async function fecharDiaEspecial(){
+    const data=document.getElementById("dataFechamentoEspecial")?.value;
+    const motivo=document.getElementById("motivoFechamentoEspecial")?.value.trim();
+    if(!data){alert("Escolha a data que deseja fechar.");return;}
+
+    const fechamentos=[...(configuracaoHorarios.fechamentos || [])];
+    const indice=fechamentos.findIndex(f=>String(f.data)===data);
+    const novo={data,motivo:motivo || "Fechamento manual"};
+    if(indice>=0)fechamentos[indice]=novo;else fechamentos.push(novo);
+
+    const configuracao={dias:coletarHorariosTela(),fechamentos};
+    if(!validarHorariosLoja(configuracao.dias))return;
+    const {error}=await db.from("store_settings").upsert({id:1,settings:configuracao,updated_at:new Date().toISOString()},{onConflict:"id"});
+    if(error){alert("Erro ao fechar o dia:\n\n"+error.message);return;}
+    configuracaoHorarios=normalizarConfiguracaoHorarios(configuracao);
+    document.getElementById("motivoFechamentoEspecial").value="";
+    renderizarFechamentosEspeciais();
+    alert("Dia fechado com sucesso!");
+}
+
+async function reabrirDiaEspecial(data){
+    if(!confirm(`Deseja reabrir o dia ${formatarData(data)}?`))return;
+    const fechamentos=(configuracaoHorarios.fechamentos || []).filter(f=>String(f.data)!==String(data));
+    const configuracao={dias:coletarHorariosTela(),fechamentos};
+    const {error}=await db.from("store_settings").upsert({id:1,settings:configuracao,updated_at:new Date().toISOString()},{onConflict:"id"});
+    if(error){alert("Erro ao reabrir o dia:\n\n"+error.message);return;}
+    configuracaoHorarios=normalizarConfiguracaoHorarios(configuracao);
+    renderizarFechamentosEspeciais();
+    alert("Dia reaberto com sucesso!");
+}
+
+/* =====================================================
    BLOQUEIO DE HORÁRIOS
 ===================================================== */
 
-function prepararBloqueio(){const data=document.getElementById("bloqueioData");if(data&&!data.value)data.value=hojeLocal();}
+function prepararBloqueio(){const data=document.getElementById("bloqueioData");if(data&&!data.value)data.value=hojeLocal();const fechamento=document.getElementById("dataFechamentoEspecial");if(fechamento&&!fechamento.value)fechamento.value=hojeLocal();}
 
 async function carregarBloqueios(){
     const lista=document.getElementById("listaBloqueios"); if(!lista)return;
