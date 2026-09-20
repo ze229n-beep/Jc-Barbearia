@@ -147,6 +147,16 @@ nav a:hover {
     border-color: #d4af37;
 }
 
+.day-button:disabled {
+    opacity: .35;
+    cursor: not-allowed;
+    border-color: #333;
+}
+
+.day-button.dia-fechado {
+    text-decoration: line-through;
+}
+
 .day-button.selected,
 .time-button.selected {
     background: #d4af37 !important;
@@ -554,6 +564,115 @@ const HORARIOS = [
 
 ];
 
+// ==========================================
+// CONFIGURAÇÕES DE HORÁRIOS DA LOJA
+// ==========================================
+
+const CONFIGURACAO_HORARIOS_PADRAO = {
+    dias: {
+        0: { aberto: false, inicio: "08:00", fim: "18:00", almocoInicio: "12:00", almocoFim: "13:00" },
+        1: { aberto: true,  inicio: "08:00", fim: "18:00", almocoInicio: "12:00", almocoFim: "13:00" },
+        2: { aberto: true,  inicio: "08:00", fim: "18:00", almocoInicio: "12:00", almocoFim: "13:00" },
+        3: { aberto: true,  inicio: "08:00", fim: "18:00", almocoInicio: "12:00", almocoFim: "13:00" },
+        4: { aberto: true,  inicio: "08:00", fim: "18:00", almocoInicio: "12:00", almocoFim: "13:00" },
+        5: { aberto: true,  inicio: "08:00", fim: "18:00", almocoInicio: "12:00", almocoFim: "13:00" },
+        6: { aberto: true,  inicio: "08:00", fim: "18:00", almocoInicio: "12:00", almocoFim: "13:00" }
+    },
+    fechamentos: []
+};
+
+let configuracaoHorariosLoja = JSON.parse(JSON.stringify(CONFIGURACAO_HORARIOS_PADRAO));
+
+function hojeLocalISO() {
+    const d = new Date();
+    return d.getFullYear() + "-" +
+        String(d.getMonth() + 1).padStart(2, "0") + "-" +
+        String(d.getDate()).padStart(2, "0");
+}
+
+function normalizarHorariosPublicos(settings) {
+    const recebido = settings && typeof settings === "object" ? settings : {};
+    const diasRecebidos = recebido.dias && typeof recebido.dias === "object" ? recebido.dias : {};
+    const dias = {};
+
+    Object.keys(CONFIGURACAO_HORARIOS_PADRAO.dias).forEach(function(id) {
+        const padrao = CONFIGURACAO_HORARIOS_PADRAO.dias[id];
+        const atual = diasRecebidos[id] || diasRecebidos[String(id)] || {};
+
+        dias[id] = {
+            aberto: atual.aberto !== undefined ? Boolean(atual.aberto) : padrao.aberto,
+            inicio: atual.inicio || padrao.inicio,
+            fim: atual.fim || padrao.fim,
+            almocoInicio: atual.almocoInicio || "",
+            almocoFim: atual.almocoFim || ""
+        };
+    });
+
+    return {
+        dias: dias,
+        fechamentos: Array.isArray(recebido.fechamentos) ? recebido.fechamentos : []
+    };
+}
+
+async function carregarHorariosLojaPublico() {
+    const { data, error } = await db
+        .from("store_settings")
+        .select("settings")
+        .eq("id", 1)
+        .maybeSingle();
+
+    if (error) {
+        console.warn("Não foi possível carregar as configurações de horários da loja. Usando padrão.", error);
+        configuracaoHorariosLoja = JSON.parse(JSON.stringify(CONFIGURACAO_HORARIOS_PADRAO));
+        return;
+    }
+
+    configuracaoHorariosLoja = normalizarHorariosPublicos(data?.settings || {});
+}
+
+function configuracaoDoDia(dataISO) {
+    const partes = String(dataISO || "").split("-");
+    if (partes.length !== 3) return null;
+
+    const data = new Date(Number(partes[0]), Number(partes[1]) - 1, Number(partes[2]));
+    const diaSemana = data.getDay();
+    return {
+        diaSemana: diaSemana,
+        config: configuracaoHorariosLoja.dias[diaSemana] || null
+    };
+}
+
+function diaTemFechamentoEspecial(dataISO) {
+    return (configuracaoHorariosLoja.fechamentos || []).some(function(item) {
+        return String(item.data || "") === String(dataISO || "");
+    });
+}
+
+function horarioDentroDoFuncionamento(horario, duracao) {
+    if (!selectedDate) return true;
+
+    const info = configuracaoDoDia(selectedDate);
+    if (!info || !info.config || !info.config.aberto) return false;
+    if (diaTemFechamentoEspecial(selectedDate)) return false;
+
+    const inicio = horarioEmMinutos(horario);
+    const fim = inicio + Number(duracao || 30);
+    const abertura = horarioEmMinutos(info.config.inicio);
+    const fechamento = horarioEmMinutos(info.config.fim);
+
+    if (inicio < abertura || fim > fechamento) return false;
+
+    const almocoInicio = horarioEmMinutos(info.config.almocoInicio);
+    const almocoFim = horarioEmMinutos(info.config.almocoFim);
+
+    if (info.config.almocoInicio && info.config.almocoFim) {
+        if (inicio < almocoFim && fim > almocoInicio) return false;
+    }
+
+    return true;
+}
+
+
 
 let selectedServiceId = null;
 
@@ -814,129 +933,55 @@ async function loadServices() {
 // CRIAR DIAS
 // ==========================================
 
-function createDays() {
+async function createDays() {
 
     days.innerHTML = "";
 
+    const hoje = new Date();
 
-    const hoje =
-        new Date();
+    for (let i = 0; i < 14; i++) {
 
+        const data = new Date(hoje);
+        data.setDate(hoje.getDate() + i);
 
-    for (
-        let i = 0;
-        i < 14;
-        i++
-    ) {
+        const ano = data.getFullYear();
+        const mes = String(data.getMonth() + 1).padStart(2, "0");
+        const dia = String(data.getDate()).padStart(2, "0");
+        const dataISO = `${ano}-${mes}-${dia}`;
+        const diaSemana = data.getDay();
+        const configDia = configuracaoHorariosLoja.dias[diaSemana] || {};
+        const fechadoEspecial = diaTemFechamentoEspecial(dataISO);
+        const aberto = Boolean(configDia.aberto) && !fechadoEspecial;
 
-        const data =
-            new Date(
-                hoje
-            );
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "day-button";
+        button.textContent = `${dia}/${mes}`;
 
+        if (!aberto) {
+            button.disabled = true;
+            button.classList.add("dia-fechado");
+            button.title = fechadoEspecial ? "Barbearia fechada nesta data" : "Barbearia fechada neste dia da semana";
+            button.textContent = `${dia}/${mes} - Fechado`;
+        } else {
+            button.addEventListener("click", function() {
+                document.querySelectorAll(".day-button").forEach(function(item) {
+                    item.classList.remove("selected");
+                });
 
-        data.setDate(
-            hoje.getDate() + i
-        );
+                button.classList.add("selected");
+                selectedDate = dataISO;
+                selectedTime = null;
 
-
-        const ano =
-            data.getFullYear();
-
-
-        const mes =
-            String(
-                data.getMonth() + 1
-            ).padStart(
-                2,
-                "0"
-            );
-
-
-        const dia =
-            String(
-                data.getDate()
-            ).padStart(
-                2,
-                "0"
-            );
-
-
-        const dataISO =
-            `${ano}-${mes}-${dia}`;
-
-
-        const button =
-            document.createElement(
-                "button"
-            );
-
-
-        button.type =
-            "button";
-
-
-        button.className =
-            "day-button";
-
-
-        button.textContent =
-            `${dia}/${mes}`;
-
-
-        button.addEventListener(
-            "click",
-            function() {
-
-                document
-                    .querySelectorAll(
-                        ".day-button"
-                    )
-                    .forEach(
-                        function(item) {
-
-                            item.classList.remove(
-                                "selected"
-                            );
-
-                        }
-                    );
-
-
-                button.classList.add(
-                    "selected"
-                );
-
-
-                selectedDate =
-                    dataISO;
-
-
-                selectedTime =
-                    null;
-
-
-                document.getElementById(
-                    "summaryDate"
-                ).textContent =
-                    formatarData(
-                        selectedDate
-                    );
-
+                document.getElementById("summaryDate").textContent = formatarData(selectedDate);
+                document.getElementById("summaryTime").textContent = "-";
 
                 updateButton();
-
-
                 showTimes();
+            });
+        }
 
-            }
-        );
-
-
-        days.appendChild(
-            button
-        );
-
+        days.appendChild(button);
     }
 }
 
@@ -1181,6 +1226,15 @@ async function showTimes() {
         });
 
 
+    const infoDia = configuracaoDoDia(selectedDate);
+
+    if (!infoDia || !infoDia.config || !infoDia.config.aberto || diaTemFechamentoEspecial(selectedDate)) {
+        times.innerHTML =
+            '<div class="message">A barbearia estará fechada neste dia.</div>';
+        return;
+    }
+
+
     times.innerHTML = "";
 
 
@@ -1203,6 +1257,13 @@ async function showTimes() {
 
                 return;
 
+            }
+
+
+            const duracaoParaHorario = Number(selectedDuration || 30);
+
+            if (!horarioDentroDoFuncionamento(horario, duracaoParaHorario)) {
+                return;
             }
 
 
@@ -1698,9 +1759,16 @@ confirmButton.addEventListener(
 // INICIALIZAR
 // ==========================================
 
-loadServices();
+async function inicializarAgendamento() {
+    await Promise.all([
+        loadServices(),
+        carregarHorariosLojaPublico()
+    ]);
 
-createDays();
+    await createDays();
+}
+
+inicializarAgendamento();
 
 </script>
 
