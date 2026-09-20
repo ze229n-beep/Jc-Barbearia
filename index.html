@@ -1,128 +1,539 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>JC Barbearia</title>
+```
+<title>JC Barbearia</title>
 
-    <meta name="description" content="JC Barbearia - Escolha seu serviço e agende seu horário">
+<meta name="description"
+    content="JC Barbearia - Escolha seu serviço e agende seu horário">
 
-    <link rel="stylesheet" href="estilo.css">
+<link rel="stylesheet" href="estilo.css">
+
+<style>
+    /* =========================================
+       JC BARBEARIA - VISUAL MODERNO
+    ========================================= */
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        background:
+            radial-gradient(circle at 80% 20%, rgba(212, 175, 55, 0.10), transparent 30%),
+            radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.06), transparent 30%),
+            #050505;
+        color: #fff;
+        min-height: 100vh;
+    }
+
+    /* =========================================
+       HEADER
+    ========================================= */
+
+    header {
+        width: 100%;
+        min-height: 78px;
+        padding: 0 6%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid rgba(212, 175, 55, 0.18);
+        background: rgba(5, 5, 5, 0.94);
+        position: relative;
+        z-index: 10;
+    }
+
+    .logo {
+        color: #ffffff;
+        font-size: 25px;
+        font-weight: 800;
+        letter-spacing: 2px;
+    }
+
+    .logo span {
+        color: #d4af37;
+        font-size: 14px;
+        letter-spacing: 3px;
+        margin-left: 4px;
+    }
+
+    header nav {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+    }
+
+    header nav a {
+        color: #ddd;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 600;
+        transition: 0.3s;
+        position: relative;
+    }
+
+    header nav a::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        left: 0;
+        bottom: -7px;
+        background: #d4af37;
+        transition: 0.3s;
+    }
+
+    header nav a:hover {
+        color: #f1d46a;
+    }
+
+    header nav a:hover::after {
+        width: 100%;
+    }
+
+    /* =========================================
+       HERO
+    ========================================= */
+
+    .hero {
+        width: 100%;
+        min-height: 590px;
+        padding: 90px 7%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        border-bottom: 1px solid rgba(212, 175, 55, 0.12);
+    }
+
+    .hero::before {
+        content: "";
+        position: absolute;
+        width: 520px;
+        height: 520px;
+        right: -180px;
+        top: 30px;
+        border-radius: 50%;
+        background: radial-gradient(
+            circle,
+            rgba(212, 175, 55, 0.16),
+            rgba(212, 175, 55, 0.03) 45%,
+            transparent 70%
+        );
+    }
+
+    .hero::after {
+        content: "";
+        position: absolute;
+        right: 8%;
+        top: 14%;
+        width: 360px;
+        height: 430px;
+        border: 1px solid rgba(212, 175, 55, 0.18);
+        border-radius: 180px 180px 20px 20px;
+        transform: rotate(4deg);
+    }
+
+    .hero > * {
+        position: relative;
+        z-index: 2;
+    }
+
+    .subtitle {
+        color: #d4af37;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 5px;
+        margin-bottom: 18px;
+    }
+
+    .hero h1 {
+        max-width: 650px;
+        font-size: clamp(48px, 7vw, 82px);
+        line-height: 0.95;
+        letter-spacing: -3px;
+        margin-bottom: 25px;
+        color: #fff;
+    }
+
+    .hero h1::first-letter {
+        color: #d4af37;
+    }
+
+    .description {
+        max-width: 540px;
+        color: #bdbdbd;
+        font-size: 18px;
+        line-height: 1.7;
+        margin-bottom: 35px;
+    }
+
+    .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: fit-content;
+        min-width: 210px;
+        padding: 16px 28px;
+        border-radius: 4px;
+        background: linear-gradient(135deg, #d4af37, #f1d46a);
+        color: #080808;
+        text-decoration: none;
+        font-weight: 800;
+        font-size: 14px;
+        letter-spacing: 0.5px;
+        box-shadow: 0 12px 35px rgba(212, 175, 55, 0.18);
+        transition: 0.3s ease;
+    }
+
+    .button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 18px 40px rgba(212, 175, 55, 0.28);
+    }
+
+    /* =========================================
+       DESTAQUES
+    ========================================= */
+
+    .highlights {
+        width: 100%;
+        max-width: 1250px;
+        margin: 0 auto;
+        padding: 80px 30px 90px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+    }
+
+    .highlight {
+        padding: 35px 28px;
+        min-height: 290px;
+        border: 1px solid rgba(212, 175, 55, 0.16);
+        border-radius: 12px;
+        background:
+            linear-gradient(
+                145deg,
+                rgba(255, 255, 255, 0.045),
+                rgba(255, 255, 255, 0.012)
+            );
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+        transition: 0.35s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .highlight:hover {
+        transform: translateY(-8px);
+        border-color: rgba(212, 175, 55, 0.5);
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+    }
+
+    .service-icon {
+        width: 58px;
+        height: 58px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: rgba(212, 175, 55, 0.10);
+        border: 1px solid rgba(212, 175, 55, 0.28);
+        font-size: 25px;
+        margin-bottom: 22px;
+    }
+
+    .highlight h2 {
+        color: #f1d46a;
+        font-size: 23px;
+        margin-bottom: 12px;
+    }
+
+    .highlight p {
+        color: #aaa;
+        line-height: 1.6;
+        font-size: 15px;
+        margin-bottom: 25px;
+    }
+
+    .service-button {
+        margin-top: auto;
+        color: #d4af37;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 14px;
+        border-bottom: 1px solid rgba(212, 175, 55, 0.4);
+        padding-bottom: 5px;
+        transition: 0.3s;
+    }
+
+    .service-button:hover {
+        color: #f1d46a;
+        border-color: #f1d46a;
+    }
+
+    /* =========================================
+       FOOTER
+    ========================================= */
+
+    footer {
+        border-top: 1px solid rgba(212, 175, 55, 0.15);
+        padding: 28px 20px;
+        text-align: center;
+        background: #030303;
+    }
+
+    footer p {
+        color: #777;
+        font-size: 13px;
+        margin: 5px 0;
+    }
+
+    footer p:first-child {
+        color: #aaa;
+    }
+
+    /* =========================================
+       RESPONSIVO
+    ========================================= */
+
+    @media (max-width: 850px) {
+
+        header {
+            padding: 18px 5%;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        header nav {
+            gap: 22px;
+        }
+
+        .hero {
+            min-height: 540px;
+            padding: 75px 7%;
+        }
+
+        .hero::after {
+            width: 260px;
+            height: 330px;
+            right: -80px;
+            opacity: 0.5;
+        }
+
+        .highlights {
+            grid-template-columns: 1fr;
+            max-width: 600px;
+        }
+    }
+
+    @media (max-width: 500px) {
+
+        header {
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 21px;
+        }
+
+        .logo span {
+            font-size: 11px;
+        }
+
+        header nav {
+            width: 100%;
+            justify-content: center;
+            gap: 18px;
+        }
+
+        header nav a {
+            font-size: 12px;
+        }
+
+        .hero {
+            padding: 65px 6%;
+            min-height: 500px;
+        }
+
+        .hero h1 {
+            font-size: 50px;
+            letter-spacing: -2px;
+        }
+
+        .description {
+            font-size: 16px;
+        }
+
+        .button {
+            width: 100%;
+        }
+
+        .highlights {
+            padding: 55px 18px 65px;
+        }
+
+        .highlight {
+            padding: 30px 24px;
+        }
+    }
+</style>
+```
+
 </head>
 
 <body>
 
-    <header>
+```
+<!-- =========================================
+     CABEÇALHO
+========================================== -->
 
-        <div class="logo">
-            JC <span>BARBEARIA</span>
-        </div>
+<header>
 
-        <nav>
-            
-<nav>
-    <a href="index.html">Início</a>
-    <a href="services.html">Serviços</a>
-    <a href="admin.html">ADM</a>
-</nav>
+    <div class="logo">
+        JC <span>BARBEARIA</span>
+    </div>
 
+    <nav>
+        <a href="index.html">Início</a>
+        <a href="services.html">Serviços</a>
+        <a href="admin.html">ADM</a>
+    </nav>
 
-        </nav>
-
-    </header>
-
-
-    <main>
-
-        <section class="hero">
-
-            <p class="subtitle">BEM-VINDO À</p>
-
-            <h1>JC Barbearia</h1>
-
-            <p class="description">
-                Seu estilo começa aqui.
-                Escolha seu serviço e agende seu horário.
-            </p>
-
-            <a href="services.html" class="button">
-                Escolher serviço
-            </a>
-
-        </section>
+</header>
 
 
-        <section class="highlights">
+<!-- =========================================
+     CONTEÚDO PRINCIPAL
+========================================== -->
 
-            <div class="highlight">
+<main>
 
-                <div class="service-icon">✂️</div>
+    <section class="hero">
 
-                <h2>Corte</h2>
-
-                <p>
-                    Do seu jeito, com estilo e precisão.
-                </p>
-
-                <a href="services.html" class="service-button">
-                    Agendar corte
-                </a>
-
-            </div>
-
-
-            <div class="highlight">
-
-                <div class="service-icon">🧔</div>
-
-                <h2>Barba</h2>
-
-                <p>
-                    Estilo e cuidado para deixar sua barba impecável.
-                </p>
-
-                <a href="services.html" class="service-button">
-                    Agendar barba
-                </a>
-
-            </div>
-
-
-            <div class="highlight">
-
-                <div class="service-icon">👁️</div>
-
-                <h2>Sobrancelha</h2>
-
-                <p>
-                    Acabamento perfeito para completar seu visual.
-                </p>
-
-                <a href="services.html" class="service-button">
-                    Agendar sobrancelha
-                </a>
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-    <footer>
-
-        <p>© 2026 JC Barbearia</p>
-
-        <p>
-            Seu estilo, nossa missão.
+        <p class="subtitle">
+            BEM-VINDO À
         </p>
 
-    </footer>
+        <h1>
+            JC Barbearia
+        </h1>
+
+        <p class="description">
+            Seu estilo começa aqui.
+            Escolha seu serviço e agende seu horário.
+        </p>
+
+        <a href="services.html" class="button">
+            AGENDAR HORÁRIO
+        </a>
+
+    </section>
+
+
+    <!-- =========================================
+         SERVIÇOS EM DESTAQUE
+    ========================================== -->
+
+    <section class="highlights">
+
+        <div class="highlight">
+
+            <div class="service-icon">
+                ✂️
+            </div>
+
+            <h2>
+                Corte
+            </h2>
+
+            <p>
+                Do seu jeito, com estilo e precisão.
+            </p>
+
+            <a href="services.html" class="service-button">
+                Agendar corte →
+            </a>
+
+        </div>
+
+
+        <div class="highlight">
+
+            <div class="service-icon">
+                🧔
+            </div>
+
+            <h2>
+                Barba
+            </h2>
+
+            <p>
+                Estilo e cuidado para deixar sua barba impecável.
+            </p>
+
+            <a href="services.html" class="service-button">
+                Agendar barba →
+            </a>
+
+        </div>
+
+
+        <div class="highlight">
+
+            <div class="service-icon">
+                👁️
+            </div>
+
+            <h2>
+                Sobrancelha
+            </h2>
+
+            <p>
+                Acabamento perfeito para completar seu visual.
+            </p>
+
+            <a href="services.html" class="service-button">
+                Agendar sobrancelha →
+            </a>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- =========================================
+     RODAPÉ
+========================================== -->
+
+<footer>
+
+    <p>
+        © 2026 JC Barbearia
+    </p>
+
+    <p>
+        Seu estilo, nossa missão.
+    </p>
+
+</footer>
+
+
+<!-- SUPABASE -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-</script>
+```
+
 </body>
 
 </html>
