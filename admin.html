@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -376,6 +375,33 @@ label{
 }
 
 /* =========================
+   CORREÇÃO DOS PONTOS
+   ABA AGENDAMENTOS
+========================= */
+
+#listaAgendamentos,
+#listaAgendamentos ul,
+#listaAgendamentos ol,
+#listaAgendamentos li{
+    list-style:none !important;
+    list-style-type:none !important;
+    margin-left:0;
+    padding-left:0;
+}
+
+#listaAgendamentos li::before,
+#listaAgendamentos li::after,
+#listaAgendamentos::before,
+#listaAgendamentos::after{
+    content:none !important;
+    display:none !important;
+}
+
+#listaAgendamentos > .card{
+    list-style:none !important;
+}
+
+/* =========================
    DASHBOARD
 ========================= */
 
@@ -507,35 +533,192 @@ label{
     margin-bottom:20px;
 }
 
-.dashboard-alerta{background:#2a1f08;border:1px solid #d4af37;color:#f1d46a;border-radius:12px;padding:15px 18px;margin-bottom:20px;font-weight:bold}
-.filtro-linha{display:flex;gap:10px;align-items:center;margin-bottom:18px}.filtro-linha .campo{flex:1;margin:0}
-.cliente-linha,.bloqueio-linha{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:15px 0;border-bottom:1px solid #292929}.cliente-linha:last-child,.bloqueio-linha:last-child{border-bottom:none}
-.cliente-info strong,.bloqueio-info strong{display:block;color:#fff;margin-bottom:5px}.cliente-info span,.bloqueio-info span{display:block;color:#999;font-size:13px;margin-top:3px}
-.botao-excluir-bloqueio{background:#321515;color:#ffb0b0;border:1px solid #632727;border-radius:7px;padding:9px 12px;cursor:pointer}
-@media(max-width:700px){.filtro-linha{flex-direction:column;align-items:stretch}.cliente-linha,.bloqueio-linha{align-items:flex-start;flex-direction:column}}
+.dashboard-alerta{
+    background:#2a1f08;
+    border:1px solid #d4af37;
+    color:#f1d46a;
+    border-radius:12px;
+    padding:15px 18px;
+    margin-bottom:20px;
+    font-weight:bold
+}
+
+.filtro-linha{
+    display:flex;
+    gap:10px;
+    align-items:center;
+    margin-bottom:18px
+}
+
+.filtro-linha .campo{
+    flex:1;
+    margin:0
+}
+
+.cliente-linha,
+.bloqueio-linha{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    padding:15px 0;
+    border-bottom:1px solid #292929
+}
+
+.cliente-linha:last-child,
+.bloqueio-linha:last-child{
+    border-bottom:none
+}
+
+.cliente-info strong,
+.bloqueio-info strong{
+    display:block;
+    color:#fff;
+    margin-bottom:5px
+}
+
+.cliente-info span,
+.bloqueio-info span{
+    display:block;
+    color:#999;
+    font-size:13px;
+    margin-top:3px
+}
+
+.botao-excluir-bloqueio{
+    background:#321515;
+    color:#ffb0b0;
+    border:1px solid #632727;
+    border-radius:7px;
+    padding:9px 12px;
+    cursor:pointer
+}
+
+@media(max-width:700px){
+    .filtro-linha{
+        flex-direction:column;
+        align-items:stretch
+    }
+
+    .cliente-linha,
+    .bloqueio-linha{
+        align-items:flex-start;
+        flex-direction:column
+    }
+}
 
 /* =========================
    HORÁRIOS DA LOJA
 ========================= */
-.horarios-semana{display:grid;gap:12px;margin-top:15px}
-.horario-dia{background:#101010;border:1px solid #292929;border-radius:10px;padding:15px}
-.horario-dia-topo{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}
-.horario-dia-nome{font-weight:bold;color:#fff;font-size:15px}
-.horario-dia-controles{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px}
-.horario-dia-controles label{margin-top:0}
-.horario-fechado{opacity:.65}
-.horario-fechado .horario-dia-controles{opacity:.55}
-.fechamento-linha{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:14px 0;border-bottom:1px solid #292929}
-.fechamento-linha:last-child{border-bottom:none}
-.fechamento-info strong{display:block;color:#fff;margin-bottom:4px}
-.fechamento-info span{color:#999;font-size:13px}
-.botao-excluir-fechamento{background:#321515;color:#ffb0b0;border:1px solid #632727;border-radius:7px;padding:9px 12px;cursor:pointer}
-@media(max-width:900px){.horario-dia-controles{grid-template-columns:1fr 1fr}}
-@media(max-width:700px){.horario-dia-topo{align-items:flex-start;flex-direction:column}.horario-dia-controles{grid-template-columns:1fr}.fechamento-linha{align-items:flex-start;flex-direction:column}.horario-dia-controles .campo{margin-top:4px}}
+
+.horarios-semana{
+    display:grid;
+    gap:12px;
+    margin-top:15px
+}
+
+.horario-dia{
+    background:#101010;
+    border:1px solid #292929;
+    border-radius:10px;
+    padding:15px
+}
+
+.horario-dia-topo{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    margin-bottom:12px
+}
+
+.horario-dia-nome{
+    font-weight:bold;
+    color:#fff;
+    font-size:15px
+}
+
+.horario-dia-controles{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr 1fr;
+    gap:10px
+}
+
+.horario-dia-controles label{
+    margin-top:0
+}
+
+.horario-fechado{
+    opacity:.65
+}
+
+.horario-fechado .horario-dia-controles{
+    opacity:.55
+}
+
+.fechamento-linha{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    padding:14px 0;
+    border-bottom:1px solid #292929
+}
+
+.fechamento-linha:last-child{
+    border-bottom:none
+}
+
+.fechamento-info strong{
+    display:block;
+    color:#fff;
+    margin-bottom:4px
+}
+
+.fechamento-info span{
+    color:#999;
+    font-size:13px
+}
+
+.botao-excluir-fechamento{
+    background:#321515;
+    color:#ffb0b0;
+    border:1px solid #632727;
+    border-radius:7px;
+    padding:9px 12px;
+    cursor:pointer
+}
+
+@media(max-width:900px){
+    .horario-dia-controles{
+        grid-template-columns:1fr 1fr
+    }
+}
+
+@media(max-width:700px){
+    .horario-dia-topo{
+        align-items:flex-start;
+        flex-direction:column
+    }
+
+    .horario-dia-controles{
+        grid-template-columns:1fr
+    }
+
+    .fechamento-linha{
+        align-items:flex-start;
+        flex-direction:column
+    }
+
+    .horario-dia-controles .campo{
+        margin-top:4px
+    }
+}
 
 /* =========================
-   CAIXA - CONTROLE DE ABERTURA E FECHAMENTO
+   CAIXA
 ========================= */
+
 .caixa-status{
     display:flex;
     justify-content:space-between;
@@ -546,30 +729,81 @@ label{
     border:1px solid #292929;
     border-radius:12px;
     padding:18px;
-    margin-bottom:20px;
+    margin-bottom:20px
 }
-.caixa-status-texto strong{display:block;color:#d4af37;font-size:18px;margin-bottom:5px}
-.caixa-status-texto span{color:#aaa;font-size:13px}
-.caixa-botoes{display:flex;gap:8px;flex-wrap:wrap}
-.botao-abrir-caixa,.botao-fechar-caixa{border-radius:8px;padding:11px 16px;font-size:13px;font-weight:bold;cursor:pointer}
-.botao-abrir-caixa{background:#d4af37;color:#111;border:1px solid #d4af37}
-.botao-abrir-caixa:hover{background:#f1d46a}
-.botao-fechar-caixa{background:#321515;color:#ffb0b0;border:1px solid #632727}
-.botao-fechar-caixa:hover{background:#4a1c1c}
-@media(max-width:700px){.caixa-status{align-items:stretch}.caixa-botoes{width:100%;flex-direction:column}.caixa-botoes button{width:100%}}
 
-@media(max-width:900px){
+.caixa-status-texto strong{
+    display:block;
+    color:#d4af37;
+    font-size:18px;
+    margin-bottom:5px
+}
 
-    .dashboard-grid{
-        grid-template-columns:repeat(2,1fr);
+.caixa-status-texto span{
+    color:#aaa;
+    font-size:13px
+}
+
+.caixa-botoes{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap
+}
+
+.botao-abrir-caixa,
+.botao-fechar-caixa{
+    border-radius:8px;
+    padding:11px 16px;
+    font-size:13px;
+    font-weight:bold;
+    cursor:pointer
+}
+
+.botao-abrir-caixa{
+    background:#d4af37;
+    color:#111;
+    border:1px solid #d4af37
+}
+
+.botao-abrir-caixa:hover{
+    background:#f1d46a
+}
+
+.botao-fechar-caixa{
+    background:#321515;
+    color:#ffb0b0;
+    border:1px solid #632727
+}
+
+.botao-fechar-caixa:hover{
+    background:#4a1c1c
+}
+
+@media(max-width:700px){
+    .caixa-status{
+        align-items:stretch
     }
 
+    .caixa-botoes{
+        width:100%;
+        flex-direction:column
+    }
+
+    .caixa-botoes button{
+        width:100%
+    }
+}
+
+@media(max-width:900px){
+    .dashboard-grid{
+        grid-template-columns:repeat(2,1fr)
+    }
 }
 
 @media(max-width:700px){
 
     .card-topo{
-        flex-direction:column;
+        flex-direction:column
     }
 
     .caixa-grid,
@@ -577,32 +811,32 @@ label{
     .filtro-grid,
     .dashboard-grid,
     .dashboard-duplo{
-        grid-template-columns:1fr;
+        grid-template-columns:1fr
     }
 
     .tabs{
-        grid-template-columns:repeat(2,minmax(0,1fr));
+        grid-template-columns:repeat(2,minmax(0,1fr))
     }
 
     .tab-button{
-        width:100%;
+        width:100%
     }
 
     .servico-linha{
-        grid-template-columns:1fr;
+        grid-template-columns:1fr
     }
 
     .acoes{
-        flex-direction:column;
+        flex-direction:column
     }
 
     .acoes button{
-        width:100%;
+        width:100%
     }
 
     .dashboard-item{
         align-items:flex-start;
-        flex-direction:column;
+        flex-direction:column
     }
 
 }
@@ -616,7 +850,6 @@ label{
     <h1>JC BARBEARIA</h1>
     <p>Painel Administrativo</p>
 </header>
-
 
 <!-- LOGIN -->
 
@@ -660,13 +893,11 @@ label{
 
 </div>
 
-
 <!-- PAINEL -->
 
 <div id="painel" style="display:none">
 
 <div class="container">
-
 
 <!-- ABAS -->
 
@@ -683,10 +914,7 @@ label{
 
 </div>
 
-
-<!-- =========================
-     DASHBOARD
-========================= -->
+<!-- DASHBOARD -->
 
 <section id="dashboard" class="aba active">
 
@@ -704,7 +932,7 @@ label{
 
     <button
         class="dashboard-atualizar"
-        onclick="carregarDashboard()">
+        onclick="carregarDashboard">
 
         🔄 Atualizar
 
@@ -736,7 +964,6 @@ label{
 
     </div>
 
-
     <div class="dashboard-card">
 
         <div class="dashboard-icone">
@@ -757,7 +984,6 @@ label{
 
     </div>
 
-
     <div class="dashboard-card">
 
         <div class="dashboard-icone">
@@ -777,7 +1003,6 @@ label{
         </small>
 
     </div>
-
 
     <div class="dashboard-card">
 
@@ -800,7 +1025,6 @@ label{
     </div>
 
 </div>
-
 
 <div class="dashboard-duplo">
 
@@ -826,7 +1050,6 @@ label{
 
     </div>
 
-
     <div class="card">
 
         <div class="dashboard-titulo">
@@ -850,7 +1073,6 @@ label{
     </div>
 
 </div>
-
 
 <div class="card">
 
@@ -876,7 +1098,6 @@ label{
 
         </div>
 
-
         <div class="caixa-card">
 
             <span>
@@ -889,7 +1110,6 @@ label{
 
         </div>
 
-
         <div class="caixa-card">
 
             <span>
@@ -901,7 +1121,6 @@ label{
             </strong>
 
         </div>
-
 
         <div class="caixa-card">
 
@@ -921,7 +1140,6 @@ label{
 
 </section>
 
-
 <!-- CONFIGURAÇÕES -->
 
 <section id="configuracoes" class="aba">
@@ -929,7 +1147,6 @@ label{
 <h2 class="titulo-aba">
     Configurações do ADM
 </h2>
-
 
 <div class="card">
 
@@ -951,7 +1168,6 @@ label{
 
 </div>
 
-
 <div>
 
 <label>
@@ -969,7 +1185,6 @@ label{
 
 </div>
 
-
 <label>
     Confirmar nova senha
 </label>
@@ -980,7 +1195,6 @@ label{
     type="password"
     placeholder="Repita a nova senha"
 >
-
 
 <div class="acoes">
 
@@ -994,7 +1208,6 @@ label{
 
 </div>
 
-
 <p class="pequeno">
 
 O acesso deste painel é armazenado no navegador.
@@ -1004,8 +1217,6 @@ o ideal é usar autenticação do Supabase.
 </p>
 
 </div>
-
-
 
 <!-- SERVIÇOS -->
 
@@ -1021,14 +1232,11 @@ o ideal é usar autenticação do Supabase.
 
 </div>
 
-
 <div class="separador"></div>
-
 
 <h3>
     ➕ Adicionar serviço
 </h3>
-
 
 <div class="config-grid">
 
@@ -1047,7 +1255,6 @@ o ideal é usar autenticação do Supabase.
 
 </div>
 
-
 <div>
 
 <label>
@@ -1064,7 +1271,6 @@ o ideal é usar autenticação do Supabase.
 >
 
 </div>
-
 
 <div>
 
@@ -1084,7 +1290,6 @@ o ideal é usar autenticação do Supabase.
 
 </div>
 
-
 <button
     class="botao-confirmar"
     onclick="adicionarServico()">
@@ -1095,8 +1300,6 @@ o ideal é usar autenticação do Supabase.
 
 </div>
 
-
-
 <!-- CONFIGURAÇÕES PESSOAIS -->
 
 <div class="card">
@@ -1104,7 +1307,6 @@ o ideal é usar autenticação do Supabase.
 <h3>
     👤 Configurações pessoais
 </h3>
-
 
 <div class="config-grid">
 
@@ -1123,7 +1325,6 @@ o ideal é usar autenticação do Supabase.
 
 </div>
 
-
 <div>
 
 <label>
@@ -1139,7 +1340,6 @@ o ideal é usar autenticação do Supabase.
 
 </div>
 
-
 <div>
 
 <label>
@@ -1154,7 +1354,6 @@ o ideal é usar autenticação do Supabase.
 >
 
 </div>
-
 
 <div>
 
@@ -1173,7 +1372,6 @@ o ideal é usar autenticação do Supabase.
 
 </div>
 
-
 <button
     class="botao-confirmar"
     onclick="salvarConfiguracoesPessoais()">
@@ -1185,8 +1383,6 @@ o ideal é usar autenticação do Supabase.
 </div>
 
 </section>
-
-
 
 <!-- AGENDAMENTOS -->
 
@@ -1208,8 +1404,6 @@ o ideal é usar autenticação do Supabase.
 
 </section>
 
-
-
 <!-- CONFIRMADOS -->
 
 <section id="confirmados" class="aba">
@@ -1229,8 +1423,6 @@ o ideal é usar autenticação do Supabase.
 </div>
 
 </section>
-
-
 
 <!-- CAIXA -->
 
@@ -1298,7 +1490,6 @@ o ideal é usar autenticação do Supabase.
 
 </section>
 
-
 <!-- RELATÓRIO -->
 
 <section id="relatorio" class="aba">
@@ -1307,13 +1498,11 @@ o ideal é usar autenticação do Supabase.
     Relatório do Caixa
 </h2>
 
-
 <div class="card">
 
 <h3>
     📅 Relatório diário
 </h3>
-
 
 <div class="filtro-grid">
 
@@ -1333,7 +1522,6 @@ o ideal é usar autenticação do Supabase.
 
 </div>
 
-
 <div class="acoes">
 
 <button
@@ -1343,7 +1531,6 @@ o ideal é usar autenticação do Supabase.
     📊 Ver relatório do dia
 
 </button>
-
 
 <button
     class="botao-finalizar"
@@ -1357,14 +1544,11 @@ o ideal é usar autenticação do Supabase.
 
 </div>
 
-
-
 <div class="card">
 
 <h3>
     🔎 Filtrar período
 </h3>
-
 
 <div class="filtro-grid">
 
@@ -1382,7 +1566,6 @@ o ideal é usar autenticação do Supabase.
 
 </div>
 
-
 <div>
 
 <label>
@@ -1399,7 +1582,6 @@ o ideal é usar autenticação do Supabase.
 
 </div>
 
-
 <div class="acoes">
 
 <button
@@ -1409,7 +1591,6 @@ o ideal é usar autenticação do Supabase.
     🔎 Filtrar relatório
 
 </button>
-
 
 <button
     class="botao-finalizar"
@@ -1423,7 +1604,6 @@ o ideal é usar autenticação do Supabase.
 
 </div>
 
-
 <div
     id="relatorioResultado"
     style="margin-top:20px">
@@ -1436,84 +1616,262 @@ o ideal é usar autenticação do Supabase.
 
 </section>
 
-
 <!-- CLIENTES -->
+
 <section id="clientes" class="aba">
+
 <h2 class="titulo-aba">👥 Clientes</h2>
+
 <div class="card">
+
 <div class="filtro-linha">
-<input class="campo" id="buscaClientes" type="text" placeholder="🔎 Buscar cliente..." oninput="filtrarClientes()">
-<button class="botao-confirmar" onclick="carregarClientes()">🔄 Atualizar</button>
+
+<input
+    class="campo"
+    id="buscaClientes"
+    type="text"
+    placeholder="🔎 Buscar cliente..."
+    oninput="filtrarClientes()"
+>
+
+<button
+    class="botao-confirmar"
+    onclick="carregarClientes()">
+
+    🔄 Atualizar
+
+</button>
+
 </div>
-<div id="listaClientes"><div class="mensagem">Carregando...</div></div>
+
+<div id="listaClientes">
+
+<div class="mensagem">
+    Carregando...
 </div>
+
+</div>
+
+</div>
+
 </section>
 
 <!-- HORÁRIOS -->
+
 <section id="horarios" class="aba">
 
 <h2 class="titulo-aba">🕒 Horários</h2>
 
 <div class="card">
+
 <h3>🏪 Horário de funcionamento</h3>
-<p class="pequeno">Defina quais dias a barbearia abre, o horário de atendimento e o intervalo de almoço. Essas configurações serão usadas também na página de agendamento.</p>
+
+<p class="pequeno">
+Defina quais dias a barbearia abre, o horário de atendimento e o intervalo de almoço. Essas configurações serão usadas também na página de agendamento.
+</p>
 
 <div id="gradeHorariosSemana" class="horarios-semana">
-    <div class="mensagem">Carregando horários...</div>
+
+<div class="mensagem">
+    Carregando horários...
+</div>
+
 </div>
 
 <div class="acoes">
-    <button class="botao-confirmar" onclick="salvarHorariosLoja()">💾 Salvar horários da loja</button>
-    <button class="botao-secundario" onclick="carregarHorariosLoja()">🔄 Recarregar</button>
+
+<button
+    class="botao-confirmar"
+    onclick="salvarHorariosLoja()">
+
+    💾 Salvar horários da loja
+
+</button>
+
+<button
+    class="botao-secundario"
+    onclick="carregarHorariosLoja()">
+
+    🔄 Recarregar
+
+</button>
+
 </div>
+
 </div>
 
 <div class="card">
+
 <h3>📅 Fechar um dia específico</h3>
-<p class="pequeno">Use esta opção para fechar a barbearia em uma data específica, mesmo que normalmente seja um dia aberto. Ex.: feriado, viagem ou compromisso.</p>
+
+<p class="pequeno">
+Use esta opção para fechar a barbearia em uma data específica, mesmo que normalmente seja um dia aberto. Ex.: feriado, viagem ou compromisso.
+</p>
 
 <div class="config-grid">
-    <div>
-        <label>Data que ficará fechada</label>
-        <input class="campo" type="date" id="dataFechamentoEspecial">
-    </div>
-    <div>
-        <label>Motivo (opcional)</label>
-        <input class="campo" type="text" id="motivoFechamentoEspecial" placeholder="Ex.: feriado">
-    </div>
+
+<div>
+
+<label>
+    Data que ficará fechada
+</label>
+
+<input
+    class="campo"
+    type="date"
+    id="dataFechamentoEspecial"
+>
+
 </div>
 
-<button class="botao-confirmar" onclick="fecharDiaEspecial()">🔒 Fechar este dia</button>
+<div>
+
+<label>
+    Motivo (opcional)
+</label>
+
+<input
+    class="campo"
+    type="text"
+    id="motivoFechamentoEspecial"
+    placeholder="Ex.: feriado"
+>
+
+</div>
+
+</div>
+
+<button
+    class="botao-confirmar"
+    onclick="fecharDiaEspecial()">
+
+    🔒 Fechar este dia
+
+</button>
+
 </div>
 
 <div class="card">
+
 <div class="dashboard-titulo">
-    <h3>🚫 Horários bloqueados</h3>
-    <button class="dashboard-atualizar" onclick="carregarBloqueios()">🔄 Atualizar</button>
+
+    <h3>
+        🚫 Horários bloqueados
+    </h3>
+
+    <button
+        class="dashboard-atualizar"
+        onclick="carregarBloqueios()">
+
+        🔄 Atualizar
+
+    </button>
+
 </div>
-<p class="pequeno">Bloqueie apenas um horário específico. O horário bloqueado deixa de aparecer para o cliente.</p>
+
+<p class="pequeno">
+Bloqueie apenas um horário específico. O horário bloqueado deixa de aparecer para o cliente.
+</p>
+
 <div class="config-grid">
-    <div><label>Data</label><input class="campo" type="date" id="bloqueioData"></div>
-    <div><label>Horário</label><input class="campo" type="time" id="bloqueioHora"></div>
-    <div><label>Motivo (opcional)</label><input class="campo" type="text" id="bloqueioMotivo" placeholder="Ex.: compromisso pessoal"></div>
+
+<div>
+
+<label>
+    Data
+</label>
+
+<input
+    class="campo"
+    type="date"
+    id="bloqueioData"
+>
+
 </div>
-<button class="botao-confirmar" onclick="bloquearHorario()">🚫 Bloquear horário</button>
-<div id="listaBloqueios" style="margin-top:15px"><div class="mensagem">Carregando...</div></div>
+
+<div>
+
+<label>
+    Horário
+</label>
+
+<input
+    class="campo"
+    type="time"
+    id="bloqueioHora"
+>
+
+</div>
+
+<div>
+
+<label>
+    Motivo (opcional)
+</label>
+
+<input
+    class="campo"
+    type="text"
+    id="bloqueioMotivo"
+    placeholder="Ex.: compromisso pessoal"
+>
+
+</div>
+
+</div>
+
+<button
+    class="botao-confirmar"
+    onclick="bloquearHorario()">
+
+    🚫 Bloquear horário
+
+</button>
+
+<div
+    id="listaBloqueios"
+    style="margin-top:15px">
+
+    <div class="mensagem">
+        Carregando...
+    </div>
+
+</div>
+
 </div>
 
 <div class="card">
+
 <div class="dashboard-titulo">
-    <h3>📌 Dias fechados manualmente</h3>
-    <button class="dashboard-atualizar" onclick="carregarHorariosLoja()">🔄 Atualizar</button>
+
+    <h3>
+        📌 Dias fechados manualmente
+    </h3>
+
+    <button
+        class="dashboard-atualizar"
+        onclick="carregarHorariosLoja()">
+
+        🔄 Atualizar
+
+    </button>
+
 </div>
-<div id="listaFechamentosEspeciais"><div class="mensagem">Carregando...</div></div>
+
+<div id="listaFechamentosEspeciais">
+
+<div class="mensagem">
+    Carregando...
+</div>
+
+</div>
+
 </div>
 
 </section>
 
 </div>
 </div>
-
 
 <script>
 
@@ -2192,14 +2550,33 @@ async function reabrirDiaEspecial(data){
    BLOQUEIO DE HORÁRIOS
 ===================================================== */
 
-function prepararBloqueio(){const data=document.getElementById("bloqueioData");if(data&&!data.value)data.value=hojeLocal();const fechamento=document.getElementById("dataFechamentoEspecial");if(fechamento&&!fechamento.value)fechamento.value=hojeLocal();}
+function prepararBloqueio(){
+    const data=document.getElementById("bloqueioData");
+    if(data&&!data.value)data.value=hojeLocal();
+
+    const fechamento=document.getElementById("dataFechamentoEspecial");
+    if(fechamento&&!fechamento.value)fechamento.value=hojeLocal();
+}
 
 async function carregarBloqueios(){
-    const lista=document.getElementById("listaBloqueios"); if(!lista)return;
+    const lista=document.getElementById("listaBloqueios");
+    if(!lista)return;
+
     lista.innerHTML='<div class="mensagem">Carregando horários bloqueados...</div>';
+
     const {data,error}=await db.from("blocked_slots").select("*").order("blocked_date",{ascending:true}).order("blocked_time",{ascending:true});
-    if(error){console.error(error);lista.innerHTML='<div class="mensagem">Não foi possível carregar os bloqueios. Confira se a tabela blocked_slots foi criada no Supabase.</div>';return;}
-    if(!data?.length){lista.innerHTML='<div class="mensagem">Nenhum horário bloqueado.</div>';return;}
+
+    if(error){
+        console.error(error);
+        lista.innerHTML='<div class="mensagem">Não foi possível carregar os bloqueios. Confira se a tabela blocked_slots foi criada no Supabase.</div>';
+        return;
+    }
+
+    if(!data?.length){
+        lista.innerHTML='<div class="mensagem">Nenhum horário bloqueado.</div>';
+        return;
+    }
+
     lista.innerHTML=data.map(b=>`<div class="bloqueio-linha"><div class="bloqueio-info"><strong>🚫 ${formatarData(b.blocked_date)} às ${escaparHTML(b.blocked_time||"")}</strong><span>${escaparHTML(b.reason||"Sem motivo informado")}</span></div><button class="botao-excluir-bloqueio" onclick="excluirBloqueio('${String(b.id)}')">Excluir bloqueio</button></div>`).join("");
 }
 
@@ -2207,19 +2584,53 @@ async function bloquearHorario(){
     const data=document.getElementById("bloqueioData")?.value;
     const hora=document.getElementById("bloqueioHora")?.value;
     const motivo=document.getElementById("bloqueioMotivo")?.value.trim();
-    if(!data||!hora){alert("Escolha a data e o horário que deseja bloquear.");return;}
+
+    if(!data||!hora){
+        alert("Escolha a data e o horário que deseja bloquear.");
+        return;
+    }
+
     const {data:existente,error:erroBusca}=await db.from("blocked_slots").select("id").eq("blocked_date",data).eq("blocked_time",hora).limit(1);
-    if(erroBusca){alert("Não foi possível verificar o horário. Confira a tabela blocked_slots no Supabase.\n\n"+erroBusca.message);return;}
-    if(existente?.length){alert("Esse horário já está bloqueado.");return;}
-    const {error}=await db.from("blocked_slots").insert({blocked_date:data,blocked_time:hora,reason:motivo||null,active:true});
-    if(error){console.error(error);alert("Erro ao bloquear o horário:\n\n"+error.message);return;}
-    document.getElementById("bloqueioMotivo").value="";await carregarBloqueios();alert("Horário bloqueado com sucesso!");
+
+    if(erroBusca){
+        alert("Não foi possível verificar o horário. Confira a tabela blocked_slots no Supabase.\n\n"+erroBusca.message);
+        return;
+    }
+
+    if(existente?.length){
+        alert("Esse horário já está bloqueado.");
+        return;
+    }
+
+    const {error}=await db.from("blocked_slots").insert({
+        blocked_date:data,
+        blocked_time:hora,
+        reason:motivo||null,
+        active:true
+    });
+
+    if(error){
+        console.error(error);
+        alert("Erro ao bloquear o horário:\n\n"+error.message);
+        return;
+    }
+
+    document.getElementById("bloqueioMotivo").value="";
+    await carregarBloqueios();
+
+    alert("Horário bloqueado com sucesso!");
 }
 
 async function excluirBloqueio(id){
     if(!confirm("Deseja liberar este horário?"))return;
+
     const {error}=await db.from("blocked_slots").delete().eq("id",id);
-    if(error){alert("Erro ao excluir o bloqueio:\n\n"+error.message);return;}
+
+    if(error){
+        alert("Erro ao excluir o bloqueio:\n\n"+error.message);
+        return;
+    }
+
     await carregarBloqueios();
 }
 
@@ -2235,10 +2646,8 @@ async function carregarAgendamentos(){
             "listaAgendamentos"
         );
 
-
     lista.innerHTML =
         '<div class="mensagem">Carregando agendamentos...</div>';
-
 
     const {data,error} =
         await db
@@ -2261,7 +2670,6 @@ async function carregarAgendamentos(){
             }
         );
 
-
     if(error){
 
         console.error(error);
@@ -2273,14 +2681,12 @@ async function carregarAgendamentos(){
 
     }
 
-
     document
     .getElementById(
         "contadorPendentes"
     )
     .textContent =
         (data || []).length;
-
 
     if(!data?.length){
 
@@ -2291,9 +2697,7 @@ async function carregarAgendamentos(){
 
     }
 
-
     lista.innerHTML = "";
-
 
     data.forEach(a => {
 
@@ -2301,7 +2705,6 @@ async function carregarAgendamentos(){
             document.createElement("div");
 
         card.className = "card";
-
 
         card.innerHTML = `
 
@@ -2347,7 +2750,6 @@ async function carregarAgendamentos(){
 
         </div>
 
-
         <button
             class="botao-confirmar"
             onclick="confirmarAgendamento('${String(a.id)}')">
@@ -2358,14 +2760,11 @@ async function carregarAgendamentos(){
 
         `;
 
-
         lista.appendChild(card);
 
     });
 
 }
-
-
 
 /* =====================================================
    CONFIRMAR
@@ -2383,7 +2782,6 @@ async function confirmarAgendamento(id){
 
     }
 
-
     const {data,error} =
         await db
         .from("appointments")
@@ -2395,7 +2793,6 @@ async function confirmarAgendamento(id){
             id
         )
         .select();
-
 
     if(error){
 
@@ -2410,7 +2807,6 @@ async function confirmarAgendamento(id){
 
     }
 
-
     if(!data?.length){
 
         alert(
@@ -2421,21 +2817,17 @@ async function confirmarAgendamento(id){
 
     }
 
-
     await carregarAgendamentos();
 
     await carregarConfirmados();
 
     await carregarDashboard();
 
-
     alert(
         "Agendamento confirmado com sucesso!"
     );
 
 }
-
-
 
 /* =====================================================
    SERVIÇOS CONFIRMADOS
@@ -2449,10 +2841,8 @@ async function carregarConfirmados(){
             "listaConfirmados"
         );
 
-
     lista.innerHTML =
         '<div class="mensagem">Carregando...</div>';
-
 
     const {data,error} =
         await db
@@ -2475,7 +2865,6 @@ async function carregarConfirmados(){
             }
         );
 
-
     if(error){
 
         console.error(error);
@@ -2487,14 +2876,12 @@ async function carregarConfirmados(){
 
     }
 
-
     document
     .getElementById(
         "contadorConfirmados"
     )
     .textContent =
         (data || []).length;
-
 
     if(!data?.length){
 
@@ -2505,9 +2892,7 @@ async function carregarConfirmados(){
 
     }
 
-
     lista.innerHTML = "";
-
 
     data.forEach(a => {
 
@@ -2515,7 +2900,6 @@ async function carregarConfirmados(){
             document.createElement("div");
 
         card.className = "card";
-
 
         card.innerHTML = `
 
@@ -2570,7 +2954,6 @@ async function carregarConfirmados(){
 
         </div>
 
-
         <button
             class="botao-finalizar"
             onclick="mostrarPagamento('${String(a.id)}')">
@@ -2578,7 +2961,6 @@ async function carregarConfirmados(){
             ✓ Finalizar serviço
 
         </button>
-
 
         <div
             id="pagamento-${String(a.id)}"
@@ -2589,7 +2971,6 @@ async function carregarConfirmados(){
             <strong>
                 Forma de pagamento
             </strong>
-
 
             <select
                 id="forma-${String(a.id)}"
@@ -2617,7 +2998,6 @@ async function carregarConfirmados(){
 
             </select>
 
-
             <button
                 class="botao-confirmar"
                 onclick="finalizarServico('${String(a.id)}')">
@@ -2630,14 +3010,11 @@ async function carregarConfirmados(){
 
         `;
 
-
         lista.appendChild(card);
 
     });
 
 }
-
-
 
 function mostrarPagamento(id){
 
@@ -2645,7 +3022,6 @@ function mostrarPagamento(id){
         document.getElementById(
             "pagamento-" + id
         );
-
 
     if(elemento){
 
@@ -2658,8 +3034,6 @@ function mostrarPagamento(id){
 
 }
 
-
-
 /* =====================================================
    FINALIZAR SERVIÇO
 ===================================================== */
@@ -2671,10 +3045,8 @@ async function finalizarServico(id){
             "forma-" + id
         );
 
-
     const forma =
         select?.value;
-
 
     if(!forma){
 
@@ -2686,7 +3058,6 @@ async function finalizarServico(id){
 
     }
 
-
     if(
         !confirm(
             "Deseja finalizar este serviço?"
@@ -2696,7 +3067,6 @@ async function finalizarServico(id){
         return;
 
     }
-
 
     const {data,error} =
         await db
@@ -2717,7 +3087,6 @@ async function finalizarServico(id){
         )
         .select();
 
-
     if(error){
 
         console.error(error);
@@ -2731,7 +3100,6 @@ async function finalizarServico(id){
 
     }
 
-
     if(!data?.length){
 
         alert(
@@ -2742,21 +3110,17 @@ async function finalizarServico(id){
 
     }
 
-
     await carregarConfirmados();
 
     await carregarCaixa();
 
     await carregarDashboard();
 
-
     alert(
         "Serviço finalizado e enviado para o caixa!"
     );
 
 }
-
-
 
 /* =====================================================
    CAIXA
@@ -2783,10 +3147,7 @@ async function carregarCaixa(){
     const hoje = hojeLocal();
     const aberto = localStorage.getItem(CHAVE_CAIXA_ABERTO) === "true";
     const dataCaixa = localStorage.getItem(CHAVE_CAIXA_DATA);
-    const abertura = localStorage.getItem(CHAVE_CAIXA_ABERTURA);
 
-    /* Se um caixa ficou aberto no navegador e o dia mudou,
-       ele é encerrado automaticamente para não misturar dias. */
     if(aberto && dataCaixa !== hoje){
         localStorage.setItem(CHAVE_CAIXA_ABERTO,"false");
         localStorage.setItem(CHAVE_CAIXA_FECHAMENTO,new Date().toISOString());
@@ -2797,36 +3158,69 @@ async function carregarCaixa(){
         localStorage.getItem(CHAVE_CAIXA_DATA) === hoje;
 
     if(caixaAbertoAgora){
+
         status.textContent = "Caixa aberto";
-        detalhe.textContent = "Movimento de hoje desde " +
-            new Date(localStorage.getItem(CHAVE_CAIXA_ABERTURA)).toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
+
+        detalhe.textContent =
+            "Movimento de hoje desde " +
+            new Date(
+                localStorage.getItem(CHAVE_CAIXA_ABERTURA)
+            ).toLocaleTimeString(
+                "pt-BR",
+                {
+                    hour:"2-digit",
+                    minute:"2-digit"
+                }
+            );
+
         botaoAbrir.disabled = true;
         botaoAbrir.style.opacity = "0.5";
         botaoAbrir.style.cursor = "not-allowed";
+
         botaoFechar.disabled = false;
         botaoFechar.style.opacity = "1";
         botaoFechar.style.cursor = "pointer";
+
     }else{
+
         status.textContent = "Caixa fechado";
-        detalhe.textContent = "Abra o caixa para iniciar um novo movimento.";
+
+        detalhe.textContent =
+            "Abra o caixa para iniciar um novo movimento.";
+
         botaoAbrir.disabled = false;
         botaoAbrir.style.opacity = "1";
         botaoAbrir.style.cursor = "pointer";
+
         botaoFechar.disabled = true;
         botaoFechar.style.opacity = "0.5";
         botaoFechar.style.cursor = "not-allowed";
+
     }
 
-    /* Caixa fechado = valores zerados. Os dados antigos continuam
-       disponíveis normalmente nos relatórios por período. */
     if(!caixaAbertoAgora){
-        document.getElementById("totalCaixa").textContent = formatarMoeda(0);
-        document.getElementById("quantidadeServicos").textContent = "0";
-        document.getElementById("totalDinheiroCaixa").textContent = formatarMoeda(0);
-        document.getElementById("totalPixCaixa").textContent = formatarMoeda(0);
-        document.getElementById("totalCartaoCaixa").textContent = formatarMoeda(0);
-        document.getElementById("totalOutrosCaixa").textContent = formatarMoeda(0);
-        lista.innerHTML = '<div class="mensagem">Caixa fechado. Os valores serão iniciados do zero ao abrir um novo caixa.</div>';
+
+        document.getElementById("totalCaixa").textContent =
+            formatarMoeda(0);
+
+        document.getElementById("quantidadeServicos").textContent =
+            "0";
+
+        document.getElementById("totalDinheiroCaixa").textContent =
+            formatarMoeda(0);
+
+        document.getElementById("totalPixCaixa").textContent =
+            formatarMoeda(0);
+
+        document.getElementById("totalCartaoCaixa").textContent =
+            formatarMoeda(0);
+
+        document.getElementById("totalOutrosCaixa").textContent =
+            formatarMoeda(0);
+
+        lista.innerHTML =
+            '<div class="mensagem">Caixa fechado. Os valores serão iniciados do zero ao abrir um novo caixa.</div>';
+
         return;
     }
 
@@ -2847,8 +3241,12 @@ async function carregarCaixa(){
         .order("completed_at",{ascending:false});
 
     if(error){
+
         console.error(error);
-        lista.innerHTML = '<div class="mensagem">Erro ao carregar o caixa.</div>';
+
+        lista.innerHTML =
+            '<div class="mensagem">Erro ao carregar o caixa.</div>';
+
         return;
     }
 
@@ -2859,26 +3257,56 @@ async function carregarCaixa(){
     let outros = 0;
 
     (data || []).forEach(a => {
+
         const valor = obterPreco(a);
+
         total += valor;
 
-        const forma = String(a.payment_method || "").toLowerCase();
+        const forma =
+            String(
+                a.payment_method || ""
+            ).toLowerCase();
 
-        if(forma === "dinheiro") dinheiro += valor;
-        else if(forma === "pix") pix += valor;
-        else if(forma === "cartão" || forma === "cartao") cartao += valor;
-        else outros += valor;
+        if(forma === "dinheiro")
+            dinheiro += valor;
+
+        else if(forma === "pix")
+            pix += valor;
+
+        else if(
+            forma === "cartão" ||
+            forma === "cartao"
+        )
+            cartao += valor;
+
+        else
+            outros += valor;
+
     });
 
-    document.getElementById("totalCaixa").textContent = formatarMoeda(total);
-    document.getElementById("quantidadeServicos").textContent = (data || []).length;
-    document.getElementById("totalDinheiroCaixa").textContent = formatarMoeda(dinheiro);
-    document.getElementById("totalPixCaixa").textContent = formatarMoeda(pix);
-    document.getElementById("totalCartaoCaixa").textContent = formatarMoeda(cartao);
-    document.getElementById("totalOutrosCaixa").textContent = formatarMoeda(outros);
+    document.getElementById("totalCaixa").textContent =
+        formatarMoeda(total);
+
+    document.getElementById("quantidadeServicos").textContent =
+        (data || []).length;
+
+    document.getElementById("totalDinheiroCaixa").textContent =
+        formatarMoeda(dinheiro);
+
+    document.getElementById("totalPixCaixa").textContent =
+        formatarMoeda(pix);
+
+    document.getElementById("totalCartaoCaixa").textContent =
+        formatarMoeda(cartao);
+
+    document.getElementById("totalOutrosCaixa").textContent =
+        formatarMoeda(outros);
 
     if(!data?.length){
-        lista.innerHTML = '<div class="mensagem">Nenhum serviço finalizado nesta abertura do caixa.</div>';
+
+        lista.innerHTML =
+            '<div class="mensagem">Nenhum serviço finalizado nesta abertura do caixa.</div>';
+
         return;
     }
 
@@ -2901,6 +3329,7 @@ async function carregarCaixa(){
     `;
 
     data.forEach(a => {
+
         html += `
         <tr>
             <td>${formatarData(a.appointment_date)}</td>
@@ -2911,6 +3340,7 @@ async function carregarCaixa(){
             <td>${formatarMoeda(obterPreco(a))}</td>
         </tr>
         `;
+
     });
 
     html += `
@@ -2923,71 +3353,131 @@ async function carregarCaixa(){
     lista.innerHTML = html;
 }
 
-
 function abrirCaixa(){
 
     const hoje = hojeLocal();
-    const aberto = localStorage.getItem(CHAVE_CAIXA_ABERTO) === "true";
 
-    if(aberto && localStorage.getItem(CHAVE_CAIXA_DATA) === hoje){
-        alert("O caixa de hoje já está aberto.");
+    const aberto =
+        localStorage.getItem(
+            CHAVE_CAIXA_ABERTO
+        ) === "true";
+
+    if(
+        aberto &&
+        localStorage.getItem(
+            CHAVE_CAIXA_DATA
+        ) === hoje
+    ){
+
+        alert(
+            "O caixa de hoje já está aberto."
+        );
+
         return;
+
     }
 
-    if(!confirm("Deseja abrir o caixa de hoje e iniciar um novo movimento do zero?")){
+    if(
+        !confirm(
+            "Deseja abrir o caixa de hoje e iniciar um novo movimento do zero?"
+        )
+    ){
+
         return;
+
     }
 
-    const agora = new Date();
+    const agora =
+        new Date();
 
-    localStorage.setItem(CHAVE_CAIXA_ABERTO,"true");
-    localStorage.setItem(CHAVE_CAIXA_DATA,hoje);
-    localStorage.setItem(CHAVE_CAIXA_ABERTURA,agora.toISOString());
-    localStorage.removeItem(CHAVE_CAIXA_FECHAMENTO);
+    localStorage.setItem(
+        CHAVE_CAIXA_ABERTO,
+        "true"
+    );
+
+    localStorage.setItem(
+        CHAVE_CAIXA_DATA,
+        hoje
+    );
+
+    localStorage.setItem(
+        CHAVE_CAIXA_ABERTURA,
+        agora.toISOString()
+    );
+
+    localStorage.removeItem(
+        CHAVE_CAIXA_FECHAMENTO
+    );
 
     carregarCaixa();
 }
 
-
 async function fecharCaixa(){
 
-    const aberto = localStorage.getItem(CHAVE_CAIXA_ABERTO) === "true";
+    const aberto =
+        localStorage.getItem(
+            CHAVE_CAIXA_ABERTO
+        ) === "true";
 
     if(!aberto){
-        alert("O caixa já está fechado.");
+
+        alert(
+            "O caixa já está fechado."
+        );
+
         return;
+
     }
 
     const totalAtual =
-        document.getElementById("totalCaixa").textContent;
+        document.getElementById(
+            "totalCaixa"
+        ).textContent;
 
     const quantidadeAtual =
-        document.getElementById("quantidadeServicos").textContent;
+        document.getElementById(
+            "quantidadeServicos"
+        ).textContent;
 
-    const confirmar = confirm(
-        "Deseja fechar o caixa?\n\n" +
-        "Total recebido: " + totalAtual + "\n" +
-        "Serviços realizados: " + quantidadeAtual + "\n\n" +
-        "Após fechar, o caixa ficará zerado para a próxima abertura.\n" +
-        "Os dados continuarão disponíveis nos relatórios."
-    );
+    const confirmar =
+        confirm(
+            "Deseja fechar o caixa?\n\n" +
+            "Total recebido: " +
+            totalAtual +
+            "\n" +
+            "Serviços realizados: " +
+            quantidadeAtual +
+            "\n\n" +
+            "Após fechar, o caixa ficará zerado para a próxima abertura.\n" +
+            "Os dados continuarão disponíveis nos relatórios."
+        );
 
     if(!confirmar){
+
         return;
+
     }
 
-    localStorage.setItem(CHAVE_CAIXA_ABERTO,"false");
-    localStorage.setItem(CHAVE_CAIXA_FECHAMENTO,new Date().toISOString());
+    localStorage.setItem(
+        CHAVE_CAIXA_ABERTO,
+        "false"
+    );
+
+    localStorage.setItem(
+        CHAVE_CAIXA_FECHAMENTO,
+        new Date().toISOString()
+    );
 
     await carregarCaixa();
 
     alert(
         "Caixa fechado com sucesso!\n\n" +
-        "Total encerrado: " + totalAtual + "\n" +
+        "Total encerrado: " +
+        totalAtual +
+        "\n" +
         "O próximo caixa começará do zero."
     );
 }
-
 
 /* =====================================================
    CONFIGURAÇÕES
@@ -2998,14 +3488,10 @@ function carregarConfiguracoes(){
     const cred =
         obterCredenciais();
 
-
-    document
-    .getElementById(
+    document.getElementById(
         "novoLogin"
-    )
-    .value =
+    ).value =
         cred.login;
-
 
     const p =
         JSON.parse(
@@ -3014,42 +3500,28 @@ function carregarConfiguracoes(){
             ) || "{}"
         );
 
-
-    document
-    .getElementById(
+    document.getElementById(
         "configNome"
-    )
-    .value =
+    ).value =
         p.nome || "";
 
-
-    document
-    .getElementById(
+    document.getElementById(
         "configWhatsApp"
-    )
-    .value =
+    ).value =
         p.whatsapp || "";
 
-
-    document
-    .getElementById(
+    document.getElementById(
         "configBarbearia"
-    )
-    .value =
+    ).value =
         p.barbearia ||
         "JC Barbearia";
 
-
-    document
-    .getElementById(
+    document.getElementById(
         "configObservacoes"
-    )
-    .value =
+    ).value =
         p.observacoes || "";
 
 }
-
-
 
 function salvarLoginSenha(){
 
@@ -3061,7 +3533,6 @@ function salvarLoginSenha(){
         .value
         .trim();
 
-
     const nova =
         document
         .getElementById(
@@ -3069,14 +3540,12 @@ function salvarLoginSenha(){
         )
         .value;
 
-
     const confirmar =
         document
         .getElementById(
             "confirmarSenha"
         )
         .value;
-
 
     if(!login){
 
@@ -3087,7 +3556,6 @@ function salvarLoginSenha(){
         return;
 
     }
-
 
     if(nova || confirmar){
 
@@ -3101,7 +3569,6 @@ function salvarLoginSenha(){
 
         }
 
-
         if(nova !== confirmar){
 
             alert(
@@ -3112,7 +3579,6 @@ function salvarLoginSenha(){
 
         }
 
-
         localStorage.setItem(
             CHAVE_SENHA,
             nova
@@ -3120,34 +3586,23 @@ function salvarLoginSenha(){
 
     }
 
-
     localStorage.setItem(
         CHAVE_LOGIN,
         login
     );
 
-
-    document
-    .getElementById(
+    document.getElementById(
         "novaSenha"
-    )
-    .value = "";
+    ).value = "";
 
-
-    document
-    .getElementById(
+    document.getElementById(
         "confirmarSenha"
-    )
-    .value = "";
-
+    ).value = "";
 
     alert(
         "Login e senha salvos com sucesso!"
     );
-
 }
-
-
 
 function salvarConfiguracoesPessoais(){
 
@@ -3188,20 +3643,15 @@ function salvarConfiguracoesPessoais(){
 
     };
 
-
     localStorage.setItem(
         CHAVE_PESSOAL,
         JSON.stringify(p)
     );
 
-
     alert(
         "Configurações pessoais salvas!"
     );
-
 }
-
-
 
 /* =====================================================
    SERVIÇOS
@@ -3210,15 +3660,12 @@ function salvarConfiguracoesPessoais(){
 async function carregarServicosConfig(){
 
     const box =
-        document
-        .getElementById(
+        document.getElementById(
             "listaServicosConfig"
         );
 
-
     const servicos =
         await carregarServicosMapa();
-
 
     if(!servicos.length){
 
@@ -3229,9 +3676,7 @@ async function carregarServicosConfig(){
 
     }
 
-
     box.innerHTML = "";
-
 
     servicos.forEach(s => {
 
@@ -3240,10 +3685,8 @@ async function carregarServicosConfig(){
                 "div"
             );
 
-
         row.className =
             "servico-linha";
-
 
         row.innerHTML = `
 
@@ -3260,7 +3703,6 @@ async function carregarServicosConfig(){
             >
 
         </div>
-
 
         <div>
 
@@ -3279,7 +3721,6 @@ async function carregarServicosConfig(){
 
         </div>
 
-
         <div>
 
             <label>
@@ -3296,7 +3737,6 @@ async function carregarServicosConfig(){
 
         </div>
 
-
         <div class="checkbox-wrap">
 
             <input
@@ -3311,7 +3751,6 @@ async function carregarServicosConfig(){
 
         </div>
 
-
         <div class="acao-servico">
 
             <button
@@ -3321,7 +3760,6 @@ async function carregarServicosConfig(){
                 Salvar
 
             </button>
-
 
             <button
                 class="botao-perigo"
@@ -3335,14 +3773,11 @@ async function carregarServicosConfig(){
 
         `;
 
-
         box.appendChild(row);
 
     });
 
 }
-
-
 
 async function salvarServico(id){
 
@@ -3354,7 +3789,6 @@ async function salvarServico(id){
         .value
         .trim();
 
-
     const preco =
         Number(
             document
@@ -3363,7 +3797,6 @@ async function salvarServico(id){
             )
             .value
         );
-
 
     const duracao =
         Number(
@@ -3374,14 +3807,12 @@ async function salvarServico(id){
             .value
         );
 
-
     const ativo =
         document
         .getElementById(
             "sa-" + id
         )
         .checked;
-
 
     if(!nome){
 
@@ -3392,7 +3823,6 @@ async function salvarServico(id){
         return;
 
     }
-
 
     if(
         !Number.isFinite(preco) ||
@@ -3407,7 +3837,6 @@ async function salvarServico(id){
 
     }
 
-
     if(
         !Number.isFinite(duracao) ||
         duracao < 1
@@ -3420,7 +3849,6 @@ async function salvarServico(id){
         return;
 
     }
-
 
     const {error} =
         await db
@@ -3441,7 +3869,6 @@ async function salvarServico(id){
             id
         );
 
-
     if(error){
 
         console.error(error);
@@ -3455,25 +3882,16 @@ async function salvarServico(id){
 
     }
 
-
     await carregarServicosConfig();
-
     await carregarServicosMapa();
-
     await carregarConfirmados();
-
     await carregarCaixa();
-
     await carregarDashboard();
-
 
     alert(
         "Serviço atualizado!"
     );
-
 }
-
-
 
 async function adicionarServico(){
 
@@ -3485,7 +3903,6 @@ async function adicionarServico(){
         .value
         .trim();
 
-
     const preco =
         Number(
             document
@@ -3494,7 +3911,6 @@ async function adicionarServico(){
             )
             .value
         );
-
 
     const duracao =
         Number(
@@ -3505,7 +3921,6 @@ async function adicionarServico(){
             .value
         );
 
-
     if(!nome){
 
         alert(
@@ -3515,7 +3930,6 @@ async function adicionarServico(){
         return;
 
     }
-
 
     if(
         !Number.isFinite(preco) ||
@@ -3530,7 +3944,6 @@ async function adicionarServico(){
 
     }
 
-
     if(
         !Number.isFinite(duracao) ||
         duracao < 1
@@ -3543,7 +3956,6 @@ async function adicionarServico(){
         return;
 
     }
-
 
     const {error} =
         await db
@@ -3560,7 +3972,6 @@ async function adicionarServico(){
 
         });
 
-
     if(error){
 
         console.error(error);
@@ -3574,41 +3985,25 @@ async function adicionarServico(){
 
     }
 
-
-    document
-    .getElementById(
+    document.getElementById(
         "novoServicoNome"
-    )
-    .value = "";
+    ).value = "";
 
-
-    document
-    .getElementById(
+    document.getElementById(
         "novoServicoPreco"
-    )
-    .value = "";
+    ).value = "";
 
-
-    document
-    .getElementById(
+    document.getElementById(
         "novoServicoDuracao"
-    )
-    .value = "30";
-
+    ).value = "30";
 
     await carregarServicosConfig();
-
-
     await carregarDashboard();
-
 
     alert(
         "Serviço adicionado!"
     );
-
 }
-
-
 
 async function desativarServico(id){
 
@@ -3622,7 +4017,6 @@ async function desativarServico(id){
 
     }
 
-
     const {error} =
         await db
         .from("services")
@@ -3633,7 +4027,6 @@ async function desativarServico(id){
             "id",
             id
         );
-
 
     if(error){
 
@@ -3648,17 +4041,12 @@ async function desativarServico(id){
 
     }
 
-
     await carregarServicosConfig();
-
 
     alert(
         "Serviço desativado."
     );
-
 }
-
-
 
 /* =====================================================
    RELATÓRIOS
@@ -3670,7 +4058,6 @@ async function buscarFinalizados(
 ){
 
     await carregarServicosMapa();
-
 
     const {data,error} =
         await db
@@ -3701,7 +4088,6 @@ async function buscarFinalizados(
             }
         );
 
-
     if(error){
 
         console.error(error);
@@ -3710,12 +4096,8 @@ async function buscarFinalizados(
 
     }
 
-
     return data || [];
-
 }
-
-
 
 function calcularResumo(data){
 
@@ -3729,15 +4111,12 @@ function calcularResumo(data){
 
     let outros = 0;
 
-
     data.forEach(a => {
 
         const valor =
             obterPreco(a);
 
-
         total += valor;
-
 
         if(
             a.payment_method ===
@@ -3774,7 +4153,6 @@ function calcularResumo(data){
 
     });
 
-
     return {
 
         total,
@@ -3794,8 +4172,6 @@ function calcularResumo(data){
 
 }
 
-
-
 function montarRelatorioHTML(
     data,
     inicio,
@@ -3804,7 +4180,6 @@ function montarRelatorioHTML(
 
     const r =
         calcularResumo(data);
-
 
     let html = `
 
@@ -3826,7 +4201,6 @@ function montarRelatorioHTML(
 
         </div>
 
-
         <div class="caixa-card">
 
             <span>
@@ -3838,7 +4212,6 @@ function montarRelatorioHTML(
             </strong>
 
         </div>
-
 
         <div class="caixa-card">
 
@@ -3852,7 +4225,6 @@ function montarRelatorioHTML(
 
         </div>
 
-
         <div class="caixa-card">
 
             <span>
@@ -3864,7 +4236,6 @@ function montarRelatorioHTML(
             </strong>
 
         </div>
-
 
         <div class="caixa-card">
 
@@ -3878,7 +4249,6 @@ function montarRelatorioHTML(
 
         </div>
 
-
         <div class="caixa-card">
 
             <span>
@@ -3890,7 +4260,6 @@ function montarRelatorioHTML(
             </strong>
 
         </div>
-
 
         <div class="caixa-card">
 
@@ -3908,7 +4277,6 @@ function montarRelatorioHTML(
 
     `;
 
-
     if(!data.length){
 
         return html +
@@ -3925,7 +4293,6 @@ function montarRelatorioHTML(
         `;
 
     }
-
 
     html += `
 
@@ -3962,7 +4329,6 @@ function montarRelatorioHTML(
         <tbody>
 
     `;
-
 
     data.forEach(a => {
 
@@ -4012,7 +4378,6 @@ function montarRelatorioHTML(
 
     });
 
-
     html += `
 
         </tbody>
@@ -4025,12 +4390,8 @@ function montarRelatorioHTML(
 
     `;
 
-
     return html;
-
 }
-
-
 
 /* =====================================================
    RELATÓRIO POR PERÍODO
@@ -4045,14 +4406,12 @@ async function gerarRelatorio(){
         )
         .value;
 
-
     const fim =
         document
         .getElementById(
             "relatorioFim"
         )
         .value;
-
 
     if(!inicio || !fim){
 
@@ -4064,7 +4423,6 @@ async function gerarRelatorio(){
 
     }
 
-
     if(inicio > fim){
 
         alert(
@@ -4075,17 +4433,14 @@ async function gerarRelatorio(){
 
     }
 
-
     const resultado =
         document
         .getElementById(
             "relatorioResultado"
         );
 
-
     resultado.innerHTML =
         '<div class="mensagem">Gerando relatório...</div>';
-
 
     try{
 
@@ -4094,7 +4449,6 @@ async function gerarRelatorio(){
                 inicio,
                 fim
             );
-
 
         resultado.innerHTML =
             montarRelatorioHTML(
@@ -4116,8 +4470,6 @@ async function gerarRelatorio(){
 
 }
 
-
-
 /* =====================================================
    RELATÓRIO DIÁRIO
 ===================================================== */
@@ -4132,7 +4484,6 @@ async function gerarRelatorioDiario(){
         .value ||
         hojeLocal();
 
-
     document
     .getElementById(
         "relatorioDia"
@@ -4140,17 +4491,14 @@ async function gerarRelatorioDiario(){
     .value =
         dia;
 
-
     const resultado =
         document
         .getElementById(
             "relatorioResultado"
         );
 
-
     resultado.innerHTML =
         '<div class="mensagem">Gerando relatório diário...</div>';
-
 
     try{
 
@@ -4159,7 +4507,6 @@ async function gerarRelatorioDiario(){
                 dia,
                 dia
             );
-
 
         resultado.innerHTML =
             montarRelatorioHTML(
@@ -4181,8 +4528,6 @@ async function gerarRelatorioDiario(){
 
 }
 
-
-
 /* =====================================================
    PDF
 ===================================================== */
@@ -4197,9 +4542,7 @@ function abrirPDF(
     const r =
         calcularResumo(data);
 
-
     let linhas = "";
-
 
     data.forEach(a => {
 
@@ -4249,13 +4592,11 @@ function abrirPDF(
 
     });
 
-
     const janela =
         window.open(
             "",
             "_blank"
         );
-
 
     if(!janela){
 
@@ -4266,7 +4607,6 @@ function abrirPDF(
         return;
 
     }
-
 
     janela.document.write(`
 
@@ -4281,7 +4621,6 @@ function abrirPDF(
     <title>
         ${titulo}
     </title>
-
 
     <style>
 
@@ -4361,7 +4700,6 @@ function abrirPDF(
 
     </head>
 
-
     <body>
 
     <h1>
@@ -4371,7 +4709,6 @@ function abrirPDF(
     <h2>
         ${titulo}
     </h2>
-
 
     <p>
 
@@ -4385,7 +4722,6 @@ function abrirPDF(
 
     </p>
 
-
     <div class="resumo">
 
         <div class="box">
@@ -4397,7 +4733,6 @@ function abrirPDF(
             </strong>
 
         </div>
-
 
         <div class="box">
 
@@ -4411,7 +4746,6 @@ function abrirPDF(
 
         </div>
 
-
         <div class="box">
 
             Pix
@@ -4423,7 +4757,6 @@ function abrirPDF(
             </strong>
 
         </div>
-
 
         <div class="box">
 
@@ -4437,7 +4770,6 @@ function abrirPDF(
 
         </div>
 
-
         <div class="box">
 
             Outros
@@ -4449,7 +4781,6 @@ function abrirPDF(
             </strong>
 
         </div>
-
 
         <div class="box">
 
@@ -4464,7 +4795,6 @@ function abrirPDF(
         </div>
 
     </div>
-
 
     <table>
 
@@ -4488,7 +4818,6 @@ function abrirPDF(
 
     </thead>
 
-
     <tbody>
 
     ${
@@ -4500,14 +4829,12 @@ function abrirPDF(
 
     </table>
 
-
     <div class="total">
 
         Total recebido:
         ${formatarMoeda(r.total)}
 
     </div>
-
 
     <script>
 
@@ -4519,19 +4846,15 @@ function abrirPDF(
 
     <\/script>
 
-
     </body>
 
     </html>
 
     `);
 
-
     janela.document.close();
 
 }
-
-
 
 function gerarPDFRelatorio(){
 
@@ -4545,7 +4868,6 @@ function gerarPDFRelatorio(){
 
     }
 
-
     const inicio =
         document
         .getElementById(
@@ -4553,14 +4875,12 @@ function gerarPDFRelatorio(){
         )
         .value;
 
-
     const fim =
         document
         .getElementById(
             "relatorioFim"
         )
         .value;
-
 
     if(!inicio || !fim){
 
@@ -4572,7 +4892,6 @@ function gerarPDFRelatorio(){
 
     }
 
-
     abrirPDF(
         dadosRelatorio,
         inicio,
@@ -4581,8 +4900,6 @@ function gerarPDFRelatorio(){
     );
 
 }
-
-
 
 function gerarPDFRelatorioDiario(){
 
@@ -4596,7 +4913,6 @@ function gerarPDFRelatorioDiario(){
 
     }
 
-
     const dia =
         document
         .getElementById(
@@ -4604,7 +4920,6 @@ function gerarPDFRelatorioDiario(){
         )
         .value ||
         hojeLocal();
-
 
     abrirPDF(
         dadosRelatorio,
@@ -4614,8 +4929,6 @@ function gerarPDFRelatorioDiario(){
     );
 
 }
-
-
 
 /* =====================================================
    DATA INICIAL
