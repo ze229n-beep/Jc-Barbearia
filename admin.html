@@ -503,6 +503,13 @@ label{
     margin-bottom:20px;
 }
 
+.dashboard-alerta{background:#2a1f08;border:1px solid #d4af37;color:#f1d46a;border-radius:12px;padding:15px 18px;margin-bottom:20px;font-weight:bold}
+.filtro-linha{display:flex;gap:10px;align-items:center;margin-bottom:18px}.filtro-linha .campo{flex:1;margin:0}
+.cliente-linha,.bloqueio-linha{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:15px 0;border-bottom:1px solid #292929}.cliente-linha:last-child,.bloqueio-linha:last-child{border-bottom:none}
+.cliente-info strong,.bloqueio-info strong{display:block;color:#fff;margin-bottom:5px}.cliente-info span,.bloqueio-info span{display:block;color:#999;font-size:13px;margin-top:3px}
+.botao-excluir-bloqueio{background:#321515;color:#ffb0b0;border:1px solid #632727;border-radius:7px;padding:9px 12px;cursor:pointer}
+@media(max-width:700px){.filtro-linha{flex-direction:column;align-items:stretch}.cliente-linha,.bloqueio-linha{align-items:flex-start;flex-direction:column}}
+
 /* =========================
    CAIXA - CONTROLE DE ABERTURA E FECHAMENTO
 ========================= */
@@ -680,6 +687,18 @@ label{
     Relatório do Caixa
 </button>
 
+<button
+    class="tab-button"
+    onclick="mostrarAba('clientes',this)">
+    👥 Clientes
+</button>
+
+<button
+    class="tab-button"
+    onclick="mostrarAba('bloqueios',this)">
+    🚫 Bloquear horários
+</button>
+
 </div>
 
 
@@ -711,6 +730,7 @@ label{
 
 </div>
 
+<div id="dashboardAlertaPendentes" class="dashboard-alerta" style="display:none"></div>
 
 <div class="dashboard-grid">
 
@@ -1434,9 +1454,39 @@ o ideal é usar autenticação do Supabase.
 
 </section>
 
-</div>
-</div>
 
+<!-- CLIENTES -->
+<section id="clientes" class="aba">
+<h2 class="titulo-aba">👥 Clientes</h2>
+<div class="card">
+<div class="filtro-linha">
+<input class="campo" id="buscaClientes" type="text" placeholder="🔎 Buscar cliente..." oninput="filtrarClientes()">
+<button class="botao-confirmar" onclick="carregarClientes()">🔄 Atualizar</button>
+</div>
+<div id="listaClientes"><div class="mensagem">Carregando...</div></div>
+</div>
+</section>
+
+<!-- BLOQUEIOS -->
+<section id="bloqueios" class="aba">
+<h2 class="titulo-aba">🚫 Bloquear horários</h2>
+<div class="card">
+<p class="pequeno">Bloqueie um horário para impedir novos agendamentos. Esta função usa a tabela <strong>blocked_slots</strong> do Supabase.</p>
+<div class="config-grid">
+<div><label>Data</label><input class="campo" type="date" id="bloqueioData"></div>
+<div><label>Horário</label><input class="campo" type="time" id="bloqueioHora"></div>
+<div><label>Motivo (opcional)</label><input class="campo" type="text" id="bloqueioMotivo" placeholder="Ex.: compromisso pessoal"></div>
+</div>
+<button class="botao-confirmar" onclick="bloquearHorario()">🚫 Bloquear horário</button>
+</div>
+<div class="card">
+<div class="dashboard-titulo"><h3>Horários bloqueados</h3><button class="dashboard-atualizar" onclick="carregarBloqueios()">🔄 Atualizar</button></div>
+<div id="listaBloqueios"><div class="mensagem">Carregando...</div></div>
+</div>
+</section>
+
+</div>
+</div>
 
 
 <script>
@@ -1811,6 +1861,15 @@ function mostrarAba(
     }
 
 
+    if(nome === "clientes"){
+        carregarClientes();
+    }
+
+    if(nome === "bloqueios"){
+        prepararBloqueio();
+        carregarBloqueios();
+    }
+
     if(nome === "relatorio"){
 
         const dia =
@@ -1844,422 +1903,102 @@ function mostrarAba(
 ===================================================== */
 
 async function carregarDashboard(){
-
-    const dataElemento =
-        document.getElementById(
-            "dashboardData"
-        );
-
-    if(dataElemento){
-
-        dataElemento.textContent =
-            "Hoje: " +
-            new Date()
-            .toLocaleDateString(
-                "pt-BR",
-                {
-                    weekday:"long",
-                    day:"2-digit",
-                    month:"long",
-                    year:"numeric"
-                }
-            );
-
-    }
-
-
+    const dataElemento=document.getElementById("dashboardData");
+    const alerta=document.getElementById("dashboardAlertaPendentes");
+    const hoje=hojeLocal();
+    if(dataElemento)dataElemento.textContent="Hoje: "+new Date().toLocaleDateString("pt-BR",{weekday:"long",day:"2-digit",month:"long",year:"numeric"});
     try{
-
         await carregarServicosMapa();
-
-
-        const {data,error} =
-            await db
-            .from("appointments")
-            .select("*");
-
-
-        if(error){
-
-            throw error;
-
-        }
-
-
-        const agendamentos =
-            data || [];
-
-
-        const pendentes =
-            agendamentos.filter(
-                a =>
-                    a.status ===
-                    "pendente"
-            );
-
-
-        const confirmados =
-            agendamentos.filter(
-                a =>
-                    a.status ===
-                    "confirmado"
-            );
-
-
-        const finalizados =
-            agendamentos.filter(
-                a =>
-                    a.status ===
-                    "finalizado"
-            );
-
-
-        let faturamento = 0;
-
-        let dinheiro = 0;
-
-        let pix = 0;
-
-        let cartao = 0;
-
-        let outros = 0;
-
-
-        finalizados.forEach(a => {
-
-            const valor =
-                obterPreco(a);
-
-
-            faturamento += valor;
-
-
-            if(
-                a.payment_method ===
-                "Dinheiro"
-            ){
-
-                dinheiro += valor;
-
-            }
-            else if(
-                a.payment_method ===
-                "Pix"
-            ){
-
-                pix += valor;
-
-            }
-            else if(
-                a.payment_method ===
-                "Cartão"
-            ){
-
-                cartao += valor;
-
-            }
-            else{
-
-                outros += valor;
-
-            }
-
-        });
-
-
-        document
-        .getElementById(
-            "dashPendentes"
-        )
-        .textContent =
-            pendentes.length;
-
-
-        document
-        .getElementById(
-            "dashConfirmados"
-        )
-        .textContent =
-            confirmados.length;
-
-
-        document
-        .getElementById(
-            "dashFaturamento"
-        )
-        .textContent =
-            formatarMoeda(
-                faturamento
-            );
-
-
-        document
-        .getElementById(
-            "dashRealizados"
-        )
-        .textContent =
-            finalizados.length;
-
-
-        document
-        .getElementById(
-            "dashDinheiro"
-        )
-        .textContent =
-            formatarMoeda(
-                dinheiro
-            );
-
-
-        document
-        .getElementById(
-            "dashPix"
-        )
-        .textContent =
-            formatarMoeda(
-                pix
-            );
-
-
-        document
-        .getElementById(
-            "dashCartao"
-        )
-        .textContent =
-            formatarMoeda(
-                cartao
-            );
-
-
-        document
-        .getElementById(
-            "dashOutros"
-        )
-        .textContent =
-            formatarMoeda(
-                outros
-            );
-
-
-        /* PRÓXIMOS AGENDAMENTOS */
-
-        const hoje =
-            hojeLocal();
-
-
-        const proximos =
-            agendamentos
-            .filter(
-                a =>
-                    (
-                        a.status ===
-                        "pendente" ||
-                        a.status ===
-                        "confirmado"
-                    ) &&
-                    String(
-                        a.appointment_date
-                    ).slice(0,10) >= hoje
-            )
-            .sort(
-                (a,b) => {
-
-                    const dataA =
-                        String(
-                            a.appointment_date
-                        ).slice(0,10) +
-                        " " +
-                        String(
-                            a.appointment_time ||
-                            ""
-                        );
-
-                    const dataB =
-                        String(
-                            b.appointment_date
-                        ).slice(0,10) +
-                        " " +
-                        String(
-                            b.appointment_time ||
-                            ""
-                        );
-
-                    return dataA.localeCompare(
-                        dataB
-                    );
-
-                }
-            )
-            .slice(0,5);
-
-
-        const listaAgendamentos =
-            document.getElementById(
-                "dashboardAgendamentos"
-            );
-
-
-        if(!proximos.length){
-
-            listaAgendamentos.innerHTML =
-                '<div class="mensagem">Nenhum próximo agendamento.</div>';
-
-        }else{
-
-            listaAgendamentos.innerHTML =
-                proximos
-                .map(a => `
-
-                    <div class="dashboard-item">
-
-                        <div class="dashboard-item-info">
-
-                            <strong>
-                                ${escaparHTML(
-                                    a.customer_name ||
-                                    "Cliente"
-                                )}
-                            </strong>
-
-                            <span>
-                                ✂️
-                                ${escaparHTML(
-                                    a.service_name ||
-                                    "Serviço"
-                                )}
-                            </span>
-
-                            <div class="dashboard-data">
-                                📅
-                                ${formatarData(
-                                    a.appointment_date
-                                )}
-                                &nbsp; ⏰
-                                ${escaparHTML(
-                                    a.appointment_time ||
-                                    ""
-                                )}
-                            </div>
-
-                        </div>
-
-                        <span
-                            class="status ${
-                                a.status === "pendente"
-                                ? "status-pendente"
-                                : "status-confirmado"
-                            }">
-
-                            ${
-                                a.status === "pendente"
-                                ? "Pendente"
-                                : "Confirmado"
-                            }
-
-                        </span>
-
-                    </div>
-
-                `)
-                .join("");
-
-        }
-
-
-        /* PAGAMENTOS */
-
-        const pagamentos = [
-
-            {
-                nome:"Dinheiro",
-                valor:dinheiro
-            },
-
-            {
-                nome:"Pix",
-                valor:pix
-            },
-
-            {
-                nome:"Cartão",
-                valor:cartao
-            },
-
-            {
-                nome:"Outros",
-                valor:outros
-            }
-
-        ];
-
-
-        const listaPagamentos =
-            document.getElementById(
-                "dashboardPagamentos"
-            );
-
-
-        listaPagamentos.innerHTML =
-            pagamentos
-            .map(p => `
-
-                <div class="dashboard-item">
-
-                    <div class="dashboard-item-info">
-
-                        <strong>
-                            ${p.nome}
-                        </strong>
-
-                        <span>
-                            Recebido
-                        </span>
-
-                    </div>
-
-                    <span class="dashboard-valor">
-
-                        ${formatarMoeda(
-                            p.valor
-                        )}
-
-                    </span>
-
-                </div>
-
-            `)
-            .join("");
-
-    }
-
-    catch(error){
-
-        console.error(
-            "Erro no Dashboard:",
-            error
-        );
-
-
-        document
-        .getElementById(
-            "dashboardAgendamentos"
-        )
-        .innerHTML =
-            '<div class="mensagem">Erro ao carregar o Dashboard.</div>';
-
-
-        document
-        .getElementById(
-            "dashboardPagamentos"
-        )
-        .innerHTML =
-            '<div class="mensagem">Erro ao carregar informações.</div>';
-
-    }
-
+        const {data,error}=await db.from("appointments").select("*").eq("appointment_date",hoje).order("appointment_time",{ascending:true});
+        if(error)throw error;
+        const agendamentos=data||[];
+        const pendentes=agendamentos.filter(a=>a.status==="pendente");
+        const confirmados=agendamentos.filter(a=>a.status==="confirmado");
+        const finalizados=agendamentos.filter(a=>a.status==="finalizado");
+        let faturamento=0,dinheiro=0,pix=0,cartao=0,outros=0;
+        finalizados.forEach(a=>{const valor=obterPreco(a);faturamento+=valor;if(a.payment_method==="Dinheiro")dinheiro+=valor;else if(a.payment_method==="Pix")pix+=valor;else if(a.payment_method==="Cartão")cartao+=valor;else outros+=valor;});
+        document.getElementById("dashPendentes").textContent=pendentes.length;
+        document.getElementById("dashConfirmados").textContent=confirmados.length;
+        document.getElementById("dashFaturamento").textContent=formatarMoeda(faturamento);
+        document.getElementById("dashRealizados").textContent=finalizados.length;
+        document.getElementById("dashDinheiro").textContent=formatarMoeda(dinheiro);
+        document.getElementById("dashPix").textContent=formatarMoeda(pix);
+        document.getElementById("dashCartao").textContent=formatarMoeda(cartao);
+        document.getElementById("dashOutros").textContent=formatarMoeda(outros);
+        if(alerta){if(pendentes.length){alerta.style.display="block";alerta.innerHTML=`⚠️ Você tem <strong>${pendentes.length}</strong> agendamento${pendentes.length===1?"":"s"} pendente${pendentes.length===1?"":"s"} de confirmação hoje.`;}else{alerta.style.display="none";alerta.innerHTML="";}}
+        const agora=new Date();const horaAtual=String(agora.getHours()).padStart(2,"0")+":"+String(agora.getMinutes()).padStart(2,"0");
+        const proximos=agendamentos.filter(a=>(a.status==="pendente"||a.status==="confirmado")&&String(a.appointment_time||"").slice(0,5)>=horaAtual).slice(0,8);
+        const listaAgendamentos=document.getElementById("dashboardAgendamentos");
+        if(!proximos.length)listaAgendamentos.innerHTML='<div class="mensagem">Nenhum próximo agendamento para hoje.</div>';else listaAgendamentos.innerHTML=proximos.map(a=>`<div class="dashboard-item"><div class="dashboard-item-info"><strong>${escaparHTML(a.customer_name||"Cliente")}</strong><span>✂️ ${escaparHTML(a.service_name||"Serviço")}</span><div class="dashboard-data">⏰ ${escaparHTML(a.appointment_time||"")}</div></div><span class="status ${a.status==="pendente"?"status-pendente":"status-confirmado"}">${a.status==="pendente"?"Pendente":"Confirmado"}</span></div>`).join("");
+        const pagamentos=[{nome:"Dinheiro",valor:dinheiro},{nome:"Pix",valor:pix},{nome:"Cartão",valor:cartao},{nome:"Outros",valor:outros}];
+        document.getElementById("dashboardPagamentos").innerHTML=pagamentos.map(p=>`<div class="dashboard-item"><div class="dashboard-item-info"><strong>${p.nome}</strong><span>Recebido hoje</span></div><span class="dashboard-valor">${formatarMoeda(p.valor)}</span></div>`).join("");
+    }catch(error){console.error("Erro no Dashboard:",error);if(alerta)alerta.style.display="none";document.getElementById("dashboardAgendamentos").innerHTML='<div class="mensagem">Erro ao carregar o Dashboard.</div>';document.getElementById("dashboardPagamentos").innerHTML='<div class="mensagem">Erro ao carregar informações.</div>';}
 }
 
 
+/* =====================================================
+   CLIENTES
+===================================================== */
+
+let clientesCache = [];
+
+async function carregarClientes(){
+    const lista=document.getElementById("listaClientes");
+    if(!lista) return;
+    lista.innerHTML='<div class="mensagem">Carregando clientes...</div>';
+    const {data,error}=await db.from("appointments").select("customer_name, service_name, appointment_date, appointment_time").order("appointment_date",{ascending:false}).order("appointment_time",{ascending:false});
+    if(error){console.error(error);lista.innerHTML='<div class="mensagem">Erro ao carregar clientes.</div>';return;}
+    const mapa=new Map();
+    (data||[]).forEach(a=>{const nome=String(a.customer_name||"").trim();if(!nome)return;const chave=nome.toLowerCase();if(!mapa.has(chave)){mapa.set(chave,{nome,ultimoServico:a.service_name||"—",ultimaData:a.appointment_date||"",ultimoHorario:a.appointment_time||"",total:1});}else{mapa.get(chave).total++;}});
+    clientesCache=[...mapa.values()].sort((a,b)=>a.nome.localeCompare(b.nome,"pt-BR"));
+    renderizarClientes(clientesCache);
+}
+
+function renderizarClientes(clientes){
+    const lista=document.getElementById("listaClientes"); if(!lista)return;
+    if(!clientes.length){lista.innerHTML='<div class="mensagem">Nenhum cliente encontrado.</div>';return;}
+    lista.innerHTML=clientes.map(c=>`<div class="cliente-linha"><div class="cliente-info"><strong>👤 ${escaparHTML(c.nome)}</strong><span>✂️ Último serviço: ${escaparHTML(c.ultimoServico)}</span><span>📅 Último agendamento: ${formatarData(c.ultimaData)} ${escaparHTML(c.ultimoHorario)}</span></div><strong class="valor-destaque">${c.total} agendamento${c.total===1?"":"s"}</strong></div>`).join("");
+}
+
+function filtrarClientes(){
+    const termo=String(document.getElementById("buscaClientes")?.value||"").trim().toLowerCase();
+    renderizarClientes(!termo?clientesCache:clientesCache.filter(c=>c.nome.toLowerCase().includes(termo)||String(c.ultimoServico).toLowerCase().includes(termo)));
+}
+
+/* =====================================================
+   BLOQUEIO DE HORÁRIOS
+===================================================== */
+
+function prepararBloqueio(){const data=document.getElementById("bloqueioData");if(data&&!data.value)data.value=hojeLocal();}
+
+async function carregarBloqueios(){
+    const lista=document.getElementById("listaBloqueios"); if(!lista)return;
+    lista.innerHTML='<div class="mensagem">Carregando horários bloqueados...</div>';
+    const {data,error}=await db.from("blocked_slots").select("*").order("blocked_date",{ascending:true}).order("blocked_time",{ascending:true});
+    if(error){console.error(error);lista.innerHTML='<div class="mensagem">Não foi possível carregar os bloqueios. Confira se a tabela blocked_slots foi criada no Supabase.</div>';return;}
+    if(!data?.length){lista.innerHTML='<div class="mensagem">Nenhum horário bloqueado.</div>';return;}
+    lista.innerHTML=data.map(b=>`<div class="bloqueio-linha"><div class="bloqueio-info"><strong>🚫 ${formatarData(b.blocked_date)} às ${escaparHTML(b.blocked_time||"")}</strong><span>${escaparHTML(b.reason||"Sem motivo informado")}</span></div><button class="botao-excluir-bloqueio" onclick="excluirBloqueio('${String(b.id)}')">Excluir bloqueio</button></div>`).join("");
+}
+
+async function bloquearHorario(){
+    const data=document.getElementById("bloqueioData")?.value;
+    const hora=document.getElementById("bloqueioHora")?.value;
+    const motivo=document.getElementById("bloqueioMotivo")?.value.trim();
+    if(!data||!hora){alert("Escolha a data e o horário que deseja bloquear.");return;}
+    const {data:existente,error:erroBusca}=await db.from("blocked_slots").select("id").eq("blocked_date",data).eq("blocked_time",hora).limit(1);
+    if(erroBusca){alert("Não foi possível verificar o horário. Confira a tabela blocked_slots no Supabase.\n\n"+erroBusca.message);return;}
+    if(existente?.length){alert("Esse horário já está bloqueado.");return;}
+    const {error}=await db.from("blocked_slots").insert({blocked_date:data,blocked_time:hora,reason:motivo||null,active:true});
+    if(error){console.error(error);alert("Erro ao bloquear o horário:\n\n"+error.message);return;}
+    document.getElementById("bloqueioMotivo").value="";await carregarBloqueios();alert("Horário bloqueado com sucesso!");
+}
+
+async function excluirBloqueio(id){
+    if(!confirm("Deseja liberar este horário?"))return;
+    const {error}=await db.from("blocked_slots").delete().eq("id",id);
+    if(error){alert("Erro ao excluir o bloqueio:\n\n"+error.message);return;}
+    await carregarBloqueios();
+}
 
 /* =====================================================
    AGENDAMENTOS
