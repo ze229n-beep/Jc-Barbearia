@@ -1,539 +1,1306 @@
 <!DOCTYPE html>
-
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-```
-<title>JC Barbearia</title>
+    <meta name="description"
+        content="JC Barbearia - Mais que um corte, é o seu estilo. Agende seu horário.">
 
-<meta name="description"
-    content="JC Barbearia - Escolha seu serviço e agende seu horário">
+    <title>JC Barbearia | Seu estilo começa aqui</title>
 
-<link rel="stylesheet" href="estilo.css">
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<style>
-    /* =========================================
-       JC BARBEARIA - VISUAL MODERNO
-    ========================================= */
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
 
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-    }
+    <!-- ÍCONES -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-    body {
-        background:
-            radial-gradient(circle at 80% 20%, rgba(212, 175, 55, 0.10), transparent 30%),
-            radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.06), transparent 30%),
-            #050505;
-        color: #fff;
-        min-height: 100vh;
-    }
+    <style>
 
-    /* =========================================
-       HEADER
-    ========================================= */
+        /* =====================================================
+           RESET
+        ===================================================== */
 
-    header {
-        width: 100%;
-        min-height: 78px;
-        padding: 0 6%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        border-bottom: 1px solid rgba(212, 175, 55, 0.18);
-        background: rgba(5, 5, 5, 0.94);
-        position: relative;
-        z-index: 10;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    .logo {
-        color: #ffffff;
-        font-size: 25px;
-        font-weight: 800;
-        letter-spacing: 2px;
-    }
+        html {
+            scroll-behavior: smooth;
+        }
 
-    .logo span {
-        color: #d4af37;
-        font-size: 14px;
-        letter-spacing: 3px;
-        margin-left: 4px;
-    }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #050505;
+            color: #fff;
+            overflow-x: hidden;
+        }
 
-    header nav {
-        display: flex;
-        align-items: center;
-        gap: 30px;
-    }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
 
-    header nav a {
-        color: #ddd;
-        text-decoration: none;
-        font-size: 14px;
-        font-weight: 600;
-        transition: 0.3s;
-        position: relative;
-    }
 
-    header nav a::after {
-        content: "";
-        position: absolute;
-        width: 0;
-        height: 2px;
-        left: 0;
-        bottom: -7px;
-        background: #d4af37;
-        transition: 0.3s;
-    }
+        /* =====================================================
+           CORES
+        ===================================================== */
 
-    header nav a:hover {
-        color: #f1d46a;
-    }
+        :root {
+            --preto: #050505;
+            --preto2: #0b0b0b;
+            --preto3: #111111;
 
-    header nav a:hover::after {
-        width: 100%;
-    }
+            --dourado: #d4af37;
+            --dourado-claro: #f1d46a;
+            --dourado-escuro: #9d7c16;
 
-    /* =========================================
-       HERO
-    ========================================= */
+            --branco: #ffffff;
+            --cinza: #bdbdbd;
+        }
 
-    .hero {
-        width: 100%;
-        min-height: 590px;
-        padding: 90px 7%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        position: relative;
-        overflow: hidden;
-        border-bottom: 1px solid rgba(212, 175, 55, 0.12);
-    }
 
-    .hero::before {
-        content: "";
-        position: absolute;
-        width: 520px;
-        height: 520px;
-        right: -180px;
-        top: 30px;
-        border-radius: 50%;
-        background: radial-gradient(
-            circle,
-            rgba(212, 175, 55, 0.16),
-            rgba(212, 175, 55, 0.03) 45%,
-            transparent 70%
-        );
-    }
-
-    .hero::after {
-        content: "";
-        position: absolute;
-        right: 8%;
-        top: 14%;
-        width: 360px;
-        height: 430px;
-        border: 1px solid rgba(212, 175, 55, 0.18);
-        border-radius: 180px 180px 20px 20px;
-        transform: rotate(4deg);
-    }
-
-    .hero > * {
-        position: relative;
-        z-index: 2;
-    }
-
-    .subtitle {
-        color: #d4af37;
-        font-size: 13px;
-        font-weight: 700;
-        letter-spacing: 5px;
-        margin-bottom: 18px;
-    }
-
-    .hero h1 {
-        max-width: 650px;
-        font-size: clamp(48px, 7vw, 82px);
-        line-height: 0.95;
-        letter-spacing: -3px;
-        margin-bottom: 25px;
-        color: #fff;
-    }
-
-    .hero h1::first-letter {
-        color: #d4af37;
-    }
-
-    .description {
-        max-width: 540px;
-        color: #bdbdbd;
-        font-size: 18px;
-        line-height: 1.7;
-        margin-bottom: 35px;
-    }
-
-    .button {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: fit-content;
-        min-width: 210px;
-        padding: 16px 28px;
-        border-radius: 4px;
-        background: linear-gradient(135deg, #d4af37, #f1d46a);
-        color: #080808;
-        text-decoration: none;
-        font-weight: 800;
-        font-size: 14px;
-        letter-spacing: 0.5px;
-        box-shadow: 0 12px 35px rgba(212, 175, 55, 0.18);
-        transition: 0.3s ease;
-    }
-
-    .button:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 18px 40px rgba(212, 175, 55, 0.28);
-    }
-
-    /* =========================================
-       DESTAQUES
-    ========================================= */
-
-    .highlights {
-        width: 100%;
-        max-width: 1250px;
-        margin: 0 auto;
-        padding: 80px 30px 90px;
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 24px;
-    }
-
-    .highlight {
-        padding: 35px 28px;
-        min-height: 290px;
-        border: 1px solid rgba(212, 175, 55, 0.16);
-        border-radius: 12px;
-        background:
-            linear-gradient(
-                145deg,
-                rgba(255, 255, 255, 0.045),
-                rgba(255, 255, 255, 0.012)
-            );
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
-        transition: 0.35s ease;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .highlight:hover {
-        transform: translateY(-8px);
-        border-color: rgba(212, 175, 55, 0.5);
-        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
-    }
-
-    .service-icon {
-        width: 58px;
-        height: 58px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        background: rgba(212, 175, 55, 0.10);
-        border: 1px solid rgba(212, 175, 55, 0.28);
-        font-size: 25px;
-        margin-bottom: 22px;
-    }
-
-    .highlight h2 {
-        color: #f1d46a;
-        font-size: 23px;
-        margin-bottom: 12px;
-    }
-
-    .highlight p {
-        color: #aaa;
-        line-height: 1.6;
-        font-size: 15px;
-        margin-bottom: 25px;
-    }
-
-    .service-button {
-        margin-top: auto;
-        color: #d4af37;
-        text-decoration: none;
-        font-weight: 700;
-        font-size: 14px;
-        border-bottom: 1px solid rgba(212, 175, 55, 0.4);
-        padding-bottom: 5px;
-        transition: 0.3s;
-    }
-
-    .service-button:hover {
-        color: #f1d46a;
-        border-color: #f1d46a;
-    }
-
-    /* =========================================
-       FOOTER
-    ========================================= */
-
-    footer {
-        border-top: 1px solid rgba(212, 175, 55, 0.15);
-        padding: 28px 20px;
-        text-align: center;
-        background: #030303;
-    }
-
-    footer p {
-        color: #777;
-        font-size: 13px;
-        margin: 5px 0;
-    }
-
-    footer p:first-child {
-        color: #aaa;
-    }
-
-    /* =========================================
-       RESPONSIVO
-    ========================================= */
-
-    @media (max-width: 850px) {
+        /* =====================================================
+           HEADER
+        ===================================================== */
 
         header {
-            padding: 18px 5%;
-            flex-direction: column;
-            gap: 18px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 78px;
+
+            z-index: 999;
+
+            background: rgba(3, 3, 3, 0.94);
+
+            border-bottom: 1px solid rgba(212, 175, 55, 0.10);
+
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
 
-        header nav {
-            gap: 22px;
-        }
+        .header-container {
+            max-width: 1200px;
+            height: 100%;
 
-        .hero {
-            min-height: 540px;
-            padding: 75px 7%;
-        }
+            margin: auto;
 
-        .hero::after {
-            width: 260px;
-            height: 330px;
-            right: -80px;
-            opacity: 0.5;
-        }
+            padding: 0 25px;
 
-        .highlights {
-            grid-template-columns: 1fr;
-            max-width: 600px;
-        }
-    }
-
-    @media (max-width: 500px) {
-
-        header {
+            display: flex;
             align-items: center;
+            justify-content: space-between;
         }
+
+
+        /* =====================================================
+           LOGO
+        ===================================================== */
 
         .logo {
-            font-size: 21px;
-        }
+            width: 145px;
+            height: 100%;
 
-        .logo span {
-            font-size: 11px;
-        }
-
-        header nav {
-            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             justify-content: center;
-            gap: 18px;
+
+            line-height: 1;
         }
 
-        header nav a {
-            font-size: 12px;
+        .logo-coroa {
+            color: var(--dourado-claro);
+            font-size: 18px;
+            margin-bottom: 1px;
         }
 
-        .hero {
-            padding: 65px 6%;
-            min-height: 500px;
-        }
+        .logo-jc {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 39px;
+            font-weight: 600;
 
-        .hero h1 {
-            font-size: 50px;
+            color: var(--dourado-claro);
+
             letter-spacing: -2px;
         }
 
-        .description {
+        .logo-barbearia {
+            font-size: 10px;
+            font-weight: 600;
+
+            letter-spacing: 4px;
+
+            color: var(--dourado);
+
+            margin-top: 2px;
+        }
+
+
+        /* =====================================================
+           MENU
+        ===================================================== */
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 34px;
+        }
+
+        nav a {
+            position: relative;
+
+            font-size: 13px;
+            font-weight: 500;
+
+            color: #e8e8e8;
+
+            padding: 30px 0;
+
+            transition: 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--dourado-claro);
+        }
+
+        nav a.active {
+            color: var(--dourado-claro);
+        }
+
+        nav a.active::after {
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+            bottom: 19px;
+
+            width: 100%;
+            height: 2px;
+
+            background: var(--dourado);
+        }
+
+
+        /* =====================================================
+           MENU MOBILE
+        ===================================================== */
+
+        .menu-btn {
+            display: none;
+
+            width: 42px;
+            height: 42px;
+
+            border: 1px solid rgba(212, 175, 55, 0.5);
+
+            background: transparent;
+
+            color: var(--dourado-claro);
+
+            border-radius: 4px;
+
+            font-size: 19px;
+
+            cursor: pointer;
+        }
+
+
+        /* =====================================================
+           HERO
+        ===================================================== */
+
+        .hero {
+            min-height: 100vh;
+
+            position: relative;
+
+            display: flex;
+            align-items: center;
+
+            overflow: hidden;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(0,0,0,0.96) 0%,
+                    rgba(0,0,0,0.82) 35%,
+                    rgba(0,0,0,0.42) 67%,
+                    rgba(0,0,0,0.72) 100%
+                ),
+                url("https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=2200&q=90");
+
+            background-size: cover;
+            background-position: center;
+        }
+
+
+        /* brilho dourado */
+
+        .hero::before {
+            content: "";
+
+            position: absolute;
+
+            width: 500px;
+            height: 500px;
+
+            left: -250px;
+            bottom: -250px;
+
+            background: rgba(212, 175, 55, 0.08);
+
+            filter: blur(100px);
+
+            border-radius: 50%;
+        }
+
+
+        .hero-container {
+            width: 100%;
+            max-width: 1200px;
+
+            margin: auto;
+
+            padding: 120px 25px 80px;
+
+            position: relative;
+            z-index: 2;
+        }
+
+
+        /* =====================================================
+           HERO TEXTO
+        ===================================================== */
+
+        .hero-content {
+            max-width: 650px;
+        }
+
+        .hero-small {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            margin-bottom: 17px;
+
+            color: var(--dourado-claro);
+
+            font-size: 14px;
+            font-weight: 600;
+
+            letter-spacing: 5px;
+        }
+
+        .hero-small::after {
+            content: "";
+
+            width: 68px;
+            height: 1px;
+
+            background: var(--dourado);
+        }
+
+
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+
+            font-size: clamp(54px, 7vw, 88px);
+
+            line-height: 0.92;
+
+            font-weight: 500;
+
+            letter-spacing: -2px;
+
+            color: #fff;
+
+            margin-bottom: 9px;
+        }
+
+        .hero h1 span {
+            display: block;
+
+            color: var(--dourado-claro);
+        }
+
+
+        .hero-description {
+            max-width: 500px;
+
+            color: #dedede;
+
+            font-size: 15px;
+
+            line-height: 1.7;
+
+            margin: 27px 0 31px;
+        }
+
+
+        /* =====================================================
+           BOTÃO AGENDAR
+        ===================================================== */
+
+        .btn-agendar {
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            gap: 15px;
+
+            min-width: 225px;
+
+            padding: 16px 22px;
+
+            border: 1px solid var(--dourado-claro);
+
+            border-radius: 8px;
+
+            background: rgba(0, 0, 0, 0.35);
+
+            color: var(--dourado-claro);
+
+            font-size: 13px;
+            font-weight: 700;
+
+            transition: all 0.3s ease;
+        }
+
+        .btn-agendar i {
             font-size: 16px;
         }
 
-        .button {
-            width: 100%;
+        .btn-agendar .seta {
+            margin-left: auto;
+
+            font-size: 15px;
+
+            transition: 0.3s ease;
         }
 
-        .highlights {
-            padding: 55px 18px 65px;
+        .btn-agendar:hover {
+            background: var(--dourado);
+
+            color: #050505;
+
+            box-shadow: 0 10px 35px rgba(212, 175, 55, 0.18);
         }
 
-        .highlight {
-            padding: 30px 24px;
+        .btn-agendar:hover .seta {
+            transform: translateX(5px);
         }
-    }
-</style>
-```
 
+
+        /* =====================================================
+           DIFERENCIAIS
+        ===================================================== */
+
+        .diferenciais {
+            display: grid;
+
+            grid-template-columns: repeat(4, 1fr);
+
+            max-width: 650px;
+
+            margin-top: 43px;
+
+            gap: 22px;
+        }
+
+        .diferencial {
+            text-align: center;
+
+            color: #fff;
+        }
+
+        .diferencial i {
+            display: block;
+
+            color: var(--dourado-claro);
+
+            font-size: 23px;
+
+            margin-bottom: 11px;
+        }
+
+        .diferencial strong {
+            display: block;
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+            line-height: 1.35;
+        }
+
+
+        /* =====================================================
+           SEÇÃO SERVIÇOS
+        ===================================================== */
+
+        .servicos-section {
+            background: #080808;
+
+            padding: 100px 25px;
+        }
+
+        .section-container {
+            max-width: 1100px;
+
+            margin: auto;
+        }
+
+        .section-header {
+            text-align: center;
+
+            margin-bottom: 55px;
+        }
+
+        .section-label {
+            color: var(--dourado);
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            letter-spacing: 4px;
+
+            margin-bottom: 10px;
+        }
+
+        .section-header h2 {
+            font-family: 'Cormorant Garamond', serif;
+
+            font-size: 52px;
+
+            font-weight: 500;
+
+            color: #fff;
+        }
+
+        .section-header p {
+            color: #999;
+
+            font-size: 14px;
+
+            margin-top: 10px;
+        }
+
+
+        /* =====================================================
+           CARDS
+        ===================================================== */
+
+        .servicos-grid {
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 20px;
+        }
+
+        .servico-card {
+            background: #101010;
+
+            border: 1px solid rgba(212, 175, 55, 0.12);
+
+            padding: 35px 28px;
+
+            text-align: center;
+
+            transition: 0.3s ease;
+        }
+
+        .servico-card:hover {
+            transform: translateY(-7px);
+
+            border-color: rgba(212, 175, 55, 0.55);
+
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.4);
+        }
+
+        .servico-icon {
+            width: 60px;
+            height: 60px;
+
+            margin: 0 auto 20px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border: 1px solid rgba(212, 175, 55, 0.45);
+
+            border-radius: 50%;
+
+            color: var(--dourado-claro);
+
+            font-size: 21px;
+        }
+
+        .servico-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+
+            font-size: 28px;
+
+            font-weight: 600;
+
+            margin-bottom: 10px;
+        }
+
+        .servico-card p {
+            color: #999;
+
+            font-size: 13px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =====================================================
+           CTA
+        ===================================================== */
+
+        .cta {
+            padding: 90px 25px;
+
+            text-align: center;
+
+            background:
+                linear-gradient(
+                    rgba(0,0,0,0.82),
+                    rgba(0,0,0,0.90)
+                ),
+                url("https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=1800&q=80");
+
+            background-size: cover;
+            background-position: center;
+        }
+
+        .cta h2 {
+            font-family: 'Cormorant Garamond', serif;
+
+            font-size: clamp(40px, 6vw, 65px);
+
+            font-weight: 500;
+
+            margin-bottom: 12px;
+        }
+
+        .cta p {
+            color: #c5c5c5;
+
+            font-size: 14px;
+
+            margin-bottom: 30px;
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        footer {
+            background: #030303;
+
+            border-top: 1px solid rgba(212, 175, 55, 0.12);
+
+            padding: 45px 25px 25px;
+        }
+
+        .footer-container {
+            max-width: 1100px;
+
+            margin: auto;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 30px;
+        }
+
+        .footer-logo {
+            color: var(--dourado-claro);
+
+            font-family: 'Cormorant Garamond', serif;
+
+            font-size: 30px;
+
+            font-weight: 600;
+        }
+
+        .footer-text {
+            color: #777;
+
+            font-size: 12px;
+
+            line-height: 1.6;
+        }
+
+        .footer-links {
+            display: flex;
+
+            gap: 20px;
+        }
+
+        .footer-links a {
+            color: #aaa;
+
+            font-size: 12px;
+
+            transition: 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--dourado-claro);
+        }
+
+        .copyright {
+            max-width: 1100px;
+
+            margin: 35px auto 0;
+
+            padding-top: 20px;
+
+            border-top: 1px solid #151515;
+
+            text-align: center;
+
+            color: #555;
+
+            font-size: 11px;
+        }
+
+
+        /* =====================================================
+           RESPONSIVIDADE
+        ===================================================== */
+
+        @media (max-width: 850px) {
+
+            nav {
+                position: fixed;
+
+                top: 78px;
+                right: -100%;
+
+                width: 280px;
+
+                height: calc(100vh - 78px);
+
+                background: #070707;
+
+                border-left: 1px solid rgba(212, 175, 55, 0.15);
+
+                padding: 30px;
+
+                display: flex;
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 0;
+
+                transition: 0.35s ease;
+            }
+
+            nav.open {
+                right: 0;
+            }
+
+            nav a {
+                width: 100%;
+
+                padding: 17px 0;
+
+                border-bottom: 1px solid #171717;
+            }
+
+            nav a.active::after {
+                display: none;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            .hero {
+                background-position: 62% center;
+            }
+
+            .hero-content {
+                max-width: 600px;
+            }
+
+            .diferenciais {
+                grid-template-columns: repeat(2, 1fr);
+
+                max-width: 450px;
+            }
+
+            .servicos-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                flex-direction: column;
+
+                text-align: center;
+            }
+        }
+
+
+        @media (max-width: 600px) {
+
+            header {
+                height: 70px;
+            }
+
+            .header-container {
+                padding: 0 18px;
+            }
+
+            .logo {
+                width: 125px;
+            }
+
+            .logo-jc {
+                font-size: 34px;
+            }
+
+            .logo-barbearia {
+                font-size: 8px;
+
+                letter-spacing: 3px;
+            }
+
+            nav {
+                top: 70px;
+
+                height: calc(100vh - 70px);
+            }
+
+            .hero {
+                min-height: 100svh;
+
+                background-position: 67% center;
+            }
+
+            .hero-container {
+                padding: 125px 22px 65px;
+            }
+
+            .hero-small {
+                font-size: 11px;
+
+                letter-spacing: 3px;
+            }
+
+            .hero h1 {
+                font-size: clamp(48px, 15vw, 70px);
+
+                letter-spacing: -1px;
+            }
+
+            .hero-description {
+                font-size: 13px;
+
+                max-width: 390px;
+            }
+
+            .btn-agendar {
+                width: 100%;
+
+                max-width: 290px;
+            }
+
+            .diferenciais {
+                gap: 20px 10px;
+
+                margin-top: 35px;
+            }
+
+            .diferencial i {
+                font-size: 20px;
+            }
+
+            .diferencial strong {
+                font-size: 10px;
+            }
+
+            .servicos-section {
+                padding: 75px 20px;
+            }
+
+            .section-header h2 {
+                font-size: 43px;
+            }
+
+            .cta {
+                padding: 75px 20px;
+            }
+
+            .footer-links {
+                flex-wrap: wrap;
+
+                justify-content: center;
+            }
+        }
+
+
+        @media (max-width: 380px) {
+
+            .hero h1 {
+                font-size: 44px;
+            }
+
+            .hero-small {
+                letter-spacing: 2px;
+            }
+
+            .diferenciais {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+    </style>
 </head>
 
 <body>
 
-```
-<!-- =========================================
-     CABEÇALHO
-========================================== -->
 
-<header>
+    <!-- =====================================================
+         HEADER
+    ===================================================== -->
 
-    <div class="logo">
-        JC <span>BARBEARIA</span>
-    </div>
+    <header>
 
-    <nav>
-        <a href="index.html">Início</a>
-        <a href="services.html">Serviços</a>
-        <a href="admin.html">ADM</a>
-    </nav>
+        <div class="header-container">
 
-</header>
+            <a href="index.html" class="logo">
 
+                <div class="logo-coroa">♛</div>
 
-<!-- =========================================
-     CONTEÚDO PRINCIPAL
-========================================== -->
+                <div class="logo-jc">
+                    JC
+                </div>
 
-<main>
+                <div class="logo-barbearia">
+                    BARBEARIA
+                </div>
 
-    <section class="hero">
-
-        <p class="subtitle">
-            BEM-VINDO À
-        </p>
-
-        <h1>
-            JC Barbearia
-        </h1>
-
-        <p class="description">
-            Seu estilo começa aqui.
-            Escolha seu serviço e agende seu horário.
-        </p>
-
-        <a href="services.html" class="button">
-            AGENDAR HORÁRIO
-        </a>
-
-    </section>
+            </a>
 
 
-    <!-- =========================================
-         SERVIÇOS EM DESTAQUE
-    ========================================== -->
+            <nav id="menu">
 
-    <section class="highlights">
+                <a href="index.html" class="active">
+                    Início
+                </a>
 
-        <div class="highlight">
+                <a href="services.html">
+                    Serviços
+                </a>
 
-            <div class="service-icon">
-                ✂️
+                <a href="services.html">
+                    Agendamento
+                </a>
+
+                <a href="#sobre">
+                    Sobre
+                </a>
+
+                <a href="#contato">
+                    Contato
+                </a>
+
+            </nav>
+
+
+            <button
+                class="menu-btn"
+                id="menuBtn"
+                aria-label="Abrir menu">
+
+                <i class="fa-solid fa-bars"></i>
+
+            </button>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         HERO
+    ===================================================== -->
+
+    <main>
+
+        <section class="hero" id="inicio">
+
+            <div class="hero-container">
+
+                <div class="hero-content">
+
+
+                    <div class="hero-small">
+                        JC BARBEARIA
+                    </div>
+
+
+                    <h1>
+
+                        Mais que um corte,
+
+                        <span>
+                            é o seu estilo.
+                        </span>
+
+                    </h1>
+
+
+                    <p class="hero-description">
+
+                        Cuidado, precisão e um atendimento de qualidade
+                        para você se sentir ainda melhor.
+
+                    </p>
+
+
+                    <a
+                        href="services.html"
+                        class="btn-agendar">
+
+                        <i class="fa-regular fa-calendar-days"></i>
+
+                        <span>
+                            Agende seu horário
+                        </span>
+
+                        <i class="fa-solid fa-arrow-right seta"></i>
+
+                    </a>
+
+
+                    <!-- DIFERENCIAIS -->
+
+                    <div class="diferenciais">
+
+
+                        <div class="diferencial">
+
+                            <i class="fa-solid fa-scissors"></i>
+
+                            <strong>
+                                Cortes<br>
+                                Modernos
+                            </strong>
+
+                        </div>
+
+
+                        <div class="diferencial">
+
+                            <i class="fa-solid fa-user-tie"></i>
+
+                            <strong>
+                                Barba<br>
+                                Modelada
+                            </strong>
+
+                        </div>
+
+
+                        <div class="diferencial">
+
+                            <i class="fa-solid fa-shield-halved"></i>
+
+                            <strong>
+                                Higiene<br>
+                                e Segurança
+                            </strong>
+
+                        </div>
+
+
+                        <div class="diferencial">
+
+                            <i class="fa-regular fa-star"></i>
+
+                            <strong>
+                                Atendimento<br>
+                                Personalizado
+                            </strong>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
             </div>
 
+        </section>
+
+
+
+        <!-- =====================================================
+             SERVIÇOS
+        ===================================================== -->
+
+        <section class="servicos-section" id="sobre">
+
+            <div class="section-container">
+
+
+                <div class="section-header">
+
+                    <div class="section-label">
+                        NOSSOS SERVIÇOS
+                    </div>
+
+                    <h2>
+                        Seu estilo, nosso cuidado.
+                    </h2>
+
+                    <p>
+                        Serviços pensados para valorizar o seu visual.
+                    </p>
+
+                </div>
+
+
+                <div class="servicos-grid">
+
+
+                    <div class="servico-card">
+
+                        <div class="servico-icon">
+
+                            <i class="fa-solid fa-scissors"></i>
+
+                        </div>
+
+                        <h3>
+                            Corte
+                        </h3>
+
+                        <p>
+                            Cortes modernos, clássicos e personalizados
+                            de acordo com o seu estilo.
+                        </p>
+
+                    </div>
+
+
+                    <div class="servico-card">
+
+                        <div class="servico-icon">
+
+                            <i class="fa-solid fa-user-tie"></i>
+
+                        </div>
+
+                        <h3>
+                            Barba
+                        </h3>
+
+                        <p>
+                            Modelagem e acabamento para deixar sua barba
+                            bem cuidada e alinhada.
+                        </p>
+
+                    </div>
+
+
+                    <div class="servico-card">
+
+                        <div class="servico-icon">
+
+                            <i class="fa-solid fa-sparkles"></i>
+
+                        </div>
+
+                        <h3>
+                            Sobrancelha
+                        </h3>
+
+                        <p>
+                            Acabamento preciso para complementar
+                            seu visual.
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             CTA
+        ===================================================== -->
+
+        <section class="cta" id="contato">
+
             <h2>
-                Corte
+                Pronto para renovar seu estilo?
             </h2>
 
             <p>
-                Do seu jeito, com estilo e precisão.
+                Escolha o serviço, o dia e o horário que melhor combina com você.
             </p>
 
-            <a href="services.html" class="service-button">
-                Agendar corte →
+            <a
+                href="services.html"
+                class="btn-agendar">
+
+                <i class="fa-regular fa-calendar-days"></i>
+
+                Agende seu horário
+
+                <i class="fa-solid fa-arrow-right seta"></i>
+
             </a>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         FOOTER
+    ===================================================== -->
+
+    <footer>
+
+        <div class="footer-container">
+
+
+            <div>
+
+                <div class="footer-logo">
+                    JC BARBEARIA
+                </div>
+
+                <div class="footer-text">
+                    Mais que um corte, é o seu estilo.
+                </div>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <a href="index.html">
+                    Início
+                </a>
+
+                <a href="services.html">
+                    Serviços
+                </a>
+
+                <a href="services.html">
+                    Agendamento
+                </a>
+
+                <a href="#sobre">
+                    Sobre
+                </a>
+
+                <a href="#contato">
+                    Contato
+                </a>
+
+            </div>
 
         </div>
 
 
-        <div class="highlight">
+        <div class="copyright">
 
-            <div class="service-icon">
-                🧔
-            </div>
-
-            <h2>
-                Barba
-            </h2>
-
-            <p>
-                Estilo e cuidado para deixar sua barba impecável.
-            </p>
-
-            <a href="services.html" class="service-button">
-                Agendar barba →
-            </a>
+            © 2026 JC Barbearia. Todos os direitos reservados.
 
         </div>
 
-
-        <div class="highlight">
-
-            <div class="service-icon">
-                👁️
-            </div>
-
-            <h2>
-                Sobrancelha
-            </h2>
-
-            <p>
-                Acabamento perfeito para completar seu visual.
-            </p>
-
-            <a href="services.html" class="service-button">
-                Agendar sobrancelha →
-            </a>
-
-        </div>
-
-    </section>
-
-</main>
+    </footer>
 
 
-<!-- =========================================
-     RODAPÉ
-========================================== -->
 
-<footer>
+    <!-- =====================================================
+         JAVASCRIPT DO MENU
+    ===================================================== -->
 
-    <p>
-        © 2026 JC Barbearia
-    </p>
+    <script>
 
-    <p>
-        Seu estilo, nossa missão.
-    </p>
+        const menuBtn = document.getElementById("menuBtn");
+        const menu = document.getElementById("menu");
 
-</footer>
+        menuBtn.addEventListener("click", function () {
+
+            menu.classList.toggle("open");
+
+            const icon = menuBtn.querySelector("i");
+
+            if (menu.classList.contains("open")) {
+
+                icon.classList.remove("fa-bars");
+                icon.classList.add("fa-xmark");
+
+            } else {
+
+                icon.classList.remove("fa-xmark");
+                icon.classList.add("fa-bars");
+
+            }
+
+        });
 
 
-<!-- SUPABASE -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-```
+        // Fecha o menu ao clicar em um link
+
+        document.querySelectorAll("#menu a").forEach(function(link) {
+
+            link.addEventListener("click", function() {
+
+                menu.classList.remove("open");
+
+                const icon = menuBtn.querySelector("i");
+
+                icon.classList.remove("fa-xmark");
+                icon.classList.add("fa-bars");
+
+            });
+
+        });
+
+    </script>
+
 
 </body>
-
 </html>
